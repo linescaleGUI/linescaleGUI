@@ -29,10 +29,11 @@
 #define MAINWINDOW_H_
 
 #include <QMainWindow>
+#include "dialogabout.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
-    class MainWindow;
+class MainWindow;
 }
 QT_END_NAMESPACE
 
@@ -43,8 +44,12 @@ class MainWindow : public QMainWindow {
     MainWindow(QWidget* parent = nullptr);
     ~MainWindow();
 
+    /** @brief Open project in github with default browser */
+    void openGitHubLink(void);
+
    private:
     Ui::MainWindow* ui;
+    DialogAbout* dAbout;
 };
 
-#endif //MAINWINDOW_H_
+#endif  // MAINWINDOW_H_
