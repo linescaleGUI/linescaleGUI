@@ -11,6 +11,9 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+# Add custom app icon
+set(APPICON_WIN "${CMAKE_CURRENT_SOURCE_DIR}/assets/app/appIcon.rc")
+
 find_package(QT NAMES Qt6 REQUIRED COMPONENTS Widgets Charts SerialPort)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets Charts SerialPort)
 
@@ -18,12 +21,13 @@ set(VERSION_FILE "${CMAKE_CURRENT_BINARY_DIR}/include/version.h")
 include_directories("${CMAKE_CURRENT_BINARY_DIR}/include")
 
 # Glob source files.
-file(GLOB_RECURSE PROJECT_SOURCES LIST_DIRECTORIES false "src/*.cpp" "src/*.h" "src/*.qrc" "src/*.ui")
+file(GLOB_RECURSE PROJECT_SOURCES LIST_DIRECTORIES false "src/*.cpp" "src/*.h" "assets/*.qrc" "src/*.ui")
 
 qt_add_executable(linescaleGUI
     MANUAL_FINALIZATION
     ${PROJECT_SOURCES}
     "${VERSION_FILE}"
+    ${APPICON_WIN} # add custom app icon
 )
 
 add_custom_target(VersionFile ALL
@@ -57,7 +61,7 @@ if(WIN32)
     windeployqt(linescaleGUI)
 endif()
 
-# # Copy files into build directory
+# # Copy LICENSE.md into build directory
 add_custom_command(
     TARGET linescaleGUI POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy

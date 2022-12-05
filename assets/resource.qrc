@@ -1,0 +1,5 @@
+<RCC>
+  <qresource prefix="linescaleGUI">
+    <file>logo/logo.png</file>
+  </qresource>
+</RCC>
