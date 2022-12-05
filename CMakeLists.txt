@@ -11,8 +11,7 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(QT NAMES Qt6 REQUIRED COMPONENTS Widgets Charts SerialPort)
-find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets Charts SerialPort)
+find_package(Qt5 REQUIRED COMPONENTS Core Widgets Charts SerialPort Bluetooth)
 
 set(VERSION_FILE "${CMAKE_CURRENT_BINARY_DIR}/include/version.h")
 include_directories("${CMAKE_CURRENT_BINARY_DIR}/include")
@@ -20,8 +19,7 @@ include_directories("${CMAKE_CURRENT_BINARY_DIR}/include")
 # Glob source files.
 file(GLOB_RECURSE PROJECT_SOURCES LIST_DIRECTORIES false "src/*.cpp" "src/*.h" "src/*.qrc" "src/*.ui")
 
-qt_add_executable(linescaleGUI
-    MANUAL_FINALIZATION
+add_executable(linescaleGUI
     ${PROJECT_SOURCES}
     "${VERSION_FILE}"
 )
@@ -37,20 +35,21 @@ add_custom_target(VersionFile ALL
 include(tools/cmake/version.cmake)
 
 target_link_libraries(linescaleGUI PRIVATE
+    Qt${QT_VERSION_MAJOR}::Core
     Qt${QT_VERSION_MAJOR}::Widgets
     Qt${QT_VERSION_MAJOR}::Charts
-    Qt${QT_VERSION_MAJOR}::SerialPort)
+    Qt${QT_VERSION_MAJOR}::SerialPort
+    Qt${QT_VERSION_MAJOR}::Bluetooth)
 
 set_target_properties(linescaleGUI PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER linegrip.com
     MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
     MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
     MACOSX_BUNDLE TRUE
-
     # WIN32_EXECUTABLE TRUE # Comment for std::cout and qDebug
 )
 
-qt_finalize_executable(linescaleGUI)
+# qt_finalize_executable(linescaleGUI)
 include(tools/cmake/windeployqt.cmake)
 
 if(WIN32)
