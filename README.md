@@ -11,8 +11,8 @@ A cross platform GUI to interact with the [LineScale 3](https://www.linegrip.com
    recommended extensions.)
     - CMake Tools
     - C/C++
-3. Configure CMake kits
-    - **Windows**
+3. Platform-specific setup
+    <!-- - **Windows GNU**
         1. `Ctrl+P`→ `CMake: Edit User-Local CMake Kits`
         2. Add the following kit:
            ```json
@@ -27,7 +27,25 @@ A cross platform GUI to interact with the [LineScale 3](https://www.linegrip.com
                 }
             }
            ```
-        3. Select the new kit.
-    - **Unix**: TBD
+        3. Select the new kit. -->
+    - **Windows MSVC**
+        1. Install [Visual Studio Build
+           Tools](https://visualstudio.microsoft.com/de/downloads/#build-tools-for-visual-studio-2022)
+           (`Windows SDK` and `MSVC - VS 2019`).
+        2. Install `Qt 5.15` including `MSVC 2019`.
+        3. Set the environment variable `QT_DIR` to `<Qt Install dir>/5.15.2/msvc2019_64`.  
+           This can be done by adding
+           ```json
+            "cmake.environment": {
+                "QT_DIR": "C:/Users/n3xed/qt/5.15.2/msvc2019_64"
+            },
+           ```
+           to the vscode settings, or adding that variable globally in Windows.
+        4. Open the cloned repository in vscode.
+        5. `Ctrl+P`→ `CMake: Scan for Kits`  
+           Some Visual Studio Kits should have been discovered.
+        6. Select the appropriate kit (e.g. `Visual Studio Build Tools 2022 Release - amd64`).
+    - **Linux**: TBD
+    - **MacOS**: TBD
 4. Configure the project.
 5. Build the project.
