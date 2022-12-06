@@ -45,7 +45,14 @@
     <addaction name="separator"/>
     <addaction name="actionGitHub"/>
    </widget>
+   <widget class="QMenu" name="menuOptions">
+    <property name="title">
+     <string>Options</string>
+    </property>
+    <addaction name="actionDebug"/>
+   </widget>
    <addaction name="menuFile"/>
+   <addaction name="menuOptions"/>
    <addaction name="menuHelp"/>
   </widget>
   <action name="actionExit">
@@ -69,6 +76,11 @@
   <action name="actionGitHub">
    <property name="text">
     <string>GitHub</string>
+   </property>
+  </action>
+  <action name="actionDebug">
+   <property name="text">
+    <string>Debug</string>
    </property>
   </action>
  </widget>

@@ -33,18 +33,21 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWi
     ui->setupUi(this);
 
     dAbout = new DialogAbout(this);
+    dDebug = new DialogDebug(this);
 
     // menu actions
     connect(ui->actionAbout_Qt, &QAction::triggered, qApp, &QApplication::aboutQt);
     connect(ui->actionExit, &QAction::triggered, this, &MainWindow::close);
     connect(ui->actionAbout, &QAction::triggered, dAbout, &DialogAbout::show);
     connect(ui->actionGitHub, &QAction::triggered, this, &MainWindow::openGitHubLink);
+    connect(ui->actionDebug, &QAction::triggered, dDebug, &DialogDebug::show);
 
     // disable wait for close, automatic close after main window close
     dAbout->setAttribute(Qt::WA_QuitOnClose, false);
 }
 
 MainWindow::~MainWindow() {
+    delete dDebug;
     delete dAbout;
     delete ui;
 }

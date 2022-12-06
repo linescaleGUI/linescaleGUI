@@ -17,41 +17,37 @@
  * along with linescaleGUI. If not, see <http://www.gnu.org/licenses/>.       *
  ******************************************************************************/
 /**
- * @file mainwindow.h
+ * @file dialogdebug.h
  * @authors Gschwind, Weber, Schoch, Niederberger
  *
- * @brief Mainwindow for the project linescaleGUI
+ * @brief Dialog to show all available commands
  *
  */
 
 #pragma once
-#ifndef MAINWINDOW_H_
-#define MAINWINDOW_H_
+#ifndef DIALOGDEBUG_H_
+#define DIALOGDEBUG_H_
 
-#include <QMainWindow>
-#include "dialogabout.h"
-#include "dialogdebug.h"
+#include <QDialog>
+#include "ui_DialogDebug.h"
 
-QT_BEGIN_NAMESPACE
 namespace Ui {
-class MainWindow;
+class DialogDebug;
 }
-QT_END_NAMESPACE
 
-class MainWindow : public QMainWindow {
+/**
+ * @brief Send predefined snippets to the linescale
+ *
+ */
+class DialogDebug : public QDialog {
     Q_OBJECT
 
    public:
-    MainWindow(QWidget* parent = nullptr);
-    ~MainWindow();
-
-    /** @brief Open project in github with default browser */
-    void openGitHubLink(void);
+    DialogDebug(QWidget* parent = nullptr);
+    ~DialogDebug();
 
    private:
-    Ui::MainWindow* ui;
-    DialogAbout* dAbout;
-    DialogDebug* dDebug;
+    Ui::DialogDebug* ui;
 };
 
-#endif  // MAINWINDOW_H_
+#endif  // DIALOGDEBUG_H_
