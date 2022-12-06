@@ -1,0 +1,80 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  build:
+    name: ${{ matrix.config.name }}
+    runs-on: ${{ matrix.config.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        config:
+        - {
+            name: "Windows Latest MSVC",
+            os: windows-latest,
+            build_flags: "/W4 /WX",
+            build_type: "Release", generator: "Visual Studio 17 2022",
+            qt_archives: "qttools"
+            #environment_script: "C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Auxiliary/Build/vcvars64.bat"
+          }
+        - {
+            name: "Ubuntu Latest Clang",
+            os: ubuntu-latest,
+            # build_type: "Release", cc: "gcc", cxx: "g++", generator: "Unix Makefiles",
+            build_flags: "-Wall -Wpedantic -Werror", 
+            build_type: "Debug", cc: "clang", cxx: "clang++", generator: "Unix Makefiles",
+            qt_archives: "icu"
+          }
+        - {
+            name: "macOS Latest Clang",
+            os: macos-latest,
+            build_flags: "-Wall -Wpedantic -Werror",
+            build_type: "Debug", cc: "clang", cxx: "clang++", generator: "Unix Makefiles",
+            qt_archives: ""
+          }
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      # - name: Install dependencies
+      #   if: runner.os == 'windows'
+
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v3
+        with:
+          version: '5.15.2'
+          target: 'desktop'
+          dir: '${{ github.workspace }}'
+          install-deps: 'true'
+          modules: 'qtcharts'
+          archives: 'qtbase qtconnectivity qtserialport ${{ matrix.config.qt_archives }}'
+          cache: 'true'
+          cache-key-prefix: 'install-qt-action'
+          tools: ''
+          extra: '--external 7z'
+
+      - name: Setup environment variables
+        shell: bash
+        run: |
+          echo "QT_DIR=$Qt5_DIR" >> $GITHUB_ENV
+          [[ -n "${{ matrix.config.cc }}" ]] \
+            && echo "CC=${{ matrix.config.cc }}" >> $GITHUB_ENV || true
+          [[ -n "${{ matrix.config.cxx }}" ]] \
+            && echo "CXX=${{ matrix.config.cxx }}" >> $GITHUB_ENV || true
+          echo "CXXFLAGS=${{ matrix.config.build_flags }}" >> $GITHUB_ENV
+          echo "CFLAGS=${{ matrix.config.build_flags }}" >> $GITHUB_ENV
+
+      - name: Configure
+        shell: bash
+        run: |
+          cmake -S . -B build -DCMAKE_BUILD_TYPE=${{ matrix.config.build_type }} \
+            -G "${{ matrix.config.generator }}"
+
+      - name: Build
+        shell: bash
+        run: |
+          cmake --build build
