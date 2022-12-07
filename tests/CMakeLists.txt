@@ -10,8 +10,8 @@ FetchContent_MakeAvailable(googletest)
 include(GoogleTest)
 
 # Glob source files.
-file(GLOB_RECURSE SRCS LIST_DIRECTORIES false "units/*.cpp" "units/*.h")
-add_executable(unit_tests ${SRCS} unit_tests.cpp)
+file(GLOB_RECURSE UNITS_SRCS LIST_DIRECTORIES false RELATIVE "${CMAKE_CURRENT_LIST_DIR}" CONFIGURE_DEPENDS "units/*.cpp" "units/*.h")
+add_executable(unit_tests ${SRCS} unit_tests.cpp ${UNITS_SRCS})
 
 target_link_libraries(unit_tests
   PRIVATE gtest libLinescaleGUI Qt5::Core

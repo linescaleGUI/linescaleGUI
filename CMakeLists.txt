@@ -17,8 +17,8 @@ set(VERSION_FILE "${CMAKE_CURRENT_BINARY_DIR}/include/version.h")
 include_directories("${CMAKE_CURRENT_BINARY_DIR}/include" "${CMAKE_CURRENT_BINARY_DIR}/src")
 
 # Glob source files and add some manually.
-file(GLOB_RECURSE PROJECT_SOURCES LIST_DIRECTORIES false "src/*.cpp" "src/*.h" "src/*.ui")
-file(GLOB_RECURSE QRC_SRCS LIST_DIRECTORIES false "assets/*.qrc")
+file(GLOB_RECURSE PROJECT_SOURCES LIST_DIRECTORIES false CONFIGURE_DEPENDS "src/*.cpp" "src/*.h" "src/*.ui")
+file(GLOB_RECURSE QRC_SRCS LIST_DIRECTORIES false CONFIGURE_DEPENDS "assets/*.qrc")
 list(REMOVE_ITEM PROJECT_SOURCES "src/main.cpp") # remove main from library
 # Add custom app icon
 set(APPICON_WIN "${CMAKE_CURRENT_SOURCE_DIR}/assets/app/appIcon.rc")
