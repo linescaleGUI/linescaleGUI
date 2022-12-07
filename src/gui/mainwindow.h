@@ -31,6 +31,7 @@
 #include <QMainWindow>
 #include "dialogabout.h"
 #include "dialogdebug.h"
+#include "dialogconfigure.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -52,6 +53,7 @@ class MainWindow : public QMainWindow {
     Ui::MainWindow* ui;
     DialogAbout* dAbout;
     DialogDebug* dDebug;
+    DialogConfigure* dConfig;
 };
 
 #endif  // MAINWINDOW_H_
