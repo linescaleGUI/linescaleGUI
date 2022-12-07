@@ -28,6 +28,20 @@ add_executable(linescaleGUI
     ${APPICON_WIN} # add custom app icon
 )
 
+if(DEFINED WARNINGS_AS_ERRORS)
+    if(MSVC)
+        set(WARNINGS_AS_ERRORS "/WX")
+    else()
+        set(WARNINGS_AS_ERRORS "-Werror")
+    endif()
+endif()
+
+if(MSVC)
+  target_compile_options(linescaleGUI PRIVATE /W4 ${WARNINGS_AS_ERRORS})
+else()
+  target_compile_options(linescaleGUI PRIVATE -Wall -Wpedantic ${WARNINGS_AS_ERRORS})
+endif()
+
 add_custom_target(VersionFile ALL
     COMMAND ${CMAKE_COMMAND}
     -D "PROJECT_VERSION=${PROJECT_VERSION}"

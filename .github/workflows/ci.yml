@@ -17,31 +17,25 @@ jobs:
         - {
             name: "Windows Latest MSVC",
             os: windows-latest,
-            build_flags: "/W4 /WX",
-            build_type: "Release", generator: "Visual Studio 17 2022",
+            build_type: "Debug", generator: "Visual Studio 17 2022",
             qt_archives: "qttools"
-            #environment_script: "C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Auxiliary/Build/vcvars64.bat"
           }
         - {
             name: "Ubuntu Latest Clang",
             os: ubuntu-latest,
-            # build_type: "Release", cc: "gcc", cxx: "g++", generator: "Unix Makefiles",
-            build_flags: "-Wall -Wpedantic -Werror", 
+            # cc: "gcc", cxx: "g++", generator: "Unix Makefiles",
             build_type: "Debug", cc: "clang", cxx: "clang++", generator: "Unix Makefiles",
             qt_archives: "icu"
           }
         - {
             name: "macOS Latest Clang",
             os: macos-latest,
-            build_flags: "-Wall -Wpedantic -Werror",
             build_type: "Debug", cc: "clang", cxx: "clang++", generator: "Unix Makefiles",
             qt_archives: ""
           }
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
-      # - name: Install dependencies
-      #   if: runner.os == 'windows'
+        uses: actions/checkout@v3
 
       - name: Install Qt
         uses: jurplel/install-qt-action@v3
@@ -65,14 +59,12 @@ jobs:
             && echo "CC=${{ matrix.config.cc }}" >> $GITHUB_ENV || true
           [[ -n "${{ matrix.config.cxx }}" ]] \
             && echo "CXX=${{ matrix.config.cxx }}" >> $GITHUB_ENV || true
-          echo "CXXFLAGS=${{ matrix.config.build_flags }}" >> $GITHUB_ENV
-          echo "CFLAGS=${{ matrix.config.build_flags }}" >> $GITHUB_ENV
 
       - name: Configure
         shell: bash
         run: |
           cmake -S . -B build -DCMAKE_BUILD_TYPE=${{ matrix.config.build_type }} \
-            -G "${{ matrix.config.generator }}"
+            -G "${{ matrix.config.generator }}" -DWARNINGS_AS_ERRORS=
 
       - name: Build
         shell: bash
