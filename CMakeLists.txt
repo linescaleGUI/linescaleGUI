@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.19)
 list(APPEND CMAKE_PREFIX_PATH $ENV{QT_DIR})
 
 project(linescaleGUI VERSION 0.1 LANGUAGES CXX)
