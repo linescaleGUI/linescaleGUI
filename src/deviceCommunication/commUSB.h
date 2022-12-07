@@ -17,60 +17,45 @@
  * along with linescaleGUI. If not, see <http://www.gnu.org/licenses/>.       *
  ******************************************************************************/
 /**
- * @file dialogconfigure.cpp
+ * @file commUSB.h
  * @authors Gschwind, Weber, Schoch, Niederberger
+ *
+ * @brief Child class for USB connection
+ *
  *
  */
 
-#include "dialogconfigure.h"
-#include <QPushButton>
+#pragma once
+#ifndef COMMUSB_H_
+#define COMMUSB_H_
 
-DialogConfigure::DialogConfigure(CommMaster* comm, QWidget* parent)
-    : QDialog(parent), ui(new Ui::DialogConfigure) {
-    ui->setupUi(this);
-    this->comm = comm;
+#include <QDebug>
+#include <QHash>
+#include <QObject>
+#include <QSerialPort>
+#include <QSerialPortInfo>
+#include "commDevice.h"
 
-    // Button action
-    connect(ui->btnConnect, &QPushButton::pressed, this, &DialogConfigure::requestConnection);
-    connect(ui->boxConnections, QOverload<int>::of(&QComboBox::currentIndexChanged), this,
-            &DialogConfigure::updateFreq);
+class CommUSB : public CommDevice {
+    Q_OBJECT
 
-    initWidget();
-    reloadConnections();
-}
+   public:
+    CommUSB(deviceInfo identifier);
+    virtual ~CommUSB();
 
-DialogConfigure::~DialogConfigure() {
-    delete wConn;
-    delete ui;
-}
+    bool connectDevice() override;
+    void disconnect() override;
+    void sendData(QByteArray rawData) override;
+    void readData() override;
 
-void DialogConfigure::reloadConnections() {
-    ui->boxConnections->clear();
-    devices.clear();
-    devices = comm->pullAvailableDevices();
-    for (int i = 0; i < devices.length(); ++i) {
-        ui->boxConnections->addItem(devices[i].ID);
-    }
-}
+   private:
+    void handleError(QSerialPort::SerialPortError error);
 
-void DialogConfigure::requestConnection() {
-    int index = ui->boxConnections->currentIndex();
+    QSerialPort* serialPort = nullptr;
+    int baudRate = 230400;
+    deviceInfo identifier;
+    bool connState;
+    QString COMbuffer;
+};
 
-    // disable group on success
-    ui->groupConnection->setEnabled(comm->addConnection(devices[index]));
-}
-
-void DialogConfigure::initWidget() {
-    wConn = new ConnectionWidget();
-    ui->frameLayout->addWidget(wConn);
-}
-
-void DialogConfigure::updateFreq(int index) {
-    ui->boxFreq->clear();
-    ui->boxFreq->addItem("10 Hz");
-    ui->boxFreq->addItem("40 Hz");
-    if (devices[index].type == connType::USB) {
-        ui->boxFreq->addItem("640 Hz");
-        ui->boxFreq->addItem("1280 Hz");
-    }
-}
+#endif  // COMMUSB_H_

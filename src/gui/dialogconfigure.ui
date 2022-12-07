@@ -147,7 +147,7 @@
        </widget>
       </item>
       <item row="1" column="1">
-       <widget class="QComboBox" name="comboBox">
+       <widget class="QComboBox" name="boxFreq">
         <item>
          <property name="text">
           <string>10Hz</string>

@@ -300,7 +300,11 @@
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_2">
      <item>
-      <widget class="QComboBox" name="boxDeviceSelect"/>
+      <widget class="QComboBox" name="boxDeviceSelect">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+      </widget>
      </item>
      <item>
       <widget class="QPushButton" name="btnInsertToLine">

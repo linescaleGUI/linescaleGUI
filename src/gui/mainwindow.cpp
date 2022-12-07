@@ -32,10 +32,11 @@
 MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWindow) {
     ui->setupUi(this);
 
+    comm = new CommMaster();
+
     dAbout = new DialogAbout(this);
     dDebug = new DialogDebug(this);
-    dConfig = new DialogConfigure(this);
-
+    dConfig = new DialogConfigure(comm, this);
 
     // menu actions
     connect(ui->actionAbout_Qt, &QAction::triggered, qApp, &QApplication::aboutQt);
@@ -52,6 +53,7 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWi
 }
 
 MainWindow::~MainWindow() {
+    delete comm;
     delete dConfig;
     delete dDebug;
     delete dAbout;

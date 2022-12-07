@@ -29,6 +29,7 @@
 #define MAINWINDOW_H_
 
 #include <QMainWindow>
+#include "../deviceCommunication/commMaster.h"
 #include "dialogabout.h"
 #include "dialogdebug.h"
 #include "dialogconfigure.h"
@@ -51,6 +52,7 @@ class MainWindow : public QMainWindow {
 
    private:
     Ui::MainWindow* ui;
+    CommMaster* comm;
     DialogAbout* dAbout;
     DialogDebug* dDebug;
     DialogConfigure* dConfig;

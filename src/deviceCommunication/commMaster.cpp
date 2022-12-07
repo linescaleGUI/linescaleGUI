@@ -17,60 +17,69 @@
  * along with linescaleGUI. If not, see <http://www.gnu.org/licenses/>.       *
  ******************************************************************************/
 /**
- * @file dialogconfigure.cpp
+ * @file commMaster.cpp
  * @authors Gschwind, Weber, Schoch, Niederberger
  *
  */
 
-#include "dialogconfigure.h"
-#include <QPushButton>
+#include "commMaster.h"
 
-DialogConfigure::DialogConfigure(CommMaster* comm, QWidget* parent)
-    : QDialog(parent), ui(new Ui::DialogConfigure) {
-    ui->setupUi(this);
-    this->comm = comm;
-
-    // Button action
-    connect(ui->btnConnect, &QPushButton::pressed, this, &DialogConfigure::requestConnection);
-    connect(ui->boxConnections, QOverload<int>::of(&QComboBox::currentIndexChanged), this,
-            &DialogConfigure::updateFreq);
-
-    initWidget();
-    reloadConnections();
+CommMaster::~CommMaster() {
+    delete singleDevice;
 }
 
-DialogConfigure::~DialogConfigure() {
-    delete wConn;
-    delete ui;
-}
+bool CommMaster::addConnection(deviceInfo identifier) {
+    if (singleDevice == nullptr) {
+        removeConnection();
+    }
+    switch (identifier.type) {
+        case connType::USB:
+            singleDevice = new CommUSB(identifier);
+            break;
 
-void DialogConfigure::reloadConnections() {
-    ui->boxConnections->clear();
-    devices.clear();
-    devices = comm->pullAvailableDevices();
-    for (int i = 0; i < devices.length(); ++i) {
-        ui->boxConnections->addItem(devices[i].ID);
+        case connType::BLE:
+            /// @todo add BLE ctor
+            break;
+
+        default:
+            break;
+    }
+
+    if(singleDevice != nullptr) {
+        return singleDevice->connectDevice();
+    }
+    else {
+        return false;
     }
 }
 
-void DialogConfigure::requestConnection() {
-    int index = ui->boxConnections->currentIndex();
-
-    // disable group on success
-    ui->groupConnection->setEnabled(comm->addConnection(devices[index]));
+void CommMaster::removeConnection() {
+    if (singleDevice != nullptr) {
+        singleDevice->disconnect();
+    }
+    delete singleDevice;
+    singleDevice = nullptr;
 }
 
-void DialogConfigure::initWidget() {
-    wConn = new ConnectionWidget();
-    ui->frameLayout->addWidget(wConn);
+QList<deviceInfo>& CommMaster::pullAvailableDevices() {
+    availableDevice.clear();
+
+    QList<QSerialPortInfo> listOfCOMPorts = QSerialPortInfo::availablePorts();
+    for (int i = 0; i < listOfCOMPorts.length(); ++i) {
+        /// @todo check Manufacturer ID and Vendor ID -> return only LineScales
+        deviceInfo tmp;
+        tmp.ID = listOfCOMPorts[i].portName();
+        tmp.type = connType::USB;
+        availableDevice.append(tmp);
+    }
+
+    /// @todo Add code for BLE pull
+
+    return availableDevice;
 }
 
-void DialogConfigure::updateFreq(int index) {
-    ui->boxFreq->clear();
-    ui->boxFreq->addItem("10 Hz");
-    ui->boxFreq->addItem("40 Hz");
-    if (devices[index].type == connType::USB) {
-        ui->boxFreq->addItem("640 Hz");
-        ui->boxFreq->addItem("1280 Hz");
+void CommMaster::sendData(QByteArray& rawData) {
+    if (singleDevice != nullptr && rawData.length() > 0) {
+        singleDevice->sendData(rawData);
     }
 }

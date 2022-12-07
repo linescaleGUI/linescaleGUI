@@ -17,46 +17,74 @@
  * along with linescaleGUI. If not, see <http://www.gnu.org/licenses/>.       *
  ******************************************************************************/
 /**
- * @file dialogconfigure.h
+ * @file commMaster.h
  * @authors Gschwind, Weber, Schoch, Niederberger
  *
- * @brief Widget to display the informations about one connection
+ * @brief This file contains the class to control all connected devices
+ *
+ * The CommMaster handles all communication with the connected devices.
+ * It abstracts the different types of connections so from this stage upwards
+ * the type of connection doesn't matter anymore.
+ *
+ * Each device gets a label which is used as an identifier inside the entire code:
+ * USB: Port name
+ * BLE: tbd
  *
  */
 
 #pragma once
-#ifndef DIALOGCONFIGURE_H_
-#define DIALOGCONFIGURE_H_
+#ifndef COMMMASTER_H_
+#define COMMMASTER_H_
 
-#include <QDialog>
-#include "../deviceCommunication/commMaster.h"
-#include "connectionWidget.h"
-#include "ui_dialogconfigure.h"
+#include <QHash>
+#include <QObject>
+#include <QSerialPortInfo>
+#include "commDevice.h"
+#include "commUSB.h"
 
-namespace Ui {
-class DialogConfigure;
-}
-
-class DialogConfigure : public QDialog {
+class CommMaster : public QObject {
     Q_OBJECT
 
    public:
-    DialogConfigure(CommMaster* comm, QWidget* parent = nullptr);
-    ~DialogConfigure();
+
+    /**
+     * @brief Destroy the Comm Master object
+     * 
+     */
+    ~CommMaster();
+
+    /**
+     * @brief Search all possible devices on either USB or BLE
+     *
+     * @return QList<QString>& Reference to a list with all devices
+     */
+    QList<deviceInfo>& pullAvailableDevices();
+
+    /**
+     * @brief Send data to the connected devices
+     *
+     * @param rawData QByteArray with the data to send (including CRC)
+     */
+    void sendData(QByteArray& rawData);
+
+    /**
+     * @brief Create connection
+     * 
+     * @param identifier Struct with the device info 
+     * @return true Connection established
+     * @return false Connection failed
+     */
+    bool addConnection(deviceInfo identifier);
+
+    /**
+     * @brief Terminate the connection and remove all references with the class
+     * 
+     */
+    void removeConnection();
 
    private:
-    /**
-     * @brief Reload comboBox with all available connections
-     *
-     */
-    void reloadConnections();
-    void requestConnection();
-    void initWidget();
-    void updateFreq(int index);
-    Ui::DialogConfigure* ui;
-    ConnectionWidget* wConn;
-    CommMaster* comm;
-    QList<deviceInfo> devices;
+    QList<deviceInfo> availableDevice;
+    CommDevice* singleDevice = nullptr;
 };
 
-#endif  // DIALOGCONFIGURE_H_
+#endif  // COMMMASTER_H_

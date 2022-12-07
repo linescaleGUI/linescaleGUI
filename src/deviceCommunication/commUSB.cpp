@@ -17,60 +17,66 @@
  * along with linescaleGUI. If not, see <http://www.gnu.org/licenses/>.       *
  ******************************************************************************/
 /**
- * @file dialogconfigure.cpp
+ * @file commUSB.cpp
  * @authors Gschwind, Weber, Schoch, Niederberger
+ *
  *
  */
 
-#include "dialogconfigure.h"
-#include <QPushButton>
+#include "commUSB.h"
 
-DialogConfigure::DialogConfigure(CommMaster* comm, QWidget* parent)
-    : QDialog(parent), ui(new Ui::DialogConfigure) {
-    ui->setupUi(this);
-    this->comm = comm;
+CommUSB::CommUSB(deviceInfo identifier) {
+    this->identifier = identifier;
+};
 
-    // Button action
-    connect(ui->btnConnect, &QPushButton::pressed, this, &DialogConfigure::requestConnection);
-    connect(ui->boxConnections, QOverload<int>::of(&QComboBox::currentIndexChanged), this,
-            &DialogConfigure::updateFreq);
-
-    initWidget();
-    reloadConnections();
+CommUSB::~CommUSB() {
+    delete serialPort;
 }
 
-DialogConfigure::~DialogConfigure() {
-    delete wConn;
-    delete ui;
-}
+void CommUSB::disconnect() {
+    if(serialPort != nullptr)
+    {
+        serialPort->close();
+        delete serialPort;
+        serialPort = nullptr;
+    }
+};
 
-void DialogConfigure::reloadConnections() {
-    ui->boxConnections->clear();
-    devices.clear();
-    devices = comm->pullAvailableDevices();
-    for (int i = 0; i < devices.length(); ++i) {
-        ui->boxConnections->addItem(devices[i].ID);
+void CommUSB::sendData(QByteArray rawData) {
+    qDebug() << "From USB" << rawData; 
+    serialPort->write(rawData);
+    serialPort->flush();
+};
+
+void CommUSB::readData() {
+    qDebug() << serialPort->readAll();
+};
+
+void CommUSB::handleError(QSerialPort::SerialPortError error) {
+    if (error == QSerialPort::ResourceError)
+    {
+        qDebug() << serialPort->errorString();
     }
 }
 
-void DialogConfigure::requestConnection() {
-    int index = ui->boxConnections->currentIndex();
+bool CommUSB::connectDevice() {
+    if(serialPort != nullptr){disconnect();}
+    serialPort = new QSerialPort();
 
-    // disable group on success
-    ui->groupConnection->setEnabled(comm->addConnection(devices[index]));
-}
+    connect(serialPort, &QSerialPort::readyRead, this, &CommUSB::readData);
+    connect(serialPort, &QSerialPort::errorOccurred, this, &CommUSB::handleError);
 
-void DialogConfigure::initWidget() {
-    wConn = new ConnectionWidget();
-    ui->frameLayout->addWidget(wConn);
-}
-
-void DialogConfigure::updateFreq(int index) {
-    ui->boxFreq->clear();
-    ui->boxFreq->addItem("10 Hz");
-    ui->boxFreq->addItem("40 Hz");
-    if (devices[index].type == connType::USB) {
-        ui->boxFreq->addItem("640 Hz");
-        ui->boxFreq->addItem("1280 Hz");
-    }
-}
+    serialPort->setBaudRate(baudRate);
+    serialPort->setPortName(identifier.ID);
+    // if(serialPort->open(QIODeviceBase::ReadWrite))
+    // {
+    //     connState = true;
+    //     serialPort->setDataTerminalReady(false); //disable reset on open
+    //     serialPort->write("");
+    // }
+    // else
+    // {
+    //     qDebug() << "No connection";
+    // }
+    return connState;
+} 
