@@ -17,43 +17,38 @@
  * along with linescaleGUI. If not, see <http://www.gnu.org/licenses/>.       *
  ******************************************************************************/
 /**
- * @file mainwindow.h
+ * @file dialogabout.h
  * @authors Gschwind, Weber, Schoch, Niederberger
  *
- * @brief Mainwindow for the project linescaleGUI
+ * @brief Dialog to display version info
  *
  */
 
 #pragma once
-#ifndef MAINWINDOW_H_
-#define MAINWINDOW_H_
+#ifndef DIALOGABOUT_H_
+#define DIALOGABOUT_H_
 
-#include <QMainWindow>
-#include "dialogabout.h"
-#include "dialogdebug.h"
-#include "dialogconfigure.h"
+#include <QDialog>
+#include "ui_dialogabout.h"
 
-QT_BEGIN_NAMESPACE
 namespace Ui {
-class MainWindow;
+class DialogAbout;
 }
-QT_END_NAMESPACE
 
-class MainWindow : public QMainWindow {
+class DialogAbout : public QDialog {
     Q_OBJECT
 
    public:
-    MainWindow(QWidget* parent = nullptr);
-    ~MainWindow();
-
-    /** @brief Open project in github with default browser */
-    void openGitHubLink(void);
+    DialogAbout(QWidget* parent = nullptr);
+    ~DialogAbout();
 
    private:
-    Ui::MainWindow* ui;
-    DialogAbout* dAbout;
-    DialogDebug* dDebug;
-    DialogConfigure* dConfig;
+    /** @brief Replace version placeholder in ui file with actual data
+     * generated on compile time.
+     * This contains github url, commit hash and compile time.
+     */
+    void replaceVersionInfo(void);
+    Ui::DialogAbout* ui;
 };
 
-#endif  // MAINWINDOW_H_
+#endif  // DIALOGABOUT_H_

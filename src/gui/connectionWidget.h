@@ -17,43 +17,34 @@
  * along with linescaleGUI. If not, see <http://www.gnu.org/licenses/>.       *
  ******************************************************************************/
 /**
- * @file mainwindow.h
+ * @file connectionWidget.h
  * @authors Gschwind, Weber, Schoch, Niederberger
  *
- * @brief Mainwindow for the project linescaleGUI
+ * @brief Widget to display the informations about one connection
  *
  */
 
 #pragma once
-#ifndef MAINWINDOW_H_
-#define MAINWINDOW_H_
+#ifndef CONNECTIONWIDGET_H_
+#define CONNECTIONWIDGET_H_
 
-#include <QMainWindow>
-#include "dialogabout.h"
-#include "dialogdebug.h"
-#include "dialogconfigure.h"
+#include <QWidget>
+#include "ui_connectionwidget.h"
 
-QT_BEGIN_NAMESPACE
 namespace Ui {
-class MainWindow;
+class ConnectionWidget;
 }
-QT_END_NAMESPACE
 
-class MainWindow : public QMainWindow {
+class ConnectionWidget : public QWidget
+{
     Q_OBJECT
 
-   public:
-    MainWindow(QWidget* parent = nullptr);
-    ~MainWindow();
+public:
+    ConnectionWidget(QWidget *parent = nullptr);
+    ~ConnectionWidget();
 
-    /** @brief Open project in github with default browser */
-    void openGitHubLink(void);
-
-   private:
-    Ui::MainWindow* ui;
-    DialogAbout* dAbout;
-    DialogDebug* dDebug;
-    DialogConfigure* dConfig;
+private:
+    Ui::ConnectionWidget *ui;
 };
 
-#endif  // MAINWINDOW_H_
+#endif //CONNECTIONWIDGET_H_

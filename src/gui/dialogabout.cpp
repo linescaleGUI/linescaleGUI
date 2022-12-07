@@ -17,43 +17,32 @@
  * along with linescaleGUI. If not, see <http://www.gnu.org/licenses/>.       *
  ******************************************************************************/
 /**
- * @file mainwindow.h
+ * @file dialogabout.cpp
  * @authors Gschwind, Weber, Schoch, Niederberger
- *
- * @brief Mainwindow for the project linescaleGUI
  *
  */
 
-#pragma once
-#ifndef MAINWINDOW_H_
-#define MAINWINDOW_H_
-
-#include <QMainWindow>
 #include "dialogabout.h"
-#include "dialogdebug.h"
-#include "dialogconfigure.h"
+#include "version.h"
 
-QT_BEGIN_NAMESPACE
-namespace Ui {
-class MainWindow;
+DialogAbout::DialogAbout(QWidget* parent) : QDialog(parent), ui(new Ui::DialogAbout) {
+    ui->setupUi(this);
+    replaceVersionInfo();
 }
-QT_END_NAMESPACE
 
-class MainWindow : public QMainWindow {
-    Q_OBJECT
+DialogAbout::~DialogAbout() {
+    delete ui;
+}
 
-   public:
-    MainWindow(QWidget* parent = nullptr);
-    ~MainWindow();
+void DialogAbout::replaceVersionInfo() {
+    QString currentText = ui->lblAbout->text();
 
-    /** @brief Open project in github with default browser */
-    void openGitHubLink(void);
+    static_assert(sizeof(version::gitRev) >= 8);
+    QString rev = QString::fromUtf8(version::gitRev, 8);
 
-   private:
-    Ui::MainWindow* ui;
-    DialogAbout* dAbout;
-    DialogDebug* dDebug;
-    DialogConfigure* dConfig;
-};
-
-#endif  // MAINWINDOW_H_
+    currentText.replace("#GitHash", rev)
+        .replace("#compDate", version::buildDate)
+        .replace("#compTime", version::buildTime)
+        .replace("#GitLink", version::repoUrl);
+    ui->lblAbout->setText(currentText);
+}

@@ -1,0 +1,14 @@
+<RCC>
+  <qresource prefix="linescaleGUI">
+    <file>icons/remove.png</file>
+    <file>icons/battery15.png</file>
+    <file>icons/battery50.png</file>
+    <file>icons/battery75.png</file>
+    <file>icons/battery100.png</file>
+    <file>icons/bluetooth.png</file>
+    <file>icons/settings.png</file>
+    <file>icons/start.png</file>
+    <file>icons/usb.png</file>
+    <file>logo/logo.png</file>
+  </qresource>
+</RCC>
