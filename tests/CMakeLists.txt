@@ -15,8 +15,9 @@ add_executable(unit_tests ${SRCS} all_unit_tests.cpp)
 target_link_libraries(unit_tests
   PRIVATE gtest libLinescaleGUI Qt5::Core
 )
+set_target_properties(gtest_main gmock_main PROPERTIES EXCLUDE_FROM_ALL 1 EXCLUDE_FROM_DEFAULT_BUILD 1)
 if(WIN32)
-    windeployqt(unit_tests)
+    windeployqt(unit_tests NO_TRANSLATIONS)
 endif()
 
 add_test(unit_tests unit_tests)
