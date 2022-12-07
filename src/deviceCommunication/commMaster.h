@@ -68,6 +68,13 @@ class CommMaster : public QObject {
     void sendData(QByteArray& rawData);
 
     /**
+     * @brief Send data to the connected devices
+     * 
+     * @param rawData QString with the msg as HEX characters
+     */
+    void sendData(QString& rawData);
+
+    /**
      * @brief Create connection
      * 
      * @param identifier Struct with the device info 

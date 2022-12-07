@@ -23,6 +23,7 @@
  */
 
 #include "commMaster.h"
+#include <QDebug>
 
 CommMaster::~CommMaster() {
     delete singleDevice;
@@ -45,10 +46,9 @@ bool CommMaster::addConnection(deviceInfo identifier) {
             break;
     }
 
-    if(singleDevice != nullptr) {
+    if (singleDevice != nullptr) {
         return singleDevice->connectDevice();
-    }
-    else {
+    } else {
         return false;
     }
 }
@@ -66,11 +66,14 @@ QList<deviceInfo>& CommMaster::pullAvailableDevices() {
 
     QList<QSerialPortInfo> listOfCOMPorts = QSerialPortInfo::availablePorts();
     for (int i = 0; i < listOfCOMPorts.length(); ++i) {
-        /// @todo check Manufacturer ID and Vendor ID -> return only LineScales
-        deviceInfo tmp;
-        tmp.ID = listOfCOMPorts[i].portName();
-        tmp.type = connType::USB;
-        availableDevice.append(tmp);
+        
+        // Check vendorID for LineScales or COM101 for debug
+        if(listOfCOMPorts[i].vendorIdentifier() == 0x1a86 || listOfCOMPorts[i].portName() == "COM101") {
+            deviceInfo tmp;
+            tmp.ID = listOfCOMPorts[i].portName();
+            tmp.type = connType::USB;
+            availableDevice.append(tmp);
+        }
     }
 
     /// @todo Add code for BLE pull
@@ -82,4 +85,17 @@ void CommMaster::sendData(QByteArray& rawData) {
     if (singleDevice != nullptr && rawData.length() > 0) {
         singleDevice->sendData(rawData);
     }
+}
+
+void CommMaster::sendData(QString& rawData) {
+    bool bStatus;
+    QString payload4Bit = rawData.leftJustified(8, '0');
+    uint32_t nHex = payload4Bit.toULong(&bStatus, 16);
+
+    QByteArray rawHexData;
+    rawHexData.append(uchar(nHex >> 24));
+    rawHexData.append(uchar(nHex >> 16));
+    rawHexData.append(uchar(nHex >> 8));
+    rawHexData.append(uchar(nHex));
+    sendData(rawHexData);
 }

@@ -43,7 +43,6 @@ void CommUSB::disconnect() {
 };
 
 void CommUSB::sendData(QByteArray rawData) {
-    qDebug() << "From USB" << rawData; 
     serialPort->write(rawData);
     serialPort->flush();
 };
@@ -68,15 +67,5 @@ bool CommUSB::connectDevice() {
 
     serialPort->setBaudRate(baudRate);
     serialPort->setPortName(identifier.ID);
-    // if(serialPort->open(QIODeviceBase::ReadWrite))
-    // {
-    //     connState = true;
-    //     serialPort->setDataTerminalReady(false); //disable reset on open
-    //     serialPort->write("");
-    // }
-    // else
-    // {
-    //     qDebug() << "No connection";
-    // }
-    return connState;
+    return serialPort->open(QIODevice::ReadWrite);
 } 

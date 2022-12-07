@@ -55,9 +55,10 @@ void DialogConfigure::reloadConnections() {
 
 void DialogConfigure::requestConnection() {
     int index = ui->boxConnections->currentIndex();
-
+    qDebug() << devices[index].ID;
+    
     // disable group on success
-    ui->groupConnection->setEnabled(comm->addConnection(devices[index]));
+    ui->groupConnection->setEnabled(!(comm->addConnection(devices[index])));
 }
 
 void DialogConfigure::initWidget() {

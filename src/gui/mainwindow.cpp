@@ -35,7 +35,7 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWi
     comm = new CommMaster();
 
     dAbout = new DialogAbout(this);
-    dDebug = new DialogDebug(this);
+    dDebug = new DialogDebug(comm, this);
     dConfig = new DialogConfigure(comm, this);
 
     // menu actions
