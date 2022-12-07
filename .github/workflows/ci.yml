@@ -51,7 +51,7 @@ jobs:
           tools: ''
           extra: '--external 7z'
 
-      - name: Setup environment variables
+      - name: Set up environment variables
         shell: bash
         run: |
           echo "QT_DIR=$Qt5_DIR" >> $GITHUB_ENV
@@ -70,3 +70,8 @@ jobs:
         shell: bash
         run: |
           cmake --build build
+      
+      - name: Run tests
+        shell: bash
+        run: |
+          ctest -C Debug -T test --output-on-failure
