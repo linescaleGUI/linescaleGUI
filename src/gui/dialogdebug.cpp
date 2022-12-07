@@ -22,12 +22,12 @@
  *
  */
 
-#include "DialogDebug.h"
+#include "dialogdebug.h"
 #include <QTime>
+#include "ui_dialogdebug.h"
 
 DialogDebug::DialogDebug(QWidget* parent) : QDialog(parent), ui(new Ui::DialogDebug) {
     ui->setupUi(this);
-
 }
 
 DialogDebug::~DialogDebug() {

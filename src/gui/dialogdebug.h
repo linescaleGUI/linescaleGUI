@@ -29,7 +29,6 @@
 #define DIALOGDEBUG_H_
 
 #include <QDialog>
-#include "ui_DialogDebug.h"
 
 namespace Ui {
 class DialogDebug;

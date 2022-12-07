@@ -29,7 +29,6 @@
 #define DIALOGABOUT_H_
 
 #include <QDialog>
-#include "ui_dialogabout.h"
 
 namespace Ui {
 class DialogAbout;

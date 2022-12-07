@@ -29,7 +29,6 @@
 #define DIALOGCONFIGURE_H_
 
 #include <QDialog>
-#include "ui_dialogconfigure.h"
 #include "connectionWidget.h"
 
 namespace Ui {

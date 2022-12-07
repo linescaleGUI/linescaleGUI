@@ -36,7 +36,6 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWi
     dDebug = new DialogDebug(this);
     dConfig = new DialogConfigure(this);
 
-
     // menu actions
     connect(ui->actionAbout_Qt, &QAction::triggered, qApp, &QApplication::aboutQt);
     connect(ui->actionExit, &QAction::triggered, this, &MainWindow::close);

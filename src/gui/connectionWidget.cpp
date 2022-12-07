@@ -24,6 +24,7 @@
 
 #include "connectionWidget.h"
 #include <QPushButton>
+#include "ui_connectionWidget.h"
 
 ConnectionWidget::ConnectionWidget(QWidget* parent) : QWidget(parent), ui(new Ui::ConnectionWidget) {
     ui->setupUi(this);
