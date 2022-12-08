@@ -49,7 +49,9 @@ bool CommMaster::addConnection(deviceInfo identifier) {
     }
 
     if (singleDevice != nullptr) {
+        connect(singleDevice, &CommDevice::newForceDevice, this, &CommMaster::getNewForce);
         return singleDevice->connectDevice();
+
     } else {
         return false;
     }
@@ -57,7 +59,8 @@ bool CommMaster::addConnection(deviceInfo identifier) {
 
 void CommMaster::removeConnection() {
     if (singleDevice != nullptr) {
-        singleDevice->disconnect();
+        singleDevice->disconnectDevice();
+        disconnect(singleDevice);
     }
     delete singleDevice;
     singleDevice = nullptr;
@@ -100,4 +103,8 @@ void CommMaster::sendData(QString& rawData) {
     rawHexData.append(uchar(nHex >> 8));
     rawHexData.append(uchar(nHex));
     sendData(rawHexData);
+}
+
+void CommMaster::getNewForce(float value) {
+    emit newForceMaster(value);
 }

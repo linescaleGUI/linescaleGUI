@@ -44,7 +44,7 @@ class CommUSB : public CommDevice {
     virtual ~CommUSB();
 
     bool connectDevice() override;
-    void disconnect() override;
+    void disconnectDevice() override;
     void sendData(QByteArray rawData) override;
     void readData() override;
 

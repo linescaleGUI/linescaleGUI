@@ -85,6 +85,12 @@ class CommMaster : public QObject {
      */
     void removeConnection();
 
+   signals:
+    void newForceMaster(float value);
+
+   private slots:
+    void getNewForce(float value);
+
    private:
     QList<deviceInfo> availableDevice;
     CommDevice* singleDevice = nullptr;

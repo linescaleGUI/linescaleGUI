@@ -31,8 +31,8 @@
 #include <QMainWindow>
 #include "../deviceCommunication/commMaster.h"
 #include "dialogabout.h"
-#include "dialogdebug.h"
 #include "dialogconfigure.h"
+#include "dialogdebug.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -51,11 +51,20 @@ class MainWindow : public QMainWindow {
     void openGitHubLink(void);
 
    private:
+    void sendResetPeak();
+
+   private slots:
+    void getNewForce(float value);
+    void triggerReadings();
+
+   private:
     Ui::MainWindow* ui;
     CommMaster* comm;
     DialogAbout* dAbout;
     DialogDebug* dDebug;
     DialogConfigure* dConfig;
+    float maxValue = 0;
+    bool reading;
 };
 
 #endif  // MAINWINDOW_H_

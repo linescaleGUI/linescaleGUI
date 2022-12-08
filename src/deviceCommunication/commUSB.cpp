@@ -30,10 +30,11 @@ CommUSB::CommUSB(deviceInfo identifier) {
 };
 
 CommUSB::~CommUSB() {
+    CommUSB::disconnectDevice();
     delete serialPort;
 }
 
-void CommUSB::disconnect() {
+void CommUSB::disconnectDevice() {
     if(serialPort != nullptr)
     {
         serialPort->close();
@@ -48,7 +49,21 @@ void CommUSB::sendData(QByteArray rawData) {
 };
 
 void CommUSB::readData() {
-    qDebug() << serialPort->readAll();
+    /// @todo add proper parser
+    QByteArray data = serialPort->readAll();
+    COMbuffer += data;
+    QStringList COMBufferList = COMbuffer.split('\n');
+    for(int i = 0; i < COMBufferList.length(); ++i)
+    {
+        QString currentMsg = COMBufferList[i];
+        if(currentMsg.endsWith('\r'))
+        {
+            float force = currentMsg.mid(1, 6).remove('-').toFloat();
+
+            COMbuffer.remove(currentMsg);
+            emit newForceDevice(force);
+        }
+    }
 };
 
 void CommUSB::handleError(QSerialPort::SerialPortError error) {
@@ -59,7 +74,7 @@ void CommUSB::handleError(QSerialPort::SerialPortError error) {
 }
 
 bool CommUSB::connectDevice() {
-    if(serialPort != nullptr){disconnect();}
+    if(serialPort != nullptr){disconnectDevice();}
     serialPort = new QSerialPort();
 
     connect(serialPort, &QSerialPort::readyRead, this, &CommUSB::readData);

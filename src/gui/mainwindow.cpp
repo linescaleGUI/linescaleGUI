@@ -45,6 +45,13 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWi
     connect(ui->actionGitHub, &QAction::triggered, this, &MainWindow::openGitHubLink);
     connect(ui->actionDebug, &QAction::triggered, dDebug, &DialogDebug::show);
     connect(ui->actionConfigure, &QAction::triggered, dConfig, &DialogConfigure::show);
+    connect(ui->actionStartStop, &QAction::triggered, this, &MainWindow::triggerReadings);
+
+    // Buttons next to readings
+    connect(ui->btnResetPeak, &QPushButton::pressed, this, &MainWindow::sendResetPeak);
+
+    // updates from CommMaster
+    connect(comm, &CommMaster::newForceMaster, this, &MainWindow::getNewForce);
 
     // disable wait for close, automatic close after main window close
     dAbout->setAttribute(Qt::WA_QuitOnClose, false);
@@ -62,4 +69,32 @@ MainWindow::~MainWindow() {
 
 void MainWindow::openGitHubLink(void) {
     QDesktopServices::openUrl(QUrl("https://github.com/linescaleGUI/linescaleGUI"));
+}
+
+void MainWindow::sendResetPeak() {
+    QString cmd = "430D0A5A"; // reset peak
+    comm->sendData(cmd);
+    maxValue = 0;
+    getNewForce(0);
+}
+
+void MainWindow::triggerReadings() {
+    QString cmd;
+    if(!reading) {
+        cmd = "410D0A58"; //request connection
+    }
+    else {
+        cmd = "450D0A5C"; //Disconnect reading
+    }
+
+    comm->sendData(cmd);
+    reading = !reading;
+}
+
+void MainWindow::getNewForce(float value) {
+    if(value >= maxValue) {
+        maxValue = value;
+        ui->lblPeakForce->setText(QString("%1 kN").arg(value, 3, 'f', 2));
+    }
+    ui->lblCurrentForce->setText(QString("%1 kN").arg(value, 0, 'f', 2));
 }

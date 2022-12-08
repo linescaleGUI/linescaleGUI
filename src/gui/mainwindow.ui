@@ -46,16 +46,28 @@
         <layout class="QVBoxLayout" name="verticalLayout_3">
          <item>
           <widget class="QLabel" name="lblCurrentForce">
+           <property name="minimumSize">
+            <size>
+             <width>300</width>
+             <height>0</height>
+            </size>
+           </property>
            <property name="styleSheet">
             <string notr="true">font: 700 48pt &quot;Segoe UI&quot;;</string>
            </property>
            <property name="text">
             <string>0.00 kN</string>
            </property>
+           <property name="alignment">
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           </property>
           </widget>
          </item>
          <item>
           <widget class="QPushButton" name="btnSetZero">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
            <property name="text">
             <string>Set zero</string>
            </property>
@@ -77,6 +89,9 @@
            </property>
            <property name="text">
             <string>0.00 kN</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
            </property>
           </widget>
          </item>
@@ -142,6 +157,7 @@
     <bool>false</bool>
    </attribute>
    <addaction name="actionConfigure"/>
+   <addaction name="actionStartStop"/>
   </widget>
   <action name="actionExit">
    <property name="text">
@@ -178,6 +194,15 @@
    </property>
    <property name="text">
     <string>Configure</string>
+   </property>
+  </action>
+  <action name="actionStartStop">
+   <property name="icon">
+    <iconset resource="../../assets/resource.qrc">
+     <normaloff>:/linescaleGUI/icons/start.png</normaloff>:/linescaleGUI/icons/start.png</iconset>
+   </property>
+   <property name="text">
+    <string>StartStop</string>
    </property>
   </action>
  </widget>

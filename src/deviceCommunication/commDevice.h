@@ -28,8 +28,8 @@
 #ifndef COMMDEVICE_H_
 #define COMMDEVICE_H_
 
-#include <QObject>
 #include <QDebug>
+#include <QObject>
 
 /**
  * @brief Enum to describe the type used for a specific connection
@@ -59,7 +59,6 @@ class CommDevice : public QObject {
     Q_OBJECT
 
    public:
-
     /**
      * @brief Connect device to host
      * Implemented in USB or BLE class
@@ -74,16 +73,16 @@ class CommDevice : public QObject {
      * Implemented in USB or BLE class
      *
      */
-    virtual void disconnect(){};
+    virtual void disconnectDevice(){};
 
     /**
      * @brief Send date to the connected device
      *
      * @param data HEX values as a QByteArray to send
      */
-    virtual void sendData(QByteArray data){qDebug() << data;};
+    virtual void sendData(QByteArray data) { qDebug() << data; };
 
-    virtual void readData() {};
+    virtual void readData(){};
 
     /**
      * @brief Set a new frequency
@@ -112,6 +111,9 @@ class CommDevice : public QObject {
      * @return connType enum with the type
      */
     connType getConnType() { return type; };
+
+   signals:
+    void newForceDevice(float value);
 
    protected:
     int freq = 10;                  ///< Sample frequency of the connection
