@@ -36,20 +36,16 @@
 #ifndef COMMMASTER_H_
 #define COMMMASTER_H_
 
-#include <QHash>
 #include <QObject>
-#include <QSerialPortInfo>
 #include "commDevice.h"
-#include "commUSB.h"
 
 class CommMaster : public QObject {
     Q_OBJECT
 
    public:
-
     /**
      * @brief Destroy the Comm Master object
-     * 
+     *
      */
     ~CommMaster();
 
@@ -69,15 +65,15 @@ class CommMaster : public QObject {
 
     /**
      * @brief Send data to the connected devices
-     * 
+     *
      * @param rawData QString with the msg as HEX characters
      */
     void sendData(QString& rawData);
 
     /**
      * @brief Create connection
-     * 
-     * @param identifier Struct with the device info 
+     *
+     * @param identifier Struct with the device info
      * @return true Connection established
      * @return false Connection failed
      */
@@ -85,7 +81,7 @@ class CommMaster : public QObject {
 
     /**
      * @brief Terminate the connection and remove all references with the class
-     * 
+     *
      */
     void removeConnection();
 

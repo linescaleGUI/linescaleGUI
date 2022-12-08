@@ -24,6 +24,8 @@
 
 #include "commMaster.h"
 #include <QDebug>
+#include <QSerialPortInfo>
+#include "commUSB.h"
 
 CommMaster::~CommMaster() {
     delete singleDevice;
@@ -66,9 +68,9 @@ QList<deviceInfo>& CommMaster::pullAvailableDevices() {
 
     QList<QSerialPortInfo> listOfCOMPorts = QSerialPortInfo::availablePorts();
     for (int i = 0; i < listOfCOMPorts.length(); ++i) {
-        
         // Check vendorID for LineScales or COM101 for debug
-        if(listOfCOMPorts[i].vendorIdentifier() == 0x1a86 || listOfCOMPorts[i].portName() == "COM101") {
+        if (listOfCOMPorts[i].vendorIdentifier() == 0x1a86 ||
+            listOfCOMPorts[i].portName() == "COM101") {
             deviceInfo tmp;
             tmp.ID = listOfCOMPorts[i].portName();
             tmp.type = connType::USB;

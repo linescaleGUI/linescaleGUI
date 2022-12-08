@@ -29,7 +29,6 @@
 #define DIALOGDEBUG_H_
 
 #include <QDialog>
-#include "ui_DialogDebug.h"
 #include "../deviceCommunication/commMaster.h"
 
 namespace Ui {
@@ -51,20 +50,20 @@ class DialogDebug : public QDialog {
 
     /**
      * @brief Insert the current selected item from treeCmd into inputPayload
-     * 
+     *
      */
     void insertTreeCmd();
-  
+
     /**
      * @brief Insert the double clocked item from treeCmd into inputPayload
-     * 
+     *
      */
     void clickedTreeCmd();
     /** SLOT: append text into loggingText, with a defined color*/
 
     /**
      * @brief Append text into the logWindow with a predefined color
-     * 
+     *
      * @param text as a QString
      * @param color as QColor
      */
@@ -72,13 +71,13 @@ class DialogDebug : public QDialog {
 
     /**
      * @brief Send msg to connected device
-     * 
+     *
      */
     void sendMsg();
 
     /**
      * @brief Clear the logWindow
-     * 
+     *
      */
     void clearLog();
 

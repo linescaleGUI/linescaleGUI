@@ -31,7 +31,6 @@
 #include <QDialog>
 #include "../deviceCommunication/commMaster.h"
 #include "connectionWidget.h"
-#include "ui_dialogconfigure.h"
 
 namespace Ui {
 class DialogConfigure;
