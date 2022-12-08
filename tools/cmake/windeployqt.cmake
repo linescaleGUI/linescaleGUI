@@ -1,6 +1,11 @@
 find_package(Qt5Core REQUIRED)
 
+# Deploy the needed runtime libraries for `target` on Windows.
+#
+# Arguments:
+#   - `NO_TRANSLATIONS`: Disable translation file generation.
 function(windeployqt target)
+    cmake_parse_arguments(ARG "NO_TRANSLATIONS" "" "" ${ARGN})
 
     # get absolute path to qmake, then use it to find windeployqt executable
     get_target_property(_qmake_executable Qt5::qmake IMPORTED_LOCATION)
@@ -12,9 +17,10 @@ function(windeployqt target)
 
     add_custom_command(TARGET ${target} POST_BUILD
         COMMAND "${_qt_bin_dir}/windeployqt.exe"         
-                --verbose 1
-                # --release
+                # --verbose 1
+                $<IF:$<CONFIG:Debug>,--debug,--release>
                 --no-svg
+                $<IF:$<BOOL:${ARG_NO_TRANSLATIONS}>,--no-translations,>
                 # --no-opengl
                 --no-opengl-sw
                 # --no-compiler-runtime

@@ -24,6 +24,7 @@
 
 #include "dialogconfigure.h"
 #include <QPushButton>
+#include "ui_dialogconfigure.h"
 
 DialogConfigure::DialogConfigure(QWidget* parent) : QDialog(parent), ui(new Ui::DialogConfigure) {
     ui->setupUi(this);
