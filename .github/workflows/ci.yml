@@ -74,4 +74,4 @@ jobs:
       - name: Run tests
         shell: bash
         run: |
-          ctest -C Debug -T test --output-on-failure
+          cd build && ctest -C Debug -T test --output-on-failure
