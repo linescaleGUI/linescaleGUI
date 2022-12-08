@@ -24,10 +24,10 @@
 
 #include "dialogdebug.h"
 #include <QTime>
+#include "ui_dialogdebug.h"
 
 DialogDebug::DialogDebug(CommMaster* comm, QWidget* parent) : QDialog(parent), ui(new Ui::DialogDebug) {
     ui->setupUi(this);
-
     assert(comm != nullptr);
     this->comm = comm;
 

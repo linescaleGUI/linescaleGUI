@@ -1,0 +1,77 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  build:
+    name: ${{ matrix.config.name }}
+    runs-on: ${{ matrix.config.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        config:
+        - {
+            name: "Windows Latest MSVC",
+            os: windows-latest,
+            build_type: "Debug", generator: "Visual Studio 17 2022",
+            qt_archives: "qttools"
+          }
+        - {
+            name: "Ubuntu Latest Clang",
+            os: ubuntu-latest,
+            # cc: "gcc", cxx: "g++", generator: "Unix Makefiles",
+            build_type: "Debug", cc: "clang", cxx: "clang++", generator: "Unix Makefiles",
+            qt_archives: "icu"
+          }
+        - {
+            name: "macOS Latest Clang",
+            os: macos-latest,
+            build_type: "Debug", cc: "clang", cxx: "clang++", generator: "Unix Makefiles",
+            qt_archives: ""
+          }
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v3
+        with:
+          version: '5.15.2'
+          target: 'desktop'
+          dir: '${{ github.workspace }}'
+          install-deps: 'true'
+          modules: 'qtcharts'
+          archives: 'qtbase qtconnectivity qtserialport ${{ matrix.config.qt_archives }}'
+          cache: 'true'
+          cache-key-prefix: 'install-qt-action'
+          tools: ''
+          extra: '--external 7z'
+
+      - name: Set up environment variables
+        shell: bash
+        run: |
+          echo "QT_DIR=$Qt5_DIR" >> $GITHUB_ENV
+          [[ -n "${{ matrix.config.cc }}" ]] \
+            && echo "CC=${{ matrix.config.cc }}" >> $GITHUB_ENV || true
+          [[ -n "${{ matrix.config.cxx }}" ]] \
+            && echo "CXX=${{ matrix.config.cxx }}" >> $GITHUB_ENV || true
+
+      - name: Configure
+        shell: bash
+        run: |
+          cmake -S . -B build -DCMAKE_BUILD_TYPE=${{ matrix.config.build_type }} \
+            -G "${{ matrix.config.generator }}" -DWARNINGS_AS_ERRORS=
+
+      - name: Build
+        shell: bash
+        run: |
+          cmake --build build
+      
+      - name: Run tests
+        shell: bash
+        run: |
+          cd build && ctest -C Debug -T test --output-on-failure

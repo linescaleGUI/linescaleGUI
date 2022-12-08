@@ -17,37 +17,24 @@
  * along with linescaleGUI. If not, see <http://www.gnu.org/licenses/>.       *
  ******************************************************************************/
 /**
- * @file dialogabout.h
+ * @file all_unit_tests.cpp
  * @authors Gschwind, Weber, Schoch, Niederberger
  *
- * @brief Dialog to display version info
+ * @brief Main for running all unit tests with googletest
  *
  */
 
-#pragma once
-#ifndef DIALOGABOUT_H_
-#define DIALOGABOUT_H_
+#include <iostream>
+#include <string>
+#include <cassert>
 
-#include <QDialog>
+#include <gtest/gtest.h>
+#include <QCoreApplication>
 
-namespace Ui {
-class DialogAbout;
+int main(int argc, char *argv[])
+{
+    QCoreApplication a{argc, argv};
+
+    ::testing::InitGoogleTest(&argc, argv);
+    return RUN_ALL_TESTS();
 }
-
-class DialogAbout : public QDialog {
-    Q_OBJECT
-
-   public:
-    DialogAbout(QWidget* parent = nullptr);
-    ~DialogAbout();
-
-   private:
-    /** @brief Replace version placeholder in ui file with actual data
-     * generated on compile time.
-     * This contains github url, commit hash and compile time.
-     */
-    void replaceVersionInfo(void);
-    Ui::DialogAbout* ui;
-};
-
-#endif  // DIALOGABOUT_H_
