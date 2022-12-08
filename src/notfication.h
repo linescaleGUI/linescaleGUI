@@ -17,46 +17,55 @@
  * along with linescaleGUI. If not, see <http://www.gnu.org/licenses/>.       *
  ******************************************************************************/
 /**
- * @file mainwindow.h
+ * @file notfications.h
  * @authors Gschwind, Weber, Schoch, Niederberger
  *
- * @brief Mainwindow for the project linescaleGUI
+ * @brief Class to handle all notifications
  *
  */
 
 #pragma once
-#ifndef MAINWINDOW_H_
-#define MAINWINDOW_H_
+#ifndef NOTFICATIONS_H_
+#define NOTFICATIONS_H_
 
-#include <QMainWindow>
-#include "dialogabout.h"
-#include "dialogdebug.h"
-#include "dialogconfigure.h"
-#include "../notfication.h"
+#include <QString>
+#include <QTextBrowser>
 
-QT_BEGIN_NAMESPACE
-namespace Ui {
-class MainWindow;
-}
-QT_END_NAMESPACE
+class Notification {
+public:
+    /**
+     * Severity level to which notifications can be set
+     */
+    enum Severity {
+        SEVERITY_NONE,
+        SEVERITY_INFO,
+        SEVERITY_WARNING,
+        SEVERITY_ERROR
+    };
 
-class MainWindow : public QMainWindow {
-    Q_OBJECT
+    /**
+     * @brief   Constructor of the class
+     * @param   textBrowser Pointer to a textBrowser to which the notifications
+     *          be written
+     */
+    Notification(QTextBrowser* textBrowser);
 
-   public:
-    MainWindow(QWidget* parent = nullptr);
-    ~MainWindow();
+    /**
+     * @brief   Method to write a notification to the already specified text
+     *          browser
+     * @param   message Message which shall be written
+     * @param   severity Severity level of the notification
+     * @param   showDialog Only applies to SEVERITY_ERROR levels. By setting
+     *          this parameter to false, the error dialog will not be shown.
+     * @return  Returns false if an error occurred. True otherwise.
+     */
+    bool push(const QString& message, Severity severity = SEVERITY_INFO, bool showDialog = true);
 
-    /** @brief Open project in github with default browser */
-    void openGitHubLink(void);
-    void showLog(void);
-
-   private:
-    Ui::MainWindow* ui;
-    DialogAbout* dAbout;
-    DialogDebug* dDebug;
-    DialogConfigure* dConfig;
-    Notification* notification;
+private:
+    static const QString stringColorStart[];
+    static const QString stringColorEnd[];
+    static const QString stringSeverity[];
+    QTextBrowser* textBrowser;
 };
 
-#endif  // MAINWINDOW_H_
+#endif // NOTFICATIONS_H_

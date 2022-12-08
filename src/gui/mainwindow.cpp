@@ -28,6 +28,7 @@
 #include <QStandardPaths>
 #include <QTimer>
 #include "ui_mainwindow.h"
+#include "../notfication.h"
 
 MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWindow) {
     ui->setupUi(this);
@@ -35,7 +36,7 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWi
     dAbout = new DialogAbout(this);
     dDebug = new DialogDebug(this);
     dConfig = new DialogConfigure(this);
-
+    notification = new Notification(ui->textBrowserLog);
 
     // menu actions
     connect(ui->actionAbout_Qt, &QAction::triggered, qApp, &QApplication::aboutQt);
@@ -43,12 +44,16 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWi
     connect(ui->actionAbout, &QAction::triggered, dAbout, &DialogAbout::show);
     connect(ui->actionGitHub, &QAction::triggered, this, &MainWindow::openGitHubLink);
     connect(ui->actionDebug, &QAction::triggered, dDebug, &DialogDebug::show);
+    connect(ui->actionShowLog, &QAction::triggered, this, &MainWindow::showLog);
     connect(ui->actionConfigure, &QAction::triggered, dConfig, &DialogConfigure::show);
 
     // disable wait for close, automatic close after main window close
     dAbout->setAttribute(Qt::WA_QuitOnClose, false);
     dDebug->setAttribute(Qt::WA_QuitOnClose, false);
     dConfig->setAttribute(Qt::WA_QuitOnClose, false);
+
+    // Set default log visibility to match the actionShowLog button
+    showLog();
 }
 
 MainWindow::~MainWindow() {
@@ -56,8 +61,19 @@ MainWindow::~MainWindow() {
     delete dDebug;
     delete dAbout;
     delete ui;
+    delete notification;
 }
 
 void MainWindow::openGitHubLink(void) {
     QDesktopServices::openUrl(QUrl("https://github.com/linescaleGUI/linescaleGUI"));
+}
+
+void MainWindow::showLog(void) {
+    if(ui->actionShowLog->isChecked()) {
+        ui->textBrowserLog->setVisible(true);
+        notification->push("Visible");
+    } else {
+        ui->textBrowserLog->setVisible(false);
+        notification->push("Hidden");
+    }
 }
