@@ -22,10 +22,6 @@ file(GLOB_RECURSE QRC_SRCS LIST_DIRECTORIES false CONFIGURE_DEPENDS "assets/*.qr
 list(REMOVE_ITEM PROJECT_SOURCES "src/main.cpp") # remove main from library
 # Add custom app icon
 set(APPICON_WIN "${CMAKE_CURRENT_SOURCE_DIR}/assets/app/appIcon.rc")
-set(PROJECT_SOURCES
-    ${PROJECT_SOURCES}
-    ${APPICON_WIN} # add custom app icon
-)
 
 # Also create a library for testing.
 add_library(libLinescaleGUI ${PROJECT_SOURCES})
@@ -34,6 +30,7 @@ add_executable(linescaleGUI
     src/main.cpp
     "${VERSION_FILE}"
     ${QRC_SRCS}
+    ${APPICON_WIN} # add custom app icon
 )
 
 if(DEFINED WARNINGS_AS_ERRORS)
