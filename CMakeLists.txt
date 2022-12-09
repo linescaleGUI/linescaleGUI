@@ -27,14 +27,14 @@ set(PROJECT_SOURCES
     ${APPICON_WIN} # add custom app icon
 )
 
-# Also create a library for testing.
 add_library(libLinescaleGUI ${PROJECT_SOURCES})
-
 add_executable(linescaleGUI
     src/main.cpp
     "${VERSION_FILE}"
     ${QRC_SRCS}
 )
+
+install(TARGETS linescaleGUI RUNTIME BUNDLE )
 
 if(DEFINED WARNINGS_AS_ERRORS)
     if(MSVC)

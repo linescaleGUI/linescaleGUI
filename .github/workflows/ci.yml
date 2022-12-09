@@ -18,20 +18,23 @@ jobs:
             name: "Windows Latest MSVC",
             os: windows-latest,
             build_type: "Debug", generator: "Visual Studio 17 2022",
-            qt_archives: "qttools"
+            qt_archives: "qttools",
+            artifact: "Windows-MSVC.tar.xz"
           }
         - {
             name: "Ubuntu Latest Clang",
             os: ubuntu-latest,
             # cc: "gcc", cxx: "g++", generator: "Unix Makefiles",
             build_type: "Debug", cc: "clang", cxx: "clang++", generator: "Unix Makefiles",
-            qt_archives: "icu"
+            qt_archives: "icu",
+            artifact: "Linux.tar.xz"
           }
         - {
             name: "macOS Latest Clang",
             os: macos-latest,
             build_type: "Debug", cc: "clang", cxx: "clang++", generator: "Unix Makefiles",
-            qt_archives: ""
+            qt_archives: "",
+            artifact: "macOs.tar.xz"
           }
     steps:
       - name: Checkout
@@ -72,6 +75,23 @@ jobs:
           cmake --build build
       
       - name: Run tests
+        working-directory: build
         shell: bash
         run: |
-          cd build && ctest -C Debug -T test --output-on-failure
+          ctest -C Debug -T test --output-on-failure
+
+      - name: Pack
+        shell: bash
+        run: |
+          cmake --install build --prefix instdir --strip
+          cd instdir && cmake -E tar cJfv ../${ { matrix.config.artifact } } .
+
+      - name: Pack
+        working-directory: instdir
+        run: ${ { steps.cmake_and_ninja.outputs.cmake_dir } }/cmake -E tar cJfv ../${ { matrix.config.artifact } } .
+
+      - name: Upload
+        uses: actions/upload-artifact@v1
+        with:
+          path: ./${ { matrix.config.artifact } }
+          name: ${ { matrix.config.artifact } }
