@@ -26,7 +26,7 @@
 #include <QPushButton>
 #include "ui_dialogconfigure.h"
 
-DialogConfigure::DialogConfigure(CommMaster* comm, QWidget* parent)
+DialogConfigure::DialogConfigure(comm::CommMaster* comm, QWidget* parent)
     : QDialog(parent), ui(new Ui::DialogConfigure) {
     ui->setupUi(this);
     this->comm = comm;
@@ -37,7 +37,7 @@ DialogConfigure::DialogConfigure(CommMaster* comm, QWidget* parent)
             &DialogConfigure::updateFreq);
 
     // Updates from commMaster
-    connect(comm, &CommMaster::changedStateMaster, this, &DialogConfigure::toggleConnectionGroup);
+    connect(comm, &comm::CommMaster::changedStateMaster, this, &DialogConfigure::toggleConnectionGroup);
 
     initWidget();
     reloadConnections();
@@ -51,7 +51,7 @@ DialogConfigure::~DialogConfigure() {
 void DialogConfigure::reloadConnections() {
     ui->boxConnections->clear();
     devices.clear();
-    devices = comm->pullAvailableDevices();
+    devices = comm->getAvailableDevices();
     for (int i = 0; i < devices.length(); ++i) {
         ui->boxConnections->addItem(devices[i].ID);
     }
@@ -60,7 +60,7 @@ void DialogConfigure::reloadConnections() {
 void DialogConfigure::requestConnection() {
     int index = ui->boxConnections->currentIndex();
     qDebug() << devices[index].ID;
-    
+
     // disable group on success
     toggleConnectionGroup((comm->addConnection(devices[index])));
 }
@@ -74,7 +74,7 @@ void DialogConfigure::updateFreq(int index) {
     ui->boxFreq->clear();
     ui->boxFreq->addItem("10 Hz");
     ui->boxFreq->addItem("40 Hz");
-    if (devices[index].type == connType::USB) {
+    if (devices[index].type == comm::CONNTYPE::USB) {
         ui->boxFreq->addItem("640 Hz");
         ui->boxFreq->addItem("1280 Hz");
     }

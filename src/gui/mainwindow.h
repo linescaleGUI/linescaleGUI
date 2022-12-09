@@ -60,7 +60,7 @@ class MainWindow : public QMainWindow {
 
    private:
     Ui::MainWindow* ui;
-    CommMaster* comm;
+    comm::CommMaster* comm;
     DialogAbout* dAbout;
     DialogDebug* dDebug;
     DialogConfigure* dConfig;

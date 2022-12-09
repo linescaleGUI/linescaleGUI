@@ -39,6 +39,8 @@
 #include <QObject>
 #include "commDevice.h"
 
+namespace comm {
+
 class CommMaster : public QObject {
     Q_OBJECT
 
@@ -54,7 +56,7 @@ class CommMaster : public QObject {
      *
      * @return QList<QString>& Reference to a list with all devices
      */
-    QList<deviceInfo>& pullAvailableDevices();
+    QList<DEVICEINFO>& getAvailableDevices();
 
     /**
      * @brief Send data to the connected devices
@@ -77,7 +79,7 @@ class CommMaster : public QObject {
      * @return true Connection established
      * @return false Connection failed
      */
-    bool addConnection(deviceInfo identifier);
+    bool addConnection(DEVICEINFO identifier);
 
     /**
      * @brief Terminate the connection and remove all references with the class
@@ -94,8 +96,8 @@ class CommMaster : public QObject {
     void newForceMaster(float value);
 
     /**
-     * @brief Emit after status change 
-     * 
+     * @brief Emit after status change
+     *
      * @param connected true if connected
      */
     void changedStateMaster(bool connected);
@@ -110,14 +112,16 @@ class CommMaster : public QObject {
 
     /**
      * @brief Slot to receive the updated state from a deviceClass
-     * 
+     *
      * @param connected true if connected
      */
     void getChangedState(bool connected);
 
    private:
-    QList<deviceInfo> availableDevice;
+    QList<DEVICEINFO> availableDevice;
     CommDevice* singleDevice = nullptr;
 };
+
+}  // namespace comm
 
 #endif  // COMMMASTER_H_

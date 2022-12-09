@@ -25,41 +25,40 @@
 
 #include "commUSB.h"
 
-CommUSB::CommUSB(deviceInfo identifier) {
+namespace comm {
+
+CommUSB::CommUSB(DEVICEINFO identifier) {
     this->identifier = identifier;
+
+    connect(&serialPort, &QSerialPort::readyRead, this, &CommUSB::readData);
+    connect(&serialPort, &QSerialPort::errorOccurred, this, &CommUSB::handleError);
 };
 
 CommUSB::~CommUSB() {
     CommUSB::disconnectDevice();
-    delete serialPort;
 }
 
 void CommUSB::disconnectDevice() {
-    if(serialPort != nullptr)
-    {
-        serialPort->close();
+    if (connected) {
+        serialPort.close();
         connected = false;
         emit changedStateDevice(connected);
-        delete serialPort;
-        serialPort = nullptr;
     }
 };
 
 void CommUSB::sendData(QByteArray rawData) {
-    serialPort->write(rawData);
-    serialPort->flush();
+    serialPort.write(rawData);
+    serialPort.flush();
 };
 
 void CommUSB::readData() {
     /// @todo add proper parser
-    QByteArray data = serialPort->readAll();
+    QByteArray data = serialPort.readAll();
     COMbuffer += data;
     QStringList COMBufferList = COMbuffer.split('\n');
-    for(int i = 0; i < COMBufferList.length(); ++i)
-    {
+    for (int i = 0; i < COMBufferList.length(); ++i) {
         QString currentMsg = COMBufferList[i];
-        if(currentMsg.endsWith('\r'))
-        {
+        if (currentMsg.endsWith('\r')) {
             float force = currentMsg.mid(1, 6).remove('-').toFloat();
 
             COMbuffer.remove(currentMsg);
@@ -69,22 +68,20 @@ void CommUSB::readData() {
 };
 
 void CommUSB::handleError(QSerialPort::SerialPortError error) {
-    if (error == QSerialPort::ResourceError)
-    {
-        qDebug() << serialPort->errorString();
+    if (error == QSerialPort::ResourceError) {
+        qDebug() << serialPort.errorString();
     }
 }
 
 bool CommUSB::connectDevice() {
-    if(serialPort != nullptr){disconnectDevice();}
-    serialPort = new QSerialPort();
+    if (connected) {
+        disconnectDevice();
+    }
 
-    connect(serialPort, &QSerialPort::readyRead, this, &CommUSB::readData);
-    connect(serialPort, &QSerialPort::errorOccurred, this, &CommUSB::handleError);
-
-    serialPort->setBaudRate(baudRate);
-    serialPort->setPortName(identifier.ID);
-    connected = serialPort->open(QIODevice::ReadWrite);
+    serialPort.setBaudRate(identifier.baudRate);
+    serialPort.setPortName(identifier.ID);
+    connected = serialPort.open(QIODevice::ReadWrite);
     emit changedStateDevice(connected);
     return connected;
-} 
+}
+}  // namespace comm

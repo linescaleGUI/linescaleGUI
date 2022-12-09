@@ -27,20 +27,22 @@
 #include <QSerialPortInfo>
 #include "commUSB.h"
 
+namespace comm {
+
 CommMaster::~CommMaster() {
     delete singleDevice;
 }
 
-bool CommMaster::addConnection(deviceInfo identifier) {
-    if (singleDevice == nullptr) {
+bool CommMaster::addConnection(DEVICEINFO identifier) {
+    if (singleDevice != nullptr) {
         removeConnection();
     }
     switch (identifier.type) {
-        case connType::USB:
+        case CONNTYPE::USB:
             singleDevice = new CommUSB(identifier);
             break;
 
-        case connType::BLE:
+        case CONNTYPE::BLE:
             /// @todo add BLE ctor
             break;
 
@@ -67,7 +69,7 @@ void CommMaster::removeConnection() {
     singleDevice = nullptr;
 }
 
-QList<deviceInfo>& CommMaster::pullAvailableDevices() {
+QList<DEVICEINFO>& CommMaster::getAvailableDevices() {
     availableDevice.clear();
 
     QList<QSerialPortInfo> listOfCOMPorts = QSerialPortInfo::availablePorts();
@@ -75,9 +77,10 @@ QList<deviceInfo>& CommMaster::pullAvailableDevices() {
         // Check vendorID for LineScales or COM101 for debug
         if (listOfCOMPorts[i].vendorIdentifier() == 0x1a86 ||
             listOfCOMPorts[i].portName() == "COM101") {
-            deviceInfo tmp;
+            DEVICEINFO tmp;
             tmp.ID = listOfCOMPorts[i].portName();
-            tmp.type = connType::USB;
+            tmp.type = CONNTYPE::USB;
+            tmp.baudRate = 230400;
             availableDevice.append(tmp);
         }
     }
@@ -110,7 +113,7 @@ void CommMaster::getNewForce(float value) {
     emit newForceMaster(value);
 }
 
-
 void CommMaster::getChangedState(bool connected) {
     emit changedStateMaster(connected);
 }
+}  // namespace comm

@@ -43,7 +43,7 @@ class DialogDebug : public QDialog {
     Q_OBJECT
 
    public:
-    DialogDebug(CommMaster* comm, QWidget* parent = nullptr);
+    DialogDebug(comm::CommMaster* comm, QWidget* parent = nullptr);
     ~DialogDebug();
 
    private slots:
@@ -83,7 +83,7 @@ class DialogDebug : public QDialog {
 
    private:
     Ui::DialogDebug* ui;
-    CommMaster* comm;
+    comm::CommMaster* comm;
 };
 
 #endif  // DIALOGDEBUG_H_

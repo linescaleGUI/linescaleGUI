@@ -40,7 +40,7 @@ class DialogConfigure : public QDialog {
     Q_OBJECT
 
    public:
-    DialogConfigure(CommMaster* comm, QWidget* parent = nullptr);
+    DialogConfigure(comm::CommMaster* comm, QWidget* parent = nullptr);
     ~DialogConfigure();
 
    private:
@@ -55,8 +55,8 @@ class DialogConfigure : public QDialog {
     void toggleConnectionGroup(bool connected);
     Ui::DialogConfigure* ui;
     ConnectionWidget* wConn;
-    CommMaster* comm;
-    QList<deviceInfo> devices;
+    comm::CommMaster* comm;
+    QList<comm::DEVICEINFO> devices;
 };
 
 #endif  // DIALOGCONFIGURE_H_

@@ -32,7 +32,7 @@
 MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWindow) {
     ui->setupUi(this);
 
-    comm = new CommMaster();
+    comm = new comm::CommMaster();
 
     dAbout = new DialogAbout(this);
     dDebug = new DialogDebug(comm, this);
@@ -47,15 +47,15 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWi
 
     // Tool bar actions
     connect(ui->actionConfigure, &QAction::triggered, dConfig, &DialogConfigure::show);
-    connect(ui->actionDisconnect, &QAction::triggered, this, [=]{comm->removeConnection();});
+    connect(ui->actionDisconnect, &QAction::triggered, this, [=] { comm->removeConnection(); });
     connect(ui->actionStartStop, &QAction::triggered, this, &MainWindow::triggerReadings);
 
     // Buttons next to readings
     connect(ui->btnResetPeak, &QPushButton::pressed, this, &MainWindow::sendResetPeak);
 
     // updates from CommMaster
-    connect(comm, &CommMaster::newForceMaster, this, &MainWindow::getNewForce);
-    connect(comm, &CommMaster::changedStateMaster, this, &MainWindow::getChangedState);
+    connect(comm, &comm::CommMaster::newForceMaster, this, &MainWindow::getNewForce);
+    connect(comm, &comm::CommMaster::changedStateMaster, this, &MainWindow::getChangedState);
 
     // disable wait for close, automatic close after main window close
     dAbout->setAttribute(Qt::WA_QuitOnClose, false);
@@ -65,9 +65,6 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWi
 
 MainWindow::~MainWindow() {
     delete comm;
-    delete dConfig;
-    delete dDebug;
-    delete dAbout;
     delete ui;
 }
 
@@ -76,7 +73,7 @@ void MainWindow::openGitHubLink(void) {
 }
 
 void MainWindow::sendResetPeak() {
-    QString cmd = "430D0A5A"; // reset peak
+    QString cmd = "430D0A5A";  // reset peak
     comm->sendData(cmd);
     maxValue = 0;
     getNewForce(0);
@@ -84,11 +81,10 @@ void MainWindow::sendResetPeak() {
 
 void MainWindow::triggerReadings() {
     QString cmd;
-    if(!reading) {
-        cmd = "410D0A58"; //request connection
-    }
-    else {
-        cmd = "450D0A5C"; //Disconnect reading
+    if (!reading) {
+        cmd = "410D0A58";  // request connection
+    } else {
+        cmd = "450D0A5C";  // Disconnect reading
     }
 
     comm->sendData(cmd);
@@ -96,7 +92,8 @@ void MainWindow::triggerReadings() {
 }
 
 void MainWindow::getNewForce(float value) {
-    if(value >= maxValue) {
+    reading = true;
+    if (value >= maxValue) {
         maxValue = value;
         ui->lblPeakForce->setText(QString("%1 kN").arg(value, 3, 'f', 2));
     }

@@ -36,21 +36,23 @@
 #include <QSerialPortInfo>
 #include "commDevice.h"
 
+namespace comm {
+
 class CommUSB : public CommDevice {
     Q_OBJECT
 
    public:
-   /**
-    * @brief Construct a new Comm USB object
-    * 
-    * @param identifier Struct with the needed informations about the planned 
-    * connection
-    */
-    CommUSB(deviceInfo identifier);
+    /**
+     * @brief Construct a new Comm USB object
+     *
+     * @param identifier Struct with the needed informations about the planned
+     * connection
+     */
+    CommUSB(DEVICEINFO identifier);
 
     /**
      * @brief Disconnect from device and destroy the Comm USB object
-     * 
+     *
      */
     virtual ~CommUSB();
 
@@ -63,31 +65,32 @@ class CommUSB : public CommDevice {
 
     /**
      * @brief Disconnect from USB device
-     * 
+     *
      */
     void disconnectDevice() override;
 
     /**
      * @brief Send data to connected USB device
-     * 
+     *
      * @param rawData HEX command with CRC
      */
     void sendData(QByteArray rawData) override;
 
     /**
      * @brief Method to read the received data
-     * 
+     *
      */
     void readData() override;
 
    private:
     void handleError(QSerialPort::SerialPortError error);
 
-    QSerialPort* serialPort = nullptr;
-    int baudRate = 230400;
-    deviceInfo identifier;
+    QSerialPort serialPort;
+    DEVICEINFO identifier;
     bool connState;
     QString COMbuffer;
 };
+
+}  // namespace comm
 
 #endif  // COMMUSB_H_

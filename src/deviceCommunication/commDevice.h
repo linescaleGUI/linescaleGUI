@@ -31,11 +31,13 @@
 #include <QDebug>
 #include <QObject>
 
+namespace comm {
+
 /**
  * @brief Enum to describe the type used for a specific connection
  *
  */
-enum connType {
+enum class CONNTYPE {
     BLE,  ///< Bluetooth low energy
     USB,  ///< Serial port via USB-mini
 };
@@ -45,8 +47,8 @@ enum connType {
  * Used to connect to one device.
  *
  */
-struct deviceInfo {
-    connType type;  ///< Type of connection
+struct DEVICEINFO {
+    CONNTYPE type;  ///< Type of connection
     QString ID;     ///< Identifier of a given connection; e.g. COM101
     int baudRate;   ///< Baudrate, used by USB connection
 };
@@ -116,7 +118,7 @@ class CommDevice : public QObject {
      *
      * @return connType enum with the type
      */
-    connType getConnType() { return type; };
+    CONNTYPE getConnType() { return type; };
 
     /**
      * @brief Get the connection status
@@ -143,8 +145,10 @@ class CommDevice : public QObject {
    protected:
     int freq = 10;                  ///< Sample frequency of the connection
     QString identifier;             ///< Unique identifier
-    connType type = connType::USB;  ///< USB or BLE
+    CONNTYPE type = CONNTYPE::USB;  ///< USB or BLE
     bool connected;
 };
+
+}  // namespace comm
 
 #endif  // COMMDEVICE_H_
