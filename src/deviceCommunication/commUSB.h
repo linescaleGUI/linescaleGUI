@@ -40,12 +40,44 @@ class CommUSB : public CommDevice {
     Q_OBJECT
 
    public:
+   /**
+    * @brief Construct a new Comm USB object
+    * 
+    * @param identifier Struct with the needed informations about the planned 
+    * connection
+    */
     CommUSB(deviceInfo identifier);
+
+    /**
+     * @brief Disconnect from device and destroy the Comm USB object
+     * 
+     */
     virtual ~CommUSB();
 
+    /**
+     * @brief Implementation for USB, connect to device as set in the Ctor
+     *
+     * @return true / false on success or failure of the connection
+     */
     bool connectDevice() override;
+
+    /**
+     * @brief Disconnect from USB device
+     * 
+     */
     void disconnectDevice() override;
+
+    /**
+     * @brief Send data to connected USB device
+     * 
+     * @param rawData HEX command with CRC
+     */
     void sendData(QByteArray rawData) override;
+
+    /**
+     * @brief Method to read the received data
+     * 
+     */
     void readData() override;
 
    private:

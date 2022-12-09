@@ -86,9 +86,19 @@ class CommMaster : public QObject {
     void removeConnection();
 
    signals:
+    /**
+     * @brief Emit after new force value was sent by a deviceClass
+     *
+     * @param value Force from device (unit as set on device)
+     */
     void newForceMaster(float value);
 
    private slots:
+    /**
+     * @brief Slot to receive the emitted signal from a deviceClass
+     *
+     * @param value Force from device (unit as set on device)
+     */
     void getNewForce(float value);
 
    private:

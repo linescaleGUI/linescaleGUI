@@ -82,6 +82,12 @@ class CommDevice : public QObject {
      */
     virtual void sendData(QByteArray data) { qDebug() << data; };
 
+    /**
+     * @brief Method to read data from the connected device.
+     *
+     * Called by e.g. SerialPort::readReady
+     *
+     */
     virtual void readData(){};
 
     /**
@@ -113,6 +119,11 @@ class CommDevice : public QObject {
     connType getConnType() { return type; };
 
    signals:
+    /**
+     * @brief Emit after a package was received and parsed
+     *
+     * @param value
+     */
     void newForceDevice(float value);
 
    protected:
