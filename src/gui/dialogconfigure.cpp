@@ -37,7 +37,7 @@ DialogConfigure::DialogConfigure(CommMaster* comm, QWidget* parent)
             &DialogConfigure::updateFreq);
 
     // Updates from commMaster
-    connect(comm, &CommMaster::changedStateMaster, this, &DialogConfigure::toogleConnectionGroup);
+    connect(comm, &CommMaster::changedStateMaster, this, &DialogConfigure::toggleConnectionGroup);
 
     initWidget();
     reloadConnections();
@@ -62,7 +62,7 @@ void DialogConfigure::requestConnection() {
     qDebug() << devices[index].ID;
     
     // disable group on success
-    toogleConnectionGroup((comm->addConnection(devices[index])));
+    toggleConnectionGroup((comm->addConnection(devices[index])));
 }
 
 void DialogConfigure::initWidget() {
@@ -80,6 +80,6 @@ void DialogConfigure::updateFreq(int index) {
     }
 }
 
-void DialogConfigure::toogleConnectionGroup(bool connected) {
+void DialogConfigure::toggleConnectionGroup(bool connected) {
     ui->groupConnection->setEnabled(!connected);
 }
