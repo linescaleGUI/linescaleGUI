@@ -38,6 +38,8 @@ void CommUSB::disconnectDevice() {
     if(serialPort != nullptr)
     {
         serialPort->close();
+        connected = false;
+        emit changedStateDevice(connected);
         delete serialPort;
         serialPort = nullptr;
     }
@@ -82,5 +84,7 @@ bool CommUSB::connectDevice() {
 
     serialPort->setBaudRate(baudRate);
     serialPort->setPortName(identifier.ID);
-    return serialPort->open(QIODevice::ReadWrite);
+    connected = serialPort->open(QIODevice::ReadWrite);
+    emit changedStateDevice(connected);
+    return connected;
 } 

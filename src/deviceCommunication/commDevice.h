@@ -118,6 +118,13 @@ class CommDevice : public QObject {
      */
     connType getConnType() { return type; };
 
+    /**
+     * @brief Get the connection status
+     *
+     * @return true if connected
+     */
+    bool getStatus() { return connected; };
+
    signals:
     /**
      * @brief Emit after a package was received and parsed
@@ -126,10 +133,18 @@ class CommDevice : public QObject {
      */
     void newForceDevice(float value);
 
+    /**
+     * @brief Emit after connection / disconnection to trigger UI changes
+     *
+     * @param connected
+     */
+    void changedStateDevice(bool connected);
+
    protected:
     int freq = 10;                  ///< Sample frequency of the connection
     QString identifier;             ///< Unique identifier
     connType type = connType::USB;  ///< USB or BLE
+    bool connected;
 };
 
 #endif  // COMMDEVICE_H_

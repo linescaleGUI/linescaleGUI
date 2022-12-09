@@ -157,6 +157,8 @@
     <bool>false</bool>
    </attribute>
    <addaction name="actionConfigure"/>
+   <addaction name="actionDisconnect"/>
+   <addaction name="separator"/>
    <addaction name="actionStartStop"/>
   </widget>
   <action name="actionExit">
@@ -195,6 +197,9 @@
    <property name="text">
     <string>Configure</string>
    </property>
+   <property name="toolTip">
+    <string>Connect to device</string>
+   </property>
   </action>
   <action name="actionStartStop">
    <property name="icon">
@@ -203,6 +208,18 @@
    </property>
    <property name="text">
     <string>StartStop</string>
+   </property>
+  </action>
+  <action name="actionDisconnect">
+   <property name="icon">
+    <iconset resource="../../assets/resource.qrc">
+     <normaloff>:/linescaleGUI/icons/disconnect.png</normaloff>:/linescaleGUI/icons/disconnect.png</iconset>
+   </property>
+   <property name="text">
+    <string>Disconnect</string>
+   </property>
+   <property name="toolTip">
+    <string>Disconnect from device</string>
    </property>
   </action>
  </widget>

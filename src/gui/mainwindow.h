@@ -55,6 +55,7 @@ class MainWindow : public QMainWindow {
 
    private slots:
     void getNewForce(float value);
+    void getChangedState(bool connected);
     void triggerReadings();
 
    private:

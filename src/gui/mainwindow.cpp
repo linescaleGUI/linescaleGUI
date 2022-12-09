@@ -44,7 +44,10 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWi
     connect(ui->actionAbout, &QAction::triggered, dAbout, &DialogAbout::show);
     connect(ui->actionGitHub, &QAction::triggered, this, &MainWindow::openGitHubLink);
     connect(ui->actionDebug, &QAction::triggered, dDebug, &DialogDebug::show);
+
+    // Tool bar actions
     connect(ui->actionConfigure, &QAction::triggered, dConfig, &DialogConfigure::show);
+    connect(ui->actionDisconnect, &QAction::triggered, this, [=]{comm->removeConnection();});
     connect(ui->actionStartStop, &QAction::triggered, this, &MainWindow::triggerReadings);
 
     // Buttons next to readings
@@ -52,6 +55,7 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWi
 
     // updates from CommMaster
     connect(comm, &CommMaster::newForceMaster, this, &MainWindow::getNewForce);
+    connect(comm, &CommMaster::changedStateMaster, this, &MainWindow::getChangedState);
 
     // disable wait for close, automatic close after main window close
     dAbout->setAttribute(Qt::WA_QuitOnClose, false);
@@ -97,4 +101,10 @@ void MainWindow::getNewForce(float value) {
         ui->lblPeakForce->setText(QString("%1 kN").arg(value, 3, 'f', 2));
     }
     ui->lblCurrentForce->setText(QString("%1 kN").arg(value, 0, 'f', 2));
+}
+
+void MainWindow::getChangedState(bool connected) {
+    ui->actionDisconnect->setEnabled(connected);
+    ui->actionStartStop->setEnabled(connected);
+    ui->actionConfigure->setEnabled(!connected);
 }

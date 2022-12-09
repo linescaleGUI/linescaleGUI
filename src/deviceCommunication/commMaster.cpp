@@ -50,6 +50,7 @@ bool CommMaster::addConnection(deviceInfo identifier) {
 
     if (singleDevice != nullptr) {
         connect(singleDevice, &CommDevice::newForceDevice, this, &CommMaster::getNewForce);
+        connect(singleDevice, &CommDevice::changedStateDevice, this, &CommMaster::getChangedState);
         return singleDevice->connectDevice();
 
     } else {
@@ -107,4 +108,9 @@ void CommMaster::sendData(QString& rawData) {
 
 void CommMaster::getNewForce(float value) {
     emit newForceMaster(value);
+}
+
+
+void CommMaster::getChangedState(bool connected) {
+    emit changedStateMaster(connected);
 }

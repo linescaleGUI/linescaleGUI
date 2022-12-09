@@ -93,6 +93,13 @@ class CommMaster : public QObject {
      */
     void newForceMaster(float value);
 
+    /**
+     * @brief Emit after status change 
+     * 
+     * @param connected true if connected
+     */
+    void changedStateMaster(bool connected);
+
    private slots:
     /**
      * @brief Slot to receive the emitted signal from a deviceClass
@@ -100,6 +107,13 @@ class CommMaster : public QObject {
      * @param value Force from device (unit as set on device)
      */
     void getNewForce(float value);
+
+    /**
+     * @brief Slot to receive the updated state from a deviceClass
+     * 
+     * @param connected true if connected
+     */
+    void getChangedState(bool connected);
 
    private:
     QList<deviceInfo> availableDevice;
