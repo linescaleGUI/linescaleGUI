@@ -23,8 +23,8 @@
  */
 
 #include "notfication.h"
-#include <QTime>
 #include <QMessageBox>
+#include <QTime>
 
 const QString Notification::stringColorStart[] = {
     "",
@@ -47,12 +47,10 @@ const QString Notification::stringSeverity[] = {
     " Error"
 };
 
-Notification::Notification(QTextBrowser* textBrowser) : textBrowser(textBrowser) {
-
-}
+Notification::Notification(QTextBrowser* textBrowser) : textBrowser(textBrowser) {}
 
 bool Notification::push(const QString& message, Severity severity, bool showDialog) {
-    if((textBrowser == nullptr) || (severity < SEVERITY_NONE) || (severity > SEVERITY_ERROR)) {
+    if ((textBrowser == nullptr) || (severity < SEVERITY_NONE) || (severity > SEVERITY_ERROR)) {
         return false;
     }
 
@@ -60,7 +58,7 @@ bool Notification::push(const QString& message, Severity severity, bool showDial
     QString string = stringColorStart[severity] + time.toString() + stringSeverity[severity] + ": " + stringColorEnd[severity] + message;
     textBrowser->append(string);
 
-    if((severity == SEVERITY_ERROR) && (showDialog == true)) {
+    if ((severity == SEVERITY_ERROR) && (showDialog == true)) {
         QMessageBox::critical(textBrowser->parentWidget(), stringSeverity[severity], message, QMessageBox::Cancel, QMessageBox::Cancel);
     }
 

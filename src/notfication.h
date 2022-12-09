@@ -32,7 +32,7 @@
 #include <QTextBrowser>
 
 class Notification {
-public:
+   public:
     /**
      * Severity level to which notifications can be set
      */
@@ -61,11 +61,11 @@ public:
      */
     bool push(const QString& message, Severity severity = SEVERITY_INFO, bool showDialog = true);
 
-private:
+   private:
     static const QString stringColorStart[];
     static const QString stringColorEnd[];
     static const QString stringSeverity[];
     QTextBrowser* textBrowser;
 };
 
-#endif // NOTFICATIONS_H_
+#endif  // NOTFICATIONS_H_

@@ -71,9 +71,7 @@ void MainWindow::openGitHubLink(void) {
 void MainWindow::showLog(void) {
     if(ui->actionShowLog->isChecked()) {
         ui->textBrowserLog->setVisible(true);
-        notification->push("Visible");
     } else {
         ui->textBrowserLog->setVisible(false);
-        notification->push("Hidden");
     }
 }
