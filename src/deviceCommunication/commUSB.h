@@ -87,7 +87,6 @@ class CommUSB : public CommDevice {
 
     QSerialPort serialPort;
     DeviceInfo identifier;
-    bool connState;
     QString COMbuffer;
 };
 
