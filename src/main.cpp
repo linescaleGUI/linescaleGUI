@@ -33,6 +33,7 @@ int main(int argc, char* argv[]) {
     // Set high DPI scaling for Qt5, always on for Qt6
     #if !(QT_VERSION >= QT_VERSION_CHECK(6, 0, 0))
         QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+        QApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
     #endif
     
     QApplication a(argc, argv);

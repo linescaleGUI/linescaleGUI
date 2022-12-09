@@ -29,6 +29,7 @@
 DialogConfigure::DialogConfigure(CommMaster* comm, QWidget* parent)
     : QDialog(parent), ui(new Ui::DialogConfigure) {
     ui->setupUi(this);
+    setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
     this->comm = comm;
 
     // Button action

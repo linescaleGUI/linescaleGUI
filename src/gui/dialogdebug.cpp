@@ -28,6 +28,7 @@
 
 DialogDebug::DialogDebug(CommMaster* comm, QWidget* parent) : QDialog(parent), ui(new Ui::DialogDebug) {
     ui->setupUi(this);
+    setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
     assert(comm != nullptr);
     this->comm = comm;
 

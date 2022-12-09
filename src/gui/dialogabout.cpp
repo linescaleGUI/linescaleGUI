@@ -28,6 +28,7 @@
 
 DialogAbout::DialogAbout(QWidget* parent) : QDialog(parent), ui(new Ui::DialogAbout) {
     ui->setupUi(this);
+    setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
     replaceVersionInfo();
 }
 

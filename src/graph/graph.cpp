@@ -14,23 +14,46 @@
  * GNU General Public License for more details.                               *
  *                                                                            *
  * You should have received a copy of the GNU General Public License          *
- * along with linescaleGUI. If not, see <http://www.gnu.org/licenses/>.       *
+ * along with LinescaleGUI.  If not, see <http://www.gnu.org/licenses/>.      *
  ******************************************************************************/
 /**
- * @file connectionWidget.cpp
+ * @file graph.cpp
  * @authors Gschwind, Weber, Schoch, Niederberger
+ *
+ * @brief Initial implementation of graphing logic.
  *
  */
 
-#include "connectionWidget.h"
-#include <QPushButton>
-#include "ui_connectionWidget.h"
+#include "graph.h"
+#include <algorithm>
 
-ConnectionWidget::ConnectionWidget(QWidget* parent) : QWidget(parent), ui(new Ui::ConnectionWidget) {
-    ui->setupUi(this);
-    setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
+namespace gui {
+
+Graph::Graph() : QtCharts::QChartView() {
+    series = new QtCharts::QSplineSeries();
+    chart = new QtCharts::QChart();
+    chart->legend()->hide();
+    chart->addSeries(series);
+    chart->createDefaultAxes();
+    
+    x_axis = chart->axes(Qt::Horizontal, series).back();
+    y_axis = chart->axes(Qt::Vertical, series).back();
+    
+    setRenderHint(QPainter::Antialiasing);
+    setChart(chart);
 }
 
-ConnectionWidget::~ConnectionWidget() {
-    delete ui;
+void Graph::addDataPoint(float y, float t) {
+    maxVal = std::max(y*1.1f, maxVal);
+    
+    series->append(t, y);
+    x_axis->setRange(t-1000, t);
+    y_axis->setRange(0, maxVal);
 }
+
+void Graph::newReading(float y) {
+    ++timePoint;
+    addDataPoint(y, timePoint);
+}
+
+}  // namespace gui

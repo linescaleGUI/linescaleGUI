@@ -34,6 +34,7 @@ add_executable(linescaleGUI
     src/main.cpp
     "${VERSION_FILE}"
     ${QRC_SRCS}
+    ${APPICON_WIN}
 )
 
 if(DEFINED WARNINGS_AS_ERRORS)
@@ -88,7 +89,7 @@ set_target_properties(linescaleGUI PROPERTIES
     MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
     MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
     MACOSX_BUNDLE TRUE
-    # WIN32_EXECUTABLE TRUE # Comment for std::cout and qDebug
+    WIN32_EXECUTABLE TRUE # Comment for std::cout and qDebug
 )
 
 include(tools/cmake/windeployqt.cmake)

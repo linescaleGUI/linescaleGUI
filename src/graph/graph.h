@@ -14,23 +14,47 @@
  * GNU General Public License for more details.                               *
  *                                                                            *
  * You should have received a copy of the GNU General Public License          *
- * along with linescaleGUI. If not, see <http://www.gnu.org/licenses/>.       *
+ * along with LinescaleGUI.  If not, see <http://www.gnu.org/licenses/>.      *
  ******************************************************************************/
 /**
- * @file connectionWidget.cpp
+ * @file graph.h
  * @authors Gschwind, Weber, Schoch, Niederberger
  *
+ * @brief Initial implementation of graphing logic.
  */
 
-#include "connectionWidget.h"
-#include <QPushButton>
-#include "ui_connectionWidget.h"
+#pragma once
+#ifndef GRAPH_H_
+#define GRAPH_H_
 
-ConnectionWidget::ConnectionWidget(QWidget* parent) : QWidget(parent), ui(new Ui::ConnectionWidget) {
-    ui->setupUi(this);
-    setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
-}
+#include <QWidget>
+#include <QtCharts/QChartView>
+#include <QtCharts/QSplineSeries>
+#include <QtCharts/QValueAxis>
 
-ConnectionWidget::~ConnectionWidget() {
-    delete ui;
-}
+namespace gui {
+
+class Graph : public QtCharts::QChartView {
+    Q_OBJECT
+   private:
+    QtCharts::QSplineSeries* series;
+    QtCharts::QChart* chart;
+    QtCharts::QAbstractAxis* x_axis;
+    QtCharts::QAbstractAxis* y_axis;
+    int timePoint = 0;
+
+    // Maximum value in the graph.
+    float maxVal = 0;
+    // Minumum value in the graph.
+    float minVal = 0;
+
+   public:
+    Graph();
+
+    void addDataPoint(float y, float t);
+    void newReading(float y);
+};
+
+}  // namespace gui
+
+#endif  // GRAPH_H_

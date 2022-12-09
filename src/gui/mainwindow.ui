@@ -28,6 +28,11 @@
         <verstretch>0</verstretch>
        </sizepolicy>
       </property>
+      <layout class="QGridLayout" name="gridLayout">
+       <item row="0" column="0">
+        <layout class="QVBoxLayout" name="verticalLayout"/>
+       </item>
+      </layout>
      </widget>
     </item>
     <item>
@@ -192,7 +197,7 @@
   <action name="actionConfigure">
    <property name="icon">
     <iconset resource="../../assets/resource.qrc">
-     <normaloff>:/linescaleGUI/icons/settings.png</normaloff>:/linescaleGUI/icons/settings.png</iconset>
+     <normaloff>:/linescaleGUI/icons/connect.png</normaloff>:/linescaleGUI/icons/connect.png</iconset>
    </property>
    <property name="text">
     <string>Configure</string>

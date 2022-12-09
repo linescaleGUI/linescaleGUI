@@ -38,6 +38,9 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWi
     dDebug = new DialogDebug(comm, this);
     dConfig = new DialogConfigure(comm, this);
 
+    graph = new gui::Graph();
+    ui->widgetChart->layout()->addWidget(graph);
+
     // menu actions
     connect(ui->actionAbout_Qt, &QAction::triggered, qApp, &QApplication::aboutQt);
     connect(ui->actionExit, &QAction::triggered, this, &MainWindow::close);
@@ -61,6 +64,12 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWi
     dAbout->setAttribute(Qt::WA_QuitOnClose, false);
     dDebug->setAttribute(Qt::WA_QuitOnClose, false);
     dConfig->setAttribute(Qt::WA_QuitOnClose, false);
+
+    // init buttons with state "Disconnected"
+    getChangedState(false);
+
+    QString cmd = "450D0A5C"; //Disconnect reading
+    comm->sendData(cmd);
 }
 
 MainWindow::~MainWindow() {
@@ -101,6 +110,7 @@ void MainWindow::getNewForce(float value) {
         ui->lblPeakForce->setText(QString("%1 kN").arg(value, 3, 'f', 2));
     }
     ui->lblCurrentForce->setText(QString("%1 kN").arg(value, 0, 'f', 2));
+    graph->newReading(value);
 }
 
 void MainWindow::getChangedState(bool connected) {

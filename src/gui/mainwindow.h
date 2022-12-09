@@ -33,6 +33,7 @@
 #include "dialogabout.h"
 #include "dialogconfigure.h"
 #include "dialogdebug.h"
+#include "../graph/graph.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -64,8 +65,9 @@ class MainWindow : public QMainWindow {
     DialogAbout* dAbout;
     DialogDebug* dDebug;
     DialogConfigure* dConfig;
+    gui::Graph* graph;
     float maxValue = 0;
-    bool reading;
+    bool reading = false;
 };
 
 #endif  // MAINWINDOW_H_

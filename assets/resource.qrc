@@ -11,5 +11,6 @@
     <file>icons/usb.png</file>
     <file>logo/logo.png</file>
     <file>icons/disconnect.png</file>
+    <file>icons/connect.png</file>
   </qresource>
 </RCC>
