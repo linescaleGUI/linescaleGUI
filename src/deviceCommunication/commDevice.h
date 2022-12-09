@@ -37,7 +37,7 @@ namespace comm {
  * @brief Enum to describe the type used for a specific connection
  *
  */
-enum class CONNTYPE {
+enum class ConnType {
     BLE,  ///< Bluetooth low energy
     USB,  ///< Serial port via USB-mini
 };
@@ -47,8 +47,8 @@ enum class CONNTYPE {
  * Used to connect to one device.
  *
  */
-struct DEVICEINFO {
-    CONNTYPE type;  ///< Type of connection
+struct DeviceInfo {
+    ConnType type;  ///< Type of connection
     QString ID;     ///< Identifier of a given connection; e.g. COM101
     int baudRate;   ///< Baudrate, used by USB connection
 };
@@ -116,9 +116,9 @@ class CommDevice : public QObject {
     /**
      * @brief Get the connection type of the connection
      *
-     * @return connType enum with the type
+     * @return ConnType enum with the type
      */
-    CONNTYPE getConnType() { return type; };
+    ConnType getConnType() { return type; };
 
     /**
      * @brief Get the connection status
@@ -145,7 +145,7 @@ class CommDevice : public QObject {
    protected:
     int freq = 10;                  ///< Sample frequency of the connection
     QString identifier;             ///< Unique identifier
-    CONNTYPE type = CONNTYPE::USB;  ///< USB or BLE
+    ConnType type = ConnType::USB;  ///< USB or BLE
     bool connected;
 };
 

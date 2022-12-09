@@ -48,7 +48,7 @@ class CommUSB : public CommDevice {
      * @param identifier Struct with the needed informations about the planned
      * connection
      */
-    CommUSB(DEVICEINFO identifier);
+    CommUSB(DeviceInfo identifier);
 
     /**
      * @brief Disconnect from device and destroy the Comm USB object
@@ -86,7 +86,7 @@ class CommUSB : public CommDevice {
     void handleError(QSerialPort::SerialPortError error);
 
     QSerialPort serialPort;
-    DEVICEINFO identifier;
+    DeviceInfo identifier;
     bool connState;
     QString COMbuffer;
 };

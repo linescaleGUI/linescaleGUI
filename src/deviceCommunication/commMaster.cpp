@@ -33,16 +33,16 @@ CommMaster::~CommMaster() {
     delete singleDevice;
 }
 
-bool CommMaster::addConnection(DEVICEINFO identifier) {
+bool CommMaster::addConnection(DeviceInfo identifier) {
     if (singleDevice != nullptr) {
         removeConnection();
     }
     switch (identifier.type) {
-        case CONNTYPE::USB:
+        case ConnType::USB:
             singleDevice = new CommUSB(identifier);
             break;
 
-        case CONNTYPE::BLE:
+        case ConnType::BLE:
             /// @todo add BLE ctor
             break;
 
@@ -69,7 +69,7 @@ void CommMaster::removeConnection() {
     singleDevice = nullptr;
 }
 
-QList<DEVICEINFO>& CommMaster::getAvailableDevices() {
+QList<DeviceInfo>& CommMaster::getAvailableDevices() {
     availableDevice.clear();
 
     QList<QSerialPortInfo> listOfCOMPorts = QSerialPortInfo::availablePorts();
@@ -77,9 +77,9 @@ QList<DEVICEINFO>& CommMaster::getAvailableDevices() {
         // Check vendorID for LineScales or COM101 for debug
         if (listOfCOMPorts[i].vendorIdentifier() == 0x1a86 ||
             listOfCOMPorts[i].portName() == "COM101") {
-            DEVICEINFO tmp;
+            DeviceInfo tmp;
             tmp.ID = listOfCOMPorts[i].portName();
-            tmp.type = CONNTYPE::USB;
+            tmp.type = ConnType::USB;
             tmp.baudRate = 230400;
             availableDevice.append(tmp);
         }

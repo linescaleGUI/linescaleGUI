@@ -56,7 +56,7 @@ class DialogConfigure : public QDialog {
     Ui::DialogConfigure* ui;
     ConnectionWidget* wConn;
     comm::CommMaster* comm;
-    QList<comm::DEVICEINFO> devices;
+    QList<comm::DeviceInfo> devices;
 };
 
 #endif  // DIALOGCONFIGURE_H_

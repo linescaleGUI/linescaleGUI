@@ -56,7 +56,7 @@ class CommMaster : public QObject {
      *
      * @return QList<QString>& Reference to a list with all devices
      */
-    QList<DEVICEINFO>& getAvailableDevices();
+    QList<DeviceInfo>& getAvailableDevices();
 
     /**
      * @brief Send data to the connected devices
@@ -79,7 +79,7 @@ class CommMaster : public QObject {
      * @return true Connection established
      * @return false Connection failed
      */
-    bool addConnection(DEVICEINFO identifier);
+    bool addConnection(DeviceInfo identifier);
 
     /**
      * @brief Terminate the connection and remove all references with the class
@@ -118,7 +118,7 @@ class CommMaster : public QObject {
     void getChangedState(bool connected);
 
    private:
-    QList<DEVICEINFO> availableDevice;
+    QList<DeviceInfo> availableDevice;
     CommDevice* singleDevice = nullptr;
 };
 

@@ -27,7 +27,7 @@
 
 namespace comm {
 
-CommUSB::CommUSB(DEVICEINFO identifier) {
+CommUSB::CommUSB(DeviceInfo identifier) {
     this->identifier = identifier;
 
     connect(&serialPort, &QSerialPort::readyRead, this, &CommUSB::readData);

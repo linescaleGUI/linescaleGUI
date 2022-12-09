@@ -74,7 +74,7 @@ void DialogConfigure::updateFreq(int index) {
     ui->boxFreq->clear();
     ui->boxFreq->addItem("10 Hz");
     ui->boxFreq->addItem("40 Hz");
-    if (devices[index].type == comm::CONNTYPE::USB) {
+    if (devices[index].type == comm::ConnType::USB) {
         ui->boxFreq->addItem("640 Hz");
         ui->boxFreq->addItem("1280 Hz");
     }
