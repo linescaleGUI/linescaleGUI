@@ -17,45 +17,79 @@
  * along with linescaleGUI. If not, see <http://www.gnu.org/licenses/>.       *
  ******************************************************************************/
 /**
- * @file dialogconfigure.h
+ * @file commUSB.h
  * @authors Gschwind, Weber, Schoch, Niederberger
  *
- * @brief Widget to display the informations about one connection
+ * @brief Child class for USB connection
+ *
  *
  */
 
 #pragma once
-#ifndef DIALOGCONFIGURE_H_
-#define DIALOGCONFIGURE_H_
+#ifndef COMMUSB_H_
+#define COMMUSB_H_
 
-#include <QDialog>
-#include "../deviceCommunication/commMaster.h"
-#include "connectionWidget.h"
+#include <QDebug>
+#include <QHash>
+#include <QObject>
+#include <QSerialPort>
+#include <QSerialPortInfo>
+#include "commDevice.h"
 
-namespace Ui {
-class DialogConfigure;
-}
+namespace comm {
 
-class DialogConfigure : public QDialog {
+class CommUSB : public CommDevice {
     Q_OBJECT
 
    public:
-    DialogConfigure(comm::CommMaster* comm, QWidget* parent = nullptr);
-    ~DialogConfigure();
-
-   private:
     /**
-     * @brief Reload comboBox with all available connections
+     * @brief Construct a new Comm USB object
+     *
+     * @param identifier Struct with the needed informations about the planned
+     * connection
+     */
+    CommUSB(DeviceInfo identifier);
+
+    /**
+     * @brief Disconnect from device and destroy the Comm USB object
      *
      */
-    void reloadConnections();
-    void requestConnection();
-    void initWidget();
-    void updateFreq(int index);
-    Ui::DialogConfigure* ui;
-    ConnectionWidget* wConn;
-    comm::CommMaster* comm;
-    QList<comm::DeviceInfo> devices;
+    virtual ~CommUSB();
+
+    /**
+     * @brief Implementation for USB, connect to device as set in the Ctor
+     *
+     * @return true / false on success or failure of the connection
+     */
+    bool connectDevice() override;
+
+    /**
+     * @brief Disconnect from USB device
+     *
+     */
+    void disconnectDevice() override;
+
+    /**
+     * @brief Send data to connected USB device
+     *
+     * @param rawData HEX command with CRC
+     */
+    void sendData(const QByteArray& rawData) override;
+
+    /**
+     * @brief Method to read the received data
+     *
+     */
+    void readData() override;
+
+   private:
+    void handleError(QSerialPort::SerialPortError error);
+
+    QSerialPort serialPort;
+    DeviceInfo identifier;
+    QString COMbuffer;
 };
 
-#endif  // DIALOGCONFIGURE_H_
+}  // namespace comm
+
+#endif  // COMMUSB_H_

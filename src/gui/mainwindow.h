@@ -29,9 +29,10 @@
 #define MAINWINDOW_H_
 
 #include <QMainWindow>
+#include "../deviceCommunication/commMaster.h"
 #include "dialogabout.h"
-#include "dialogdebug.h"
 #include "dialogconfigure.h"
+#include "dialogdebug.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -46,14 +47,24 @@ class MainWindow : public QMainWindow {
     MainWindow(QWidget* parent = nullptr);
     ~MainWindow();
 
+   private:
     /** @brief Open project in github with default browser */
     void openGitHubLink(void);
+    void sendResetPeak();
+
+   private slots:
+    void getNewForce(float value);
+    void getChangedState(bool connected);
+    void triggerReadings();
 
    private:
     Ui::MainWindow* ui;
+    comm::CommMaster* comm;
     DialogAbout* dAbout;
     DialogDebug* dDebug;
     DialogConfigure* dConfig;
+    float maxValue = 0;
+    bool reading;
 };
 
 #endif  // MAINWINDOW_H_
