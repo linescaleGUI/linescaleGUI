@@ -17,57 +17,79 @@
  * along with linescaleGUI. If not, see <http://www.gnu.org/licenses/>.       *
  ******************************************************************************/
 /**
- * @file mainwindow.h
+ * @file commUSB.h
  * @authors Gschwind, Weber, Schoch, Niederberger
  *
- * @brief Mainwindow for the project linescaleGUI
+ * @brief Child class for USB connection
+ *
  *
  */
 
 #pragma once
-#ifndef MAINWINDOW_H_
-#define MAINWINDOW_H_
+#ifndef COMMUSB_H_
+#define COMMUSB_H_
 
-#include <QMainWindow>
-#include "../deviceCommunication/commMaster.h"
-#include "dialogabout.h"
-#include "dialogconfigure.h"
-#include "dialogdebug.h"
-#include "../notfication.h"
+#include <QDebug>
+#include <QHash>
+#include <QObject>
+#include <QSerialPort>
+#include <QSerialPortInfo>
+#include "commDevice.h"
 
-QT_BEGIN_NAMESPACE
-namespace Ui {
-class MainWindow;
-}
-QT_END_NAMESPACE
+namespace comm {
 
-class MainWindow : public QMainWindow {
+class CommUSB : public CommDevice {
     Q_OBJECT
 
    public:
-    MainWindow(QWidget* parent = nullptr);
-    ~MainWindow();
+    /**
+     * @brief Construct a new Comm USB object
+     *
+     * @param identifier Struct with the needed informations about the planned
+     * connection
+     */
+    CommUSB(DeviceInfo identifier);
+
+    /**
+     * @brief Disconnect from device and destroy the Comm USB object
+     *
+     */
+    virtual ~CommUSB();
+
+    /**
+     * @brief Implementation for USB, connect to device as set in the Ctor
+     *
+     * @return true / false on success or failure of the connection
+     */
+    bool connectDevice() override;
+
+    /**
+     * @brief Disconnect from USB device
+     *
+     */
+    void disconnectDevice() override;
+
+    /**
+     * @brief Send data to connected USB device
+     *
+     * @param rawData HEX command with CRC
+     */
+    void sendData(const QByteArray& rawData) override;
+
+    /**
+     * @brief Method to read the received data
+     *
+     */
+    void readData() override;
 
    private:
-    /** @brief Open project in github with default browser */
-    void openGitHubLink(void);
-    void showLog(void);
-    void sendResetPeak();
+    void handleError(QSerialPort::SerialPortError error);
 
-   private slots:
-    void getNewForce(float value);
-    void getChangedState(bool connected);
-    void triggerReadings();
-
-   private:
-    Ui::MainWindow* ui;
-    comm::CommMaster* comm;
-    DialogAbout* dAbout;
-    DialogDebug* dDebug;
-    DialogConfigure* dConfig;
-    Notification* notification;
-    float maxValue = 0;
-    bool reading;
+    QSerialPort serialPort;
+    DeviceInfo identifier;
+    QString COMbuffer;
 };
 
-#endif  // MAINWINDOW_H_
+}  // namespace comm
+
+#endif  // COMMUSB_H_

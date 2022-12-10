@@ -33,10 +33,12 @@
 MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWindow) {
     ui->setupUi(this);
 
-    dAbout = new DialogAbout(this);
-    dDebug = new DialogDebug(this);
-    dConfig = new DialogConfigure(this);
     notification = new Notification(ui->textBrowserLog);
+    comm = new comm::CommMaster();
+
+    dAbout = new DialogAbout(this);
+    dDebug = new DialogDebug(comm, this);
+    dConfig = new DialogConfigure(comm, this);
 
     // menu actions
     connect(ui->actionAbout_Qt, &QAction::triggered, qApp, &QApplication::aboutQt);
@@ -45,7 +47,18 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWi
     connect(ui->actionGitHub, &QAction::triggered, this, &MainWindow::openGitHubLink);
     connect(ui->actionDebug, &QAction::triggered, dDebug, &DialogDebug::show);
     connect(ui->actionShowLog, &QAction::triggered, this, &MainWindow::showLog);
+
+    // Tool bar actions
     connect(ui->actionConfigure, &QAction::triggered, dConfig, &DialogConfigure::show);
+    connect(ui->actionDisconnect, &QAction::triggered, this, [=] { comm->removeConnection(); });
+    connect(ui->actionStartStop, &QAction::triggered, this, &MainWindow::triggerReadings);
+
+    // Buttons next to readings
+    connect(ui->btnResetPeak, &QPushButton::pressed, this, &MainWindow::sendResetPeak);
+
+    // updates from CommMaster
+    connect(comm, &comm::CommMaster::newForceMaster, this, &MainWindow::getNewForce);
+    connect(comm, &comm::CommMaster::changedStateMaster, this, &MainWindow::getChangedState);
 
     // disable wait for close, automatic close after main window close
     dAbout->setAttribute(Qt::WA_QuitOnClose, false);
@@ -54,12 +67,13 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWi
 
     // Set default log visibility to match the actionShowLog button
     showLog();
+
+    // Init actions in the toolbar, deactivate actions that require a connected device
+    getChangedState(false);
 }
 
 MainWindow::~MainWindow() {
-    delete dConfig;
-    delete dDebug;
-    delete dAbout;
+    delete comm;
     delete ui;
     delete notification;
 }
@@ -74,4 +88,38 @@ void MainWindow::showLog(void) {
     } else {
         ui->textBrowserLog->setVisible(false);
     }
+}
+
+void MainWindow::sendResetPeak() {
+    QString cmd = "430D0A5A";  // reset peak
+    comm->sendData(cmd);
+    maxValue = 0;
+    getNewForce(0);
+}
+
+void MainWindow::triggerReadings() {
+    QString cmd;
+    if (!reading) {
+        cmd = "410D0A58";  // request connection
+    } else {
+        cmd = "450D0A5C";  // Disconnect reading
+    }
+
+    comm->sendData(cmd);
+    reading = !reading;
+}
+
+void MainWindow::getNewForce(float value) {
+    reading = true;
+    if (value >= maxValue) {
+        maxValue = value;
+        ui->lblPeakForce->setText(QString("%1 kN").arg(value, 3, 'f', 2));
+    }
+    ui->lblCurrentForce->setText(QString("%1 kN").arg(value, 0, 'f', 2));
+}
+
+void MainWindow::getChangedState(bool connected) {
+    ui->actionDisconnect->setEnabled(connected);
+    ui->actionStartStop->setEnabled(connected);
+    ui->actionConfigure->setEnabled(!connected);
 }

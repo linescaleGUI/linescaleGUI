@@ -17,57 +17,24 @@
  * along with linescaleGUI. If not, see <http://www.gnu.org/licenses/>.       *
  ******************************************************************************/
 /**
- * @file mainwindow.h
+ * @file all_unit_tests.cpp
  * @authors Gschwind, Weber, Schoch, Niederberger
  *
- * @brief Mainwindow for the project linescaleGUI
+ * @brief Main for running all unit tests with googletest
  *
  */
 
-#pragma once
-#ifndef MAINWINDOW_H_
-#define MAINWINDOW_H_
+#include <iostream>
+#include <string>
+#include <cassert>
 
-#include <QMainWindow>
-#include "../deviceCommunication/commMaster.h"
-#include "dialogabout.h"
-#include "dialogconfigure.h"
-#include "dialogdebug.h"
-#include "../notfication.h"
+#include <gtest/gtest.h>
+#include <QCoreApplication>
 
-QT_BEGIN_NAMESPACE
-namespace Ui {
-class MainWindow;
+int main(int argc, char *argv[])
+{
+    QCoreApplication a{argc, argv};
+
+    ::testing::InitGoogleTest(&argc, argv);
+    return RUN_ALL_TESTS();
 }
-QT_END_NAMESPACE
-
-class MainWindow : public QMainWindow {
-    Q_OBJECT
-
-   public:
-    MainWindow(QWidget* parent = nullptr);
-    ~MainWindow();
-
-   private:
-    /** @brief Open project in github with default browser */
-    void openGitHubLink(void);
-    void showLog(void);
-    void sendResetPeak();
-
-   private slots:
-    void getNewForce(float value);
-    void getChangedState(bool connected);
-    void triggerReadings();
-
-   private:
-    Ui::MainWindow* ui;
-    comm::CommMaster* comm;
-    DialogAbout* dAbout;
-    DialogDebug* dDebug;
-    DialogConfigure* dConfig;
-    Notification* notification;
-    float maxValue = 0;
-    bool reading;
-};
-
-#endif  // MAINWINDOW_H_

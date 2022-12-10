@@ -24,11 +24,24 @@
 
 #include "dialogconfigure.h"
 #include <QPushButton>
+#include "ui_dialogconfigure.h"
 
-DialogConfigure::DialogConfigure(QWidget* parent) : QDialog(parent), ui(new Ui::DialogConfigure) {
+DialogConfigure::DialogConfigure(comm::CommMaster* comm, QWidget* parent)
+    : QDialog(parent), ui(new Ui::DialogConfigure) {
     ui->setupUi(this);
+    this->comm = comm;
 
-    addConnection();
+    // Button action
+    connect(ui->btnConnect, &QPushButton::pressed, this, &DialogConfigure::requestConnection);
+    connect(ui->boxConnections, QOverload<int>::of(&QComboBox::currentIndexChanged), this,
+            &DialogConfigure::updateFreq);
+
+    // Updates from commMaster
+    connect(comm, &comm::CommMaster::changedStateMaster, this, [=](bool state){
+        ui->groupConnection->setEnabled(!state);});
+
+    initWidget();
+    reloadConnections();
 }
 
 DialogConfigure::~DialogConfigure() {
@@ -36,7 +49,31 @@ DialogConfigure::~DialogConfigure() {
     delete ui;
 }
 
-void DialogConfigure::addConnection() {
+void DialogConfigure::reloadConnections() {
+    ui->boxConnections->clear();
+    devices.clear();
+    devices = comm->getAvailableDevices();
+    for (int i = 0; i < devices.length(); ++i) {
+        ui->boxConnections->addItem(devices[i].ID);
+    }
+}
+
+void DialogConfigure::requestConnection() {
+    int index = ui->boxConnections->currentIndex();
+    comm->addConnection(devices[index]);
+}
+
+void DialogConfigure::initWidget() {
     wConn = new ConnectionWidget();
     ui->frameLayout->addWidget(wConn);
+}
+
+void DialogConfigure::updateFreq(int index) {
+    ui->boxFreq->clear();
+    ui->boxFreq->addItem("10 Hz");
+    ui->boxFreq->addItem("40 Hz");
+    if (devices[index].type == comm::ConnType::USB) {
+        ui->boxFreq->addItem("640 Hz");
+        ui->boxFreq->addItem("1280 Hz");
+    }
 }

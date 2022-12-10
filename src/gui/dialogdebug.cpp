@@ -22,14 +22,62 @@
  *
  */
 
-#include "DialogDebug.h"
+#include "dialogdebug.h"
 #include <QTime>
+#include "ui_dialogdebug.h"
 
-DialogDebug::DialogDebug(QWidget* parent) : QDialog(parent), ui(new Ui::DialogDebug) {
+DialogDebug::DialogDebug(comm::CommMaster* comm, QWidget* parent) : QDialog(parent), ui(new Ui::DialogDebug) {
     ui->setupUi(this);
+    assert(comm != nullptr);
+    this->comm = comm;
 
+    // treeCmd, double click
+    connect(ui->treeCmd, &QTreeView::doubleClicked, this, &DialogDebug::clickedTreeCmd);
+
+    // buttons below treeCmd
+    connect(ui->btnInsertToLine, &QPushButton::clicked, this, &DialogDebug::insertTreeCmd);
+    connect(ui->btnSendCmd, &QPushButton::clicked, this, &DialogDebug::sendMsg);
+
+    // buttons / input fields below textLogging
+    connect(ui->btnSendMsg, &QPushButton::clicked, this, &DialogDebug::sendMsg);
+    connect(ui->inputPayload, &QLineEdit::returnPressed, this, &DialogDebug::sendMsg);
+    connect(ui->btnClearLog, &QPushButton::clicked, this, &DialogDebug::clearLog);
 }
 
 DialogDebug::~DialogDebug() {
     delete ui;
+}
+
+void DialogDebug::insertTreeCmd() {
+    QTreeWidgetItem* cItem = ui->treeCmd->currentItem();
+    if (cItem && cItem->childCount() == 0) {
+        QString payload = cItem->data(1, 0).toString();
+        qDebug() << payload;
+        ui->inputPayload->setText(payload);
+    } else {
+        // ignore group items with no child object
+        appendText("Nothing to insert", Qt::red);
+    }
+}
+
+void DialogDebug::clickedTreeCmd() {
+    insertTreeCmd();
+    sendMsg();
+}
+
+void DialogDebug::appendText(const QString& text, const QColor& color) {
+    QString printingText = QTime::currentTime().toString() + " " + text;
+    ui->textLogging->setTextColor(color);
+    ui->textLogging->append(printingText);
+}
+
+void DialogDebug::sendMsg() {
+    QString payload = ui->inputPayload->text();
+    appendText(payload, Qt::blue);
+    comm->sendData(payload);
+}
+
+void DialogDebug::clearLog() {
+    ui->textLogging->setText("");
+    ui->inputPayload->setText("");
 }

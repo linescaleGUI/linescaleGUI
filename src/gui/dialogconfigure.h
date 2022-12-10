@@ -29,7 +29,7 @@
 #define DIALOGCONFIGURE_H_
 
 #include <QDialog>
-#include "ui_dialogconfigure.h"
+#include "../deviceCommunication/commMaster.h"
 #include "connectionWidget.h"
 
 namespace Ui {
@@ -40,13 +40,22 @@ class DialogConfigure : public QDialog {
     Q_OBJECT
 
    public:
-    DialogConfigure(QWidget* parent = nullptr);
+    DialogConfigure(comm::CommMaster* comm, QWidget* parent = nullptr);
     ~DialogConfigure();
 
    private:
-   void addConnection();
+    /**
+     * @brief Reload comboBox with all available connections
+     *
+     */
+    void reloadConnections();
+    void requestConnection();
+    void initWidget();
+    void updateFreq(int index);
     Ui::DialogConfigure* ui;
     ConnectionWidget* wConn;
+    comm::CommMaster* comm;
+    QList<comm::DeviceInfo> devices;
 };
 
 #endif  // DIALOGCONFIGURE_H_

@@ -152,11 +152,11 @@
           <layout class="QVBoxLayout" name="verticalLayout_3">
            <item>
             <widget class="QLabel" name="lblCurrentForce">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
+             <property name="minimumSize">
+              <size>
+               <width>300</width>
+               <height>0</height>
+              </size>
              </property>
              <property name="baseSize">
               <size>
@@ -169,6 +169,9 @@
              </property>
              <property name="text">
               <string>0.00 kN</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
              </property>
             </widget>
            </item>
@@ -231,6 +234,9 @@
              </property>
              <property name="text">
               <string>0.00 kN</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
              </property>
             </widget>
            </item>
@@ -311,6 +317,9 @@
     <bool>false</bool>
    </attribute>
    <addaction name="actionConfigure"/>
+   <addaction name="actionDisconnect"/>
+   <addaction name="separator"/>
+   <addaction name="actionStartStop"/>
   </widget>
   <action name="actionExit">
    <property name="text">
@@ -350,6 +359,30 @@
    </property>
    <property name="text">
     <string>Configure</string>
+   </property>
+   <property name="toolTip">
+    <string>Connect to device</string>
+   </property>
+  </action>
+  <action name="actionStartStop">
+   <property name="icon">
+    <iconset resource="../../assets/resource.qrc">
+     <normaloff>:/linescaleGUI/icons/start.png</normaloff>:/linescaleGUI/icons/start.png</iconset>
+   </property>
+   <property name="text">
+    <string>StartStop</string>
+   </property>
+  </action>
+  <action name="actionDisconnect">
+   <property name="icon">
+    <iconset resource="../../assets/resource.qrc">
+     <normaloff>:/linescaleGUI/icons/disconnect.png</normaloff>:/linescaleGUI/icons/disconnect.png</iconset>
+   </property>
+   <property name="text">
+    <string>Disconnect</string>
+   </property>
+   <property name="toolTip">
+    <string>Disconnect from device</string>
    </property>
   </action>
   <action name="actionShowLog">

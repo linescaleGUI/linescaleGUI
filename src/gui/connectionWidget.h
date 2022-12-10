@@ -29,22 +29,20 @@
 #define CONNECTIONWIDGET_H_
 
 #include <QWidget>
-#include "ui_connectionwidget.h"
 
 namespace Ui {
 class ConnectionWidget;
 }
 
-class ConnectionWidget : public QWidget
-{
+class ConnectionWidget : public QWidget {
     Q_OBJECT
 
-public:
-    ConnectionWidget(QWidget *parent = nullptr);
+   public:
+    ConnectionWidget(QWidget* parent = nullptr);
     ~ConnectionWidget();
 
-private:
-    Ui::ConnectionWidget *ui;
+   private:
+    Ui::ConnectionWidget* ui;
 };
 
-#endif //CONNECTIONWIDGET_H_
+#endif  // CONNECTIONWIDGET_H_
