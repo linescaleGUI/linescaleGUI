@@ -20,7 +20,7 @@
  * @file notfications.h
  * @authors Gschwind, Weber, Schoch, Niederberger
  *
- * @brief Class to handle all notifications
+ * @brief Notification class declaration
  *
  */
 
@@ -31,22 +31,25 @@
 #include <QString>
 #include <QTextBrowser>
 
+/**
+ * @brief   Class to handle all notifications
+ */
 class Notification {
    public:
     /**
-     * Severity level to which notifications can be set
+     * @brief   Severity level to which notifications can be set
      */
     enum Severity {
-        SEVERITY_NONE,
-        SEVERITY_INFO,
-        SEVERITY_WARNING,
-        SEVERITY_ERROR
+        SEVERITY_NONE,      ///< No severity level is shown
+        SEVERITY_INFO,      ///< Severity level info
+        SEVERITY_WARNING,   ///< Severity level warning with colored text
+        SEVERITY_ERROR      ///< Severity level error with colored text and optional error dialog
     };
 
     /**
      * @brief   Constructor of the class
      * @param   textBrowser Pointer to a textBrowser to which the notifications
-     *          be written
+     *          are written
      */
     Notification(QTextBrowser* textBrowser);
 
