@@ -47,10 +47,9 @@ class MainWindow : public QMainWindow {
     MainWindow(QWidget* parent = nullptr);
     ~MainWindow();
 
+   private:
     /** @brief Open project in github with default browser */
     void openGitHubLink(void);
-
-   private:
     void sendResetPeak();
 
    private slots:

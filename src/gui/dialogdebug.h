@@ -55,7 +55,7 @@ class DialogDebug : public QDialog {
     void insertTreeCmd();
 
     /**
-     * @brief Insert the double clocked item from treeCmd into inputPayload
+     * @brief Insert the double clicked item from treeCmd into inputPayload
      *
      */
     void clickedTreeCmd();

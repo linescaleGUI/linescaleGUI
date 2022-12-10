@@ -37,7 +37,8 @@ DialogConfigure::DialogConfigure(comm::CommMaster* comm, QWidget* parent)
             &DialogConfigure::updateFreq);
 
     // Updates from commMaster
-    connect(comm, &comm::CommMaster::changedStateMaster, this, &DialogConfigure::toggleConnectionGroup);
+    connect(comm, &comm::CommMaster::changedStateMaster, this, [=](bool state){
+        ui->groupConnection->setEnabled(!state);});
 
     initWidget();
     reloadConnections();
@@ -59,10 +60,7 @@ void DialogConfigure::reloadConnections() {
 
 void DialogConfigure::requestConnection() {
     int index = ui->boxConnections->currentIndex();
-    qDebug() << devices[index].ID;
-
-    // disable group on success
-    toggleConnectionGroup((comm->addConnection(devices[index])));
+    comm->addConnection(devices[index]);
 }
 
 void DialogConfigure::initWidget() {
@@ -78,8 +76,4 @@ void DialogConfigure::updateFreq(int index) {
         ui->boxFreq->addItem("640 Hz");
         ui->boxFreq->addItem("1280 Hz");
     }
-}
-
-void DialogConfigure::toggleConnectionGroup(bool connected) {
-    ui->groupConnection->setEnabled(!connected);
 }

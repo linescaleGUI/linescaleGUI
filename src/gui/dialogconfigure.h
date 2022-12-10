@@ -52,7 +52,6 @@ class DialogConfigure : public QDialog {
     void requestConnection();
     void initWidget();
     void updateFreq(int index);
-    void toggleConnectionGroup(bool connected);
     Ui::DialogConfigure* ui;
     ConnectionWidget* wConn;
     comm::CommMaster* comm;

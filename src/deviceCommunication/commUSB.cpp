@@ -46,7 +46,7 @@ void CommUSB::disconnectDevice() {
     }
 };
 
-void CommUSB::sendData(QByteArray rawData) {
+void CommUSB::sendData(const QByteArray& rawData) {
     serialPort.write(rawData);
     serialPort.flush();
 };
@@ -82,6 +82,7 @@ bool CommUSB::connectDevice() {
     serialPort.setPortName(identifier.ID);
     connected = serialPort.open(QIODevice::ReadWrite);
     emit changedStateDevice(connected);
+    qDebug() << connected;
     return connected;
 }
 }  // namespace comm

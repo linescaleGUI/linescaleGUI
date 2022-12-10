@@ -74,7 +74,7 @@ class CommUSB : public CommDevice {
      *
      * @param rawData HEX command with CRC
      */
-    void sendData(QByteArray rawData) override;
+    void sendData(const QByteArray& rawData) override;
 
     /**
      * @brief Method to read the received data

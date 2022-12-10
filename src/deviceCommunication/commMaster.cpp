@@ -75,6 +75,7 @@ QList<DeviceInfo>& CommMaster::getAvailableDevices() {
     QList<QSerialPortInfo> listOfCOMPorts = QSerialPortInfo::availablePorts();
     for (int i = 0; i < listOfCOMPorts.length(); ++i) {
         // Check vendorID for LineScales or COM101 for debug
+        /// @todo Check vendorID on multiple devices/batches
         if (listOfCOMPorts[i].vendorIdentifier() == 0x1a86 ||
             listOfCOMPorts[i].portName() == "COM101") {
             DeviceInfo tmp;
@@ -85,18 +86,19 @@ QList<DeviceInfo>& CommMaster::getAvailableDevices() {
         }
     }
 
+    /// @todo remove already connected devices from this list
     /// @todo Add code for BLE pull
 
     return availableDevice;
 }
 
-void CommMaster::sendData(QByteArray& rawData) {
+void CommMaster::sendData(const QByteArray& rawData) {
     if (singleDevice != nullptr && rawData.length() > 0) {
         singleDevice->sendData(rawData);
     }
 }
 
-void CommMaster::sendData(QString& rawData) {
+void CommMaster::sendData(const QString& rawData) {
     bool bStatus;
     QString payload4Bit = rawData.leftJustified(8, '0');
     uint32_t nHex = payload4Bit.toULong(&bStatus, 16);
@@ -114,6 +116,7 @@ void CommMaster::getNewForce(float value) {
 }
 
 void CommMaster::getChangedState(bool connected) {
+    qDebug() << connected;
     emit changedStateMaster(connected);
 }
 }  // namespace comm

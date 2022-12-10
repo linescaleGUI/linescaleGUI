@@ -61,6 +61,9 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWi
     dAbout->setAttribute(Qt::WA_QuitOnClose, false);
     dDebug->setAttribute(Qt::WA_QuitOnClose, false);
     dConfig->setAttribute(Qt::WA_QuitOnClose, false);
+
+    // Init actions in the toolbar, deactivate actions that require a connected device
+    getChangedState(false);
 }
 
 MainWindow::~MainWindow() {

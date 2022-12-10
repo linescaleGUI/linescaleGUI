@@ -63,14 +63,14 @@ class CommMaster : public QObject {
      *
      * @param rawData QByteArray with the data to send (including CRC)
      */
-    void sendData(QByteArray& rawData);
+    void sendData(const QByteArray& rawData);
 
     /**
      * @brief Send data to the connected devices
      *
      * @param rawData QString with the msg as HEX characters
      */
-    void sendData(QString& rawData);
+    void sendData(const QString& rawData);
 
     /**
      * @brief Create connection
@@ -79,7 +79,7 @@ class CommMaster : public QObject {
      * @return true Connection established
      * @return false Connection failed
      */
-    bool addConnection(DeviceInfo identifier);
+    bool addConnection(const DeviceInfo identifier);
 
     /**
      * @brief Terminate the connection and remove all references with the class

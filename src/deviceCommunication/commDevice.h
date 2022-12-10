@@ -82,7 +82,7 @@ class CommDevice : public QObject {
      *
      * @param data HEX values as a QByteArray to send
      */
-    virtual void sendData(QByteArray data) { qDebug() << data; };
+    virtual void sendData(const QByteArray& data) { qDebug() << data; };
 
     /**
      * @brief Method to read data from the connected device.
@@ -104,28 +104,28 @@ class CommDevice : public QObject {
      *
      * @return int Current frequency in Hertz
      */
-    int getFreq() { return freq; };
+    int getFreq() const { return freq; };
 
     /**
      * @brief Get the Identifier of the connection
      *
      * @return QString Unique identifier for this connection
      */
-    QString getIdentifier() { return identifier; };
+    QString getIdentifier() const { return identifier; };
 
     /**
      * @brief Get the connection type of the connection
      *
      * @return ConnType enum with the type
      */
-    ConnType getConnType() { return type; };
+    ConnType getConnType() const { return type; };
 
     /**
      * @brief Get the connection status
      *
      * @return true if connected
      */
-    bool getStatus() { return connected; };
+    bool getStatus() const { return connected; };
 
    signals:
     /**
