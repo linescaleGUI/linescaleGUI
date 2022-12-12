@@ -25,8 +25,8 @@
  */
 
 #pragma once
-#ifndef NOTFICATIONS_H_
-#define NOTFICATIONS_H_
+#ifndef NOTIFICATIONS_H_
+#define NOTIFICATIONS_H_
 
 #include <QString>
 #include <QTextBrowser>
@@ -40,10 +40,10 @@ class Notification {
      * @brief   Severity level to which notifications can be set
      */
     enum Severity {
-        SEVERITY_NONE,      ///< No severity level is shown
-        SEVERITY_INFO,      ///< Severity level info
-        SEVERITY_WARNING,   ///< Severity level warning with colored text
-        SEVERITY_ERROR      ///< Severity level error with colored text and optional error dialog
+        SEVERITY_NONE,     ///< No severity level is shown
+        SEVERITY_INFO,     ///< Severity level info
+        SEVERITY_WARNING,  ///< Severity level warning with colored text
+        SEVERITY_ERROR     ///< Severity level error with colored text and optional error dialog
     };
 
     /**

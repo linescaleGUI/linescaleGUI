@@ -17,7 +17,7 @@
  * along with linescaleGUI. If not, see <http://www.gnu.org/licenses/>.       *
  ******************************************************************************/
 /**
- * @file notfications.cpp
+ * @file notifications.cpp
  * @authors Gschwind, Weber, Schoch, Niederberger
  *
  */
@@ -30,21 +30,21 @@ const QString Notification::stringColorStart[] = {
     "",
     "",
     "<font color=\"Orange\">",
-    "<font color=\"DeepPink\">"
+    "<font color=\"DeepPink\">",
 };
 
 const QString Notification::stringColorEnd[] = {
     "",
     "",
     "</font>",
-    "</font>"
+    "</font>",
 };
 
 const QString Notification::stringSeverity[] = {
     "",
     " Info",
     " Warning",
-    " Error"
+    " Error",
 };
 
 Notification::Notification(QTextBrowser* textBrowser) : textBrowser(textBrowser) {}
@@ -55,11 +55,13 @@ bool Notification::push(const QString& message, Severity severity, bool showDial
     }
 
     QTime time = QTime::currentTime();
-    QString string = stringColorStart[severity] + time.toString() + stringSeverity[severity] + ": " + stringColorEnd[severity] + message;
+    QString string = stringColorStart[severity] + time.toString() + stringSeverity[severity] +
+                     ": " + stringColorEnd[severity] + message;
     textBrowser->append(string);
 
     if ((severity == SEVERITY_ERROR) && (showDialog == true)) {
-        QMessageBox::critical(textBrowser->parentWidget(), stringSeverity[severity], message, QMessageBox::Cancel, QMessageBox::Cancel);
+        QMessageBox::critical(textBrowser->parentWidget(), stringSeverity[severity], message,
+                              QMessageBox::Cancel, QMessageBox::Cancel);
     }
 
     return true;
