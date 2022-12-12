@@ -17,57 +17,52 @@
  * along with linescaleGUI. If not, see <http://www.gnu.org/licenses/>.       *
  ******************************************************************************/
 /**
- * @file mainwindow.h
+ * @file notifications.cpp
  * @authors Gschwind, Weber, Schoch, Niederberger
- *
- * @brief Mainwindow for the project linescaleGUI
  *
  */
 
-#pragma once
-#ifndef MAINWINDOW_H_
-#define MAINWINDOW_H_
+#include "notification.h"
+#include <QMessageBox>
+#include <QTime>
 
-#include <QMainWindow>
-#include "../deviceCommunication/commMaster.h"
-#include "dialogabout.h"
-#include "dialogconfigure.h"
-#include "dialogdebug.h"
-#include "../notification/notification.h"
-
-QT_BEGIN_NAMESPACE
-namespace Ui {
-class MainWindow;
-}
-QT_END_NAMESPACE
-
-class MainWindow : public QMainWindow {
-    Q_OBJECT
-
-   public:
-    MainWindow(QWidget* parent = nullptr);
-    ~MainWindow();
-
-   private:
-    /** @brief Open project in github with default browser */
-    void openGitHubLink(void);
-    void showLog(void);
-    void sendResetPeak();
-
-   private slots:
-    void getNewForce(float value);
-    void getChangedState(bool connected);
-    void triggerReadings();
-
-   private:
-    Ui::MainWindow* ui;
-    comm::CommMaster* comm;
-    DialogAbout* dAbout;
-    DialogDebug* dDebug;
-    DialogConfigure* dConfig;
-    Notification* notification;
-    float maxValue = 0;
-    bool reading;
+const QString Notification::stringColorStart[] = {
+    "",
+    "",
+    "<font color=\"Orange\">",
+    "<font color=\"DeepPink\">",
 };
 
-#endif  // MAINWINDOW_H_
+const QString Notification::stringColorEnd[] = {
+    "",
+    "",
+    "</font>",
+    "</font>",
+};
+
+const QString Notification::stringSeverity[] = {
+    "",
+    " Info",
+    " Warning",
+    " Error",
+};
+
+Notification::Notification(QTextBrowser* textBrowser) : textBrowser(textBrowser) {}
+
+bool Notification::push(const QString& message, Severity severity, bool showDialog) {
+    if ((textBrowser == nullptr) || (severity < SEVERITY_NONE) || (severity > SEVERITY_ERROR)) {
+        return false;
+    }
+
+    QTime time = QTime::currentTime();
+    QString string = stringColorStart[severity] + time.toString() + stringSeverity[severity] +
+                     ": " + stringColorEnd[severity] + message;
+    textBrowser->append(string);
+
+    if ((severity == SEVERITY_ERROR) && (showDialog == true)) {
+        QMessageBox::critical(textBrowser->parentWidget(), stringSeverity[severity], message,
+                              QMessageBox::Cancel, QMessageBox::Cancel);
+    }
+
+    return true;
+}

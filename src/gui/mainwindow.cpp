@@ -28,10 +28,12 @@
 #include <QStandardPaths>
 #include <QTimer>
 #include "ui_mainwindow.h"
+#include "../notification/notification.h"
 
 MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWindow) {
     ui->setupUi(this);
 
+    notification = new Notification(ui->textBrowserLog);
     comm = new comm::CommMaster();
 
     dAbout = new DialogAbout(this);
@@ -44,6 +46,7 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWi
     connect(ui->actionAbout, &QAction::triggered, dAbout, &DialogAbout::show);
     connect(ui->actionGitHub, &QAction::triggered, this, &MainWindow::openGitHubLink);
     connect(ui->actionDebug, &QAction::triggered, dDebug, &DialogDebug::show);
+    connect(ui->actionShowLog, &QAction::triggered, this, &MainWindow::showLog);
 
     // Tool bar actions
     connect(ui->actionConfigure, &QAction::triggered, dConfig, &DialogConfigure::show);
@@ -62,6 +65,9 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWi
     dDebug->setAttribute(Qt::WA_QuitOnClose, false);
     dConfig->setAttribute(Qt::WA_QuitOnClose, false);
 
+    // Set default log visibility to match the actionShowLog button
+    showLog();
+
     // Init actions in the toolbar, deactivate actions that require a connected device
     getChangedState(false);
 }
@@ -69,10 +75,16 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWi
 MainWindow::~MainWindow() {
     delete comm;
     delete ui;
+    delete notification;
 }
 
 void MainWindow::openGitHubLink(void) {
     QDesktopServices::openUrl(QUrl("https://github.com/linescaleGUI/linescaleGUI"));
+}
+
+void MainWindow::showLog(void) {
+    bool isChecked = ui->actionShowLog->isChecked();
+    ui->textBrowserLog->setVisible(isChecked);
 }
 
 void MainWindow::sendResetPeak() {
