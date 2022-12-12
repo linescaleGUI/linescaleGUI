@@ -37,6 +37,9 @@
         <verstretch>0</verstretch>
        </sizepolicy>
       </property>
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
       <property name="childrenCollapsible">
        <bool>false</bool>
       </property>
@@ -137,7 +140,7 @@
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
             <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
+            <verstretch>2</verstretch>
            </sizepolicy>
           </property>
           <property name="baseSize">
@@ -177,6 +180,9 @@
            </item>
            <item>
             <widget class="QPushButton" name="btnSetZero">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
              <property name="sizePolicy">
               <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                <horstretch>0</horstretch>
@@ -202,7 +208,7 @@
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
             <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
+            <verstretch>2</verstretch>
            </sizepolicy>
           </property>
           <property name="baseSize">
@@ -346,7 +352,7 @@
   </action>
   <action name="actionDebug">
    <property name="checkable">
-    <bool>true</bool>
+    <bool>false</bool>
    </property>
    <property name="text">
     <string>Debug</string>
@@ -355,7 +361,7 @@
   <action name="actionConfigure">
    <property name="icon">
     <iconset resource="../../assets/resource.qrc">
-     <normaloff>:/linescaleGUI/icons/settings.png</normaloff>:/linescaleGUI/icons/settings.png</iconset>
+     <normaloff>:/linescaleGUI/icons/connect.png</normaloff>:/linescaleGUI/icons/connect.png</iconset>
    </property>
    <property name="text">
     <string>Configure</string>

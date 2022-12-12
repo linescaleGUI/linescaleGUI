@@ -53,6 +53,7 @@ class MainWindow : public QMainWindow {
     void openGitHubLink(void);
     void showLog(void);
     void sendResetPeak();
+    void initDeviceWidget();
 
    private slots:
     void getNewForce(float value);
@@ -66,6 +67,7 @@ class MainWindow : public QMainWindow {
     DialogDebug* dDebug;
     DialogConfigure* dConfig;
     Notification* notification;
+    ConnectionWidget* connectionWidget;
     float maxValue = 0;
     bool reading;
 };

@@ -50,10 +50,9 @@ class DialogConfigure : public QDialog {
      */
     void reloadConnections();
     void requestConnection();
-    void initWidget();
+    // void initWidget();
     void updateFreq(int index);
     Ui::DialogConfigure* ui;
-    ConnectionWidget* wConn;
     comm::CommMaster* comm;
     QList<comm::DeviceInfo> devices;
 };

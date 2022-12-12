@@ -26,8 +26,13 @@
 #include <QPushButton>
 #include "ui_connectionWidget.h"
 
-ConnectionWidget::ConnectionWidget(QWidget* parent) : QWidget(parent), ui(new Ui::ConnectionWidget) {
+ConnectionWidget::ConnectionWidget(comm::CommMaster* comm, QWidget* parent)
+    : QWidget(parent), ui(new Ui::ConnectionWidget) {
     ui->setupUi(this);
+    communication = comm;
+
+    connect(ui->btnRemove, &QPushButton::pressed, this,
+            [=] { communication->removeConnection(); });
 }
 
 ConnectionWidget::~ConnectionWidget() {

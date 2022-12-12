@@ -27,8 +27,8 @@
 #include <QFileDialog>
 #include <QStandardPaths>
 #include <QTimer>
-#include "ui_mainwindow.h"
 #include "../notification/notification.h"
+#include "ui_mainwindow.h"
 
 MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWindow) {
     ui->setupUi(this);
@@ -64,6 +64,9 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWi
     dAbout->setAttribute(Qt::WA_QuitOnClose, false);
     dDebug->setAttribute(Qt::WA_QuitOnClose, false);
     dConfig->setAttribute(Qt::WA_QuitOnClose, false);
+
+    // Add connectionWidget to right layout
+    initDeviceWidget();
 
     // Set default log visibility to match the actionShowLog button
     showLog();
@@ -119,4 +122,10 @@ void MainWindow::getChangedState(bool connected) {
     ui->actionDisconnect->setEnabled(connected);
     ui->actionStartStop->setEnabled(connected);
     ui->actionConfigure->setEnabled(!connected);
+    connectionWidget->setEnabled(connected);
+}
+
+void MainWindow::initDeviceWidget() {
+    connectionWidget = new ConnectionWidget(comm, this);
+    ui->layoutRight->addWidget(connectionWidget);
 }

@@ -29,10 +29,12 @@
 DialogConfigure::DialogConfigure(comm::CommMaster* comm, QWidget* parent)
     : QDialog(parent), ui(new Ui::DialogConfigure) {
     ui->setupUi(this);
+    setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
     this->comm = comm;
 
     // Button action
     connect(ui->btnConnect, &QPushButton::pressed, this, &DialogConfigure::requestConnection);
+    connect(ui->btnReload, &QPushButton::pressed, this, &DialogConfigure::reloadConnections);
     connect(ui->boxConnections, QOverload<int>::of(&QComboBox::currentIndexChanged), this,
             &DialogConfigure::updateFreq);
 
@@ -40,12 +42,11 @@ DialogConfigure::DialogConfigure(comm::CommMaster* comm, QWidget* parent)
     connect(comm, &comm::CommMaster::changedStateMaster, this, [=](bool state){
         ui->groupConnection->setEnabled(!state);});
 
-    initWidget();
     reloadConnections();
 }
 
 DialogConfigure::~DialogConfigure() {
-    delete wConn;
+    // delete wConn;
     delete ui;
 }
 
@@ -60,12 +61,8 @@ void DialogConfigure::reloadConnections() {
 
 void DialogConfigure::requestConnection() {
     int index = ui->boxConnections->currentIndex();
-    comm->addConnection(devices[index]);
-}
-
-void DialogConfigure::initWidget() {
-    wConn = new ConnectionWidget();
-    ui->frameLayout->addWidget(wConn);
+    bool success = comm->addConnection(devices[index]);
+    if(success) {close();}
 }
 
 void DialogConfigure::updateFreq(int index) {

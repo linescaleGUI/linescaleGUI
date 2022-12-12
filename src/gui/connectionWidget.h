@@ -29,6 +29,7 @@
 #define CONNECTIONWIDGET_H_
 
 #include <QWidget>
+#include "../deviceCommunication/commMaster.h"
 
 namespace Ui {
 class ConnectionWidget;
@@ -38,11 +39,12 @@ class ConnectionWidget : public QWidget {
     Q_OBJECT
 
    public:
-    ConnectionWidget(QWidget* parent = nullptr);
+    ConnectionWidget(comm::CommMaster* comm, QWidget* parent = nullptr);
     ~ConnectionWidget();
 
    private:
     Ui::ConnectionWidget* ui;
+    comm::CommMaster* communication;
 };
 
 #endif  // CONNECTIONWIDGET_H_

@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="linescaleGUI">
+    <file>icons/connect.png</file>
     <file>icons/remove.png</file>
     <file>icons/battery15.png</file>
     <file>icons/battery50.png</file>
