@@ -86,7 +86,7 @@
           <property name="childrenCollapsible">
            <bool>false</bool>
           </property>
-          <widget class="QWidget" name="widgetChart" native="true">
+          <widget class="Plot" name="widgetChart" native="true">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
              <horstretch>0</horstretch>
@@ -293,7 +293,7 @@
      <x>0</x>
      <y>0</y>
      <width>979</width>
-     <height>22</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -421,6 +421,9 @@
    <class>ConnectionWidget</class>
    <extends>QWidget</extends>
    <header location="global">gui/connectionWidget.h</header>
+   <class>Plot</class>
+   <extends>QWidget</extends>
+   <header>gui/plotWidget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

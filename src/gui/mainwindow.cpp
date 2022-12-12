@@ -34,6 +34,21 @@
 MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWindow) {
     ui->setupUi(this);
 
+    plotTimer = new QTimer(this);
+    plotTimer->setSingleShot(true);
+    plotTimer->setInterval(16); // TODO: faster?
+
+    // auto testTimer = new QTimer(this);
+    // testTimer->setInterval(1000.0 / 40.0);
+    // connect(testTimer, &QTimer::timeout, this, [=] {
+    //     static float time = 0;
+
+    //     this->getNewForce(time, 10.0 * sinf(1 * 3.14159 * 2 * time));
+
+    //     time += 1.0 / 40.0;
+    // });
+    // testTimer->start();
+
     notification = new Notification(ui->textBrowserLog);
     comm = new comm::CommMaster();
 
@@ -41,6 +56,9 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWi
     dDebug = new DialogDebug(comm, this);
     dConnect = new DialogConnect(comm, this);
     ui->widgetConnection->setCommunicationMaster(comm);
+
+    // timers
+    connect(plotTimer, &QTimer::timeout, this, &MainWindow::redrawPlot);
 
     // menu actions
     connect(ui->actionAbout_Qt, &QAction::triggered, qApp, &QApplication::aboutQt);
@@ -113,6 +131,14 @@ void MainWindow::receiveNewForce(float value) {
         ui->lblPeakForce->setText(QString("%1 kN").arg(value, 3, 'f', 2));
     }
     ui->lblCurrentForce->setText(QString("%1 kN").arg(value, 0, 'f', 2));
+
+    // TODO: remove hack
+    if (!isnan(time)) {
+        ui->widgetChart->addData(time, value);
+        if (!plotTimer->isActive()) {
+            plotTimer->start();
+        }
+    }
 }
 
 void MainWindow::toggleActions(bool connected) {

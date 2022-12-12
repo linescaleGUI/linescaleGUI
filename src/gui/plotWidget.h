@@ -17,80 +17,57 @@
  * along with linescaleGUI. If not, see <http://www.gnu.org/licenses/>.       *
  ******************************************************************************/
 /**
- * @file commUSB.h
+ * @file plotWidget.h
  * @authors Gschwind, Weber, Schoch, Niederberger
  *
- * @brief Child class for USB connection
- *
+ * @brief Plotting functionality based on QCustomPlot
  *
  */
 
 #pragma once
-#ifndef COMMUSB_H_
-#define COMMUSB_H_
+#ifndef PLOTWIDGET_H_
+#define PLOTWIDGET_H_
 
-#include <QDebug>
-#include <QHash>
-#include <QObject>
-#include <QSerialPort>
-#include <QSerialPortInfo>
-#include "commDevice.h"
+#include <QCustomPlot/qcustomplot.h>
+#include <QWidget>
 
-namespace comm {
-
-class CommUSB : public CommDevice {
-    Q_OBJECT
-
+class Plot : public QWidget {
    public:
-    /**
-     * @brief Construct a new Comm USB object
-     *
-     * @param identifier Struct with the needed informations about the planned
-     * connection
-     */
-    CommUSB(DeviceInfo identifier);
 
     /**
-     * @brief Disconnect from device and destroy the Comm USB object
-     *
+     * @brief Create a new Plot widget.
+     * @param parent The parent widget or `nullptr`.
      */
-    virtual ~CommUSB();
+    Plot(QWidget* parent = nullptr);
 
     /**
-     * @brief Implementation for USB, connect to device as set in the Ctor
-     *
-     * @return true / false on success or failure of the connection
+     * @brief Add a single data point without repainting.
+     * @param time Horizontal value (time).
+     * @param force Vertical value (force).
      */
-    bool connectDevice() override;
-
+    void addData(double time, double force);
+    
     /**
-     * @brief Disconnect from USB device
-     *
+     * @brief 
      */
-    void disconnectDevice() override;
+    void replot();
 
-    /**
-     * @brief Send data to connected USB device
-     *
-     * @param rawData HEX command with CRC
-     */
-    void sendData(const QByteArray& rawData) override;
+    private:
+    void removeSelectedGraph();
 
-    /**
-     * @brief Method to read the received data
-     *
-     */
-    void readData() override;
-
-   private:
-    void handleError(QSerialPort::SerialPortError error);
-
-    QSerialPort serialPort;
-    DeviceInfo identifier;
-    QString COMbuffer;
-    float currTime = 0;
+   private slots:
+    void axisLabelDoubleClick(QCPAxis* axis, QCPAxis::SelectablePart part);
+    void legendDoubleClick(QCPLegend* legend, QCPAbstractLegendItem* item);
+    void selectionChanged();
+    void mousePress();
+    void mouseWheel();
+    void contextMenuRequest(QPoint pos);
+    void moveLegend();
+    void graphClicked(QCPAbstractPlottable* plottable, int dataIndex);
+    private:
+    QCustomPlot* customPlot;
+    float minValue = 0.0, maxValue = 0.0;
+    float lastTime = 0.0;
 };
 
-}  // namespace comm
-
-#endif  // COMMUSB_H_
+#endif //PLOTWIDGET_H_
