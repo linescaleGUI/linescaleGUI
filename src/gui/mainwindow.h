@@ -33,7 +33,7 @@
 #include "dialogabout.h"
 #include "dialogconfigure.h"
 #include "dialogdebug.h"
-#include "../notfication.h"
+#include "../notification/notification.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {

@@ -22,7 +22,7 @@
  *
  */
 
-#include "notfication.h"
+#include "notification.h"
 #include <QMessageBox>
 #include <QTime>
 

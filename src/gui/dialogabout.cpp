@@ -38,7 +38,6 @@ DialogAbout::~DialogAbout() {
 void DialogAbout::replaceVersionInfo() {
     QString currentText = ui->lblAbout->text();
 
-    static_assert(sizeof(version::gitRev) >= 8);
     QString rev = QString::fromUtf8(version::gitRev, 8);
 
     currentText.replace("#GitHash", rev)

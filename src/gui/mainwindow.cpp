@@ -28,7 +28,7 @@
 #include <QStandardPaths>
 #include <QTimer>
 #include "ui_mainwindow.h"
-#include "../notfication.h"
+#include "../notification/notification.h"
 
 MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWindow) {
     ui->setupUi(this);
@@ -83,11 +83,8 @@ void MainWindow::openGitHubLink(void) {
 }
 
 void MainWindow::showLog(void) {
-    if(ui->actionShowLog->isChecked()) {
-        ui->textBrowserLog->setVisible(true);
-    } else {
-        ui->textBrowserLog->setVisible(false);
-    }
+    bool isChecked = ui->actionShowLog->isChecked();
+    ui->textBrowserLog->setVisible(isChecked);
 }
 
 void MainWindow::sendResetPeak() {
