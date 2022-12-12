@@ -28,12 +28,15 @@
 #ifndef PLOTWIDGET_H_
 #define PLOTWIDGET_H_
 
-#include <QCustomPlot/qcustomplot.h>
+// #include <QCustomPlot/qcustomplot.h>
+#include <QtCharts/QChart>
+#include <QtCharts/QChartView>
+#include <QtCharts/QValueAxis>
 #include <QWidget>
 
 class Plot : public QWidget {
+    Q_OBJECT
    public:
-
     /**
      * @brief Create a new Plot widget.
      * @param parent The parent widget or `nullptr`.
@@ -46,28 +49,27 @@ class Plot : public QWidget {
      * @param force Vertical value (force).
      */
     void addData(double time, double force);
-    
+
     /**
-     * @brief 
+     * @brief
      */
     void replot();
 
-    private:
-    void removeSelectedGraph();
-
    private slots:
-    void axisLabelDoubleClick(QCPAxis* axis, QCPAxis::SelectablePart part);
-    void legendDoubleClick(QCPLegend* legend, QCPAbstractLegendItem* item);
+    // void axisLabelDoubleClick(QCPAxis* axis, QCPAxis::SelectablePart part);
+    // void legendDoubleClick(QCPLegend* legend, QCPAbstractLegendItem* item);
     void selectionChanged();
     void mousePress();
     void mouseWheel();
     void contextMenuRequest(QPoint pos);
-    void moveLegend();
-    void graphClicked(QCPAbstractPlottable* plottable, int dataIndex);
-    private:
-    QCustomPlot* customPlot;
+    // void graphClicked(QCPAbstractPlottable* plottable, int dataIndex);
+   private:
     float minValue = 0.0, maxValue = 0.0;
     float lastTime = 0.0;
+
+    QtCharts::QChart* chart;
+    QtCharts::QChartView* chartView;
+    QtCharts::QValueAxis *xAxis, *yAxis;
 };
 
-#endif //PLOTWIDGET_H_
+#endif  // PLOTWIDGET_H_

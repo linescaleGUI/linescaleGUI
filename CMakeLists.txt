@@ -78,9 +78,9 @@ target_include_directories(libLinescaleGUI PUBLIC
   $<BUILD_INTERFACE:${AUTOGEN_INCLUDE_DIR}>
 )
 
-target_link_libraries(linescaleGUI PRIVATE Qt::Widgets libLinescaleGUI)
+target_link_libraries(linescaleGUI PRIVATE ${QT_DEPENDENCIES} libLinescaleGUI)
 target_compile_options(linescaleGUI PRIVATE ${warning_compile_options})
-target_link_libraries(libLinescaleGUI PRIVATE ${QT_DEPENDENCIES} qcustomplot)
+target_link_libraries(libLinescaleGUI PRIVATE ${QT_DEPENDENCIES})
 target_compile_options(libLinescaleGUI PRIVATE ${warning_compile_options})
 target_compile_definitions(libLinescaleGUI PUBLIC $<IF:$<CONFIG:Debug>,,QT_NO_DEBUG_OUTPUT>)
 target_compile_definitions(linescaleGUI PUBLIC $<IF:$<CONFIG:Debug>,,QT_NO_DEBUG_OUTPUT>)

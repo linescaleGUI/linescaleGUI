@@ -37,16 +37,16 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWi
     plotTimer->setSingleShot(true);
     plotTimer->setInterval(16); // TODO: faster?
 
-    // auto testTimer = new QTimer(this);
-    // testTimer->setInterval(1000.0 / 40.0);
-    // connect(testTimer, &QTimer::timeout, this, [=] {
-    //     static float time = 0;
+    auto testTimer = new QTimer(this);
+    testTimer->setInterval(1000.0 / 40.0);
+    connect(testTimer, &QTimer::timeout, this, [=] {
+        static float time = 0;
 
-    //     this->getNewForce(time, 10.0 * sinf(1 * 3.14159 * 2 * time));
+        this->getNewForce(time, 10.0 * sinf(1 * 3.14159 * 2 * time));
 
-    //     time += 1.0 / 40.0;
-    // });
-    // testTimer->start();
+        time += 1.0 / 40.0;
+    });
+    testTimer->start();
 
     notification = new Notification(ui->textBrowserLog);
     comm = new comm::CommMaster();
