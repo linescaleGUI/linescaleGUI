@@ -17,7 +17,7 @@
  * along with linescaleGUI. If not, see <http://www.gnu.org/licenses/>.       *
  ******************************************************************************/
 /**
- * @file notfications.h
+ * @file notifications.h
  * @authors Gschwind, Weber, Schoch, Niederberger
  *
  * @brief Notification class declaration
@@ -71,4 +71,4 @@ class Notification {
     QTextBrowser* textBrowser;
 };
 
-#endif  // NOTFICATIONS_H_
+#endif  // NOTIFICATIONS_H_
