@@ -42,7 +42,7 @@ struct DataStruct {
     double measuredValue;
     MeasureMode measureMode;
     double referenceZero;
-    char batteryPercent;
+    int batteryPercent;
     UnitValue unitValue;
     int frequency;
     /* data */

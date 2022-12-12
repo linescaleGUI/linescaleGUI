@@ -35,10 +35,6 @@ using namespace std;
 Parser::Parser() {}
 Parser::~Parser() {}
 
-
-
-
-
 bool& Parser::parsePackage(QByteArray& package, DataStruct& data) {
     static bool dataOk = true;
     parsePackage(package, data, dataOk);
@@ -57,26 +53,8 @@ DataStruct& Parser::parsePackage(QByteArray& package, DataStruct& data, bool& da
         parseUnitValue(package, data, dataOK);
         parseFrequency(package, data, dataOK);
     }
-    /*Print data to Terminal
-
-    if (dataOK) {
-
-        cout << "WorkingMode:\t" << int(data.workingMode) << endl;
-        cout << "measuredValue:\t" << data.measuredValue << endl;
-        cout << "measureMode:\t" << int(data.measureMode) << endl;
-        cout << "referenceZero:\t" << data.referenceZero << endl;
-        cout << "batteryPercent:\t" << int(data.batteryPercent) << endl;
-        cout << "unitValue:\t" << int(data.unitValue) << endl;
-        cout << "frequency:\t" << data.frequency << endl;
-        cout << "dataOK:\t\t" << int(dataOK) << endl;
-
-    } else {
-        cout << "Message is faulty" << endl;
-    }*/
     return data;
 }
-
-
 
 bool Parser::checkPackage(QByteArray& package) {
     QByteArray value;
@@ -94,7 +72,6 @@ bool Parser::checkPackage(QByteArray& package) {
     for (int i = valueStart; i < valueLength + valueStart; i++) {
         value.append(package.at(i));
     }
-    int test = checkVal % 100;
     if ((checkVal % 100) == value.toInt()) {
         return true;
     } else {
