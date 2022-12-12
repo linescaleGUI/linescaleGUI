@@ -17,61 +17,57 @@
  * along with linescaleGUI. If not, see <http://www.gnu.org/licenses/>.       *
  ******************************************************************************/
 /**
- * @file mainwindow.h
+ * @file plotWidget.h
  * @authors Gschwind, Weber, Schoch, Niederberger
  *
- * @brief Mainwindow for the project linescaleGUI
+ * @brief Plotting functionality based on QCustomPlot
  *
  */
 
 #pragma once
-#ifndef MAINWINDOW_H_
-#define MAINWINDOW_H_
+#ifndef PLOTWIDGET_H_
+#define PLOTWIDGET_H_
 
-#include <QMainWindow>
-#include "../deviceCommunication/commMaster.h"
-#include "dialogabout.h"
-#include "dialogconfigure.h"
-#include "dialogdebug.h"
-#include "../notification/notification.h"
-#include "plotWidget.h"
+#include <QCustomPlot/qcustomplot.h>
+#include <QWidget>
 
-QT_BEGIN_NAMESPACE
-namespace Ui {
-class MainWindow;
-}
-QT_END_NAMESPACE
-
-class MainWindow : public QMainWindow {
-    Q_OBJECT
-
+class Plot : public QWidget {
    public:
-    MainWindow(QWidget* parent = nullptr);
-    ~MainWindow();
 
-   private:
-    /** @brief Open project in github with default browser */
-    void openGitHubLink(void);
-    void showLog(void);
-    void sendResetPeak();
+    /**
+     * @brief Create a new Plot widget.
+     * @param parent The parent widget or `nullptr`.
+     */
+    Plot(QWidget* parent = nullptr);
+
+    /**
+     * @brief Add a single data point without repainting.
+     * @param time Horizontal value (time).
+     * @param force Vertical value (force).
+     */
+    void addData(double time, double force);
+    
+    /**
+     * @brief 
+     */
+    void replot();
+
+    private:
+    void removeSelectedGraph();
 
    private slots:
-    void getNewForce(float time, float value);
-    void getChangedState(bool connected);
-    void triggerReadings();
-    void redrawPlot();
-
-   private:
-    Ui::MainWindow* ui;
-    comm::CommMaster* comm;
-    DialogAbout* dAbout;
-    DialogDebug* dDebug;
-    DialogConfigure* dConfig;
-    Notification* notification;
-    Plot* plot;
-    float maxValue = 0;
-    bool reading;
-    QTimer* plotTimer;
+    void axisLabelDoubleClick(QCPAxis* axis, QCPAxis::SelectablePart part);
+    void legendDoubleClick(QCPLegend* legend, QCPAbstractLegendItem* item);
+    void selectionChanged();
+    void mousePress();
+    void mouseWheel();
+    void contextMenuRequest(QPoint pos);
+    void moveLegend();
+    void graphClicked(QCPAbstractPlottable* plottable, int dataIndex);
+    private:
+    QCustomPlot* customPlot;
+    float minValue = 0.0, maxValue = 0.0;
+    float lastTime = 0.0;
 };
 
-#endif  // MAINWINDOW_H_
+#endif //PLOTWIDGET_H_

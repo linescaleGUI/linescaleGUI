@@ -93,7 +93,7 @@ class CommMaster : public QObject {
      *
      * @param value Force from device (unit as set on device)
      */
-    void newForceMaster(float value);
+    void newForceMaster(float time, float value);
 
     /**
      * @brief Emit after status change
@@ -108,7 +108,7 @@ class CommMaster : public QObject {
      *
      * @param value Force from device (unit as set on device)
      */
-    void getNewForce(float value);
+    void getNewForce(float time, float value);
 
     /**
      * @brief Slot to receive the updated state from a deviceClass

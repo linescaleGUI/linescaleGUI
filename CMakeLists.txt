@@ -11,10 +11,9 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(Qt5 REQUIRED COMPONENTS Core Widgets Charts SerialPort Bluetooth)
+find_package(Qt5 REQUIRED COMPONENTS Core Widgets Charts SerialPort Bluetooth PrintSupport)
 
 set(VERSION_FILE "${CMAKE_CURRENT_BINARY_DIR}/include/version.h")
-include_directories("${CMAKE_CURRENT_BINARY_DIR}/include" "${CMAKE_CURRENT_BINARY_DIR}/src")
 
 # Glob source files and add some manually.
 file(GLOB_RECURSE PROJECT_SOURCES LIST_DIRECTORIES false CONFIGURE_DEPENDS "src/*.cpp" "src/*.h" "src/*.ui")
@@ -25,13 +24,17 @@ set(APPICON_WIN "${CMAKE_CURRENT_SOURCE_DIR}/assets/app/appIcon.rc")
 
 # Also create a library for testing.
 add_library(libLinescaleGUI ${PROJECT_SOURCES})
-
 add_executable(linescaleGUI
     src/main.cpp
     "${VERSION_FILE}"
     ${QRC_SRCS}
     ${APPICON_WIN} # add custom app icon
 )
+
+target_include_directories(libLinescaleGUI SYSTEM PRIVATE lib)
+target_include_directories(linescaleGUI SYSTEM PRIVATE lib)
+target_include_directories(libLinescaleGUI PRIVATE src include "${CMAKE_BINARY_DIR}/include")
+
 
 if(DEFINED WARNINGS_AS_ERRORS)
     if(MSVC)
@@ -58,11 +61,12 @@ add_custom_target(VersionFile ALL
 include(tools/cmake/version.cmake)
 
 set(QT_DEPENDENCIES
-    Qt${QT_VERSION_MAJOR}::Core
-    Qt${QT_VERSION_MAJOR}::Widgets
-    Qt${QT_VERSION_MAJOR}::Charts
-    Qt${QT_VERSION_MAJOR}::SerialPort
-    Qt${QT_VERSION_MAJOR}::Bluetooth)
+    Qt::Core
+    Qt::Widgets
+    Qt::Charts
+    Qt::SerialPort
+    Qt::Bluetooth
+    Qt::PrintSupport)
 
 get_property(_isMultiConfig GLOBAL PROPERTY GENERATOR_IS_MULTI_CONFIG)
 if(_isMultiConfig)
@@ -74,19 +78,23 @@ target_include_directories(libLinescaleGUI PUBLIC
   $<BUILD_INTERFACE:${AUTOGEN_INCLUDE_DIR}>
 )
 
-target_link_libraries(linescaleGUI PRIVATE Qt${QT_VERSION_MAJOR}::Widgets libLinescaleGUI)
-target_link_libraries(libLinescaleGUI PRIVATE ${QT_DEPENDENCIES})
-
+target_link_libraries(linescaleGUI PRIVATE Qt::Widgets libLinescaleGUI)
 target_compile_options(linescaleGUI PRIVATE ${warning_compile_options})
+target_link_libraries(libLinescaleGUI PRIVATE ${QT_DEPENDENCIES} qcustomplot)
 target_compile_options(libLinescaleGUI PRIVATE ${warning_compile_options})
+target_compile_definitions(libLinescaleGUI PUBLIC $<IF:$<CONFIG:Debug>,,QT_NO_DEBUG_OUTPUT>)
+target_compile_definitions(linescaleGUI PUBLIC $<IF:$<CONFIG:Debug>,,QT_NO_DEBUG_OUTPUT>)
 
 set_target_properties(linescaleGUI PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER linegrip.com
     MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
     MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
     MACOSX_BUNDLE TRUE
-    # WIN32_EXECUTABLE TRUE # Comment for std::cout and qDebug
 )
+if(NOT CMAKE_BUILD_TYPE STREQUAL "Debug")
+    set_target_properties(linescaleGUI PROPERTIES
+        WIN32_EXECUTABLE TRUE)
+endif()
 
 include(tools/cmake/windeployqt.cmake)
 if(WIN32)
@@ -103,3 +111,4 @@ add_custom_command(
 
 enable_testing()
 add_subdirectory(tests)
+add_subdirectory(lib)

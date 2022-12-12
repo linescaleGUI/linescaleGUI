@@ -111,8 +111,8 @@ void CommMaster::sendData(const QString& rawData) {
     sendData(rawHexData);
 }
 
-void CommMaster::getNewForce(float value) {
-    emit newForceMaster(value);
+void CommMaster::getNewForce(float time, float value) {
+    emit newForceMaster(time, value);
 }
 
 void CommMaster::getChangedState(bool connected) {
