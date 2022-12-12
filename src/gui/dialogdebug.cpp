@@ -53,7 +53,6 @@ void DialogDebug::insertTreeCmd() {
     QTreeWidgetItem* cItem = ui->treeCmd->currentItem();
     if (cItem && cItem->childCount() == 0) {
         QString payload = cItem->data(1, 0).toString();
-        qDebug() << payload;
         ui->inputPayload->setText(payload);
     } else {
         // ignore group items with no child object

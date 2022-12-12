@@ -116,7 +116,27 @@ void CommMaster::getNewForce(float value) {
 }
 
 void CommMaster::getChangedState(bool connected) {
-    qDebug() << connected;
     emit changedStateMaster(connected);
+}
+
+void CommMaster::setNewFreq(int newFreq) {
+    QString cmd;
+    switch (newFreq) {
+        case 10:
+            cmd = "530D0A6A";
+            break;
+        case 40:
+            cmd = "460D0A5D";
+            break;
+        case 640:
+            cmd = "4D0D0A64";
+            break;
+        case 1280:
+            cmd = "510D0A68";
+            break;
+        default:
+            break;
+    }
+    sendData(cmd);
 }
 }  // namespace comm

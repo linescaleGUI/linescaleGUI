@@ -39,8 +39,8 @@ DialogConfigure::DialogConfigure(comm::CommMaster* comm, QWidget* parent)
             &DialogConfigure::updateFreq);
 
     // Updates from commMaster
-    connect(comm, &comm::CommMaster::changedStateMaster, this, [=](bool state){
-        ui->groupConnection->setEnabled(!state);});
+    connect(comm, &comm::CommMaster::changedStateMaster, this,
+            [=](bool state) { ui->groupConnection->setEnabled(!state); });
 
     reloadConnections();
 }
@@ -62,15 +62,23 @@ void DialogConfigure::reloadConnections() {
 void DialogConfigure::requestConnection() {
     int index = ui->boxConnections->currentIndex();
     bool success = comm->addConnection(devices[index]);
-    if(success) {close();}
+    if (success) {
+        comm->setNewFreq(ui->boxFreq->currentData().toInt());
+        close();
+    }
 }
 
 void DialogConfigure::updateFreq(int index) {
+    if (devices.length() < index || index < 0) {
+        return;
+    }
+
     ui->boxFreq->clear();
-    ui->boxFreq->addItem("10 Hz");
-    ui->boxFreq->addItem("40 Hz");
+    ui->boxFreq->addItem("10 Hz", int(10));
+    ui->boxFreq->addItem("40 Hz", int(40));
+
     if (devices[index].type == comm::ConnType::USB) {
-        ui->boxFreq->addItem("640 Hz");
-        ui->boxFreq->addItem("1280 Hz");
+        ui->boxFreq->addItem("640 Hz", int(640));
+        ui->boxFreq->addItem("1280 Hz", int(1280));
     }
 }

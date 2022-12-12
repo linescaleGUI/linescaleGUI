@@ -46,28 +46,8 @@
       <item row="1" column="1">
        <widget class="QComboBox" name="boxFreq">
         <property name="enabled">
-         <bool>false</bool>
+         <bool>true</bool>
         </property>
-        <item>
-         <property name="text">
-          <string>10Hz</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>40Hz</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>640Hz</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>1280Hz</string>
-         </property>
-        </item>
        </widget>
       </item>
       <item row="1" column="0">
