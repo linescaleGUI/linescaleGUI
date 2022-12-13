@@ -69,7 +69,7 @@ class MainWindow : public QMainWindow {
     Notification* notification;
     ConnectionWidget* connectionWidget;
     float maxValue = 0;
-    bool reading;
+    bool reading = false;
 };
 
 #endif  // MAINWINDOW_H_

@@ -36,17 +36,12 @@ DialogConnect::DialogConnect(comm::CommMaster* comm, QWidget* parent)
     connect(ui->btnConnect, &QPushButton::pressed, this, &DialogConnect::requestConnection);
     connect(ui->btnReload, &QPushButton::pressed, this, &DialogConnect::reloadConnections);
     connect(ui->boxConnections, QOverload<int>::of(&QComboBox::currentIndexChanged), this,
-            &DialogConnect::updateFreq);
-
-    // Updates from commMaster
-    connect(comm, &comm::CommMaster::changedStateMaster, this,
-            [=](bool state) { ui->groupConnection->setEnabled(!state); });
+            &DialogConnect::updateFrequencySelector);
 
     reloadConnections();
 }
 
 DialogConnect::~DialogConnect() {
-    // delete wConn;
     delete ui;
 }
 
@@ -68,7 +63,7 @@ void DialogConnect::requestConnection() {
     }
 }
 
-void DialogConnect::updateFreq(int index) {
+void DialogConnect::updateFrequencySelector(int index) {
     if (devices.length() < index || index < 0) {
         return;
     }

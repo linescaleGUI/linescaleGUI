@@ -101,7 +101,6 @@ void MainWindow::triggerReadings() {
     QString cmd;
     if (!reading) {
         cmd = "410D0A58";  // request connection
-        reading = true;
         notification->push("Start reading");
     } else {
         cmd = "450D0A5C";  // Disconnect reading

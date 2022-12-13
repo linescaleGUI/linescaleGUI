@@ -20,7 +20,7 @@
  * @file dialogconnect.h
  * @authors Gschwind, Weber, Schoch, Niederberger
  *
- * @brief Widget to display the informations about one connection
+ * @brief DialogConnect class declaration
  *
  */
 
@@ -36,25 +36,67 @@ namespace Ui {
 class DialogConnect;
 }
 
+/**
+ * @brief Class to handle the connection dialog.
+ *
+ * This dialog displays all available connections and a frequency selector.
+ * The available devices are already filtered to only include compatible devices.
+ * If the connection was successfully established, this dialog will close.
+ *
+ */
 class DialogConnect : public QDialog {
     Q_OBJECT
 
    public:
+    /**
+     * @brief Constructor of the class
+     *
+     * @param comm Pointer to the communication master
+     * @param parent Pointer to parent widget, used for parent/child relation of qt
+     */
     DialogConnect(comm::CommMaster* comm, QWidget* parent = nullptr);
     ~DialogConnect();
 
-   private:
+   private slots:
     /**
      * @brief Reload comboBox with all available connections
      *
+     * This method calls the commMaster instance to get an array of deviceInfos.
+     * This data is then added to the device selector. This array is later used
+     * when establishing a connection as reference.
      */
     void reloadConnections();
+
+    /**
+     * @brief Request a new connection from the commMaster
+     *
+     * After the user pressed the connectButton, this method calls the commMaster
+     * and requests a new connection. If the connection was successfully
+     * established the requested frequency from the comboBox will be sent to the
+     * device.
+     */
     void requestConnection();
-    // void initWidget();
-    void updateFreq(int index);
-    Ui::DialogConnect* ui;
-    comm::CommMaster* comm;
-    QList<comm::DeviceInfo> devices;
+
+    /**
+     * @brief Fill the frequency selector with the compatible frequencies.
+     *
+     * If the current index of the device selector box changed, this slot
+     * fills the compatible frequencies into the frequency selector.
+     * Here we differentiate between BLE and USB because the higher frequencies
+     * are only supported by USB.
+     * 
+     * The index sent by QComboBox::currentIndexChanged(int index) will be -1 
+     * if the box is empty, and resulting in a array out ouf bound access. 
+     * Thus the method does noting if the index is -1.
+     *
+     * @param index Current selected index of the device selector.
+     */
+    void updateFrequencySelector(int index);
+
+   private:
+    Ui::DialogConnect* ui;            ///< Default ui pointer from qt
+    comm::CommMaster* comm;           ///< Pointer to the communication instance
+    QList<comm::DeviceInfo> devices;  ///< List of available devices
 };
 
 #endif  // DIALOGCONNECT_H_
