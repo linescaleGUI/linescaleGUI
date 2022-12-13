@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>979</width>
-    <height>500</height>
+    <height>636</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -36,6 +36,9 @@
         <horstretch>0</horstretch>
         <verstretch>0</verstretch>
        </sizepolicy>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
       </property>
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
@@ -116,7 +119,7 @@
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
-       <layout class="QVBoxLayout" name="layoutRight" stretch="0,0">
+       <layout class="QVBoxLayout" name="layoutRight" stretch="0,0,0">
         <property name="spacing">
          <number>6</number>
         </property>
@@ -268,6 +271,16 @@
           </layout>
          </widget>
         </item>
+        <item>
+         <widget class="ConnectionWidget" name="widgetConnection" native="true">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>50</height>
+           </size>
+          </property>
+         </widget>
+        </item>
        </layout>
       </widget>
      </widget>
@@ -358,18 +371,6 @@
     <string>Debug</string>
    </property>
   </action>
-  <action name="actionConnect">
-   <property name="icon">
-    <iconset resource="../../assets/resource.qrc">
-     <normaloff>:/linescaleGUI/icons/connect.png</normaloff>:/linescaleGUI/icons/connect.png</iconset>
-   </property>
-   <property name="text">
-    <string>Configure</string>
-   </property>
-   <property name="toolTip">
-    <string>Connect to device</string>
-   </property>
-  </action>
   <action name="actionStartStop">
    <property name="icon">
     <iconset resource="../../assets/resource.qrc">
@@ -402,7 +403,27 @@
     <string>Show Log</string>
    </property>
   </action>
+  <action name="actionConnect">
+   <property name="icon">
+    <iconset resource="../../assets/resource.qrc">
+     <normaloff>:/linescaleGUI/icons/connect.png</normaloff>:/linescaleGUI/icons/connect.png</iconset>
+   </property>
+   <property name="text">
+    <string>Connect</string>
+   </property>
+   <property name="toolTip">
+    <string>Connect to a device</string>
+   </property>
+  </action>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>ConnectionWidget</class>
+   <extends>QWidget</extends>
+   <header>gui/connectionwidget.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="../../assets/resource.qrc"/>
  </resources>

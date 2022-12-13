@@ -35,16 +35,70 @@ namespace Ui {
 class ConnectionWidget;
 }
 
+/**
+ * @brief Class to display informations about a single connection
+ *
+ * This class can display information extracted from the data stream to the user.
+ * It also enables interaction with a device; e.g. change the frequency or
+ * disconnect from a device.
+ *
+ * @todo Add method to update the remaining data (battery, frequency...)
+ * @todo Differentiate between USB and BLE regarding supported frequencies
+ *
+ */
 class ConnectionWidget : public QWidget {
     Q_OBJECT
 
    public:
-    ConnectionWidget(comm::CommMaster* comm, QWidget* parent = nullptr);
+
+    /**
+     * @brief Constructor of the class
+     * 
+     * The constructor initialize the frequency selector with the available
+     * frequency values.
+     * 
+     * \warning Call the method addCommunication directly after construction
+     * to initialize the communication pointer.
+     *
+     * @param parent Pointer to parent widget, used for parent/child relation of qt
+     */
+    ConnectionWidget(QWidget* parent = nullptr);
     ~ConnectionWidget();
+
+    /**
+     * @brief Add the pointer to the main instance of the CommMaster class
+     *
+     * This pointer is used to connected a new device and get all available devices.
+     * The reason this is done in a method and not inside the constructor
+     * is the autogeneration of ui_dialogconnect.ui witch requires a constructor
+     * with a single parameter QWidget*.
+     * 
+     * \warning Call this method directly after construction to initialize the 
+     * communication pointer.
+     *
+     * @param comm Pointer to the communication master used in mainwindow.h
+     */
+    void addCommunication(comm::CommMaster* comm);
+
+   private slots:
+
+    /**
+     * @brief Request new frequency from the connected device
+     *
+     * Called upon a change on the frequency selector. Takes the userdata from
+     * the selector and calls the commMaster to request a new frequency.
+     * 
+     * The index sent by QComboBox::currentIndexChanged(int index) will be -1 
+     * if the box is empty, and resulting in a array out ouf bound access. 
+     * Thus the method does noting if the index is -1.
+     *
+     * @param index Index of the current item in the frequency selector
+     */
+    void requestNewFreq(int index);
 
    private:
     Ui::ConnectionWidget* ui;
-    comm::CommMaster* communication;
+    comm::CommMaster* communication = nullptr;
 };
 
 #endif  // CONNECTIONWIDGET_H_

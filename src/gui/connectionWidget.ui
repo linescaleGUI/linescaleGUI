@@ -119,32 +119,12 @@
        </spacer>
       </item>
       <item>
-       <widget class="QComboBox" name="comboBox">
+       <widget class="QComboBox" name="boxFreq">
         <property name="font">
          <font>
           <pointsize>9</pointsize>
          </font>
         </property>
-        <item>
-         <property name="text">
-          <string>10 Hz</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>40 Hz</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>640 Hz</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>1280 Hz</string>
-         </property>
-        </item>
        </widget>
       </item>
       <item>

@@ -70,18 +70,6 @@ class MainWindow : public QMainWindow {
      */
     void sendResetPeak();
 
-    /**
-     * @brief Init widget that shows the connected device
-     * 
-     * The widget with the current informations about the connection is a
-     * separate class. This methods inits the widget and adds it to the 
-     * layout.
-     * 
-     * @todo Move to a promoted class to handle this by the ui_mainwindow.h file.
-     * 
-     */
-    void initDeviceWidget();
-
    private slots:
     /**
      * @brief Receive new force from CommMaster
@@ -122,7 +110,6 @@ class MainWindow : public QMainWindow {
     DialogDebug* dDebug;
     DialogConnect* dConnect;
     Notification* notification;
-    ConnectionWidget* connectionWidget;
     float maxValue = 0;
     bool reading = false; ///< Tracks whether the host reads data or not
 };

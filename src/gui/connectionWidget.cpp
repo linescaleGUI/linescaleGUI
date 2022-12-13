@@ -26,15 +26,32 @@
 #include <QPushButton>
 #include "ui_connectionWidget.h"
 
-ConnectionWidget::ConnectionWidget(comm::CommMaster* comm, QWidget* parent)
+ConnectionWidget::ConnectionWidget(QWidget* parent)
     : QWidget(parent), ui(new Ui::ConnectionWidget) {
     ui->setupUi(this);
-    communication = comm;
 
-    connect(ui->btnRemove, &QPushButton::pressed, this,
-            [=] { communication->removeConnection(); });
+    connect(ui->btnRemove, &QPushButton::pressed, this, [=] { communication->removeConnection(); });
+    connect(ui->boxFreq, QOverload<int>::of(&QComboBox::currentIndexChanged), this,
+            &ConnectionWidget::requestNewFreq);
+    ui->boxFreq->addItem("10 Hz", int(10));
+    ui->boxFreq->addItem("40 Hz", int(40));
+    ui->boxFreq->addItem("640 Hz", int(640));
+    ui->boxFreq->addItem("1280 Hz", int(1280));
 }
 
 ConnectionWidget::~ConnectionWidget() {
     delete ui;
+}
+
+void ConnectionWidget::addCommunication(comm::CommMaster* comm) {
+    this->communication = comm;
+}
+
+void ConnectionWidget::requestNewFreq(int index) {
+    if(index >= 0 &&  index < ui->boxFreq->count()) {
+        int newFreq = ui->boxFreq->currentData().toInt();
+        if(communication != nullptr) {
+            communication->setNewFreq(newFreq);
+        }
+    }
 }

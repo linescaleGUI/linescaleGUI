@@ -40,6 +40,7 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWi
     dAbout = new DialogAbout(this);
     dDebug = new DialogDebug(comm, this);
     dConnect = new DialogConnect(comm, this);
+    ui->widgetConnection->addCommunication(comm);
 
     // menu actions
     connect(ui->actionAbout_Qt, &QAction::triggered, qApp, &QApplication::aboutQt);
@@ -64,9 +65,6 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWi
     // disable wait for close, automatic close after main window close
     dAbout->setAttribute(Qt::WA_QuitOnClose, false);
     dDebug->setAttribute(Qt::WA_QuitOnClose, false);
-
-    // Add connectionWidget to right layout
-    initDeviceWidget();
     dConnect->setAttribute(Qt::WA_QuitOnClose, false);
 
     // Set default log visibility to match the actionShowLog button
@@ -121,10 +119,5 @@ void MainWindow::toggleActions(bool connected) {
     ui->actionDisconnect->setEnabled(connected);
     ui->actionStartStop->setEnabled(connected);
     ui->actionConnect->setEnabled(!connected);
-    connectionWidget->setEnabled(connected);
-}
-
-void MainWindow::initDeviceWidget() {
-    connectionWidget = new ConnectionWidget(comm, this);
-    ui->layoutRight->addWidget(connectionWidget);
+    ui->widgetConnection->setEnabled(connected);
 }
