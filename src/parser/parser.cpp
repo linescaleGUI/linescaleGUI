@@ -31,10 +31,10 @@ bool Parser::parsePackage(QByteArray& package, DataStruct& data) {
     bool dataOk = checkPackage(package);
 
     if (dataOk) {
-        dataOk = parseWorkingMode(package, data);  // parses Working mode
+        dataOk = parseWorkingMode(package, data); 
     }
     if (dataOk) {
-        parseMeasuredValue(package, data);  // parses measured value
+        parseMeasuredValue(package, data);  
         dataOk = parseMeasureMode(package, data);
     }
     if (dataOk) {

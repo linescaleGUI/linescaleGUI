@@ -56,6 +56,14 @@ struct DataStruct {
 class Parser : public QObject {
     Q_OBJECT
    public:
+   /**
+    * @brief todo
+    * 
+    * @param package 
+    * @param data 
+    * @return true 
+    * @return false 
+    */
     bool parsePackage(QByteArray& package, DataStruct& data);
 
    private:
