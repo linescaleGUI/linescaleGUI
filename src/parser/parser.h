@@ -32,10 +32,10 @@
 
 // #include "BT_INTERFACE.h"
 
-enum DataByteNumber {};
-enum WorkingMode { realTime, overloaded, maxCapacity };
-enum MeasureMode { absZero, relZero };
-enum UnitValue { kN, kgf, lbf };
+
+enum class WorkingMode { REALTIME, OVERLOADED, MAX_CAPACITY };
+enum class MeasureMode { ABS_ZERO, REL_ZERO };
+enum class UnitValue { KN, KGF, LBF };
 
 struct DataStruct {
     WorkingMode workingMode;

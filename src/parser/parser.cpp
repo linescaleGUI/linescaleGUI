@@ -82,13 +82,13 @@ bool Parser::checkPackage(QByteArray& package) {
 void Parser::parseWorkingMode(QByteArray& package, DataStruct& data, bool& dataOK) {
     switch (package.at(0)) {
         case 'R':
-            data.workingMode = realTime;
+            data.workingMode = WorkingMode::REALTIME;
             break;
         case 'O':
-            data.workingMode = overloaded;
+            data.workingMode = WorkingMode::OVERLOADED;
             break;
         case 'C':
-            data.workingMode = maxCapacity;
+            data.workingMode =  WorkingMode::MAX_CAPACITY;
             break;
         default:
             dataOK = false;
@@ -109,10 +109,10 @@ void Parser::parseMeasuredValue(QByteArray& package, DataStruct& data) {
 void Parser::parseMeasureMode(QByteArray& package, DataStruct& data, bool& dataOK) {
     switch (package.at(7)) {
         case 'N':
-            data.measureMode = absZero;
+            data.measureMode = MeasureMode::ABS_ZERO;
             break;
         case 'Z':
-            data.measureMode = relZero;
+            data.measureMode = MeasureMode::REL_ZERO;
             break;
         default:
             dataOK = false;
@@ -137,13 +137,13 @@ void Parser::parseBatteryPercent(QByteArray& package, DataStruct& data) {
 void Parser::parseUnitValue(QByteArray& package, DataStruct& data, bool& dataOK) {
     switch (package.at(15)) {
         case 'N':
-            data.unitValue = kN;
+            data.unitValue = UnitValue::KN;
             break;
         case 'G':
-            data.unitValue = kgf;
+            data.unitValue =  UnitValue::KGF;
             break;
         case 'B':
-            data.unitValue = lbf;
+            data.unitValue =  UnitValue::LBF;
             break;
         default:
             dataOK = false;

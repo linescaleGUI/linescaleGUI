@@ -23,27 +23,27 @@ void checkDataStruct(DataStruct& lhs, DataStruct& rhs) {
  */
 TEST_F(ParserTest, ParseKN) {
     QByteArray KnPackage("R-00.01N000.00?NF41");
-    DataStruct expectedResult = {realTime, -00.01, absZero, 000.00, 62, kN, 40};
+    DataStruct expectedResult = {WorkingMode::REALTIME, -00.01,MeasureMode::ABS_ZERO, 000.00, 62, UnitValue::KN, 40};
     bool dataOk = parser.parsePackage(KnPackage, result);
     ASSERT_TRUE(dataOk);
     checkDataStruct(result, expectedResult);
 }
 TEST_F(ParserTest, ParseLbf) {
     QByteArray lbfPackage("R999999N000.00?BF87");
-    DataStruct expectedResult = {realTime, 999999, absZero, 0, 62, lbf, 40};
+    DataStruct expectedResult = {WorkingMode::REALTIME, 999999, MeasureMode::ABS_ZERO, 0, 62, UnitValue::LBF, 40};
     bool dataOk = parser.parsePackage(lbfPackage, result);
     ASSERT_TRUE(dataOk);
     checkDataStruct(result, expectedResult);
 }
 TEST_F(ParserTest, ParseKgf) {
     QByteArray kgfPackage("R000019Z000001RGS95");
-    DataStruct expectedResult = {realTime, 19, relZero, 1, 100, kgf, 10};
+    DataStruct expectedResult = {WorkingMode::REALTIME, 19,MeasureMode::REL_ZERO, 1, 100, UnitValue::KGF, 10};
     bool dataOk = parser.parsePackage(kgfPackage, result);
     ASSERT_TRUE(dataOk);
     checkDataStruct(result, expectedResult);
 }
-TEST_F(ParserTest, ParseWrongChecksum) {
-    QByteArray kgfPackage("R000.63Z-32.84RNS11");  // Package with a wrong checksum
+TEST_F(ParserTest, ParseIncorrectChecksum) {
+    QByteArray kgfPackage("R000.63Z-32.84RNS11");  // Package with a incorrect checksum
     bool dataOk = parser.parsePackage(kgfPackage, result);
     ASSERT_FALSE(dataOk);
 }
