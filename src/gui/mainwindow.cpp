@@ -29,6 +29,7 @@
 #include <QTimer>
 #include "../notification/notification.h"
 #include "ui_mainwindow.h"
+#include "../deviceCommunication/command.h"
 
 MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWindow) {
     ui->setupUi(this);
@@ -91,24 +92,20 @@ void MainWindow::showLog(void) {
 }
 
 void MainWindow::sendResetPeak() {
-    QString cmd = "430D0A5A";  // reset peak
-    comm->sendData(cmd);
+    comm->sendData(command::RESETPEAK);
     maxValue = 0;
     getNewForce(0);
 }
 
 void MainWindow::triggerReadings() {
-    QString cmd;
     if (!reading) {
-        cmd = "410D0A58";  // request connection
         notification->push("Start reading");
+        comm->sendData(command::REQUESTONLINE);
     } else {
-        cmd = "450D0A5C";  // Disconnect reading
         reading = false;
         notification->push("Stop reading");
+        comm->sendData(command::DISCONNECTONLINE);
     }
-
-    comm->sendData(cmd);
 }
 
 void MainWindow::getNewForce(float value) {

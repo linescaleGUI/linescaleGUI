@@ -26,6 +26,7 @@
 #include <QDebug>
 #include <QSerialPortInfo>
 #include "commUSB.h"
+#include "command.h"
 
 namespace comm {
 
@@ -120,23 +121,21 @@ void CommMaster::getChangedState(bool connected) {
 }
 
 void CommMaster::setNewFreq(int newFreq) {
-    QString cmd;
     switch (newFreq) {
         case 10:
-            cmd = "530D0A6A";
+            sendData(command::SETSPEED10);
             break;
         case 40:
-            cmd = "460D0A5D";
+            sendData(command::SETSPEED40);
             break;
         case 640:
-            cmd = "4D0D0A64";
+            sendData(command::SETSPEED640);
             break;
         case 1280:
-            cmd = "510D0A68";
+            sendData(command::SETSPEED1280);
             break;
         default:
             break;
     }
-    sendData(cmd);
 }
 }  // namespace comm
