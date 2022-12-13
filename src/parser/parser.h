@@ -36,6 +36,7 @@
 enum class WorkingMode { REALTIME, OVERLOADED, MAX_CAPACITY };
 enum class MeasureMode { ABS_ZERO, REL_ZERO };
 enum class UnitValue { KN, KGF, LBF };
+const int expPackageLenght = 19;
 
 struct DataStruct {
     WorkingMode workingMode;

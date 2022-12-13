@@ -63,6 +63,10 @@ bool Parser::checkPackage(QByteArray& package) {
     int valueStart = 0;
     int valueLength = 17;
 
+    if (package.length() != expPackageLenght) {
+        return false;
+    }
+
     for (int i = valueStart; i < valueLength; i++) {
         checkVal += int(package.at(i));
     }
@@ -88,7 +92,7 @@ void Parser::parseWorkingMode(QByteArray& package, DataStruct& data, bool& dataO
             data.workingMode = WorkingMode::OVERLOADED;
             break;
         case 'C':
-            data.workingMode =  WorkingMode::MAX_CAPACITY;
+            data.workingMode = WorkingMode::MAX_CAPACITY;
             break;
         default:
             dataOK = false;
@@ -140,10 +144,10 @@ void Parser::parseUnitValue(QByteArray& package, DataStruct& data, bool& dataOK)
             data.unitValue = UnitValue::KN;
             break;
         case 'G':
-            data.unitValue =  UnitValue::KGF;
+            data.unitValue = UnitValue::KGF;
             break;
         case 'B':
-            data.unitValue =  UnitValue::LBF;
+            data.unitValue = UnitValue::LBF;
             break;
         default:
             dataOK = false;
