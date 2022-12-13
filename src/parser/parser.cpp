@@ -26,34 +26,26 @@
  */
 
 #include "parser.h"
-#include <iostream>
-#include <sstream>
-#include <string>
 
-using namespace std;
-// include always receive bytes for BT_Handler
-Parser::Parser() {}
-Parser::~Parser() {}
+bool Parser::parsePackage(QByteArray& package, DataStruct& data) {
+    bool dataOk = checkPackage(package);
 
-bool& Parser::parsePackage(QByteArray& package, DataStruct& data) {
-    static bool dataOk = true;
-    parsePackage(package, data, dataOk);
-    return dataOk;
-}
-
-DataStruct& Parser::parsePackage(QByteArray& package, DataStruct& data, bool& dataOK) {
-    dataOK = checkPackage(package);
-
-    if (dataOK) {
-        parseWorkingMode(package, data, dataOK);  // parses Working mode
-        parseMeasuredValue(package, data);        // parses measured value
-        parseMeasureMode(package, data, dataOK);
+    if (dataOk) {
+        dataOk = parseWorkingMode(package, data);  // parses Working mode
+    }
+    if (dataOk) {
+        parseMeasuredValue(package, data);  // parses measured value
+        dataOk = parseMeasureMode(package, data);
+    }
+    if (dataOk) {
         parseReferenceZero(package, data);
         parseBatteryPercent(package, data);
-        parseUnitValue(package, data, dataOK);
-        parseFrequency(package, data, dataOK);
+        dataOk = parseUnitValue(package, data);
     }
-    return data;
+    if (dataOk) {
+        dataOk = parseFrequency(package, data);
+    }
+    return dataOk;
 }
 
 bool Parser::checkPackage(QByteArray& package) {
@@ -71,11 +63,9 @@ bool Parser::checkPackage(QByteArray& package) {
         checkVal += int(package.at(i));
     }
 
-    valueStart = 17;
-    valueLength = 2;
-    for (int i = valueStart; i < valueLength + valueStart; i++) {
-        value.append(package.at(i));
-    }
+    value.append(package.at(17));
+    value.append(package.at(18));
+
     if ((checkVal % 100) == value.toInt()) {
         return true;
     } else {
@@ -83,7 +73,7 @@ bool Parser::checkPackage(QByteArray& package) {
     }
 }
 
-void Parser::parseWorkingMode(QByteArray& package, DataStruct& data, bool& dataOK) {
+bool Parser::parseWorkingMode(QByteArray& package, DataStruct& data) {
     switch (package.at(0)) {
         case 'R':
             data.workingMode = WorkingMode::REALTIME;
@@ -95,9 +85,10 @@ void Parser::parseWorkingMode(QByteArray& package, DataStruct& data, bool& dataO
             data.workingMode = WorkingMode::MAX_CAPACITY;
             break;
         default:
-            dataOK = false;
+            return false;
             break;
     }
+    return true;
 }
 
 void Parser::parseMeasuredValue(QByteArray& package, DataStruct& data) {
@@ -110,7 +101,7 @@ void Parser::parseMeasuredValue(QByteArray& package, DataStruct& data) {
     data.measuredValue = value.toDouble();
 }
 
-void Parser::parseMeasureMode(QByteArray& package, DataStruct& data, bool& dataOK) {
+bool Parser::parseMeasureMode(QByteArray& package, DataStruct& data) {
     switch (package.at(7)) {
         case 'N':
             data.measureMode = MeasureMode::ABS_ZERO;
@@ -119,9 +110,10 @@ void Parser::parseMeasureMode(QByteArray& package, DataStruct& data, bool& dataO
             data.measureMode = MeasureMode::REL_ZERO;
             break;
         default:
-            dataOK = false;
+            return false;
             break;
     }
+    return true;
 }
 
 void Parser::parseReferenceZero(QByteArray& package, DataStruct& data) {
@@ -138,7 +130,7 @@ void Parser::parseBatteryPercent(QByteArray& package, DataStruct& data) {
     data.batteryPercent = int(package.at(14) - ' ') * 2;
 }
 
-void Parser::parseUnitValue(QByteArray& package, DataStruct& data, bool& dataOK) {
+bool Parser::parseUnitValue(QByteArray& package, DataStruct& data) {
     switch (package.at(15)) {
         case 'N':
             data.unitValue = UnitValue::KN;
@@ -150,12 +142,13 @@ void Parser::parseUnitValue(QByteArray& package, DataStruct& data, bool& dataOK)
             data.unitValue = UnitValue::LBF;
             break;
         default:
-            dataOK = false;
+            return false;
             break;
     }
+    return true;
 }
 
-void Parser::parseFrequency(QByteArray& package, DataStruct& data, bool& dataOK) {
+bool Parser::parseFrequency(QByteArray& package, DataStruct& data) {
     switch (package.at(16)) {
         case 'S':
             data.frequency = 10;
@@ -170,7 +163,8 @@ void Parser::parseFrequency(QByteArray& package, DataStruct& data, bool& dataOK)
             data.frequency = 1280;
             break;
         default:
-            dataOK = false;
+            return false;
             break;
     }
+    return true;
 }

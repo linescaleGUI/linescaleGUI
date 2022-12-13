@@ -36,7 +36,7 @@
 enum class WorkingMode { REALTIME, OVERLOADED, MAX_CAPACITY };
 enum class MeasureMode { ABS_ZERO, REL_ZERO };
 enum class UnitValue { KN, KGF, LBF };
-const int expPackageLenght = 19;
+const int expPackageLenght = 20;
 
 struct DataStruct {
     WorkingMode workingMode;
@@ -56,23 +56,19 @@ struct DataStruct {
 class Parser : public QObject {
     Q_OBJECT
    public:
-    Parser();
-    ~Parser();
-    bool& parsePackage(QByteArray& package, DataStruct& data);
+    bool parsePackage(QByteArray& package, DataStruct& data);
 
    private:
    
-
-    DataStruct& parsePackage(QByteArray& package, DataStruct& data, bool& dataOK);
     void pushRawMsg(QByteArray& rawMsg);
     bool checkPackage(QByteArray& package);
-    void parseWorkingMode(QByteArray& package, DataStruct& data, bool& dataOK);
+    bool parseWorkingMode(QByteArray& package, DataStruct& data);
     void parseMeasuredValue(QByteArray& package, DataStruct& data);
-    void parseMeasureMode(QByteArray& package, DataStruct& data, bool& dataOK);
+    bool parseMeasureMode(QByteArray& package, DataStruct& data);
     void parseReferenceZero(QByteArray& package, DataStruct& data);
-    void parseBatteryPercent(QByteArray& package, DataStruct& data);
-    void parseUnitValue(QByteArray& package, DataStruct& data, bool& dataOK);
-    void parseFrequency(QByteArray& package, DataStruct& data, bool& dataOK);
+    void parseBatteryPercent(QByteArray& package, DataStruct& data);    
+    bool parseUnitValue(QByteArray& package, DataStruct& data);
+    bool parseFrequency(QByteArray& package, DataStruct& data);
 
    signals:
     /**
