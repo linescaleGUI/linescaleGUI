@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>370</width>
-    <height>107</height>
+    <height>89</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -23,7 +23,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>Configuration</string>
+   <string>Connect</string>
   </property>
   <property name="windowIcon">
    <iconset>
@@ -31,6 +31,18 @@
    </iconset>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
+    <number>0</number>
+   </property>
    <item>
     <widget class="QGroupBox" name="groupConnection">
      <property name="title">
@@ -43,13 +55,6 @@
       <bool>false</bool>
      </property>
      <layout class="QGridLayout" name="gridLayout">
-      <item row="1" column="1">
-       <widget class="QComboBox" name="boxFreq">
-        <property name="enabled">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
       <item row="1" column="0">
        <widget class="QComboBox" name="boxConnections">
         <property name="styleSheet">
@@ -63,10 +68,10 @@
         </property>
        </widget>
       </item>
-      <item row="2" column="1">
-       <widget class="QPushButton" name="btnConnect">
+      <item row="2" column="0">
+       <widget class="QPushButton" name="btnReload">
         <property name="text">
-         <string>Connect</string>
+         <string>Reload</string>
         </property>
         <property name="default">
          <bool>false</bool>
@@ -76,10 +81,17 @@
         </property>
        </widget>
       </item>
-      <item row="2" column="0">
-       <widget class="QPushButton" name="btnReload">
+      <item row="1" column="1">
+       <widget class="QComboBox" name="boxFreq">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QPushButton" name="btnConnect">
         <property name="text">
-         <string>Reload</string>
+         <string>Connect</string>
         </property>
         <property name="default">
          <bool>false</bool>

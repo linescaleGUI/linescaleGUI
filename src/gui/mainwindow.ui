@@ -322,7 +322,7 @@
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
-   <addaction name="actionConfigure"/>
+   <addaction name="actionConnect"/>
    <addaction name="actionDisconnect"/>
    <addaction name="separator"/>
    <addaction name="actionStartStop"/>
@@ -358,7 +358,7 @@
     <string>Debug</string>
    </property>
   </action>
-  <action name="actionConfigure">
+  <action name="actionConnect">
    <property name="icon">
     <iconset resource="../../assets/resource.qrc">
      <normaloff>:/linescaleGUI/icons/connect.png</normaloff>:/linescaleGUI/icons/connect.png</iconset>
