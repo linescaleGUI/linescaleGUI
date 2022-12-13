@@ -17,7 +17,7 @@
  * along with linescaleGUI. If not, see <http://www.gnu.org/licenses/>.       *
  ******************************************************************************/
 /**
- * @file dialogconfigure.h
+ * @file dialogconnect.h
  * @authors Gschwind, Weber, Schoch, Niederberger
  *
  * @brief Widget to display the informations about one connection
@@ -25,23 +25,23 @@
  */
 
 #pragma once
-#ifndef DIALOGCONFIGURE_H_
-#define DIALOGCONFIGURE_H_
+#ifndef DIALOGCONNECT_H_
+#define DIALOGCONNECT_H_
 
 #include <QDialog>
 #include "../deviceCommunication/commMaster.h"
 #include "connectionWidget.h"
 
 namespace Ui {
-class DialogConfigure;
+class DialogConnect;
 }
 
-class DialogConfigure : public QDialog {
+class DialogConnect : public QDialog {
     Q_OBJECT
 
    public:
-    DialogConfigure(comm::CommMaster* comm, QWidget* parent = nullptr);
-    ~DialogConfigure();
+    DialogConnect(comm::CommMaster* comm, QWidget* parent = nullptr);
+    ~DialogConnect();
 
    private:
     /**
@@ -52,9 +52,9 @@ class DialogConfigure : public QDialog {
     void requestConnection();
     // void initWidget();
     void updateFreq(int index);
-    Ui::DialogConfigure* ui;
+    Ui::DialogConnect* ui;
     comm::CommMaster* comm;
     QList<comm::DeviceInfo> devices;
 };
 
-#endif  // DIALOGCONFIGURE_H_
+#endif  // DIALOGCONNECT_H_

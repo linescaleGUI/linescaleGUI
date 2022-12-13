@@ -31,7 +31,7 @@
 #include <QMainWindow>
 #include "../deviceCommunication/commMaster.h"
 #include "dialogabout.h"
-#include "dialogconfigure.h"
+#include "dialogconnect.h"
 #include "dialogdebug.h"
 #include "../notification/notification.h"
 
@@ -65,7 +65,7 @@ class MainWindow : public QMainWindow {
     comm::CommMaster* comm;
     DialogAbout* dAbout;
     DialogDebug* dDebug;
-    DialogConfigure* dConfig;
+    DialogConnect* dConfig;
     Notification* notification;
     ConnectionWidget* connectionWidget;
     float maxValue = 0;

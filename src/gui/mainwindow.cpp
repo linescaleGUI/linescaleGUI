@@ -38,7 +38,7 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWi
 
     dAbout = new DialogAbout(this);
     dDebug = new DialogDebug(comm, this);
-    dConfig = new DialogConfigure(comm, this);
+    dConfig = new DialogConnect(comm, this);
 
     // menu actions
     connect(ui->actionAbout_Qt, &QAction::triggered, qApp, &QApplication::aboutQt);
@@ -49,7 +49,7 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWi
     connect(ui->actionShowLog, &QAction::triggered, this, &MainWindow::showLog);
 
     // Tool bar actions
-    connect(ui->actionConfigure, &QAction::triggered, dConfig, &DialogConfigure::show);
+    connect(ui->actionConfigure, &QAction::triggered, dConfig, &DialogConnect::show);
     connect(ui->actionDisconnect, &QAction::triggered, this, [=] { comm->removeConnection(); });
     connect(ui->actionStartStop, &QAction::triggered, this, &MainWindow::triggerReadings);
 

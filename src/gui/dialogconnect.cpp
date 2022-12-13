@@ -17,26 +17,26 @@
  * along with linescaleGUI. If not, see <http://www.gnu.org/licenses/>.       *
  ******************************************************************************/
 /**
- * @file dialogconfigure.cpp
+ * @file dialogconnect.cpp
  * @authors Gschwind, Weber, Schoch, Niederberger
  *
  */
 
-#include "dialogconfigure.h"
+#include "dialogconnect.h"
 #include <QPushButton>
-#include "ui_dialogconfigure.h"
+#include "ui_dialogconnect.h"
 
-DialogConfigure::DialogConfigure(comm::CommMaster* comm, QWidget* parent)
-    : QDialog(parent), ui(new Ui::DialogConfigure) {
+DialogConnect::DialogConnect(comm::CommMaster* comm, QWidget* parent)
+    : QDialog(parent), ui(new Ui::DialogConnect) {
     ui->setupUi(this);
     setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
     this->comm = comm;
 
     // Button action
-    connect(ui->btnConnect, &QPushButton::pressed, this, &DialogConfigure::requestConnection);
-    connect(ui->btnReload, &QPushButton::pressed, this, &DialogConfigure::reloadConnections);
+    connect(ui->btnConnect, &QPushButton::pressed, this, &DialogConnect::requestConnection);
+    connect(ui->btnReload, &QPushButton::pressed, this, &DialogConnect::reloadConnections);
     connect(ui->boxConnections, QOverload<int>::of(&QComboBox::currentIndexChanged), this,
-            &DialogConfigure::updateFreq);
+            &DialogConnect::updateFreq);
 
     // Updates from commMaster
     connect(comm, &comm::CommMaster::changedStateMaster, this,
@@ -45,12 +45,12 @@ DialogConfigure::DialogConfigure(comm::CommMaster* comm, QWidget* parent)
     reloadConnections();
 }
 
-DialogConfigure::~DialogConfigure() {
+DialogConnect::~DialogConnect() {
     // delete wConn;
     delete ui;
 }
 
-void DialogConfigure::reloadConnections() {
+void DialogConnect::reloadConnections() {
     ui->boxConnections->clear();
     devices.clear();
     devices = comm->getAvailableDevices();
@@ -59,7 +59,7 @@ void DialogConfigure::reloadConnections() {
     }
 }
 
-void DialogConfigure::requestConnection() {
+void DialogConnect::requestConnection() {
     int index = ui->boxConnections->currentIndex();
     bool success = comm->addConnection(devices[index]);
     if (success) {
@@ -68,7 +68,7 @@ void DialogConfigure::requestConnection() {
     }
 }
 
-void DialogConfigure::updateFreq(int index) {
+void DialogConnect::updateFreq(int index) {
     if (devices.length() < index || index < 0) {
         return;
     }
