@@ -4,5 +4,11 @@
     "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
     "cmake.preferredGenerators": [
         "Ninja"
-    ]
+    ],
+    "files.associations": {
+        "qchartview": "cpp",
+        "qchart": "cpp",
+        "qlineseries": "cpp",
+        "qvalueaxis": "cpp"
+    }
 }

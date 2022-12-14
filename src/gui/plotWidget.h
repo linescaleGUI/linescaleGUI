@@ -29,9 +29,7 @@
 #define PLOTWIDGET_H_
 
 // #include <QCustomPlot/qcustomplot.h>
-#include <QtCharts/QChart>
-#include <QtCharts/QChartView>
-#include <QtCharts/QValueAxis>
+#include <jkqtfastplotter/jkqtfastplotter.h>
 #include <QWidget>
 
 class Plot : public QWidget {
@@ -67,9 +65,9 @@ class Plot : public QWidget {
     float minValue = 0.0, maxValue = 0.0;
     float lastTime = 0.0;
 
-    QtCharts::QChart* chart;
-    QtCharts::QChartView* chartView;
-    QtCharts::QValueAxis *xAxis, *yAxis;
+    JKQTFastPlotter* plot;
+    JKQTFPLinePlot* graph;
+    QVector<qreal> xData, yData;
 };
 
 #endif  // PLOTWIDGET_H_

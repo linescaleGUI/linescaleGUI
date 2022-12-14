@@ -30,38 +30,17 @@
 QT_CHARTS_USE_NAMESPACE
 
 Plot::Plot(QWidget* parent) : QWidget(parent) {
-    chart = new QChart();
-    chart->setMargins(QMargins{2, 2, 2, 2});
-    chart->setBackgroundRoundness(0);
-    chart->layout()->setContentsMargins(0, 0, 0, 0);
-    chart->legend()->hide();
-    xAxis = new QValueAxis();
-    yAxis = new QValueAxis();
-    chart->addAxis(xAxis, Qt::AlignBottom);
-    chart->addAxis(yAxis, Qt::AlignLeft);
+    plot = new JKQTFastPlotter(parent);
+    plot->setContentsMargins(0, 0, 0, 0);
 
-    QPen axisPen = QPen{QBrush{QColor{0, 0, 0}}, 1.0};
-    yAxis->setLinePen(axisPen);
-    yAxis->setMinorTickCount(5);
-    yAxis->setMinorGridLineVisible(false);
-    xAxis->setLinePen(axisPen);
-    xAxis->setMinorTickCount(5);
-    xAxis->setMinorGridLineVisible(false);
-    
-    auto series = new QLineSeries();
-    series->setUseOpenGL(true);
-    chart->addSeries(series);
-    series->attachAxis(xAxis);
-    series->attachAxis(yAxis);
-    series->setColor(QColor{78, 50, 168});
-
-    chartView = new QChartView(chart);
-    chartView->setRenderHints(QPainter::RenderHint::TextAntialiasing | QPainter::RenderHint::Antialiasing);
-    chartView->setContentsMargins(0, 0, 0, 0);
+    graph =
+        new JKQTFPLinePlot(plot, 0, xData.data(), yData.data(), QColor{78, 50, 168});
+    plot->addPlot(graph);
+    // plot->setPlotUpdateEnabled(false);
 
     auto layout = new QVBoxLayout(parent);
     layout->setContentsMargins(0, 0, 0, 0);
-    layout->addWidget(chartView);
+    layout->addWidget(plot);
     setLayout(layout);
 }
 
@@ -74,17 +53,16 @@ void Plot::mouseWheel() {}
 void Plot::addData(double x, double y) {
     minValue = (y < minValue) ? y : minValue;
     maxValue = (y > maxValue) ? y : maxValue;
-
-    static_cast<QLineSeries*>(chart->series().last())->append(x, y);
-    auto diff = xAxis->max() - xAxis->min();
-    xAxis->setMax(lastTime);
-    xAxis->setMin(lastTime - diff);
+    
+    xData.push_back(lastTime);
     lastTime = x;
-    yAxis->setMax(maxValue);
-    yAxis->setMin(minValue);
+    yData.push_back(y);
+    graph->setData(xData.data(), yData.data(), xData.length());
 }
 
-void Plot::replot() {}
+void Plot::replot() {
+    // graph->replot();
+}
 
 void Plot::contextMenuRequest(QPoint pos) {
     Q_UNUSED(pos)

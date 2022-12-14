@@ -1,10 +1,25 @@
 include(FetchContent)
 
-# FetchContent_Populate(qcustomplot
-#     URL https://www.qcustomplot.com/release/2.1.1/QCustomPlot-source.tar.gz
-#     URL_HASH SHA256=5e2d22dec779db8f01f357cbdb25e54fbcf971adaee75eae8d7ad2444487182f
-#     SOURCE_DIR "${CMAKE_CURRENT_LIST_DIR}/QCustomPlot"
-# )
+FetchContent_Declare(JKQTPlotter
+    GIT_REPOSITORY https://github.com/jkriege2/JKQtPlotter.git
+    GIT_TAG d45083ee9bdd96de1a381ad0d63c4ba8ef547e5c # tag v4.0.0
+    GIT_SHALLOW 1
+    GIT_PROGRESS 1
+    SOURCE_DIR "${CMAKE_CURRENT_LIST_DIR}/JKQtPlotter"
+)
+set(JKQtPlotter_BUILD_SHARED_LIBS OFF)
+set(JKQtPlotter_BUILD_STATIC_LIBS ON)
+set(JKQtPlotter_BUILD_EXAMPLES OFF)
+set(JKQtPlotter_BUILD_TOOLS OFF)
+set(JKQtPlotter_BUILD_TOOLS OFF)
+FetchContent_MakeAvailable(JKQTPlotter)
+
+set_directory_properties(PROPERTIES EXCLUDE_FROM_ALL 1 EXCLUDE_FROM_DEFAULT_BUILD 1)
+if(MSVC)
+    add_compile_options(/W0)
+else()
+    add_compile_options(-w)
+endif()
 
 # add_library(qcustomplot OBJECT "QCustomPlot/qcustomplot.cpp")
 # if(MSVC)

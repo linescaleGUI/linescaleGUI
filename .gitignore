@@ -78,4 +78,4 @@ src/bin
 docs/html
 
 build/
-lib/QCustomPlot
+lib/JKQtPlotter
