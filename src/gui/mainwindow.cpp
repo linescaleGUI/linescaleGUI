@@ -27,9 +27,9 @@
 #include <QFileDialog>
 #include <QStandardPaths>
 #include <QTimer>
+#include "../deviceCommunication/command.h"
 #include "../notification/notification.h"
 #include "ui_mainwindow.h"
-#include "../deviceCommunication/command.h"
 
 MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWindow) {
     ui->setupUi(this);
@@ -40,7 +40,7 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWi
     dAbout = new DialogAbout(this);
     dDebug = new DialogDebug(comm, this);
     dConnect = new DialogConnect(comm, this);
-    ui->widgetConnection->addCommunication(comm);
+    ui->widgetConnection->setCommunicationMaster(comm);
 
     // menu actions
     connect(ui->actionAbout_Qt, &QAction::triggered, qApp, &QApplication::aboutQt);
@@ -100,7 +100,7 @@ void MainWindow::triggerReadings() {
         notification->push("Start reading");
         comm->sendData(command::REQUESTONLINE);
     } else {
-        QTimer::singleShot(10, [=]{reading = false;});
+        QTimer::singleShot(10, [=] { reading = false; });
         notification->push("Stop reading");
         comm->sendData(command::DISCONNECTONLINE);
     }

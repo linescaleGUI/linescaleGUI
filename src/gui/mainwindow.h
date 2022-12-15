@@ -51,22 +51,22 @@ class MainWindow : public QMainWindow {
    private:
     /**
      * @brief Open the github project page
-     * 
+     *
      */
     void openGitHubLink(void);
 
     /**
      * @brief Show or hide the logWindow
-     * 
+     *
      * Trigger the logWindow based on the action in the menubar.
      */
     void showLog(void);
 
     /**
      * @brief Slot triggered by the button "resetPeak"
-     * 
+     *
      * This slot sets the value on the right sidebar to zero and sends
-     * the command to the connected device. 
+     * the command to the connected device.
      */
     void sendResetPeak();
 
@@ -75,7 +75,7 @@ class MainWindow : public QMainWindow {
      * @brief Receive new force from CommMaster
      *
      * This slot updates the peak and current value of the right side bar
-     * It also updates the bool "reading" keeping track of the status of the 
+     * It also updates the bool `MainWindow::reading` keeping track of the status of the
      * connection
      *
      * @param value Current force reading in the unit of the device
@@ -95,9 +95,10 @@ class MainWindow : public QMainWindow {
 
     /**
      * @brief Start or stop the readings
-     * 
+     *
      * Send the command to the connected device. If the host receives a new
-     * reading, the bool "reading" will be enabled by receivedNewForce.
+     * reading, the bool `MainWindow::reading` will be enabled by
+     * `MainWindow::receiveNewForce`.
      * If the host terminates the stream, the bool will be set to false after
      * a delay. This is to prevent buffered data from setting the bool to true.
      */
@@ -111,7 +112,7 @@ class MainWindow : public QMainWindow {
     DialogConnect* dConnect;
     Notification* notification;
     float maxValue = 0;
-    bool reading = false; ///< Tracks whether the host reads data or not
+    bool reading = false;  ///< Tracks whether the host reads data or not
 };
 
 #endif  // MAINWINDOW_H_

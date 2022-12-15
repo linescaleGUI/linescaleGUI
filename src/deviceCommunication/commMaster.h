@@ -90,7 +90,7 @@ class CommMaster : public QObject {
     /**
      * @brief Set a new frequency on the device
      *
-     * @param newFreq Frequency in Hz
+     * @param newFreq Frequency in Hz (10, 40, 640, 1280)
      */
     void setNewFreq(int newFreq);
 

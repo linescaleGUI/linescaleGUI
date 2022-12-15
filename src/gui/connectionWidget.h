@@ -50,15 +50,14 @@ class ConnectionWidget : public QWidget {
     Q_OBJECT
 
    public:
-
     /**
      * @brief Constructor of the class
-     * 
+     *
      * The constructor initialize the frequency selector with the available
      * frequency values.
-     * 
-     * \warning Call the method addCommunication directly after construction
-     * to initialize the communication pointer.
+     *
+     * @note Call the method `ConnectionWidget::setCommunicationMaster` directly
+     * after construction to assign the `comm::CommMaster` instance.
      *
      * @param parent Pointer to parent widget, used for parent/child relation of qt
      */
@@ -66,19 +65,19 @@ class ConnectionWidget : public QWidget {
     ~ConnectionWidget();
 
     /**
-     * @brief Add the pointer to the main instance of the CommMaster class
+     * @brief Set the `comm::CommMaster` instance used by this `ConnectionWidget`.
      *
-     * This pointer is used to connected a new device and get all available devices.
-     * The reason this is done in a method and not inside the constructor
-     * is the autogeneration of ui_dialogconnect.ui witch requires a constructor
-     * with a single parameter QWidget*.
-     * 
-     * \warning Call this method directly after construction to initialize the 
-     * communication pointer.
+     * It is used to connect new devices and get all available devices.
+     * This setter exists because this widget is set up automatically through
+     * auto-generated code (as defined in `ui_dialogconnect.ui`) which requires
+     * a constructor with a single `QWidget*` argument.
+     *
+     * @note Call this method directly after construction to assign
+     * the `comm::CommMaster` instance.
      *
      * @param comm Pointer to the communication master used in mainwindow.h
      */
-    void addCommunication(comm::CommMaster* comm);
+    void setCommunicationMaster(comm::CommMaster* comm);
 
    private slots:
 
@@ -86,11 +85,11 @@ class ConnectionWidget : public QWidget {
      * @brief Request new frequency from the connected device
      *
      * Called upon a change on the frequency selector. Takes the userdata from
-     * the selector and calls the commMaster to request a new frequency.
-     * 
-     * The index sent by QComboBox::currentIndexChanged(int index) will be -1 
-     * if the box is empty, and resulting in a array out ouf bound access. 
-     * Thus the method does noting if the index is -1.
+     * the selector and calls the `comm::CommMaster` instance to request a new frequency.
+     *
+     * @note The index sent by QComboBox::currentIndexChanged(int index) will be -1
+     * if the box is empty, which would result in an array out-of-bounds access.
+     * Thus the method does nothing if the index is -1.
      *
      * @param index Index of the current item in the frequency selector
      */

@@ -43,7 +43,7 @@ ConnectionWidget::~ConnectionWidget() {
     delete ui;
 }
 
-void ConnectionWidget::addCommunication(comm::CommMaster* comm) {
+void ConnectionWidget::setCommunicationMaster(comm::CommMaster* comm) {
     this->communication = comm;
 }
 

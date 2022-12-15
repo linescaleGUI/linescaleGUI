@@ -45,6 +45,11 @@ DialogConnect::~DialogConnect() {
     delete ui;
 }
 
+void DialogConnect::showEvent(QShowEvent* event) {
+    reloadConnections();
+    QWidget::showEvent(event);
+}
+
 void DialogConnect::reloadConnections() {
     ui->boxConnections->clear();
     devices.clear();

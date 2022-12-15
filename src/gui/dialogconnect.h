@@ -84,16 +84,23 @@ class DialogConnect : public QDialog {
      * fills the compatible frequencies into the frequency selector.
      * Here we differentiate between BLE and USB because the higher frequencies
      * are only supported by USB.
-     * 
-     * The index sent by QComboBox::currentIndexChanged(int index) will be -1 
-     * if the box is empty, and resulting in a array out ouf bound access. 
-     * Thus the method does noting if the index is -1.
+     *
+     * @note The index sent by QComboBox::currentIndexChanged(int index) will be -1
+     * if the box is empty, which would result in an array out-of-bounds access.
+     * Thus the method does nothing if the index is -1.
      *
      * @param index Current selected index of the device selector.
      */
     void updateFrequencySelector(int index);
 
    private:
+    /**
+     * @brief Expands the `QWidget::showEvent` to update the available devices
+     *
+     * @param event QEvent from the QWidget class
+     */
+    void showEvent(QShowEvent* event) override;
+
     Ui::DialogConnect* ui;            ///< Default ui pointer from qt
     comm::CommMaster* comm;           ///< Pointer to the communication instance
     QList<comm::DeviceInfo> devices;  ///< List of available devices
