@@ -100,7 +100,7 @@ class CommMaster : public QObject {
      *
      * @param value Force from device (unit as set on device)
      */
-    void newForceMaster(float time, float value);
+    void newForceMaster(Sample reading);
 
     /**
      * @brief Emit after status change

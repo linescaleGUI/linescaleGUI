@@ -92,33 +92,27 @@ void MainWindow::showLog(void) {
 void MainWindow::sendResetPeak() {
     comm->sendData(command::RESETPEAK);
     maxValue = 0;
-    updateImportantValues(0, 0);
+    ui->lblPeakForce->setText("-");
 }
 
 void MainWindow::triggerReadings() {
-    if (!reading) {
+    if (!statusReading) {
         notification->push("Start reading");
         comm->sendData(command::REQUESTONLINE);
     } else {
-        QTimer::singleShot(10, [=] { reading = false; });
+        QTimer::singleShot(10, [=] { statusReading = false; });
         notification->push("Stop reading");
         comm->sendData(command::DISCONNECTONLINE);
     }
 }
 
-void MainWindow::updateImportantValues(float time, float value) {
-    Q_UNUSED(time)
-    if (value >= maxValue) {
-        maxValue = value;
-        ui->lblPeakForce->setText(QString("%1 kN").arg(value, 3, 'f', 2));
+void MainWindow::receiveNewForce(Sample reading) {
+    statusReading = true;
+    if (reading.measuredValue >= maxValue) {
+        maxValue = reading.measuredValue;
+        ui->lblPeakForce->setText(QString("%1 kN").arg(reading.measuredValue, 3, 'f', 2));
     }
     ui->lblCurrentForce->setText(QString("%1 kN").arg(value, 0, 'f', 2));
-}
-
-void MainWindow::receiveNewForce(float time, float value) {
-    reading = true;
-    updateImportantValues(time, value);
-    ui->widgetChart->addData(time, value);
 }
 
 void MainWindow::toggleActions(bool connected) {

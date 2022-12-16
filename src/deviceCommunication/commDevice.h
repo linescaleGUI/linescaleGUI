@@ -30,6 +30,7 @@
 
 #include <QDebug>
 #include <QObject>
+#include "../parser/parser.h"
 
 namespace comm {
 
@@ -133,7 +134,7 @@ class CommDevice : public QObject {
      *
      * @param value
      */
-    void newForceDevice(float time, float value);
+    void newForceDevice(Sample reading);
 
     /**
      * @brief Emit after connection / disconnection to trigger UI changes
@@ -147,6 +148,8 @@ class CommDevice : public QObject {
     QString identifier;             ///< Unique identifier
     ConnType type = ConnType::USB;  ///< USB or BLE
     bool connected;
+    Parser parser;
+    Sample receivedData;
 };
 
 }  // namespace comm
