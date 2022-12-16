@@ -77,6 +77,8 @@ class Parser : public QObject {
     /**
      * @brief Parses received messages from Line Scale to usable data for GUI.
      *
+     * @todo Return error code instead of bool.
+     *
      * @param package Raw package as QByteArray
      * @param data Parsed sample
      * @return true: If parsing was successful
