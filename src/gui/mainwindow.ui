@@ -420,7 +420,9 @@
   <customwidget>
    <class>ConnectionWidget</class>
    <extends>QWidget</extends>
-   <header location="global">gui/connectionWidget.h</header>
+   <header>gui/connectionWidget.h</header>
+  </customwidget>
+  <customwidget>
    <class>Plot</class>
    <extends>QWidget</extends>
    <header>gui/plotWidget.h</header>

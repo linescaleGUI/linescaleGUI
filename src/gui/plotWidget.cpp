@@ -40,7 +40,7 @@ Plot::Plot(QWidget* parent) : QWidget(parent) {
     customPlot->setNoAntialiasingOnDrag(true);
 
     customPlot->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom | QCP::iSelectAxes |
-                                QCP::iSelectLegend | QCP::iSelectPlottables);
+                                QCP::iSelectPlottables | QCP::iMultiSelect);
     customPlot->xAxis->setLabel("");
     customPlot->yAxis->setLabel("");
     customPlot->legend->setVisible(false);
@@ -61,22 +61,39 @@ Plot::Plot(QWidget* parent) : QWidget(parent) {
     // dragged and zoomed:
     connect(customPlot, &QCustomPlot::mousePress, this, &Plot::mousePress);
     connect(customPlot, &QCustomPlot::mouseWheel, this, &Plot::mouseWheel);
-    // @todo Allow to zoom with panning (touchscreen).
-
-    // @todo Maybe implement custom range dialog.
-    // connect(customPlot, &QCustomPlot::axisDoubleClick, this, &Plot::axisLabelDoubleClick);
-
-    // connect slot that shows a message in the status bar when a graph is clicked:
-    // connect(customPlot, &QCustomPlot::plottableClick, this, &Plot::graphClicked);
-
-    // @todo Implement saving the graph as image.
-    // customPlot->setContextMenuPolicy(Qt::CustomContextMenu);
-    // connect(customPlot, &QCustomPlot::customContextMenuRequested, this,
-    //         &Plot::contextMenuRequest);
+    connect(customPlot, &QCustomPlot::mouseMove, this, &Plot::mouseMove);
+    customPlot->setContextMenuPolicy(Qt::ContextMenuPolicy::CustomContextMenu);
+    connect(customPlot, &QCustomPlot::customContextMenuRequested, this, &Plot::contextMenuRequest);
 
     auto layout = new QVBoxLayout(this);
+    layout->setContentsMargins(0, 0, 0, 0);
     layout->addWidget(customPlot);
     this->setLayout(layout);
+    this->setContentsMargins(0, 0, 0, 0);
+
+    deleteGraphAction = new QAction("Delete graph", this);
+    deleteGraphAction->setShortcuts({QKeySequence::Delete, QKeySequence::Backspace});
+    connect(deleteGraphAction, &QAction::triggered, this, [=]() {
+        for (auto g : customPlot->selectedGraphs()) {
+            customPlot->removeGraph(g);
+        }
+    });
+    addAction(deleteGraphAction);
+
+    autoRangeAction = new QAction("Auto-range y-axis", this);
+    autoRangeAction->setCheckable(true);
+    autoRangeAction->setChecked(true);
+    addAction(autoRangeAction);
+
+    autoShowNewestAction = new QAction("Auto-show newest data", this);
+    autoShowNewestAction->setCheckable(true);
+    autoShowNewestAction->setChecked(true);
+    addAction(autoShowNewestAction);
+
+    clearSelectionAction = new QAction("Clear selection", this);
+    clearSelectionAction->setShortcut(QKeySequence::Cancel);
+    connect(clearSelectionAction, &QAction::triggered, this, &Plot::clearSelection);
+    addAction(clearSelectionAction);
 }
 
 void Plot::selectionChanged() {
@@ -100,6 +117,10 @@ void Plot::selectionChanged() {
     }
 }
 
+void Plot::beginNewGraph() {
+    customPlot->addGraph();
+}
+
 void Plot::mousePress() {
     // if an axis is selected, only allow the direction of that axis to be dragged
     // if no axis is selected, both directions may be dragged
@@ -118,16 +139,34 @@ void Plot::mouseWheel() {
 
     if (customPlot->xAxis->selectedParts().testFlag(QCPAxis::spAxis))
         customPlot->axisRect()->setRangeZoom(customPlot->xAxis->orientation());
-    else if (customPlot->yAxis->selectedParts().testFlag(QCPAxis::spAxis))
+    else if (customPlot->yAxis->selectedParts().testFlag(QCPAxis::spAxis)) {
+        autoRangeAction->setChecked(false);
         customPlot->axisRect()->setRangeZoom(customPlot->yAxis->orientation());
-    else
+    } else {
+        autoRangeAction->setChecked(false);
         customPlot->axisRect()->setRangeZoom(Qt::Horizontal | Qt::Vertical);
+    }
+}
+
+void Plot::mouseMove() {
+    if (QApplication::mouseButtons() & Qt::MouseButton::LeftButton) {
+        auto rangeDrag = customPlot->axisRect()->rangeDrag();
+        if (rangeDrag & Qt::Horizontal) {
+            autoShowNewestAction->setChecked(false);
+        }
+        if (rangeDrag & Qt::Vertical) {
+            autoRangeAction->setChecked(false);
+        }        
+    }
 }
 
 void Plot::addData(double x, double y) {
     minValue = (y < minValue) ? y : minValue;
     maxValue = (y > maxValue) ? y : maxValue;
     lastTime = x;
+    if (customPlot->graphCount() == 0) {
+        customPlot->addGraph();
+    }
     customPlot->graph()->addData(x, y);
     if (!updateTimer->isActive()) {
         updatePlot();
@@ -138,57 +177,49 @@ void Plot::addData(double x, double y) {
     }
 }
 
-// void Plot::removeSelectedGraph() {
-//     if (customPlot->selectedGraphs().size() > 0) {
-//         customPlot->removeGraph(customPlot->selectedGraphs().first());
-//         customPlot->replot();
-//     }
-// }
-
 void Plot::contextMenuRequest(QPoint pos) {
+    auto selectionTol = customPlot->selectionTolerance();
+
     QMenu* menu = new QMenu(this);
     menu->setAttribute(Qt::WA_DeleteOnClose);
 
-    if (customPlot->legend->selectTest(pos, false) >= 0)  // context menu on legend requested
-    {
-        menu->addAction("Move to top left", this, SLOT(moveLegend()))
-            ->setData((int)(Qt::AlignTop | Qt::AlignLeft));
-        menu->addAction("Move to top center", this, SLOT(moveLegend()))
-            ->setData((int)(Qt::AlignTop | Qt::AlignHCenter));
-        menu->addAction("Move to top right", this, SLOT(moveLegend()))
-            ->setData((int)(Qt::AlignTop | Qt::AlignRight));
-        menu->addAction("Move to bottom right", this, SLOT(moveLegend()))
-            ->setData((int)(Qt::AlignBottom | Qt::AlignRight));
-        menu->addAction("Move to bottom left", this, SLOT(moveLegend()))
-            ->setData((int)(Qt::AlignBottom | Qt::AlignLeft));
-    } else  // general context menu on graphs requested
-    {
-        menu->addAction("Add random graph", this, SLOT(addRandomGraph()));
-        if (customPlot->selectedGraphs().size() > 0)
-            menu->addAction("Remove selected graph", this, SLOT(removeSelectedGraph()));
-        if (customPlot->graphCount() > 0)
-            menu->addAction("Remove all graphs", this, SLOT(removeAllGraphs()));
+    bool clickedOnAxis = false;
+    if (auto val = customPlot->yAxis->selectTest(pos, true); val > 0 && val < selectionTol) {
+        clearSelection();
+        customPlot->yAxis->setSelectedParts(QCPAxis::spAxis | QCPAxis::spAxisLabel |
+                                            QCPAxis::spTickLabels);
+        clickedOnAxis = true;
+    } else if (auto val2 = customPlot->xAxis->selectTest(pos, true);
+               val2 > 0 && val2 < selectionTol) {
+        clearSelection();
+        customPlot->xAxis->setSelectedParts(QCPAxis::spAxis | QCPAxis::spAxisLabel |
+                                            QCPAxis::spTickLabels);
+        clickedOnAxis = true;
+    }
+    if (!clickedOnAxis && customPlot->selectedGraphs().length() > 0) {
+        menu->addAction(deleteGraphAction);
+        menu->addSeparator();
+    }
+
+    if (!clickedOnAxis || customPlot->yAxis->selectedParts()) {
+        menu->addAction(autoRangeAction);
+    }
+    if (!clickedOnAxis || customPlot->xAxis->selectedParts()) {
+        menu->addAction(autoShowNewestAction);
     }
 
     menu->popup(customPlot->mapToGlobal(pos));
 }
 
-void Plot::graphClicked(QCPAbstractPlottable* plottable, int dataIndex) {
-    Q_UNUSED(plottable)
-    Q_UNUSED(dataIndex)
-    // since we know we only have QCPGraphs in the plot, we can immediately access interface1D()
-    // usually it's better to first check whether interface1D() returns non-zero, and only then use
-    // it.
-    //   double dataValue = plottable->interface1D()->dataMainValue(dataIndex);
-    //   QString message = QString("Clicked on graph '%1' at data point #%2 with value
-    //   %3.").arg(plottable->name()).arg(dataIndex).arg(dataValue); statusBar->showMessage(message,
-    //   2500);
-}
-
 void Plot::updatePlot() {
     auto lowerBound = lastTime - customPlot->xAxis->range().size();
-    customPlot->xAxis->setRange(lowerBound, lastTime);
-    customPlot->yAxis->setRange(minValue, maxValue);
+
+    if (autoShowNewestAction->isChecked()) {
+        customPlot->xAxis->setRange(lowerBound, lastTime);
+    }
+    if (autoRangeAction->isChecked()) {
+        customPlot->yAxis->setRange(minValue, maxValue);
+    }
 
     customPlot->replot(QCustomPlot::rpQueuedRefresh);
 }
@@ -199,4 +230,13 @@ void Plot::disableUpdating() {
         disableReplotTimer->stop();
     }
     hadNewData = false;
+}
+
+void Plot::clearSelection() {
+    for (auto axis : customPlot->selectedAxes()) {
+        axis->setSelectedParts(QCPAxis::spNone);
+    }
+    for (auto graph : customPlot->selectedPlottables()) {
+        graph->setSelection(QCPDataSelection{});
+    }
 }

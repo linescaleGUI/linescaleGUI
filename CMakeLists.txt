@@ -11,7 +11,7 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(Qt5 REQUIRED COMPONENTS Core Widgets Charts SerialPort Bluetooth PrintSupport OpenGL)
+find_package(Qt5 REQUIRED COMPONENTS Core Widgets SerialPort Bluetooth PrintSupport)# OpenGL)
 
 set(VERSION_FILE "${CMAKE_CURRENT_BINARY_DIR}/include/version.h")
 
@@ -61,7 +61,6 @@ include(tools/cmake/version.cmake)
 set(QT_DEPENDENCIES
     Qt::Core
     Qt::Widgets
-    Qt::Charts
     Qt::SerialPort
     Qt::Bluetooth
     Qt::PrintSupport)

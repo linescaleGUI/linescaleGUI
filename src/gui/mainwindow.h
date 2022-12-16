@@ -106,6 +106,9 @@ class MainWindow : public QMainWindow {
     void triggerReadings();
 
    private:
+    void updateImportantValues(float time, float value);
+
+   private:
     Ui::MainWindow* ui;
     comm::CommMaster* comm;
     DialogAbout* dAbout;
@@ -115,7 +118,6 @@ class MainWindow : public QMainWindow {
     Plot* plot;
     float maxValue = 0;
     bool reading = false;  ///< Tracks whether the host reads data or not
-    QTimer* plotTimer;
 };
 
 #endif  // MAINWINDOW_H_

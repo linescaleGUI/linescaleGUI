@@ -64,7 +64,7 @@ void CommUSB::readData() {
             COMbuffer.remove(currentMsg);
             emit newForceDevice(currTime, force);
             
-            currTime += 1/40.0; // TODO: use actual sampling rate
+            currTime += 1.0f/40.0f; // TODO: use actual sampling rate
         }
     }
 };

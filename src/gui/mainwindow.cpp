@@ -31,24 +31,8 @@
 #include "../notification/notification.h"
 #include "ui_mainwindow.h"
 
-void setupTestTimer(MainWindow* mw) {
-
-}
-
 MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWindow) {
     ui->setupUi(this);
-
-    auto testTimer = new QTimer(this);
-    testTimer->setTimerType(Qt::TimerType::PreciseTimer);
-    testTimer->setInterval(1000.0 / 40.0);
-    connect(testTimer, &QTimer::timeout, this, [=] {
-        static float time = 0;
-
-        this->getNewForce(time, 10.0 * sinf(1 * 3.14159 * 2 * time));
-
-        time += 1.0 / 40.0;
-    });
-    testTimer->start();
 
     notification = new Notification(ui->textBrowserLog);
     comm = new comm::CommMaster();
@@ -108,7 +92,7 @@ void MainWindow::showLog(void) {
 void MainWindow::sendResetPeak() {
     comm->sendData(command::RESETPEAK);
     maxValue = 0;
-    receiveNewForce(0);
+    updateImportantValues(0, 0);
 }
 
 void MainWindow::triggerReadings() {
@@ -122,18 +106,19 @@ void MainWindow::triggerReadings() {
     }
 }
 
-void MainWindow::receiveNewForce(float time, float value) {
-    reading = true;
+void MainWindow::updateImportantValues(float time, float value) {
+    Q_UNUSED(time)
     if (value >= maxValue) {
         maxValue = value;
         ui->lblPeakForce->setText(QString("%1 kN").arg(value, 3, 'f', 2));
     }
     ui->lblCurrentForce->setText(QString("%1 kN").arg(value, 0, 'f', 2));
+}
 
-    // TODO: remove hack
-    if (!isnan(time)) {
-        ui->widgetChart->addData(time, value);
-    }
+void MainWindow::receiveNewForce(float time, float value) {
+    reading = true;
+    updateImportantValues(time, value);
+    ui->widgetChart->addData(time, value);
 }
 
 void MainWindow::toggleActions(bool connected) {

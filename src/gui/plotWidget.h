@@ -28,11 +28,27 @@
 #ifndef PLOTWIDGET_H_
 #define PLOTWIDGET_H_
 
+// @TODO Better way to disable this warning for MSVC.
+#if _MSC_VER && !__INTEL_COMPILER
+#pragma warning(push)
+#pragma warning(disable : 4127)
 #include <QCustomPlot/qcustomplot.h>
-#include <QTimer>
-#include <QWidget>
-#include <QVector>
+#pragma warning(pop)
+#else
+#include <QCustomPlot/qcustomplot.h>
+#endif
 
+#include <QTimer>
+#include <QVector>
+#include <QWidget>
+
+/**
+ * @brief A dynamic line graph chart.
+ *
+ * @todo Allow to zoom with panning (touchscreen).
+ * @todo Maybe implement custom range dialog.
+ * @todo Implement saving the graph as image.
+ */
 class Plot : public QWidget {
    public:
     /**
@@ -43,33 +59,47 @@ class Plot : public QWidget {
 
     /**
      * @brief Add a single data point.
-     * 
+     *
      * Once the data point is added the plot is updated automatically with a maximum
      * update rate of 60 Hz.
-     * 
+     *
      * @param time Horizontal value (time).
      * @param force Vertical value (force).
      */
     void addData(double time, double force);
 
+    /**
+     * @brief Add a new graph to the plot and use it for all new points added.
+     */
+    void beginNewGraph();
+
    private slots:
     void selectionChanged();
     void mousePress();
     void mouseWheel();
+    void mouseMove();
     void contextMenuRequest(QPoint pos);
-    void graphClicked(QCPAbstractPlottable* plottable, int dataIndex);
-    
+    void graphClicked(QCPAbstractPlottable* plottable, int dataIndex, QMouseEvent* event);
+
     void updatePlot();
     void disableUpdating();
 
    private:
+    void clearSelection();
+
+   private:
     QCustomPlot* customPlot;
-    float minValue = 0.0, maxValue = 0.0;
-    float lastTime = 0.0;
+    double minValue = 0.0, maxValue = 0.0;
+    double lastTime = 0.0;
     bool hadNewData = false;
 
     QTimer* updateTimer;
     QTimer* disableReplotTimer;
+
+    QAction* deleteGraphAction;
+    QAction* autoRangeAction;
+    QAction* autoShowNewestAction;
+    QAction* clearSelectionAction;
 };
 
 #endif  // PLOTWIDGET_H_
