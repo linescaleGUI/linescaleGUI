@@ -30,35 +30,58 @@
 #include <QByteArray>
 #include <QObject>
 
-enum class WorkingMode { REALTIME, OVERLOADED, MAX_CAPACITY };
-enum class MeasureMode { ABS_ZERO, REL_ZERO };
-enum class UnitValue { KN, KGF, LBF };
-
-
-
-struct Sample {        
-    WorkingMode workingMode;
-    double measuredValue;
-    MeasureMode measureMode;
-    double referenceZero;
-    int batteryPercent;
-    UnitValue unitValue;
-    int frequency;
-    /* data */
+/**
+ * @brief Indicates the working mode sent by the Line Scale
+ *
+ */
+enum class WorkingMode {
+    REALTIME,      ///< Indicates that the work is in real-time mode
+    OVERLOADED,    ///< Indicates that the test is overloaded
+    MAX_CAPACITY,  ///< Indicates the maximum capacity (default 3000 not received)
+};
+/**
+ * @brief   Indicates if the measured force is relative to a previous set value or if it is absolute
+ *
+ */
+enum class MeasureMode {
+    ABS_ZERO,  ///< Represents the absolute zero measurement mode
+    REL_ZERO,  ///< Represents the relative zero measurement mode
+};
+/**
+ * @brief Unit of the measured force
+ *
+ */
+enum class UnitValue {
+    KN,   ///< Indicates the unit of measurement is kN
+    KGF,  ///< The unit of measurement is kgf
+    LBF,  ///< Indicates that the unit of measurement is lbf
 };
 
+/**
+ * @brief holds parsed data
+ *
+ */
+struct Sample {
+    WorkingMode workingMode; ///< Indicates the working mode sent by the Line Scale
+    double measuredValue;   ///< Stores value of measured force
+    MeasureMode measureMode;  ///< Indicates if the measured force is relative to a previous set value or if it is absolute
+    double referenceZero;   ///< Stores reference force
+    int batteryPercent; ///< Stores battery voltage of the Line Scale in percent
+    UnitValue unitValue; ///< Stores the unit of the measured force
+    int frequency; ///< Stores the connection frequency between host device and Line Scale
+};
 
 class Parser : public QObject {
     Q_OBJECT
    public:
-   /**
-    * @brief Parses received messages from Line Scale to usable data for GUI.
-    * 
-    * @param package Raw package as QByteArray 
-    * @param data Parsed sample
-    * @return true: If parsing was successful
-    * @return false: If parsing resulted in an error
-    */
+    /**
+     * @brief Parses received messages from Line Scale to usable data for GUI.
+     *
+     * @param package Raw package as QByteArray
+     * @param data Parsed sample
+     * @return true: If parsing was successful
+     * @return false: If parsing resulted in an error
+     */
     bool parsePackage(QByteArray& package, Sample& data);
     static constexpr size_t PACKET_EXPECTED_LEN = 20;
 
