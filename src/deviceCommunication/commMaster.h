@@ -87,6 +87,13 @@ class CommMaster : public QObject {
      */
     void removeConnection();
 
+    /**
+     * @brief Set a new frequency on the device
+     *
+     * @param newFreq Frequency in Hz (10, 40, 640, 1280)
+     */
+    void setNewFreq(int newFreq);
+
    signals:
     /**
      * @brief Emit after new force value was sent by a deviceClass

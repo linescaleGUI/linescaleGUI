@@ -95,7 +95,7 @@ class CommDevice : public QObject {
     /**
      * @brief Set a new frequency
      *
-     * @param newFreq New freq in Hertz, 10, 40, 640 or 1280
+     * @param newFreq Frequency in Hz (10, 40, 640, 1280)
      */
     void setFreq(int newFreq) { freq = newFreq; };
 

@@ -27,8 +27,9 @@
 #include <QFileDialog>
 #include <QStandardPaths>
 #include <QTimer>
-#include "ui_mainwindow.h"
+#include "../deviceCommunication/command.h"
 #include "../notification/notification.h"
+#include "ui_mainwindow.h"
 
 MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWindow) {
     ui->setupUi(this);
@@ -38,7 +39,8 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWi
 
     dAbout = new DialogAbout(this);
     dDebug = new DialogDebug(comm, this);
-    dConfig = new DialogConfigure(comm, this);
+    dConnect = new DialogConnect(comm, this);
+    ui->widgetConnection->setCommunicationMaster(comm);
 
     // menu actions
     connect(ui->actionAbout_Qt, &QAction::triggered, qApp, &QApplication::aboutQt);
@@ -49,7 +51,7 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWi
     connect(ui->actionShowLog, &QAction::triggered, this, &MainWindow::showLog);
 
     // Tool bar actions
-    connect(ui->actionConfigure, &QAction::triggered, dConfig, &DialogConfigure::show);
+    connect(ui->actionConnect, &QAction::triggered, dConnect, &DialogConnect::show);
     connect(ui->actionDisconnect, &QAction::triggered, this, [=] { comm->removeConnection(); });
     connect(ui->actionStartStop, &QAction::triggered, this, &MainWindow::triggerReadings);
 
@@ -57,19 +59,19 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWi
     connect(ui->btnResetPeak, &QPushButton::pressed, this, &MainWindow::sendResetPeak);
 
     // updates from CommMaster
-    connect(comm, &comm::CommMaster::newForceMaster, this, &MainWindow::getNewForce);
-    connect(comm, &comm::CommMaster::changedStateMaster, this, &MainWindow::getChangedState);
+    connect(comm, &comm::CommMaster::newForceMaster, this, &MainWindow::receiveNewForce);
+    connect(comm, &comm::CommMaster::changedStateMaster, this, &MainWindow::toggleActions);
 
     // disable wait for close, automatic close after main window close
     dAbout->setAttribute(Qt::WA_QuitOnClose, false);
     dDebug->setAttribute(Qt::WA_QuitOnClose, false);
-    dConfig->setAttribute(Qt::WA_QuitOnClose, false);
+    dConnect->setAttribute(Qt::WA_QuitOnClose, false);
 
     // Set default log visibility to match the actionShowLog button
     showLog();
 
     // Init actions in the toolbar, deactivate actions that require a connected device
-    getChangedState(false);
+    toggleActions(false);
 }
 
 MainWindow::~MainWindow() {
@@ -88,25 +90,23 @@ void MainWindow::showLog(void) {
 }
 
 void MainWindow::sendResetPeak() {
-    QString cmd = "430D0A5A";  // reset peak
-    comm->sendData(cmd);
+    comm->sendData(command::RESETPEAK);
     maxValue = 0;
-    getNewForce(0);
+    receiveNewForce(0);
 }
 
 void MainWindow::triggerReadings() {
-    QString cmd;
     if (!reading) {
-        cmd = "410D0A58";  // request connection
+        notification->push("Start reading");
+        comm->sendData(command::REQUESTONLINE);
     } else {
-        cmd = "450D0A5C";  // Disconnect reading
+        QTimer::singleShot(10, [=] { reading = false; });
+        notification->push("Stop reading");
+        comm->sendData(command::DISCONNECTONLINE);
     }
-
-    comm->sendData(cmd);
-    reading = !reading;
 }
 
-void MainWindow::getNewForce(float value) {
+void MainWindow::receiveNewForce(float value) {
     reading = true;
     if (value >= maxValue) {
         maxValue = value;
@@ -115,8 +115,9 @@ void MainWindow::getNewForce(float value) {
     ui->lblCurrentForce->setText(QString("%1 kN").arg(value, 0, 'f', 2));
 }
 
-void MainWindow::getChangedState(bool connected) {
+void MainWindow::toggleActions(bool connected) {
     ui->actionDisconnect->setEnabled(connected);
     ui->actionStartStop->setEnabled(connected);
-    ui->actionConfigure->setEnabled(!connected);
+    ui->actionConnect->setEnabled(!connected);
+    ui->widgetConnection->setEnabled(connected);
 }

@@ -17,39 +17,40 @@
  * along with linescaleGUI. If not, see <http://www.gnu.org/licenses/>.       *
  ******************************************************************************/
 /**
- * @file dialogconfigure.cpp
+ * @file dialogconnect.cpp
  * @authors Gschwind, Weber, Schoch, Niederberger
  *
  */
 
-#include "dialogconfigure.h"
+#include "dialogconnect.h"
 #include <QPushButton>
-#include "ui_dialogconfigure.h"
+#include "ui_dialogconnect.h"
 
-DialogConfigure::DialogConfigure(comm::CommMaster* comm, QWidget* parent)
-    : QDialog(parent), ui(new Ui::DialogConfigure) {
+DialogConnect::DialogConnect(comm::CommMaster* comm, QWidget* parent)
+    : QDialog(parent), ui(new Ui::DialogConnect) {
     ui->setupUi(this);
+    setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
     this->comm = comm;
 
     // Button action
-    connect(ui->btnConnect, &QPushButton::pressed, this, &DialogConfigure::requestConnection);
+    connect(ui->btnConnect, &QPushButton::pressed, this, &DialogConnect::requestConnection);
+    connect(ui->btnReload, &QPushButton::pressed, this, &DialogConnect::reloadConnections);
     connect(ui->boxConnections, QOverload<int>::of(&QComboBox::currentIndexChanged), this,
-            &DialogConfigure::updateFreq);
+            &DialogConnect::updateFrequencySelector);
 
-    // Updates from commMaster
-    connect(comm, &comm::CommMaster::changedStateMaster, this, [=](bool state){
-        ui->groupConnection->setEnabled(!state);});
-
-    initWidget();
     reloadConnections();
 }
 
-DialogConfigure::~DialogConfigure() {
-    delete wConn;
+DialogConnect::~DialogConnect() {
     delete ui;
 }
 
-void DialogConfigure::reloadConnections() {
+void DialogConnect::showEvent(QShowEvent* event) {
+    reloadConnections();
+    QWidget::showEvent(event);
+}
+
+void DialogConnect::reloadConnections() {
     ui->boxConnections->clear();
     devices.clear();
     devices = comm->getAvailableDevices();
@@ -58,22 +59,26 @@ void DialogConfigure::reloadConnections() {
     }
 }
 
-void DialogConfigure::requestConnection() {
+void DialogConnect::requestConnection() {
     int index = ui->boxConnections->currentIndex();
-    comm->addConnection(devices[index]);
+    bool success = comm->addConnection(devices[index]);
+    if (success) {
+        comm->setNewFreq(ui->boxFreq->currentData().toInt());
+        close();
+    }
 }
 
-void DialogConfigure::initWidget() {
-    wConn = new ConnectionWidget();
-    ui->frameLayout->addWidget(wConn);
-}
+void DialogConnect::updateFrequencySelector(int index) {
+    if (devices.length() < index || index < 0) {
+        return;
+    }
 
-void DialogConfigure::updateFreq(int index) {
     ui->boxFreq->clear();
-    ui->boxFreq->addItem("10 Hz");
-    ui->boxFreq->addItem("40 Hz");
+    ui->boxFreq->addItem("10 Hz", int(10));
+    ui->boxFreq->addItem("40 Hz", int(40));
+
     if (devices[index].type == comm::ConnType::USB) {
-        ui->boxFreq->addItem("640 Hz");
-        ui->boxFreq->addItem("1280 Hz");
+        ui->boxFreq->addItem("640 Hz", int(640));
+        ui->boxFreq->addItem("1280 Hz", int(1280));
     }
 }

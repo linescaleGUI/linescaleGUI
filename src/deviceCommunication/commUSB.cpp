@@ -82,7 +82,6 @@ bool CommUSB::connectDevice() {
     serialPort.setPortName(identifier.ID);
     connected = serialPort.open(QIODevice::ReadWrite);
     emit changedStateDevice(connected);
-    qDebug() << connected;
     return connected;
 }
 }  // namespace comm
