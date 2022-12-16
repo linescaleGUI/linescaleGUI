@@ -6,7 +6,7 @@ FetchContent_Populate(qcustomplot
     SOURCE_DIR "${CMAKE_CURRENT_LIST_DIR}/QCustomPlot"
 )
 
-add_library(qcustomplot OBJECT "QCustomPlot/qcustomplot.cpp")
+add_library(qcustomplot STATIC "QCustomPlot/qcustomplot.cpp")
 if(MSVC)
     target_compile_options(qcustomplot PRIVATE /W0)
 else()
@@ -14,6 +14,6 @@ else()
 endif()
 
 # TODO: high-dpi screens
-find_package(OpenGL REQUIRED)
-target_link_libraries(qcustomplot PRIVATE Qt::PrintSupport Qt::Widgets Qt::Core) # Qt::OpenGL opengl32)
+# find_package(OpenGL REQUIRED)
+target_link_libraries(qcustomplot PUBLIC Qt::PrintSupport Qt::Widgets Qt::Core) # Qt::OpenGL opengl32)
 # target_compile_definitions(qcustomplot PUBLIC QCUSTOMPLOT_USE_OPENGL)
