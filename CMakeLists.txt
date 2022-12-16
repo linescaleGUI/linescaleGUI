@@ -11,7 +11,7 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(Qt5 REQUIRED COMPONENTS Core Widgets Charts SerialPort Bluetooth PrintSupport)
+find_package(Qt5 REQUIRED COMPONENTS Core Widgets Charts SerialPort Bluetooth PrintSupport OpenGL)
 
 set(VERSION_FILE "${CMAKE_CURRENT_BINARY_DIR}/include/version.h")
 
@@ -31,10 +31,8 @@ add_executable(linescaleGUI
     ${APPICON_WIN} # add custom app icon
 )
 
-target_include_directories(libLinescaleGUI SYSTEM PRIVATE lib)
-target_include_directories(linescaleGUI SYSTEM PRIVATE lib)
-target_include_directories(libLinescaleGUI PRIVATE src include "${CMAKE_BINARY_DIR}/include")
-
+target_include_directories(libLinescaleGUI SYSTEM PUBLIC lib)
+target_include_directories(libLinescaleGUI PUBLIC src include "${CMAKE_BINARY_DIR}/include")
 
 if(DEFINED WARNINGS_AS_ERRORS)
     if(MSVC)
@@ -78,9 +76,9 @@ target_include_directories(libLinescaleGUI PUBLIC
   $<BUILD_INTERFACE:${AUTOGEN_INCLUDE_DIR}>
 )
 
-target_link_libraries(linescaleGUI PRIVATE Qt::Widgets libLinescaleGUI)
+target_link_libraries(linescaleGUI PRIVATE libLinescaleGUI)
 target_compile_options(linescaleGUI PRIVATE ${warning_compile_options})
-target_link_libraries(libLinescaleGUI PRIVATE ${QT_DEPENDENCIES} qcustomplot)
+target_link_libraries(libLinescaleGUI PUBLIC ${QT_DEPENDENCIES} qcustomplot)
 target_compile_options(libLinescaleGUI PRIVATE ${warning_compile_options})
 target_compile_definitions(libLinescaleGUI PUBLIC $<IF:$<CONFIG:Debug>,,QT_NO_DEBUG_OUTPUT>)
 target_compile_definitions(linescaleGUI PUBLIC $<IF:$<CONFIG:Debug>,,QT_NO_DEBUG_OUTPUT>)

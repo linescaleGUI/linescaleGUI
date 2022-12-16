@@ -29,11 +29,12 @@
 #define PLOTWIDGET_H_
 
 #include <QCustomPlot/qcustomplot.h>
+#include <QTimer>
 #include <QWidget>
+#include <QVector>
 
 class Plot : public QWidget {
    public:
-
     /**
      * @brief Create a new Plot widget.
      * @param parent The parent widget or `nullptr`.
@@ -41,33 +42,34 @@ class Plot : public QWidget {
     Plot(QWidget* parent = nullptr);
 
     /**
-     * @brief Add a single data point without repainting.
+     * @brief Add a single data point.
+     * 
+     * Once the data point is added the plot is updated automatically with a maximum
+     * update rate of 60 Hz.
+     * 
      * @param time Horizontal value (time).
      * @param force Vertical value (force).
      */
     void addData(double time, double force);
-    
-    /**
-     * @brief 
-     */
-    void replot();
-
-    private:
-    void removeSelectedGraph();
 
    private slots:
-    void axisLabelDoubleClick(QCPAxis* axis, QCPAxis::SelectablePart part);
-    void legendDoubleClick(QCPLegend* legend, QCPAbstractLegendItem* item);
     void selectionChanged();
     void mousePress();
     void mouseWheel();
     void contextMenuRequest(QPoint pos);
-    void moveLegend();
     void graphClicked(QCPAbstractPlottable* plottable, int dataIndex);
-    private:
+    
+    void updatePlot();
+    void disableUpdating();
+
+   private:
     QCustomPlot* customPlot;
     float minValue = 0.0, maxValue = 0.0;
     float lastTime = 0.0;
+    bool hadNewData = false;
+
+    QTimer* updateTimer;
+    QTimer* disableReplotTimer;
 };
 
-#endif //PLOTWIDGET_H_
+#endif  // PLOTWIDGET_H_

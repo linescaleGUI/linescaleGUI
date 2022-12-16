@@ -15,5 +15,5 @@ endif()
 
 # TODO: high-dpi screens
 find_package(OpenGL REQUIRED)
-target_link_libraries(qcustomplot PRIVATE Qt::PrintSupport Qt::Widgets Qt::Core opengl32)
+target_link_libraries(qcustomplot PRIVATE Qt::PrintSupport Qt::Widgets Qt::Core Qt::OpenGL opengl32)
 target_compile_definitions(qcustomplot PUBLIC QCUSTOMPLOT_USE_OPENGL)

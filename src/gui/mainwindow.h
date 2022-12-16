@@ -104,7 +104,6 @@ class MainWindow : public QMainWindow {
      * a delay. This is to prevent buffered data from setting the bool to true.
      */
     void triggerReadings();
-    void redrawPlot();
 
    private:
     Ui::MainWindow* ui;

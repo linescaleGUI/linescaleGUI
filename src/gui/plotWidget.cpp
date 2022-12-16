@@ -25,11 +25,18 @@
 #include <QDebug>
 
 Plot::Plot(QWidget* parent) : QWidget(parent) {
-    customPlot = new QCustomPlot(parent);
-    
-    qDebug() << "devicePixelRatio: " << parent->devicePixelRatioF();
+    updateTimer = new QTimer(this);
+    updateTimer->setInterval(16);
+    updateTimer->setTimerType(Qt::TimerType::PreciseTimer);
+    connect(updateTimer, &QTimer::timeout, this, &Plot::updatePlot);
 
-    customPlot->setOpenGl(true);
+    disableReplotTimer = new QTimer(this);
+    disableReplotTimer->setInterval(1000);
+    disableReplotTimer->setTimerType(Qt::TimerType::VeryCoarseTimer);
+    connect(disableReplotTimer, &QTimer::timeout, this, &Plot::disableUpdating);
+
+    customPlot = new QCustomPlot(parent);
+    // customPlot->setOpenGl(true); @todo Fix HiDPI bug in QCustomPlot library.
     customPlot->setNoAntialiasingOnDrag(true);
 
     customPlot->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom | QCP::iSelectAxes |
@@ -37,18 +44,9 @@ Plot::Plot(QWidget* parent) : QWidget(parent) {
     customPlot->xAxis->setLabel("");
     customPlot->yAxis->setLabel("");
     customPlot->legend->setVisible(false);
-    // QFont legendFont = font();
-    // legendFont.setPointSize(10);
-    // customPlot->legend->setFont(legendFont);
-    // customPlot->legend->setSelectedFont(legendFont);
-    // customPlot->legend->setSelectableParts(
-    //     QCPLegend::spItems);  // legend box shall not be selectable, only legend items
 
     customPlot->addGraph();
     customPlot->graph()->setLineStyle(QCPGraph::LineStyle::lsLine);
-
-    // TODO: hide the dots before they overlap each other
-    // customPlot->graph()->setScatterStyle(QCPScatterStyle::ssDisc);
 
     QPen graphPen;
     graphPen.setColor(QColor(78, 50, 168, 255));
@@ -63,72 +61,25 @@ Plot::Plot(QWidget* parent) : QWidget(parent) {
     // dragged and zoomed:
     connect(customPlot, &QCustomPlot::mousePress, this, &Plot::mousePress);
     connect(customPlot, &QCustomPlot::mouseWheel, this, &Plot::mouseWheel);
+    // @todo Allow to zoom with panning (touchscreen).
 
-   // connect some interaction slots:
-    connect(customPlot, &QCustomPlot::axisDoubleClick, this, &Plot::axisLabelDoubleClick);
-    // connect(customPlot, &QCustomPlot::legendDoubleClick, this, &Plot::legendDoubleClick);
+    // @todo Maybe implement custom range dialog.
+    // connect(customPlot, &QCustomPlot::axisDoubleClick, this, &Plot::axisLabelDoubleClick);
 
     // connect slot that shows a message in the status bar when a graph is clicked:
     // connect(customPlot, &QCustomPlot::plottableClick, this, &Plot::graphClicked);
 
-    // setup policy and connect slot for context menu popup:
+    // @todo Implement saving the graph as image.
     // customPlot->setContextMenuPolicy(Qt::CustomContextMenu);
     // connect(customPlot, &QCustomPlot::customContextMenuRequested, this,
-    // &Plot::contextMenuRequest);
+    //         &Plot::contextMenuRequest);
 
     auto layout = new QVBoxLayout(this);
     layout->addWidget(customPlot);
     this->setLayout(layout);
 }
 
-void Plot::axisLabelDoubleClick(QCPAxis* axis, QCPAxis::SelectablePart part) {
-    // Set an axis label by double clicking on it
-    if (part == QCPAxis::spAxisLabel)  // only react when the actual axis label is clicked, not tick
-                                       // label or axis backbone
-    {
-        bool ok;
-        QString newLabel = QInputDialog::getText(
-            this, "QCustomPlot example", "New axis label:", QLineEdit::Normal, axis->label(), &ok);
-        if (ok) {
-            axis->setLabel(newLabel);
-            customPlot->replot();
-        }
-    }
-}
-
-void Plot::legendDoubleClick(QCPLegend* legend, QCPAbstractLegendItem* item) {
-    // Rename a graph by double clicking on its legend item
-    Q_UNUSED(legend)
-    if (item)  // only react if item was clicked (user could have clicked on border padding of
-               // legend where there is no item, then item is 0)
-    {
-        QCPPlottableLegendItem* plItem = qobject_cast<QCPPlottableLegendItem*>(item);
-        bool ok;
-        QString newName =
-            QInputDialog::getText(this, "QCustomPlot example", "New graph name:", QLineEdit::Normal,
-                                  plItem->plottable()->name(), &ok);
-        if (ok) {
-            plItem->plottable()->setName(newName);
-            customPlot->replot();
-        }
-    }
-}
-
 void Plot::selectionChanged() {
-    /*
-     normally, axis base line, axis tick labels and axis labels are selectable separately, but we
-     want the user only to be able to select the axis as a whole, so we tie the selected states of
-     the tick labels and the axis base line together. However, the axis label shall be selectable
-     individually.
-
-     The selection state of the left and right axes shall be synchronized as well as the state of
-     the bottom and top axes.
-
-     Further, we want to synchronize the selection of the graphs with the selection state of the
-     respective legend item belonging to that graph. So the user can select a graph by either
-     clicking on the graph itself or on its legend item.
-    */
-
     // make top and bottom axes be selected synchronously, and handle axis and tick labels as one
     // selectable object:
     if (customPlot->xAxis->selectedParts().testFlag(QCPAxis::spAxis) ||
@@ -146,16 +97,6 @@ void Plot::selectionChanged() {
         customPlot->yAxis2->selectedParts().testFlag(QCPAxis::spTickLabels)) {
         customPlot->yAxis2->setSelectedParts(QCPAxis::spAxis | QCPAxis::spTickLabels);
         customPlot->yAxis->setSelectedParts(QCPAxis::spAxis | QCPAxis::spTickLabels);
-    }
-
-    // synchronize selection of graphs with selection of corresponding legend items:
-    for (int i = 0; i < customPlot->graphCount(); ++i) {
-        QCPGraph* graph = customPlot->graph(i);
-        QCPPlottableLegendItem* item = customPlot->legend->itemWithPlottable(graph);
-        if (item->selected() || graph->selected()) {
-            item->setSelected(true);
-            graph->setSelection(QCPDataSelection(graph->data()->dataRange()));
-        }
     }
 }
 
@@ -186,23 +127,23 @@ void Plot::mouseWheel() {
 void Plot::addData(double x, double y) {
     minValue = (y < minValue) ? y : minValue;
     maxValue = (y > maxValue) ? y : maxValue;
-
+    lastTime = x;
     customPlot->graph()->addData(x, y);
-    auto lowerBound = x - customPlot->xAxis->range().size();
-    customPlot->xAxis->setRange(lowerBound, x);
-    customPlot->yAxis->setRange(minValue, maxValue);
-}
-
-void Plot::replot() {
-    customPlot->replot();
-}
-
-void Plot::removeSelectedGraph() {
-    if (customPlot->selectedGraphs().size() > 0) {
-        customPlot->removeGraph(customPlot->selectedGraphs().first());
-        customPlot->replot();
+    if (!updateTimer->isActive()) {
+        updatePlot();
+        updateTimer->start();
+        disableReplotTimer->start();
+    } else {
+        hadNewData = true;
     }
 }
+
+// void Plot::removeSelectedGraph() {
+//     if (customPlot->selectedGraphs().size() > 0) {
+//         customPlot->removeGraph(customPlot->selectedGraphs().first());
+//         customPlot->replot();
+//     }
+// }
 
 void Plot::contextMenuRequest(QPoint pos) {
     QMenu* menu = new QMenu(this);
@@ -232,21 +173,9 @@ void Plot::contextMenuRequest(QPoint pos) {
     menu->popup(customPlot->mapToGlobal(pos));
 }
 
-void Plot::moveLegend() {
-    if (QAction* contextAction =
-            qobject_cast<QAction*>(sender()))  // make sure this slot is really called by a context
-                                               // menu action, so it carries the data we need
-    {
-        bool ok;
-        int dataInt = contextAction->data().toInt(&ok);
-        if (ok) {
-            customPlot->axisRect()->insetLayout()->setInsetAlignment(0, (Qt::Alignment)dataInt);
-            customPlot->replot();
-        }
-    }
-}
-
 void Plot::graphClicked(QCPAbstractPlottable* plottable, int dataIndex) {
+    Q_UNUSED(plottable)
+    Q_UNUSED(dataIndex)
     // since we know we only have QCPGraphs in the plot, we can immediately access interface1D()
     // usually it's better to first check whether interface1D() returns non-zero, and only then use
     // it.
@@ -254,4 +183,20 @@ void Plot::graphClicked(QCPAbstractPlottable* plottable, int dataIndex) {
     //   QString message = QString("Clicked on graph '%1' at data point #%2 with value
     //   %3.").arg(plottable->name()).arg(dataIndex).arg(dataValue); statusBar->showMessage(message,
     //   2500);
+}
+
+void Plot::updatePlot() {
+    auto lowerBound = lastTime - customPlot->xAxis->range().size();
+    customPlot->xAxis->setRange(lowerBound, lastTime);
+    customPlot->yAxis->setRange(minValue, maxValue);
+
+    customPlot->replot(QCustomPlot::rpQueuedRefresh);
+}
+
+void Plot::disableUpdating() {
+    if (!hadNewData) {
+        updateTimer->stop();
+        disableReplotTimer->stop();
+    }
+    hadNewData = false;
 }
