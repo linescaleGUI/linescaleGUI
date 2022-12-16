@@ -30,15 +30,13 @@
 #include <QByteArray>
 #include <QObject>
 
-// #include "BT_INTERFACE.h"
-
-
 enum class WorkingMode { REALTIME, OVERLOADED, MAX_CAPACITY };
 enum class MeasureMode { ABS_ZERO, REL_ZERO };
 enum class UnitValue { KN, KGF, LBF };
-const int expPackageLenght = 20;
 
-struct DataStruct {
+
+
+struct Sample {        
     WorkingMode workingMode;
     double measuredValue;
     MeasureMode measureMode;
@@ -49,43 +47,43 @@ struct DataStruct {
     /* data */
 };
 
-/**
- * @brief Parses received messages from Line Scale to usable data for GUI
- *
- */
+
 class Parser : public QObject {
     Q_OBJECT
    public:
    /**
-    * @brief todo
+    * @brief Parses received messages from Line Scale to usable data for GUI.
     * 
-    * @param package 
-    * @param data 
-    * @return true 
-    * @return false 
+    * @param package Raw package as QByteArray 
+    * @param data Parsed sample
+    * @return true: If parsing was successful
+    * @return false: If parsing resulted in an error
     */
-    bool parsePackage(QByteArray& package, DataStruct& data);
+    bool parsePackage(QByteArray& package, Sample& data);
+    static constexpr size_t PACKET_EXPECTED_LEN = 20;
 
    private:
-   
-    void pushRawMsg(QByteArray& rawMsg);
     bool checkPackage(QByteArray& package);
-    bool parseWorkingMode(QByteArray& package, DataStruct& data);
-    void parseMeasuredValue(QByteArray& package, DataStruct& data);
-    bool parseMeasureMode(QByteArray& package, DataStruct& data);
-    void parseReferenceZero(QByteArray& package, DataStruct& data);
-    void parseBatteryPercent(QByteArray& package, DataStruct& data);    
-    bool parseUnitValue(QByteArray& package, DataStruct& data);
-    bool parseFrequency(QByteArray& package, DataStruct& data);
+    bool parseWorkingMode(QByteArray& package, Sample& data);
+    bool parseMeasuredValue(QByteArray& package, Sample& data);
+    bool parseMeasureMode(QByteArray& package, Sample& data);
+    bool parseReferenceZero(QByteArray& package, Sample& data);
+    bool parseBatteryPercent(QByteArray& package, Sample& data);
+    bool parseUnitValue(QByteArray& package, Sample& data);
+    bool parseFrequency(QByteArray& package, Sample& data);
 
-   signals:
-    /**
-     * @brief sends data in form of a signal to GUI
-     *
-     * @param data parsed data
-     * @test connect
-     */
-    void newDataSet(DataStruct& data);
+    static constexpr size_t PACKET_CHECKED_LEN = 17;
+    static constexpr size_t PACKET_WORKING_MODE_INDEX = 0;
+    static constexpr size_t PACKET_CHECKSUM_LOWER_DIGIT_INDEX = 18;
+    static constexpr size_t PACKET_MEASURE_VALUE_START_INDEX = 1;
+    static constexpr size_t PACKET_MEASURE_VALUE_LEN = 6;
+    static constexpr size_t PACKET_CHECKSUM_UPPER_DIGIT_INDEX = 17;
+    static constexpr size_t PACKET_MEASURE_MODE_INDEX = 7;
+    static constexpr size_t PACKET_REFERENCE_ZERO_START_INDEX = 8;
+    static constexpr size_t PACKET_REFERENCE_ZERO_LEN = 6;
+    static constexpr size_t PACKET_BATTERY_PERCENT_INDEX = 14;
+    static constexpr size_t PACKET_UNIT_VALUE_INDEX = 15;
+    static constexpr size_t PACKET_FREQUENCY_INDEX = 16;
 };
 
 #endif  // PARSER_H

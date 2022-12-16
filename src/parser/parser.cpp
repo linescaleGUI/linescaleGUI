@@ -27,54 +27,41 @@
 
 #include "parser.h"
 
-bool Parser::parsePackage(QByteArray& package, DataStruct& data) {
-    bool dataOk = checkPackage(package);
-
-    if (dataOk) {
-        dataOk = parseWorkingMode(package, data); 
-    }
-    if (dataOk) {
-        parseMeasuredValue(package, data);  
-        dataOk = parseMeasureMode(package, data);
-    }
-    if (dataOk) {
-        parseReferenceZero(package, data);
-        parseBatteryPercent(package, data);
-        dataOk = parseUnitValue(package, data);
-    }
-    if (dataOk) {
-        dataOk = parseFrequency(package, data);
-    }
-    return dataOk;
+bool Parser::parsePackage(QByteArray& package, Sample& data) {
+    return checkPackage(package) && parseWorkingMode(package, data) &&
+           parseMeasuredValue(package, data) && parseMeasureMode(package, data) &&
+           parseReferenceZero(package, data) && parseBatteryPercent(package, data) &&
+           parseUnitValue(package, data) && parseFrequency(package, data);
 }
 
 bool Parser::checkPackage(QByteArray& package) {
     QByteArray value;
-    int checkVal = 0;
 
-    int valueStart = 0;
-    int valueLength = 17;
-
-    if (package.length() != expPackageLenght) {
+    if (package.length() != PACKET_EXPECTED_LEN) {
         return false;
     }
 
-    for (int i = valueStart; i < valueLength; i++) {
+    int checkVal = 0;
+    for (int i = 0; i < PACKET_CHECKED_LEN; i++) {
         checkVal += int(package.at(i));
     }
 
-    value.append(package.at(17));
-    value.append(package.at(18));
+    auto upperDigit = package.at(PACKET_CHECKSUM_UPPER_DIGIT_INDEX);
+    auto lowerDigit = package.at(PACKET_CHECKSUM_LOWER_DIGIT_INDEX);
+    if (!std::isdigit(upperDigit) || !std::isdigit(lowerDigit)) {
+        return false;
+    }
+    size_t checksum = (upperDigit - '0') * 10 + (lowerDigit - '0');
 
-    if ((checkVal % 100) == value.toInt()) {
+    if ((checkVal % 100) == checksum) {
         return true;
     } else {
         return false;
     }
 }
 
-bool Parser::parseWorkingMode(QByteArray& package, DataStruct& data) {
-    switch (package.at(0)) {
+bool Parser::parseWorkingMode(QByteArray& package, Sample& data) {
+    switch (package.at(PACKET_WORKING_MODE_INDEX)) {
         case 'R':
             data.workingMode = WorkingMode::REALTIME;
             break;
@@ -91,18 +78,15 @@ bool Parser::parseWorkingMode(QByteArray& package, DataStruct& data) {
     return true;
 }
 
-void Parser::parseMeasuredValue(QByteArray& package, DataStruct& data) {
-    QByteArray value;
-    int valueStart = 1;
-    int valueLength = 6;
-    for (int i = valueStart; i < valueLength + valueStart; i++) {
-        value.append(package.at(i));
-    }
-    data.measuredValue = value.toDouble();
+bool Parser::parseMeasuredValue(QByteArray& package, Sample& data) {
+    bool isOk;
+    data.measuredValue =
+        package.mid(PACKET_MEASURE_VALUE_START_INDEX, PACKET_MEASURE_VALUE_LEN).toDouble(&isOk);
+    return isOk;
 }
 
-bool Parser::parseMeasureMode(QByteArray& package, DataStruct& data) {
-    switch (package.at(7)) {
+bool Parser::parseMeasureMode(QByteArray& package, Sample& data) {
+    switch (package.at(PACKET_MEASURE_MODE_INDEX)) {
         case 'N':
             data.measureMode = MeasureMode::ABS_ZERO;
             break;
@@ -116,22 +100,20 @@ bool Parser::parseMeasureMode(QByteArray& package, DataStruct& data) {
     return true;
 }
 
-void Parser::parseReferenceZero(QByteArray& package, DataStruct& data) {
-    QByteArray value;
-    int valueStart = 8;
-    int valueLength = 6;
-    for (int i = valueStart; i < valueLength + valueStart; i++) {
-        value.append(package.at(i));
-    }
-    data.referenceZero = value.toDouble();
+bool Parser::parseReferenceZero(QByteArray& package, Sample& data) {
+    bool isOk;
+    data.referenceZero =
+        package.mid(PACKET_REFERENCE_ZERO_START_INDEX, PACKET_REFERENCE_ZERO_LEN).toDouble(&isOk);
+    return isOk;
 }
 
-void Parser::parseBatteryPercent(QByteArray& package, DataStruct& data) {
-    data.batteryPercent = int(package.at(14) - ' ') * 2;
+bool Parser::parseBatteryPercent(QByteArray& package, Sample& data) {
+    data.batteryPercent = int(package.at(PACKET_BATTERY_PERCENT_INDEX) - 0x20) * 2;
+    return true;
 }
 
-bool Parser::parseUnitValue(QByteArray& package, DataStruct& data) {
-    switch (package.at(15)) {
+bool Parser::parseUnitValue(QByteArray& package, Sample& data) {
+    switch (package.at(PACKET_UNIT_VALUE_INDEX)) {
         case 'N':
             data.unitValue = UnitValue::KN;
             break;
@@ -148,8 +130,8 @@ bool Parser::parseUnitValue(QByteArray& package, DataStruct& data) {
     return true;
 }
 
-bool Parser::parseFrequency(QByteArray& package, DataStruct& data) {
-    switch (package.at(16)) {
+bool Parser::parseFrequency(QByteArray& package, Sample& data) {
+    switch (package.at(PACKET_FREQUENCY_INDEX)) {
         case 'S':
             data.frequency = 10;
             break;
