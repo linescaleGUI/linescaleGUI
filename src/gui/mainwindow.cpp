@@ -108,11 +108,32 @@ void MainWindow::triggerReadings() {
 
 void MainWindow::receiveNewForce(Sample reading) {
     statusReading = true;
+    if(currentUnit != reading.unitValue) {
+        maxValue = 0; // Trigger reset of peak value to update the unit
+        currentUnit = reading.unitValue;
+        switch (reading.unitValue) {
+            case UnitValue::KN:
+                unitString = " kN";
+                break;
+            case UnitValue::LBF:
+                unitString = " lbf";
+                break;
+
+            case UnitValue::KGF:
+                unitString = " kgf";
+                break;
+            default:
+                break;
+        }
+    }
+
     if (reading.measuredValue >= maxValue) {
         maxValue = reading.measuredValue;
-        ui->lblPeakForce->setText(QString("%1 kN").arg(reading.measuredValue, 3, 'f', 2));
+        ui->lblPeakForce->setText(QString("%1").arg(reading.measuredValue, 3, 'f', 2) + unitString);
     }
-    ui->lblCurrentForce->setText(QString("%1 kN").arg(value, 0, 'f', 2));
+    ui->lblCurrentForce->setText(QString("%1").arg(reading.measuredValue, 3, 'f', 2) + unitString);
+    ui->widgetConnection->updateWidget(reading);
+    ui->widgetChart->addConsecutiveSample(reading);
 }
 
 void MainWindow::toggleActions(bool connected) {

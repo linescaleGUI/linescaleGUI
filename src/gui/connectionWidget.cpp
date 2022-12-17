@@ -61,9 +61,6 @@ void ConnectionWidget::requestNewFreq(int index) {
 void ConnectionWidget::updateWidget(Sample readings) {
     updateBatteryIcon(readings.batteryPercent);
     updateCurrentFrequency(readings.frequency);
-    ///@todo Check readings.batteryPercent. (Stays on 100% all the time)
-    // qDebug() << "Battery" << readings.batteryPercent;
-    // qDebug() << "Frequency" << readings.frequency;
 }
 
 void ConnectionWidget::updateBatteryIcon(int value) {

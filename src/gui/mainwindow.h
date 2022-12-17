@@ -31,6 +31,7 @@
 #include <QMainWindow>
 #include "../deviceCommunication/commMaster.h"
 #include "../notification/notification.h"
+#include "../parser/parser.h"
 #include "dialogabout.h"
 #include "dialogconnect.h"
 #include "dialogdebug.h"
@@ -75,8 +76,11 @@ class MainWindow : public QMainWindow {
     /**
      * @brief Receive new force from CommMaster
      *
-     * This slot updates the peak and current value of the right side bar
-     * It also updates the bool `MainWindow::statusReading` keeping track of 
+     * This slot updates the peak and current value of the right sidebar.
+     * The correct unit is extracted from the `Sample` and set accordingly.
+     * When a change in unit is detected, the peak value is reset.
+     *
+     * It also updates the bool `MainWindow::statusReading` keeping track of
      * the status of the connection.
      *
      * @param value Current force statusReading in the unit of the device
@@ -118,6 +122,8 @@ class MainWindow : public QMainWindow {
     Plot* plot;
     float maxValue = 0;
     bool statusReading = false;  ///< Tracks whether the host reads data or not
+    UnitValue currentUnit;       ///< Current unit value, used to detect a change
+    QString unitString = "";     ///< Cache the current unitString
 };
 
 #endif  // MAINWINDOW_H_

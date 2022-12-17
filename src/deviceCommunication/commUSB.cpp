@@ -61,7 +61,7 @@ void CommUSB::readData() {
             if (success) {
                 emit newForceDevice(receivedData);
             }
-            COMbuffer.remove(0, msgLen);
+            COMbuffer.remove(0, msgLen); // remove parsed package
         } else {
             COMbuffer.remove(0, 1);  // remove first byte and try again
         }
