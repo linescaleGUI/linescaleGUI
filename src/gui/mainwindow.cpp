@@ -92,7 +92,7 @@ void MainWindow::showLog(void) {
 void MainWindow::sendResetPeak() {
     comm->sendData(command::RESETPEAK);
     maxValue = 0;
-    receiveNewForce(0);
+    updateImportantValues(0, 0);
 }
 
 void MainWindow::triggerReadings() {
@@ -106,13 +106,19 @@ void MainWindow::triggerReadings() {
     }
 }
 
-void MainWindow::receiveNewForce(float value) {
-    reading = true;
+void MainWindow::updateImportantValues(float time, float value) {
+    Q_UNUSED(time)
     if (value >= maxValue) {
         maxValue = value;
         ui->lblPeakForce->setText(QString("%1 kN").arg(value, 3, 'f', 2));
     }
     ui->lblCurrentForce->setText(QString("%1 kN").arg(value, 0, 'f', 2));
+}
+
+void MainWindow::receiveNewForce(float time, float value) {
+    reading = true;
+    updateImportantValues(time, value);
+    ui->widgetChart->addData(time, value);
 }
 
 void MainWindow::toggleActions(bool connected) {

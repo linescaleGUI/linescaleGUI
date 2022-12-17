@@ -133,7 +133,7 @@ class CommDevice : public QObject {
      *
      * @param value
      */
-    void newForceDevice(float value);
+    void newForceDevice(float time, float value);
 
     /**
      * @brief Emit after connection / disconnection to trigger UI changes

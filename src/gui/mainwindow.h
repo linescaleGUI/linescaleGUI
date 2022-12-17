@@ -34,6 +34,7 @@
 #include "dialogabout.h"
 #include "dialogconnect.h"
 #include "dialogdebug.h"
+#include "plotWidget.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -80,7 +81,7 @@ class MainWindow : public QMainWindow {
      *
      * @param value Current force reading in the unit of the device
      */
-    void receiveNewForce(float value);
+    void receiveNewForce(float time, float value);
 
     /**
      * @brief Toggle the GUI elements on connection
@@ -105,12 +106,16 @@ class MainWindow : public QMainWindow {
     void triggerReadings();
 
    private:
+    void updateImportantValues(float time, float value);
+
+   private:
     Ui::MainWindow* ui;
     comm::CommMaster* comm;
     DialogAbout* dAbout;
     DialogDebug* dDebug;
     DialogConnect* dConnect;
     Notification* notification;
+    Plot* plot;
     float maxValue = 0;
     bool reading = false;  ///< Tracks whether the host reads data or not
 };

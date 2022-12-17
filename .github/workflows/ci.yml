@@ -25,7 +25,7 @@ jobs:
             os: ubuntu-latest,
             # cc: "gcc", cxx: "g++", generator: "Unix Makefiles",
             build_type: "Debug", cc: "clang", cxx: "clang++", generator: "Unix Makefiles",
-            qt_archives: "icu"
+            ldflags: "-fuse-ld=lld", qt_archives: "icu"
           }
         - {
             name: "macOS Latest Clang",
@@ -59,6 +59,8 @@ jobs:
             && echo "CC=${{ matrix.config.cc }}" >> $GITHUB_ENV || true
           [[ -n "${{ matrix.config.cxx }}" ]] \
             && echo "CXX=${{ matrix.config.cxx }}" >> $GITHUB_ENV || true
+          [[ -n "${{ matrix.config.ldflags }}" ]] \
+            && echo "LDFLAGS=${{ matrix.config.ldflags }}" >> $GITHUB_ENV || true
 
       - name: Configure
         shell: bash
