@@ -28,7 +28,7 @@
 #ifndef PLOTWIDGET_H_
 #define PLOTWIDGET_H_
 
-// @TODO Better way to disable this warning for MSVC.
+// @todo Better way to disable this warning for MSVC.
 #if _MSC_VER && !__INTEL_COMPILER
 #pragma warning(push)
 #pragma warning(disable : 4127)
@@ -41,6 +41,8 @@
 #include <QTimer>
 #include <QVector>
 #include <QWidget>
+
+#include "../parser/parser.h"
 
 /**
  * @brief A dynamic line graph chart.
@@ -69,9 +71,24 @@ class Plot : public QWidget {
     void addData(double time, double force);
 
     /**
+     * @brief Add a single sample to the data.
+     *
+     * The sample is appended to the data; its time value will be set as
+     * `lastTime + 1/sample.frequency` where `lastTime` is the time of the last data point
+     * added to the current graph. `sample.measuredValue` will be used as the force value.
+     *
+     * @todo Handle different `Sample::unitValue`s.
+     *
+     * @param sample The sample to add.
+     */
+    inline void addConsecutiveSample(const Sample& sample) {
+        addData(lastTime + 1.0 / (double)sample.frequency, sample.measuredValue);
+    }
+
+    /**
      * @brief Add a new graph to the plot and use it for all new points added.
      *
-     * @param startFromOrigin Whether the new graph should begin a `time = 0` or from the
+     * @param startFromOrigin Whether the new graph should begin at `time = 0` or from the
      *                        time of the previous graph.
      */
     void beginNewGraph(bool startFromOrigin = true);
@@ -85,7 +102,7 @@ class Plot : public QWidget {
      * @brief Handle a mouse press inside the plot.
      * @param evt Mouse event from qt.
      */
-    void mousePress(QMouseEvent *evt);
+    void mousePress(QMouseEvent* evt);
     /**
      * @brief Handle mouse wheel events inside the plot.
      */

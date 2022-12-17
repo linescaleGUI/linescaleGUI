@@ -170,17 +170,17 @@ void Plot::mouseMove() {
     }
 }
 
-void Plot::addData(double x, double y) {
-    minValue = (y < minValue) ? y : minValue;
-    maxValue = (y > maxValue) ? y : maxValue;
-    lastTime = x;
+void Plot::addData(double time, double force) {
+    minValue = (force < minValue) ? force : minValue;
+    maxValue = (force > maxValue) ? force : maxValue;
+    lastTime = time;
     if (customPlot->graphCount() == 0) {
         beginNewGraph();
         // Enable auto range and show newest when the first graph.
         autoRangeAction->setChecked(true);
         autoShowNewestAction->setChecked(true);
     }
-    customPlot->graph()->addData(x, y);
+    customPlot->graph()->addData(time, force);
     if (!updateTimer->isActive()) {
         updatePlot();
         updateTimer->start();
@@ -250,6 +250,7 @@ void Plot::deleteSelectedGraphs() {
     for (auto g : customPlot->selectedGraphs()) {
         customPlot->removeGraph(g);
     }
+    customPlot->replot();
 }
 
 void Plot::clearSelection() {
