@@ -52,7 +52,7 @@ bool CommMaster::addConnection(DeviceInfo identifier) {
     }
 
     if (singleDevice != nullptr) {
-        connect(singleDevice, &CommDevice::newForceDevice, this, &CommMaster::getNewForce);
+        connect(singleDevice, &CommDevice::newSampleDevice, this, &CommMaster::receiveSampleMaster);
         connect(singleDevice, &CommDevice::changedStateDevice, this, &CommMaster::getChangedState);
         return singleDevice->connectDevice();
 
@@ -112,8 +112,8 @@ void CommMaster::sendData(const QString& rawData) {
     sendData(rawHexData);
 }
 
-void CommMaster::getNewForce(Sample reading) {
-    emit newForceMaster(reading);
+void CommMaster::receiveSampleMaster(Sample reading) {
+    emit newSampleMaster(reading);
 }
 
 void CommMaster::getChangedState(bool connected) {

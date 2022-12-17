@@ -74,7 +74,7 @@ class MainWindow : public QMainWindow {
 
    private slots:
     /**
-     * @brief Receive new force from CommMaster
+     * @brief Receive new sample from CommMaster
      *
      * This slot updates the peak and current value of the right sidebar.
      * The correct unit is extracted from the `Sample` and set accordingly.
@@ -83,9 +83,9 @@ class MainWindow : public QMainWindow {
      * It also updates the bool `MainWindow::statusReading` keeping track of
      * the status of the connection.
      *
-     * @param value Current force statusReading in the unit of the device
+     * @param reading Current sample
      */
-    void receiveNewForce(Sample reading);
+    void receiveNewSample(Sample reading);
 
     /**
      * @brief Toggle the GUI elements on connection
@@ -103,7 +103,7 @@ class MainWindow : public QMainWindow {
      *
      * Send the command to the connected device. If the host receives a new
      * statusReading, the bool `MainWindow::statusReading` will be enabled by
-     * `MainWindow::receiveNewForce`.
+     * `MainWindow::receiveNewSample`.
      * If the host terminates the stream, the bool will be set to false after
      * a delay. This is to prevent buffered data from setting the bool to true.
      */

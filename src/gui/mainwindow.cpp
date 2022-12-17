@@ -59,7 +59,7 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWi
     connect(ui->btnResetPeak, &QPushButton::pressed, this, &MainWindow::sendResetPeak);
 
     // updates from CommMaster
-    connect(comm, &comm::CommMaster::newForceMaster, this, &MainWindow::receiveNewForce);
+    connect(comm, &comm::CommMaster::newSampleMaster, this, &MainWindow::receiveNewSample);
     connect(comm, &comm::CommMaster::changedStateMaster, this, &MainWindow::toggleActions);
 
     // disable wait for close, automatic close after main window close
@@ -106,7 +106,7 @@ void MainWindow::triggerReadings() {
     }
 }
 
-void MainWindow::receiveNewForce(Sample reading) {
+void MainWindow::receiveNewSample(Sample reading) {
     statusReading = true;
     if(currentUnit != reading.unitValue) {
         maxValue = 0; // Trigger reset of peak value to update the unit

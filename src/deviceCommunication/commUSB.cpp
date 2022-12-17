@@ -59,7 +59,7 @@ void CommUSB::readData() {
             extractedMessage = COMbuffer.mid(0, msgLen);
             bool success = parser.parsePackage(extractedMessage, receivedData);
             if (success) {
-                emit newForceDevice(receivedData);
+                emit newSampleDevice(receivedData);
             }
             COMbuffer.remove(0, msgLen); // remove parsed package
         } else {

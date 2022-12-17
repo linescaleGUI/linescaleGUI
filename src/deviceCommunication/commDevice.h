@@ -134,7 +134,7 @@ class CommDevice : public QObject {
      *
      * @param value
      */
-    void newForceDevice(Sample reading);
+    void newSampleDevice(Sample reading);
 
     /**
      * @brief Emit after connection / disconnection to trigger UI changes
