@@ -70,21 +70,62 @@ class Plot : public QWidget {
 
     /**
      * @brief Add a new graph to the plot and use it for all new points added.
+     *
+     * @param startFromOrigin Whether the new graph should begin a `time = 0` or from the
+     *                        time of the previous graph.
      */
-    void beginNewGraph();
+    void beginNewGraph(bool startFromOrigin = true);
 
    private slots:
+    /**
+     * @brief Handle a selection change inside the plot.
+     */
     void selectionChanged();
-    void mousePress();
+    /**
+     * @brief Handle a mouse press inside the plot.
+     * @param evt Mouse event from qt.
+     */
+    void mousePress(QMouseEvent *evt);
+    /**
+     * @brief Handle mouse wheel events inside the plot.
+     */
     void mouseWheel();
+    /**
+     * @brief Handle mouse move events inside the plot.
+     */
     void mouseMove();
+    /**
+     * @brief Show a context menu for the plot.
+     * @param pos Mouse position of the right-click relative to the plot.
+     */
     void contextMenuRequest(QPoint pos);
+
+    /**
+     * @brief Handle a click on a graph.
+     * @param plottable The plottable that was clicked.
+     * @param dataIndex The nearest data point index to the click position.
+     * @param event The actual mouse event of the click.
+     */
     void graphClicked(QCPAbstractPlottable* plottable, int dataIndex, QMouseEvent* event);
 
+    /**
+     * @brief Replot the graph possibly changing the axis ranges.
+     */
     void updatePlot();
+
+    /**
+     * @brief Disable the auto updating timer.
+     */
     void disableUpdating();
+    /**
+     * @brief Delete all selected graphs.
+     */
+    void deleteSelectedGraphs();
 
    private:
+    /**
+     * @brief Clear the current selection insde the plot.
+     */
     void clearSelection();
 
    private:

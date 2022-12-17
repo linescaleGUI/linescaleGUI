@@ -73,11 +73,7 @@ Plot::Plot(QWidget* parent) : QWidget(parent) {
 
     deleteGraphAction = new QAction("Delete graph", this);
     deleteGraphAction->setShortcuts({QKeySequence::Delete, QKeySequence::Backspace});
-    connect(deleteGraphAction, &QAction::triggered, this, [=]() {
-        for (auto g : customPlot->selectedGraphs()) {
-            customPlot->removeGraph(g);
-        }
-    });
+    connect(deleteGraphAction, &QAction::triggered, this, &Plot::deleteSelectedGraphs);
     addAction(deleteGraphAction);
 
     autoRangeAction = new QAction("Auto-range y-axis", this);
@@ -117,20 +113,33 @@ void Plot::selectionChanged() {
     }
 }
 
-void Plot::beginNewGraph() {
+void Plot::beginNewGraph(bool startFromOrigin) {
     customPlot->addGraph();
+    if (startFromOrigin) {
+        lastTime = 0;
+        maxValue = 0;
+        minValue = 0;
+    }
 }
 
-void Plot::mousePress() {
+inline bool testAxisSelected(QCPAxis* axis, QPoint pos, int tolerance) {
+    auto val = axis->selectTest(pos, true);
+    return val > 0 && val < (double)tolerance;
+}
+void Plot::mousePress(QMouseEvent* evt) {
     // if an axis is selected, only allow the direction of that axis to be dragged
     // if no axis is selected, both directions may be dragged
+    auto tolerance = customPlot->selectionTolerance();
 
-    if (customPlot->xAxis->selectedParts().testFlag(QCPAxis::spAxis))
+    if (customPlot->xAxis->selectedParts().testFlag(QCPAxis::spAxis) ||
+        testAxisSelected(customPlot->xAxis, evt->pos(), tolerance)) {
         customPlot->axisRect()->setRangeDrag(customPlot->xAxis->orientation());
-    else if (customPlot->yAxis->selectedParts().testFlag(QCPAxis::spAxis))
+    } else if (customPlot->yAxis->selectedParts().testFlag(QCPAxis::spAxis) ||
+               testAxisSelected(customPlot->yAxis, evt->pos(), tolerance)) {
         customPlot->axisRect()->setRangeDrag(customPlot->yAxis->orientation());
-    else
+    } else {
         customPlot->axisRect()->setRangeDrag(Qt::Horizontal | Qt::Vertical);
+    }
 }
 
 void Plot::mouseWheel() {
@@ -151,12 +160,13 @@ void Plot::mouseWheel() {
 void Plot::mouseMove() {
     if (QApplication::mouseButtons() & Qt::MouseButton::LeftButton) {
         auto rangeDrag = customPlot->axisRect()->rangeDrag();
-        if (rangeDrag & Qt::Horizontal) {
+        qDebug() << rangeDrag;
+        if (rangeDrag.testFlag(Qt::Horizontal)) {
             autoShowNewestAction->setChecked(false);
         }
-        if (rangeDrag & Qt::Vertical) {
+        if (rangeDrag.testFlag(Qt::Vertical)) {
             autoRangeAction->setChecked(false);
-        }        
+        }
     }
 }
 
@@ -165,7 +175,10 @@ void Plot::addData(double x, double y) {
     maxValue = (y > maxValue) ? y : maxValue;
     lastTime = x;
     if (customPlot->graphCount() == 0) {
-        customPlot->addGraph();
+        beginNewGraph();
+        // Enable auto range and show newest when the first graph.
+        autoRangeAction->setChecked(true);
+        autoShowNewestAction->setChecked(true);
     }
     customPlot->graph()->addData(x, y);
     if (!updateTimer->isActive()) {
@@ -214,6 +227,7 @@ void Plot::contextMenuRequest(QPoint pos) {
 void Plot::updatePlot() {
     auto lowerBound = lastTime - customPlot->xAxis->range().size();
 
+    // @todo Scale to what data-range is in the viewport as option (default?).
     if (autoShowNewestAction->isChecked()) {
         customPlot->xAxis->setRange(lowerBound, lastTime);
     }
@@ -230,6 +244,12 @@ void Plot::disableUpdating() {
         disableReplotTimer->stop();
     }
     hadNewData = false;
+}
+
+void Plot::deleteSelectedGraphs() {
+    for (auto g : customPlot->selectedGraphs()) {
+        customPlot->removeGraph(g);
+    }
 }
 
 void Plot::clearSelection() {
