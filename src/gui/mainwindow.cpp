@@ -56,6 +56,8 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWi
     connect(ui->actionStartStop, &QAction::triggered, this, &MainWindow::triggerReadings);
 
     // Buttons next to readings
+    connect(ui->btnSetAbsoluteZero, &QPushButton::pressed, this, &MainWindow::sendSetAbsoluteZero);
+    connect(ui->btnSetRelativeZero, &QPushButton::pressed, this, &MainWindow::sendSetRelativeZero);
     connect(ui->btnResetPeak, &QPushButton::pressed, this, &MainWindow::sendResetPeak);
 
     // updates from CommMaster
@@ -95,6 +97,16 @@ void MainWindow::sendResetPeak() {
     ui->lblPeakForce->setText("-");
 }
 
+void MainWindow::sendSetAbsoluteZero() {
+    comm->sendData(command::SETABSOLUTEMODE);
+}
+
+void MainWindow::sendSetRelativeZero() {
+    comm->sendData(command::SETRELATIVEMODE);
+    comm->sendData(command::SETZERO);
+    // comm->sendData(command::SETCURRENTTOABSOLUTE);
+}
+
 void MainWindow::triggerReadings() {
     if (!statusReading) {
         notification->push("Start reading");
@@ -132,6 +144,7 @@ void MainWindow::receiveNewSample(Sample reading) {
         ui->lblPeakForce->setText(QString("%1").arg(reading.measuredValue, 3, 'f', 2) + unitString);
     }
     ui->lblCurrentForce->setText(QString("%1").arg(reading.measuredValue, 3, 'f', 2) + unitString);
+    ui->lblReferenceZero->setText(QString("%1").arg(reading.referenceZero, 3, 'f', 2) + unitString);
     ui->widgetConnection->updateWidget(reading);
     ui->widgetChart->addConsecutiveSample(reading);
 }

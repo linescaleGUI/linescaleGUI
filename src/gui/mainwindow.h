@@ -72,6 +72,23 @@ class MainWindow : public QMainWindow {
      */
     void sendResetPeak();
 
+    /**
+     * @brief Slot triggered by the button "setAbsoluteZero"
+     *
+     * This slot sets the device into absolute mode and resets the zero point
+     *
+     */
+    void sendSetAbsoluteZero();
+
+    /**
+     * @brief Slot triggered by the button "setReferenceZero"
+     *
+     * This slots sets the device into relative mode and sets the current value
+     * as the new zero.
+     *
+     */
+    void sendSetRelativeZero();
+
    private slots:
     /**
      * @brief Receive new sample from CommMaster
