@@ -53,15 +53,15 @@ void CommUSB::sendData(const QByteArray& rawData) {
 
 void CommUSB::readData() {
     COMbuffer += serialPort.readAll();
-    int msgLen = Parser::PACKET_EXPECTED_LEN;
-    while (COMbuffer.length() >= msgLen) {
-        if (COMbuffer[msgLen - 1] == '\r') {
-            extractedMessage = COMbuffer.mid(0, msgLen);
+    while (COMbuffer.length() >= Parser::PACKET_EXPECTED_LEN) {
+        if (COMbuffer[static_cast<int>(Parser::PACKET_EXPECTED_LEN) - 1] == '\r') {
+            extractedMessage = COMbuffer.mid(0, Parser::PACKET_EXPECTED_LEN);
             bool success = parser.parsePackage(extractedMessage, receivedData);
             if (success) {
                 emit newSampleDevice(receivedData);
             }
-            COMbuffer.remove(0, msgLen); // remove parsed package
+            COMbuffer.remove(
+                0, Parser::PACKET_EXPECTED_LEN);  // remove parsed package regardless of success
         } else {
             COMbuffer.remove(0, 1);  // remove first byte and try again
         }

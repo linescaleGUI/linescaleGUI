@@ -104,7 +104,6 @@ void MainWindow::sendSetAbsoluteZero() {
 void MainWindow::sendSetRelativeZero() {
     comm->sendData(command::SETRELATIVEMODE);
     comm->sendData(command::SETZERO);
-    // comm->sendData(command::SETCURRENTTOABSOLUTE);
 }
 
 void MainWindow::triggerReadings() {
