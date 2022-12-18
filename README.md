@@ -1,56 +1,26 @@
 # linescaleGUI
-A cross platform GUI to interact with the [LineScale 3](https://www.linegrip.com/linescale-3/) from LineGrip Corporation Ltd. 
+![Banner](assets/logo/banner.svg)
 
-## Development setup
+[![CI](https://github.com/linescaleGUI/linescaleGUI/actions/workflows/ci.yml/badge.svg)](https://github.com/linescaleGUI/linescaleGUI/actions/workflows/ci.yml)
+![GitHub](https://img.shields.io/github/license/linescaleGUI/linescaleGUI)
+![Platforms](https://img.shields.io/badge/platforms-Linux%20%7C%20win7%20%7C%20win10-lightgrey)
+![GitHub all releases](https://img.shields.io/github/downloads/linescaleGUI/linescaleGUI/total?color=lightgrey)
 
-### Visual Studio Code
+A cross platform GUI to interact with the [LineScale 3](https://www.linegrip.com/linescale-3/) from [LineGrip Corporation Ltd](https://www.linegrip.com/).
 
-1. Open the folder in [Visual Studio Code](https://code.visualstudio.com/).
-2. Install the recommended extensions.  
-   (When opening the folder, there will be a notification that asks whether to install the
-   recommended extensions.)
-    - CMake Tools
-    - C/C++
-3. Platform-specific setup
-    <!-- - **Windows GNU**
-        1. `Ctrl+P`→ `CMake: Edit User-Local CMake Kits`
-        2. Add the following kit:
-           ```json
-            {
-                "name": "Qt MinGW",
-                "compilers": {
-                    "C": "<Qt Install Dir>/Tools/mingw1120_64/bin/gcc.exe",
-                    "CXX": "<Qt Install Dir>/Tools/mingw1120_64/bin/g++.exe"
-                },
-                "environmentVariables": {
-                    "QT_DIR": "<Qt Install Dir>/6.3.2/mingw_64"
-                }
-            }
-           ```
-        3. Select the new kit. -->
-    - **Windows MSVC**
-        1. Install [Visual Studio Build
-           Tools](https://visualstudio.microsoft.com/de/downloads/#build-tools-for-visual-studio-2022)
-           (`Windows SDK` and `MSVC - VS 2022`).
-        2. Install `Qt 5.15` including `MSVC 2019`.
-        3. Set the environment variable `QT_DIR` to `<Qt Install dir>/5.15.2/msvc2019_64`.  
-           This can be done by adding
-           ```json
-            "cmake.environment": {
-                "QT_DIR": "<Qt Dir>/5.15.2/msvc2019_64"
-            },
-           ```
-           to the vscode settings, or adding that variable globally in Windows.
-        4. Open the cloned repository in vscode.
-        5. `Ctrl+P`→ `CMake: Scan for Kits`  
-           Some Visual Studio Kits should have been discovered.
-        6. Select the appropriate kit (e.g. `Visual Studio Build Tools 2022 Release - amd64`).
-            > **Note**  
-            > The default generator is [ninja-build](https://ninja-build.org/) as
-            > configured in the workspace settings (`cmake.preferredGenerators`). To
-            > override this generator set `cmake.generator` in your settings.
-            > More information [here](https://github.com/microsoft/vscode-cmake-tools/blob/main/docs/configure.md#the-cmake-tools-configure-step).
-    - **Linux**: TBD
-    - **MacOS**: TBD
-4. Configure the project.
-5. Build the project.
+# Installation
+Currently there is a zip file for Windows available unter [Release](https://github.com/linescaleGUI/linescaleGUI/releases).
+Download this file and unzip it afterwards.
+After a security prompt the application can be executed.
+
+# Development
+Current development is done using Visual Studio Code and Qt v5.15 on Windows.
+The CI pipeline however builds successfully on Windows, Ubuntu and Linux.
+
+If you are familiar with building C++ Qt desktop applications with Qt Creator, then this should be as simple as opening `CMakeLists.txt` and build/run the project.
+
+A detailed build description for VS Code is available unter [BUILDING.md](BUILDING.md)
+
+
+# License
+This code is released under the [GNU General Public License version 3](http://www.gnu.org/licenses/gpl-3.0.txt).
