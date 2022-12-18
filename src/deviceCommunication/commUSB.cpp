@@ -52,22 +52,21 @@ void CommUSB::sendData(const QByteArray& rawData) {
 };
 
 void CommUSB::readData() {
-    /// @todo add proper parser
-    QByteArray data = serialPort.readAll();
-    COMbuffer += data;
-    QStringList COMBufferList = COMbuffer.split('\n');
-    for (int i = 0; i < COMBufferList.length(); ++i) {
-        QString currentMsg = COMBufferList[i];
-        if (currentMsg.endsWith('\r')) {
-            float force = currentMsg.mid(1, 6).remove('-').toFloat();
-
-            COMbuffer.remove(currentMsg);
-            emit newForceDevice(currTime, force);
-            
-            currTime += 1.0f/40.0f; // TODO: use actual sampling rate
+    COMbuffer += serialPort.readAll();
+    while (COMbuffer.length() >= Parser::PACKET_EXPECTED_LEN) {
+        if (COMbuffer[static_cast<int>(Parser::PACKET_EXPECTED_LEN) - 1] == '\r') {
+            extractedMessage = COMbuffer.mid(0, Parser::PACKET_EXPECTED_LEN);
+            bool success = parser.parsePackage(extractedMessage, receivedData);
+            if (success) {
+                emit newSampleDevice(receivedData);
+            }
+            COMbuffer.remove(
+                0, Parser::PACKET_EXPECTED_LEN);  // remove parsed package regardless of success
+        } else {
+            COMbuffer.remove(0, 1);  // remove first byte and try again
         }
     }
-};
+}
 
 void CommUSB::handleError(QSerialPort::SerialPortError error) {
     if (error == QSerialPort::ResourceError) {

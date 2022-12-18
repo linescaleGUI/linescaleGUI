@@ -96,11 +96,11 @@ class CommMaster : public QObject {
 
    signals:
     /**
-     * @brief Emit after new force value was sent by a deviceClass
+     * @brief Emit after new sample was sent by a deviceClass
      *
-     * @param value Force from device (unit as set on device)
+     * @param reading Sample from device
      */
-    void newForceMaster(float time, float value);
+    void newSampleMaster(Sample reading);
 
     /**
      * @brief Emit after status change
@@ -113,9 +113,9 @@ class CommMaster : public QObject {
     /**
      * @brief Slot to receive the emitted signal from a deviceClass
      *
-     * @param value Force from device (unit as set on device)
+     * @param reading Sample from device
      */
-    void getNewForce(float time, float value);
+    void receiveSampleMaster(Sample reading);
 
     /**
      * @brief Slot to receive the updated state from a deviceClass

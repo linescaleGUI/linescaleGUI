@@ -160,7 +160,6 @@ void Plot::mouseWheel() {
 void Plot::mouseMove() {
     if (QApplication::mouseButtons() & Qt::MouseButton::LeftButton) {
         auto rangeDrag = customPlot->axisRect()->rangeDrag();
-        qDebug() << rangeDrag;
         if (rangeDrag.testFlag(Qt::Horizontal)) {
             autoShowNewestAction->setChecked(false);
         }

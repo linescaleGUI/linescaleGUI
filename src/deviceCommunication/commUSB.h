@@ -35,6 +35,7 @@
 #include <QSerialPort>
 #include <QSerialPortInfo>
 #include "commDevice.h"
+#include "../parser/parser.h"
 
 namespace comm {
 
@@ -87,8 +88,8 @@ class CommUSB : public CommDevice {
 
     QSerialPort serialPort;
     DeviceInfo identifier;
-    QString COMbuffer;
-    float currTime = 0;
+    QByteArray COMbuffer;
+    QByteArray extractedMessage;
 };
 
 }  // namespace comm

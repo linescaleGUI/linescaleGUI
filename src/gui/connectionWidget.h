@@ -79,6 +79,13 @@ class ConnectionWidget : public QWidget {
      */
     void setCommunicationMaster(comm::CommMaster* comm);
 
+    /**
+     * @brief Updates the data inside the device widget
+     *
+     * @param readings `Sample` with the current data
+     */
+    void updateWidget(Sample readings);
+
    private slots:
 
     /**
@@ -96,6 +103,27 @@ class ConnectionWidget : public QWidget {
     void requestNewFreq(int index);
 
    private:
+    /**
+     * @brief Helper function for `updateWidget` to update the battery icon
+     *
+     * Replace the battery icon with the correct image for the current battery
+     * level.
+     *
+     *
+     * @param value Battery level from 0 to 100 in percent
+     */
+    void updateBatteryIcon(int value);
+
+    /**
+     * @brief Helper function for updateWidget to display the current frequency.
+     * 
+     * Updates the comboBox with the frequencies. The frequency is converted to 
+     * the index of the comboBox, starting with index 0 for 10Hz.
+     * 
+     * @param frequency Frequency in Hz (10, 40, 640, 1280)
+     */
+    void updateCurrentFrequency(int frequency);
+    
     Ui::ConnectionWidget* ui;
     comm::CommMaster* communication = nullptr;
 };

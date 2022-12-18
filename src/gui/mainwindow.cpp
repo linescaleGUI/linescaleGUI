@@ -56,10 +56,12 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWi
     connect(ui->actionStartStop, &QAction::triggered, this, &MainWindow::triggerReadings);
 
     // Buttons next to readings
+    connect(ui->btnSetAbsoluteZero, &QPushButton::pressed, this, &MainWindow::sendSetAbsoluteZero);
+    connect(ui->btnSetRelativeZero, &QPushButton::pressed, this, &MainWindow::sendSetRelativeZero);
     connect(ui->btnResetPeak, &QPushButton::pressed, this, &MainWindow::sendResetPeak);
 
     // updates from CommMaster
-    connect(comm, &comm::CommMaster::newForceMaster, this, &MainWindow::receiveNewForce);
+    connect(comm, &comm::CommMaster::newSampleMaster, this, &MainWindow::receiveNewSample);
     connect(comm, &comm::CommMaster::changedStateMaster, this, &MainWindow::toggleActions);
 
     // disable wait for close, automatic close after main window close
@@ -92,33 +94,58 @@ void MainWindow::showLog(void) {
 void MainWindow::sendResetPeak() {
     comm->sendData(command::RESETPEAK);
     maxValue = 0;
-    updateImportantValues(0, 0);
+    ui->lblPeakForce->setText("-");
+}
+
+void MainWindow::sendSetAbsoluteZero() {
+    comm->sendData(command::SETABSOLUTEMODE);
+}
+
+void MainWindow::sendSetRelativeZero() {
+    comm->sendData(command::SETRELATIVEMODE);
+    comm->sendData(command::SETZERO);
 }
 
 void MainWindow::triggerReadings() {
-    if (!reading) {
+    if (!statusReading) {
         notification->push("Start reading");
         comm->sendData(command::REQUESTONLINE);
     } else {
-        QTimer::singleShot(10, [=] { reading = false; });
+        QTimer::singleShot(10, [=] { statusReading = false; });
         notification->push("Stop reading");
         comm->sendData(command::DISCONNECTONLINE);
     }
 }
 
-void MainWindow::updateImportantValues(float time, float value) {
-    Q_UNUSED(time)
-    if (value >= maxValue) {
-        maxValue = value;
-        ui->lblPeakForce->setText(QString("%1 kN").arg(value, 3, 'f', 2));
-    }
-    ui->lblCurrentForce->setText(QString("%1 kN").arg(value, 0, 'f', 2));
-}
+void MainWindow::receiveNewSample(Sample reading) {
+    statusReading = true;
+    if(currentUnit != reading.unitValue) {
+        maxValue = 0; // Trigger reset of peak value to update the unit
+        currentUnit = reading.unitValue;
+        switch (reading.unitValue) {
+            case UnitValue::KN:
+                unitString = " kN";
+                break;
+            case UnitValue::LBF:
+                unitString = " lbf";
+                break;
 
-void MainWindow::receiveNewForce(float time, float value) {
-    reading = true;
-    updateImportantValues(time, value);
-    ui->widgetChart->addData(time, value);
+            case UnitValue::KGF:
+                unitString = " kgf";
+                break;
+            default:
+                break;
+        }
+    }
+
+    if (reading.measuredValue >= maxValue) {
+        maxValue = reading.measuredValue;
+        ui->lblPeakForce->setText(QString("%1").arg(reading.measuredValue, 3, 'f', 2) + unitString);
+    }
+    ui->lblCurrentForce->setText(QString("%1").arg(reading.measuredValue, 3, 'f', 2) + unitString);
+    ui->lblReferenceZero->setText(QString("%1").arg(reading.referenceZero, 3, 'f', 2) + unitString);
+    ui->widgetConnection->updateWidget(reading);
+    ui->widgetChart->addConsecutiveSample(reading);
 }
 
 void MainWindow::toggleActions(bool connected) {

@@ -31,6 +31,7 @@
 #include <QMainWindow>
 #include "../deviceCommunication/commMaster.h"
 #include "../notification/notification.h"
+#include "../parser/parser.h"
 #include "dialogabout.h"
 #include "dialogconnect.h"
 #include "dialogdebug.h"
@@ -71,17 +72,37 @@ class MainWindow : public QMainWindow {
      */
     void sendResetPeak();
 
+    /**
+     * @brief Slot triggered by the button "setAbsoluteZero"
+     *
+     * This slot sets the device into absolute mode and resets the zero point
+     *
+     */
+    void sendSetAbsoluteZero();
+
+    /**
+     * @brief Slot triggered by the button "setReferenceZero"
+     *
+     * This slots sets the device into relative mode and sets the current value
+     * as the new zero.
+     *
+     */
+    void sendSetRelativeZero();
+
    private slots:
     /**
-     * @brief Receive new force from CommMaster
+     * @brief Receive new sample from CommMaster
      *
-     * This slot updates the peak and current value of the right side bar
-     * It also updates the bool `MainWindow::reading` keeping track of the status of the
-     * connection
+     * This slot updates the peak and current value of the right sidebar.
+     * The correct unit is extracted from the `Sample` and set accordingly.
+     * When a change in unit is detected, the peak value is reset.
      *
-     * @param value Current force reading in the unit of the device
+     * It also updates the bool `MainWindow::statusReading` keeping track of
+     * the status of the connection.
+     *
+     * @param reading Current sample
      */
-    void receiveNewForce(float time, float value);
+    void receiveNewSample(Sample reading);
 
     /**
      * @brief Toggle the GUI elements on connection
@@ -98,8 +119,8 @@ class MainWindow : public QMainWindow {
      * @brief Start or stop the readings
      *
      * Send the command to the connected device. If the host receives a new
-     * reading, the bool `MainWindow::reading` will be enabled by
-     * `MainWindow::receiveNewForce`.
+     * statusReading, the bool `MainWindow::statusReading` will be enabled by
+     * `MainWindow::receiveNewSample`.
      * If the host terminates the stream, the bool will be set to false after
      * a delay. This is to prevent buffered data from setting the bool to true.
      */
@@ -117,7 +138,9 @@ class MainWindow : public QMainWindow {
     Notification* notification;
     Plot* plot;
     float maxValue = 0;
-    bool reading = false;  ///< Tracks whether the host reads data or not
+    bool statusReading = false;  ///< Tracks whether the host reads data or not
+    UnitValue currentUnit;       ///< Current unit value, used to detect a change
+    QString unitString = "";     ///< Cache the current unitString
 };
 
 #endif  // MAINWINDOW_H_
