@@ -64,6 +64,11 @@ class DialogConnect : public QDialog {
      * This method calls the commMaster instance to get an array of deviceInfos.
      * This data is then added to the device selector. This array is later used
      * when establishing a connection as reference.
+     *
+     * @note If no devices are available, the UI elements for establishing a
+     * connection will be disabled. This prevents a call from
+     * `DialogConnect::requestConnection` with an empty `DialogConnect::devices`
+     * and guides the user.
      */
     void reloadConnections();
 
@@ -74,6 +79,9 @@ class DialogConnect : public QDialog {
      * and requests a new connection. If the connection was successfully
      * established the requested frequency from the comboBox will be sent to the
      * device.
+     *
+     * @note If the list `DialogConnect::devices` is empty or the index from the 
+     * combo box is out-of-bound, the method does nothing.
      */
     void requestConnection();
 

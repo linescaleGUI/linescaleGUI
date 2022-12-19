@@ -37,8 +37,6 @@ DialogConnect::DialogConnect(comm::CommMaster* comm, QWidget* parent)
     connect(ui->btnReload, &QPushButton::pressed, this, &DialogConnect::reloadConnections);
     connect(ui->boxConnections, QOverload<int>::of(&QComboBox::currentIndexChanged), this,
             &DialogConnect::updateFrequencySelector);
-
-    reloadConnections();
 }
 
 DialogConnect::~DialogConnect() {
@@ -54,14 +52,28 @@ void DialogConnect::reloadConnections() {
     ui->boxConnections->clear();
     devices.clear();
     devices = comm->getAvailableDevices();
+    if (devices.length() == 0) {
+        ui->boxConnections->addItem("no device");
+        ui->btnConnect->setEnabled(false);
+        return;
+    }
     for (int i = 0; i < devices.length(); ++i) {
         ui->boxConnections->addItem(devices[i].ID);
+        ui->btnConnect->setEnabled(true);
     }
 }
 
 void DialogConnect::requestConnection() {
+    if (devices.length() == 0) {
+        // no devices available
+        return;
+    }
+
     int index = ui->boxConnections->currentIndex();
-    if(index < 0 && index > ui->boxConnections->count()) {return;}
+    if (index < 0 || index >= devices.length()) {
+        // index out of range
+        return;
+    }
     bool success = comm->addConnection(devices[index]);
     if (success) {
         comm->setNewFreq(ui->boxFreq->currentData().toInt());
@@ -70,7 +82,7 @@ void DialogConnect::requestConnection() {
 }
 
 void DialogConnect::updateFrequencySelector(int index) {
-    if (devices.length() < index || index < 0) {
+    if (devices.length() <= index || index < 0) {
         return;
     }
 
