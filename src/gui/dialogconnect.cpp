@@ -61,6 +61,7 @@ void DialogConnect::reloadConnections() {
 
 void DialogConnect::requestConnection() {
     int index = ui->boxConnections->currentIndex();
+    if(index < 0 && index > ui->boxConnections->count()) {return;}
     bool success = comm->addConnection(devices[index]);
     if (success) {
         comm->setNewFreq(ui->boxFreq->currentData().toInt());
