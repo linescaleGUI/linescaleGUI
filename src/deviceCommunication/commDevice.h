@@ -132,7 +132,7 @@ class CommDevice : public QObject {
     /**
      * @brief Emit after a package was received and parsed
      *
-     * @param value
+     * @param reading A new `Parser::Sample` from the device
      */
     void newSampleDevice(Sample reading);
 

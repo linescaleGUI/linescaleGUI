@@ -17,7 +17,7 @@
  * along with linescaleGUI. If not, see <http://www.gnu.org/licenses/>.       *
  ******************************************************************************/
 /**
- * @file notifications.cpp
+ * @file notification.cpp
  * @authors Gschwind, Weber, Schoch, Niederberger
  *
  */
