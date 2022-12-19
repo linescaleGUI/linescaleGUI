@@ -49,6 +49,8 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWi
     connect(ui->actionGitHub, &QAction::triggered, this, &MainWindow::openGitHubLink);
     connect(ui->actionDebug, &QAction::triggered, dDebug, &DialogDebug::show);
     connect(ui->actionShowLog, &QAction::triggered, this, &MainWindow::showLog);
+    connect(ui->actionClearLog, &QAction::triggered, notification, &Notification::clear);
+    connect(ui->actionSaveLog, &QAction::triggered, notification, &Notification::saveLog);
 
     // Tool bar actions
     connect(ui->actionConnect, &QAction::triggered, dConnect, &DialogConnect::show);

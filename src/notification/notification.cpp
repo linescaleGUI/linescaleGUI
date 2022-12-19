@@ -23,6 +23,10 @@
  */
 
 #include "notification.h"
+#include <iostream>
+#include <fstream>
+#include <filesystem>
+#include <QFileDialog>
 #include <QMessageBox>
 #include <QTime>
 
@@ -63,6 +67,49 @@ bool Notification::push(const QString& message, Severity severity, bool showDial
         QMessageBox::critical(textBrowser->parentWidget(), stringSeverity[severity], message,
                               QMessageBox::Cancel, QMessageBox::Cancel);
     }
+
+    return true;
+}
+
+bool Notification::clear(void) {
+    if (textBrowser == nullptr) {
+        return false;
+    }
+
+    textBrowser->clear();
+    return true;
+}
+
+bool Notification::saveLog(void) {
+    if (textBrowser == nullptr) {
+        return false;
+    }
+
+    QString fileName = QFileDialog::getSaveFileName(
+        textBrowser->parentWidget(), "", "Log",
+        "Text File (*.txt)\n Markdown File (*.md)\nHTML File (*.html)");
+    std::ofstream file(fileName.toStdString());
+
+    if (!file.is_open()) {
+        push("Log save canceled");
+        return false;
+    }
+
+    QString fileContent;
+    QTextDocument* textDocument = textBrowser->document();
+    std::string fileExtension = std::filesystem::path(fileName.toStdString()).extension().string();
+
+    if (fileExtension == ".html") {
+        fileContent = textDocument->toHtml();
+    } else if (fileExtension == ".md") {
+        fileContent = textDocument->toMarkdown();
+    } else {
+        fileContent = textDocument->toPlainText();
+    }
+
+    file << fileContent.toStdString();
+    file.close();
+    push("Log saved to: " + fileName);
 
     return true;
 }
