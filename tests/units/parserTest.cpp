@@ -1,3 +1,32 @@
+/******************************************************************************
+ * Copyright (C) 2022 by Gschwind, Weber, Schoch, Niederberger                *
+ *                                                                            *
+ * This file is part of linescaleGUI.                                         *
+ *                                                                            *
+ * LinescaleGUI is free software: you can redistribute it and/or modify       *
+ * it under the terms of the GNU General Public License as published by       *
+ * the Free Software Foundation, either version 3 of the License, or          *
+ * (at your option) any later version.                                        *
+ *                                                                            *
+ * LinescaleGUI is distributed in the hope that it will be useful,            *
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of             *
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the               *
+ * GNU General Public License for more details.                               *
+ *                                                                            *
+ * You should have received a copy of the GNU General Public License          *
+ * along with linescaleGUI. If not, see <http://www.gnu.org/licenses/>.       *
+ ******************************************************************************/
+/**
+ * @file parserTest.cpp
+ * @authors Gschwind, Weber, Schoch, Niederberger
+ *
+ * @brief Test Class for parser
+ *
+ * Tests parser functionality with various inputs an compares it to their respective expected outcomes.
+ *
+ */
+
+
 #include <gtest/gtest.h>
 #include "../../src/parser/parser.h"
 
@@ -18,11 +47,7 @@ void checkDataStruct(Sample& lhs, Sample& rhs) {
     EXPECT_EQ(lhs.frequency, rhs.frequency);
 }
 
-/**
- * @brief parser tests.
- */
-
-// Unit value Tests
+// Unit Value Tests
 TEST_F(ParserTest, ParseUnitValueKn) {
     QByteArray KnPackage("R-00.01N000.00?NF41\r");
     Sample expectedResult = {WorkingMode::REALTIME, -00.01,MeasureMode::ABS_ZERO, 000.00, 62, UnitValue::KN, 40};

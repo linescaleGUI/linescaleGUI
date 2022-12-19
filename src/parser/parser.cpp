@@ -19,7 +19,6 @@
 /**
  * @file parser.cpp
  * @authors Gschwind, Weber, Schoch, Niederberger
- * @copyright (c) 2022 LineGrip Corp Ltd.
  *
  * @brief `Parser` implementation
  *

@@ -65,13 +65,14 @@ enum class UnitValue {
  * percent of battery left, and so on.
  */
 struct Sample {
-    WorkingMode workingMode; ///< Indicates the working mode sent by the Line Scale
-    double measuredValue;   ///< Stores value of measured force
-    MeasureMode measureMode;  ///< Indicates if the measured force is relative to a previous set value or if it is absolute
-    double referenceZero;   ///< Stores reference force
-    int batteryPercent; ///< Stores battery voltage of the Line Scale in percent
-    UnitValue unitValue; ///< Stores the unit of the measured force
-    int frequency; ///< Stores the connection frequency between host device and Line Scale
+    WorkingMode workingMode;  ///< Indicates the working mode sent by the Line Scale
+    double measuredValue;     ///< Stores value of measured force
+    MeasureMode measureMode;  ///< Indicates if the measured force is relative to a previous set
+                              ///< value or if it is absolute
+    double referenceZero;     ///< Stores reference force
+    int batteryPercent;       ///< Stores battery voltage of the Line Scale in percent
+    UnitValue unitValue;      ///< Stores the unit of the measured force
+    int frequency;  ///< Stores the connection frequency between host device and Line Scale
 };
 
 /**
@@ -92,7 +93,8 @@ class Parser : public QObject {
      * @return false: If parsing resulted in an error
      */
     bool parsePackage(QByteArray& package, Sample& data);
-    static constexpr size_t PACKET_EXPECTED_LEN = 20;
+    static constexpr size_t PACKET_EXPECTED_LEN =
+        20;  ///< Length the package should have so it would be parsed correctly
 
    private:
     bool checkPackage(QByteArray& package);
