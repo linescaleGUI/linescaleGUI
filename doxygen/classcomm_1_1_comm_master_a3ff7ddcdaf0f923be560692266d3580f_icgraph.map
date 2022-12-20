@@ -1,0 +1,5 @@
+<map id="comm::CommMaster::setNewFreq" name="comm::CommMaster::setNewFreq">
+<area shape="rect" id="node1" title="Set a new frequency on the device." alt="" coords="523,13,767,39"/>
+<area shape="rect" id="node2" href="$class_connection_widget.html#abae7db7f76bb5ef89d3be9d3e253c737" title="Request new frequency from the connected device." alt="" coords="276,5,475,47"/>
+<area shape="rect" id="node3" href="$class_connection_widget.html#a832811b8c579f99b44e45d0b30cef1fd" title="Constructor of the class." alt="" coords="5,5,228,47"/>
+</map>

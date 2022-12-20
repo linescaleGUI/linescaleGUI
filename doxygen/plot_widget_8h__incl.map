@@ -1,0 +1,10 @@
+<map id="src/gui/plotWidget.h" name="src/gui/plotWidget.h">
+<area shape="rect" id="node1" title="Plotting functionality based on QCustomPlot." alt="" coords="289,5,441,32"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,80,209,107"/>
+<area shape="rect" id="node3" title=" " alt="" coords="233,80,304,107"/>
+<area shape="rect" id="node4" title=" " alt="" coords="328,80,401,107"/>
+<area shape="rect" id="node5" title=" " alt="" coords="425,80,504,107"/>
+<area shape="rect" id="node6" href="$parser_8h.html" title="Parses the line scale communication protocol." alt="" coords="529,80,659,107"/>
+<area shape="rect" id="node7" title=" " alt="" coords="489,155,587,181"/>
+<area shape="rect" id="node8" title=" " alt="" coords="611,155,686,181"/>
+</map>

@@ -1,0 +1,16 @@
+<map id="MainWindow" name="MainWindow">
+<area shape="rect" id="node1" title=" " alt="" coords="366,439,473,465"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,349,121,376"/>
+<area shape="rect" id="node3" href="$class_notification.html" title="Class to handle all notifications." alt="" coords="145,349,243,376"/>
+<area shape="rect" id="node4" href="$class_dialog_debug.html" title="Send predefined snippets to the linescale." alt="" coords="502,349,609,376"/>
+<area shape="rect" id="node5" title=" " alt="" coords="537,260,611,287"/>
+<area shape="rect" id="node11" href="$class_dialog_connect.html" title="Class to handle the connection dialog." alt="" coords="361,349,478,376"/>
+<area shape="rect" id="node12" href="$class_dialog_about.html" title=" " alt="" coords="633,349,736,376"/>
+<area shape="rect" id="node6" href="$classcomm_1_1_comm_master.html" title=" " alt="" coords="320,260,479,287"/>
+<area shape="rect" id="node7" title=" " alt="" coords="391,5,466,32"/>
+<area shape="rect" id="node8" href="$classcomm_1_1_comm_device.html" title="Base class for every connection." alt="" coords="416,171,575,197"/>
+<area shape="rect" id="node10" href="$class_parser.html" title=" " alt="" coords="575,81,637,108"/>
+<area shape="rect" id="node9" href="$struct_sample.html" title="holds parsed data" alt="" coords="467,81,537,108"/>
+<area shape="rect" id="node13" href="$class_plot.html" title="A dynamic line graph chart." alt="" coords="760,349,807,376"/>
+<area shape="rect" id="node14" title=" " alt="" coords="744,260,823,287"/>
+</map>

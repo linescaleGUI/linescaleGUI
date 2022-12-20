@@ -1,0 +1,11 @@
+<map id="src/deviceCommunication/commUSB.h" name="src/deviceCommunication/commUSB.h">
+<area shape="rect" id="node1" title="Child class for USB connection." alt="" coords="119,5,310,47"/>
+<area shape="rect" id="node2" title=" " alt="" coords="181,169,256,196"/>
+<area shape="rect" id="node3" title=" " alt="" coords="26,95,91,121"/>
+<area shape="rect" id="node4" title=" " alt="" coords="392,244,466,271"/>
+<area shape="rect" id="node5" title=" " alt="" coords="167,95,262,121"/>
+<area shape="rect" id="node6" title=" " alt="" coords="286,95,406,121"/>
+<area shape="rect" id="node7" href="$comm_device_8h.html" title="Abstract base class for each type of connection." alt="" coords="430,95,550,121"/>
+<area shape="rect" id="node8" href="$parser_8h.html" title="Parses the line scale communication protocol." alt="" coords="473,169,604,196"/>
+<area shape="rect" id="node9" title=" " alt="" coords="491,244,588,271"/>
+</map>

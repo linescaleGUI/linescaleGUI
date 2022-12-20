@@ -1,0 +1,5 @@
+<map id="Parser::parsePackage" name="Parser::parsePackage">
+<area shape="rect" id="node1" title="Parses received messages from Line Scale to usable data for GUI." alt="" coords="529,5,688,32"/>
+<area shape="rect" id="node2" href="$classcomm_1_1_comm_u_s_b.html#ad37cdf76196c13ec5e8225853b3f6d05" title="Method to read the received data." alt="" coords="272,5,481,32"/>
+<area shape="rect" id="node3" href="$classcomm_1_1_comm_u_s_b.html#a29440857f23e85afb8b8c0803c5ba7c5" title="Construct a new Comm USB object." alt="" coords="5,5,224,32"/>
+</map>

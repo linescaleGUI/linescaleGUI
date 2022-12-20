@@ -1,0 +1,4 @@
+<map id="DialogAbout::replaceVersionInfo" name="DialogAbout::replaceVersionInfo">
+<area shape="rect" id="node1" title="Replace version placeholder in ui file with actual data generated on compile time...." alt="" coords="244,5,475,32"/>
+<area shape="rect" id="node2" href="$class_dialog_about.html#aeac57e0df6e13777560fe3109f7bd6ad" title=" " alt="" coords="5,5,196,32"/>
+</map>

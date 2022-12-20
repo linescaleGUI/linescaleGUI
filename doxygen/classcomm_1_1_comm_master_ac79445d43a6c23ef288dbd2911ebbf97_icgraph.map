@@ -1,0 +1,6 @@
+<map id="comm::CommMaster::newSampleMaster" name="comm::CommMaster::newSampleMaster">
+<area shape="rect" id="node1" title="Emit after new sample was sent by a deviceClass." alt="" coords="580,27,823,69"/>
+<area shape="rect" id="node2" href="$class_main_window.html#a996c5a2b6f77944776856f08ec30858d" title=" " alt="" coords="326,5,523,32"/>
+<area shape="rect" id="node3" href="$classcomm_1_1_comm_master.html#ab4290bf47f19360b801c82e52cc2bfd4" title="Slot to receive the emitted signal from a deviceClass." alt="" coords="317,57,532,98"/>
+<area shape="rect" id="node4" href="$classcomm_1_1_comm_master.html#a20313a06785b1817ed883e29d72a8282" title="Create connection." alt="" coords="5,64,269,91"/>
+</map>

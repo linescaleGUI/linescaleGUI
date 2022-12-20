@@ -1,0 +1,6 @@
+<map id="comm::CommDevice" name="comm::CommDevice">
+<area shape="rect" id="node1" title="Base class for every connection." alt="" coords="17,171,175,197"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,5,80,32"/>
+<area shape="rect" id="node4" href="$class_parser.html" title=" " alt="" coords="65,81,127,108"/>
+<area shape="rect" id="node3" href="$struct_sample.html" title="holds parsed data" alt="" coords="151,81,222,108"/>
+</map>

@@ -1,0 +1,4 @@
+<map id="ConnectionWidget::updateCurrentFrequency" name="ConnectionWidget::updateCurrentFrequency">
+<area shape="rect" id="node1" title="Helper function for updateWidget to display the current frequency." alt="" coords="248,5,443,47"/>
+<area shape="rect" id="node2" href="$class_connection_widget.html#ad7aadace10b9bc95463348088a74ab5f" title="Updates the data inside the device widget." alt="" coords="5,5,200,47"/>
+</map>

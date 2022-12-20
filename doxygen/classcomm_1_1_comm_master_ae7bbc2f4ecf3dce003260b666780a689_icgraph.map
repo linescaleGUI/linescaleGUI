@@ -1,0 +1,4 @@
+<map id="comm::CommMaster::removeConnection" name="comm::CommMaster::removeConnection">
+<area shape="rect" id="node1" title="Terminate the connection and remove all references with the class." alt="" coords="317,5,535,47"/>
+<area shape="rect" id="node2" href="$classcomm_1_1_comm_master.html#a20313a06785b1817ed883e29d72a8282" title="Create connection." alt="" coords="5,13,269,39"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="DialogConnect::reloadConnections" name="DialogConnect::reloadConnections">
+<area shape="rect" id="node1" title="Reload comboBox with all available connections." alt="" coords="273,31,520,57"/>
+<area shape="rect" id="node2" href="$class_dialog_connect.html#aefa611b60696bb99f199bd938857c2cb" title="Constructor of the class." alt="" coords="5,5,225,32"/>
+<area shape="rect" id="node3" href="$class_dialog_connect.html#a837300a8690091004b49817fd9778be8" title="Expands the QWidget::showEvent to update the available devices." alt="" coords="17,56,213,83"/>
+</map>

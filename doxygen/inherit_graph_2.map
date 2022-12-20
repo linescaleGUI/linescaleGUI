@@ -1,0 +1,6 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" title=" " alt="" coords="5,56,80,83"/>
+<area shape="rect" id="node2" href="$class_dialog_about.html" title=" " alt="" coords="135,5,238,32"/>
+<area shape="rect" id="node3" href="$class_dialog_connect.html" title="Class to handle the connection dialog." alt="" coords="128,56,245,83"/>
+<area shape="rect" id="node4" href="$class_dialog_debug.html" title="Send predefined snippets to the linescale." alt="" coords="133,107,240,133"/>
+</map>
