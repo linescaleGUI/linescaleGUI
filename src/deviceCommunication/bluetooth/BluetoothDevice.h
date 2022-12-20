@@ -1,17 +1,44 @@
-#ifndef BLUETOOTHDEVICE_H
-#define BLUETOOTHDEVICE_H
+/******************************************************************************
+ * Copyright (C) 2022 by Gschwind, Weber, Schoch, Niederberger                *
+ *                                                                            *
+ * This file is part of linescaleGUI.                                         *
+ *                                                                            *
+ * LinescaleGUI is free software: you can redistribute it and/or modify       *
+ * it under the terms of the GNU General Public License as published by       *
+ * the Free Software Foundation, either version 3 of the License, or          *
+ * (at your option) any later version.                                        *
+ *                                                                            *
+ * LinescaleGUI is distributed in the hope that it will be useful,            *
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of             *
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the               *
+ * GNU General Public License for more details.                               *
+ *                                                                            *
+ * You should have received a copy of the GNU General Public License          *
+ * along with linescaleGUI. If not, see <http://www.gnu.org/licenses/>.       *
+ ******************************************************************************/
+/**
+ * @file BluetoothDevice.h
+ * @authors Gschwind, Weber, Schoch, Niederberger
+ *
+ * @brief Bluetooth device class declaration
+ *
+ */
 
-#include <vector>
-#include <QObject>
-#include <QtBluetooth/QBluetoothLocalDevice>
-#include <QtBluetooth/QBluetoothDeviceDiscoveryAgent>
+#pragma once
+#ifndef BLUETOOTHDEVICE_H_
+#define BLUETOOTHDEVICE_H_
+
 #include <QLowEnergyController>
+#include <QObject>
+#include <QtBluetooth/QBluetoothDeviceDiscoveryAgent>
+#include <QtBluetooth/QBluetoothLocalDevice>
+#include <vector>
 #include "BluetoothService.h"
 
 class BluetoothDevice : public QObject {
     Q_OBJECT
 
-public:
+   public:
     BluetoothDevice(const QBluetoothDeviceInfo& deviceInfo);
     ~BluetoothDevice();
     void Connect(void);
@@ -20,32 +47,37 @@ public:
     void Write(QByteArray& value);
     QBluetoothDeviceInfo& DeviceInfoGet(void);
 
-signals:
+   signals:
     void Connected(BluetoothDevice* device);
     void Disconnected(BluetoothDevice* device);
-    void ServiceDiscoveryFinished(BluetoothDevice* device, std::vector<BluetoothService*>& services);
+    void ServiceDiscoveryFinished(BluetoothDevice* device,
+                                  std::vector<BluetoothService*>& services);
     void ServiceDiscoveryFailed(BluetoothDevice* device);
 
     void CharacteristicChanged(BluetoothDevice* device, const QByteArray& value);
     void CharacteristicRead(BluetoothDevice* device, const QByteArray& value);
     void CharacteristicWritten(BluetoothDevice* device, const QByteArray& value);
 
-private slots:
+   private slots:
     void LowEnergyControllerConnected(void);
-    void LowEnergyControllerConnectionUpdated(const QLowEnergyConnectionParameters& connectionParameters);
+    void LowEnergyControllerConnectionUpdated(
+        const QLowEnergyConnectionParameters& connectionParameters);
     void LowEnergyControllerDisconnected(void);
     void LowEnergyControllerDiscoveryFinished(void);
     void LowEnergyControllerErrorOccurred(QLowEnergyController::Error error);
-    //void LowEnergyControllerMtuChanged(int mtu);
+    // void LowEnergyControllerMtuChanged(int mtu);
     void LowEnergyControllerServiceDiscovered(const QBluetoothUuid& uuid);
     void LowEnergyControllerStateChanged(QLowEnergyController::ControllerState state);
 
     void ServiceDetailsDiscovered(void);
-    void ServiceCharacteristicChanged(const QLowEnergyCharacteristic& characteristic, const QByteArray& value);
-    void ServiceCharacteristicRead(const QLowEnergyCharacteristic& characteristic, const QByteArray& value);
-    void ServiceCharacteristicWritten(const QLowEnergyCharacteristic& characteristic, const QByteArray& value);
+    void ServiceCharacteristicChanged(const QLowEnergyCharacteristic& characteristic,
+                                      const QByteArray& value);
+    void ServiceCharacteristicRead(const QLowEnergyCharacteristic& characteristic,
+                                   const QByteArray& value);
+    void ServiceCharacteristicWritten(const QLowEnergyCharacteristic& characteristic,
+                                      const QByteArray& value);
 
-private:
+   private:
     static const QBluetoothUuid UUID_SERVICE;
     static const QBluetoothUuid UUID_CHARACTERISTIC_READ;
     static const QBluetoothUuid UUID_CHARACTERISTIC_WRITE;
@@ -61,4 +93,4 @@ private:
     QLowEnergyCharacteristic communicationCharacteristicWrite;
 };
 
-#endif // BLUETOOTHDEVICE_H
+#endif  // BLUETOOTHDEVICE_H_

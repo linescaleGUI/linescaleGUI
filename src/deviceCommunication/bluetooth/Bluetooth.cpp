@@ -1,3 +1,27 @@
+/******************************************************************************
+ * Copyright (C) 2022 by Gschwind, Weber, Schoch, Niederberger                *
+ *                                                                            *
+ * This file is part of linescaleGUI.                                         *
+ *                                                                            *
+ * LinescaleGUI is free software: you can redistribute it and/or modify       *
+ * it under the terms of the GNU General Public License as published by       *
+ * the Free Software Foundation, either version 3 of the License, or          *
+ * (at your option) any later version.                                        *
+ *                                                                            *
+ * LinescaleGUI is distributed in the hope that it will be useful,            *
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of             *
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the               *
+ * GNU General Public License for more details.                               *
+ *                                                                            *
+ * You should have received a copy of the GNU General Public License          *
+ * along with linescaleGUI. If not, see <http://www.gnu.org/licenses/>.       *
+ ******************************************************************************/
+/**
+ * @file Bluetooth.cpp
+ * @authors Gschwind, Weber, Schoch, Niederberger
+ *
+ */
+
 #include "Bluetooth.h"
 
 Bluetooth::Bluetooth() {
@@ -5,13 +29,20 @@ Bluetooth::Bluetooth() {
     deviceDiscoveryAgent.setLowEnergyDiscoveryTimeout(5000);
     ScanStop();
 
-    connect(&localDevice, &QBluetoothLocalDevice::errorOccurred, this, &Bluetooth::LocalDeviceErrorOccurred);
-    connect(&localDevice, &QBluetoothLocalDevice::hostModeStateChanged, this, &Bluetooth::LocalDeviceHostModeStateChanged);
-    connect(&deviceDiscoveryAgent, &QBluetoothDeviceDiscoveryAgent::canceled, this, &Bluetooth::DeviceDiscoveryAgentCanceled);
-    connect(&deviceDiscoveryAgent, &QBluetoothDeviceDiscoveryAgent::deviceDiscovered, this, &Bluetooth::DeviceDiscoveryAgentDeviceDiscovered);
-    connect(&deviceDiscoveryAgent, &QBluetoothDeviceDiscoveryAgent::deviceUpdated, this, &Bluetooth::DeviceDiscoveryAgentDeviceUpdated);
-    connect(&deviceDiscoveryAgent, &QBluetoothDeviceDiscoveryAgent::errorOccurred, this, &Bluetooth::DeviceDiscoveryAgentErrorOccurred);
-    connect(&deviceDiscoveryAgent, &QBluetoothDeviceDiscoveryAgent::finished, this, &Bluetooth::DeviceDiscoveryAgentFinished);
+    connect(&localDevice, &QBluetoothLocalDevice::errorOccurred, this,
+            &Bluetooth::LocalDeviceErrorOccurred);
+    connect(&localDevice, &QBluetoothLocalDevice::hostModeStateChanged, this,
+            &Bluetooth::LocalDeviceHostModeStateChanged);
+    connect(&deviceDiscoveryAgent, &QBluetoothDeviceDiscoveryAgent::canceled, this,
+            &Bluetooth::DeviceDiscoveryAgentCanceled);
+    connect(&deviceDiscoveryAgent, &QBluetoothDeviceDiscoveryAgent::deviceDiscovered, this,
+            &Bluetooth::DeviceDiscoveryAgentDeviceDiscovered);
+    connect(&deviceDiscoveryAgent, &QBluetoothDeviceDiscoveryAgent::deviceUpdated, this,
+            &Bluetooth::DeviceDiscoveryAgentDeviceUpdated);
+    connect(&deviceDiscoveryAgent, &QBluetoothDeviceDiscoveryAgent::errorOccurred, this,
+            &Bluetooth::DeviceDiscoveryAgentErrorOccurred);
+    connect(&deviceDiscoveryAgent, &QBluetoothDeviceDiscoveryAgent::finished, this,
+            &Bluetooth::DeviceDiscoveryAgentFinished);
 }
 
 Bluetooth::~Bluetooth(void) {
@@ -32,7 +63,7 @@ void Bluetooth::PowerOff(void) {
 }
 
 void Bluetooth::PowerToggle(void) {
-    if(IsPowerOn()) {
+    if (IsPowerOn()) {
         PowerOff();
     } else {
         PowerOn();
@@ -44,11 +75,11 @@ bool Bluetooth::IsPowerOn(void) {
 }
 
 void Bluetooth::ScanStart(void) {
-    if(!IsPowerOn()) {
+    if (!IsPowerOn()) {
         return;
     }
 
-    if(!IsScanning()) {
+    if (!IsScanning()) {
         devices.clear();
         emit ScanStarted();
         deviceDiscoveryAgent.start();
@@ -56,13 +87,13 @@ void Bluetooth::ScanStart(void) {
 }
 
 void Bluetooth::ScanStop(void) {
-    if(IsScanning()) {
+    if (IsScanning()) {
         deviceDiscoveryAgent.stop();
     }
 }
 
 void Bluetooth::ScanToggle(void) {
-    if(IsScanning()) {
+    if (IsScanning()) {
         ScanStop();
     } else {
         ScanStart();
@@ -92,9 +123,10 @@ void Bluetooth::LocalDeviceErrorOccurred(QBluetoothLocalDevice::Error error) {
 }
 
 void Bluetooth::LocalDeviceHostModeStateChanged(QBluetoothLocalDevice::HostMode state) {
-    if((stateBefore == QBluetoothLocalDevice::HostMode::HostPoweredOff) && (state != QBluetoothLocalDevice::HostMode::HostPoweredOff)) {
+    if ((stateBefore == QBluetoothLocalDevice::HostMode::HostPoweredOff) &&
+        (state != QBluetoothLocalDevice::HostMode::HostPoweredOff)) {
         emit PowerTurnedOn();
-    } else if(state == QBluetoothLocalDevice::HostMode::HostPoweredOff) {
+    } else if (state == QBluetoothLocalDevice::HostMode::HostPoweredOff) {
         ScanStop();
         devices.clear();
         emit PowerTurnedOff();
@@ -104,7 +136,8 @@ void Bluetooth::LocalDeviceHostModeStateChanged(QBluetoothLocalDevice::HostMode 
 }
 
 /*
-void Bluetooth::LocalDevicePairingFinished(const QBluetoothAddress &address, QBluetoothLocalDevice::Pairing pairing) {
+void Bluetooth::LocalDevicePairingFinished(const QBluetoothAddress &address,
+QBluetoothLocalDevice::Pairing pairing) {
 
 }
 */
@@ -114,14 +147,15 @@ void Bluetooth::DeviceDiscoveryAgentCanceled() {
 }
 
 void Bluetooth::DeviceDiscoveryAgentDeviceDiscovered(const QBluetoothDeviceInfo& deviceInfo) {
-    if(deviceInfo.coreConfigurations() == QBluetoothDeviceInfo::LowEnergyCoreConfiguration) {
+    if (deviceInfo.coreConfigurations() == QBluetoothDeviceInfo::LowEnergyCoreConfiguration) {
         BluetoothDevice* device = new BluetoothDevice(deviceInfo);
         devices.push_back(device);
         emit ScanDeviceDiscovered(device);
     }
 }
 
-void Bluetooth::DeviceDiscoveryAgentDeviceUpdated(const QBluetoothDeviceInfo& deviceInfo, QBluetoothDeviceInfo::Fields fields) {
+void Bluetooth::DeviceDiscoveryAgentDeviceUpdated(const QBluetoothDeviceInfo& deviceInfo,
+                                                  QBluetoothDeviceInfo::Fields fields) {
     // TODO: Implement function
 }
 
