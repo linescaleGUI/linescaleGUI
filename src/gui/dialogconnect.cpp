@@ -53,25 +53,31 @@ void DialogConnect::reloadConnections() {
     devices.clear();
     devices = comm->getAvailableDevices();
     if (devices.length() == 0) {
-        ui->boxConnections->addItem("no device");
+        ui->boxConnections->addItem("No device");
         ui->btnConnect->setEnabled(false);
+        ui->boxConnections->setEnabled(false);
+        ui->boxFreq->setEnabled(false);
         return;
     }
+
     for (int i = 0; i < devices.length(); ++i) {
         ui->boxConnections->addItem(devices[i].ID);
-        ui->btnConnect->setEnabled(true);
     }
+
+    ui->btnConnect->setEnabled(true);
+    ui->boxConnections->setEnabled(true);
+    ui->boxFreq->setEnabled(true);
 }
 
 void DialogConnect::requestConnection() {
     if (devices.length() == 0) {
-        // no devices available
+        // No devices available
         return;
     }
 
     int index = ui->boxConnections->currentIndex();
     if (index < 0 || index >= devices.length()) {
-        // index out of range
+        // Index out of range
         return;
     }
     bool success = comm->addConnection(devices[index]);
