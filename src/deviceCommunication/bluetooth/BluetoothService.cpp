@@ -39,7 +39,7 @@ BluetoothService::BluetoothService(QLowEnergyService* service) : service(service
             &BluetoothService::LowEnergyServiceDescriptorRead);
     connect(service, &QLowEnergyService::descriptorWritten, this,
             &BluetoothService::LowEnergyServiceDescriptorWritten);
-    connect(service, &QLowEnergyService::errorOccurred, this,
+    connect(service, qOverload<QLowEnergyService::ServiceError>(&QLowEnergyService::error), this,
             &BluetoothService::LowEnergyServiceErrorOccurred);
     connect(service, &QLowEnergyService::stateChanged, this,
             &BluetoothService::LowEnergyServiceStateChanged);
@@ -60,7 +60,7 @@ BluetoothService::~BluetoothService() {
                &BluetoothService::LowEnergyServiceDescriptorRead);
     disconnect(service, &QLowEnergyService::descriptorWritten, this,
                &BluetoothService::LowEnergyServiceDescriptorWritten);
-    disconnect(service, &QLowEnergyService::errorOccurred, this,
+    disconnect(service, qOverload<QLowEnergyService::ServiceError>(&QLowEnergyService::error), this,
                &BluetoothService::LowEnergyServiceErrorOccurred);
     disconnect(service, &QLowEnergyService::stateChanged, this,
                &BluetoothService::LowEnergyServiceStateChanged);
@@ -71,12 +71,12 @@ BluetoothService::~BluetoothService() {
 
 bool BluetoothService::DiscoverDetails(void) {
     switch (service->state()) {
-        case QLowEnergyService::RemoteService:
+        case QLowEnergyService::DiscoveryRequired:
             service->discoverDetails();
             return true;
         case QLowEnergyService::InvalidService:
-        case QLowEnergyService::RemoteServiceDiscovering:
-        case QLowEnergyService::RemoteServiceDiscovered:
+        case QLowEnergyService::DiscoveringServices:
+        case QLowEnergyService::ServiceDiscovered:
         case QLowEnergyService::LocalService:
         default:
             return false;
@@ -158,7 +158,7 @@ void BluetoothService::LowEnergyServiceErrorOccurred(QLowEnergyService::ServiceE
 }
 
 void BluetoothService::LowEnergyServiceStateChanged(QLowEnergyService::ServiceState state) {
-    if (state == QLowEnergyService::RemoteServiceDiscovered) {
+    if (state == QLowEnergyService::ServiceDiscovered) {
         emit DetailsDiscovered();
     }
 }

@@ -24,11 +24,11 @@
 
 #include "BluetoothDevice.h"
 
-const QBluetoothUuid BluetoothDevice::UUID_SERVICE("00001000-0000-1000-8000-00805f9b34fb");
-const QBluetoothUuid BluetoothDevice::UUID_CHARACTERISTIC_READ(
-    "00001002-0000-1000-8000-00805f9b34fb");
-const QBluetoothUuid BluetoothDevice::UUID_CHARACTERISTIC_WRITE(
-    "00001001-0000-1000-8000-00805f9b34fb");
+const QBluetoothUuid BluetoothDevice::UUID_SERVICE = "00001000-0000-1000-8000-00805f9b34fb";
+const QBluetoothUuid BluetoothDevice::UUID_CHARACTERISTIC_READ =
+    "00001002-0000-1000-8000-00805f9b34fb";
+const QBluetoothUuid BluetoothDevice::UUID_CHARACTERISTIC_WRITE =
+    "00001001-0000-1000-8000-00805f9b34fb";
 
 BluetoothDevice::BluetoothDevice(const QBluetoothDeviceInfo& deviceInfo) : deviceInfo(deviceInfo) {
     serviceIndex = 0;
@@ -59,7 +59,7 @@ void BluetoothDevice::Connect(void) {
                 &BluetoothDevice::LowEnergyControllerDisconnected);
         connect(lowEnergyController, &QLowEnergyController::discoveryFinished, this,
                 &BluetoothDevice::LowEnergyControllerDiscoveryFinished);
-        connect(lowEnergyController, &QLowEnergyController::errorOccurred, this,
+        connect(lowEnergyController, qOverload<QLowEnergyController::Error>(&QLowEnergyController::error), this,
                 &BluetoothDevice::LowEnergyControllerErrorOccurred);
         connect(lowEnergyController, &QLowEnergyController::serviceDiscovered, this,
                 &BluetoothDevice::LowEnergyControllerServiceDiscovered);

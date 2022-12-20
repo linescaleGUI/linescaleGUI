@@ -29,7 +29,7 @@ Bluetooth::Bluetooth() {
     deviceDiscoveryAgent.setLowEnergyDiscoveryTimeout(5000);
     ScanStop();
 
-    connect(&localDevice, &QBluetoothLocalDevice::errorOccurred, this,
+    connect(&localDevice, &QBluetoothLocalDevice::error, this,
             &Bluetooth::LocalDeviceErrorOccurred);
     connect(&localDevice, &QBluetoothLocalDevice::hostModeStateChanged, this,
             &Bluetooth::LocalDeviceHostModeStateChanged);
@@ -39,7 +39,7 @@ Bluetooth::Bluetooth() {
             &Bluetooth::DeviceDiscoveryAgentDeviceDiscovered);
     connect(&deviceDiscoveryAgent, &QBluetoothDeviceDiscoveryAgent::deviceUpdated, this,
             &Bluetooth::DeviceDiscoveryAgentDeviceUpdated);
-    connect(&deviceDiscoveryAgent, &QBluetoothDeviceDiscoveryAgent::errorOccurred, this,
+    connect(&deviceDiscoveryAgent, qOverload<QBluetoothDeviceDiscoveryAgent::Error>(&QBluetoothDeviceDiscoveryAgent::error), this,
             &Bluetooth::DeviceDiscoveryAgentErrorOccurred);
     connect(&deviceDiscoveryAgent, &QBluetoothDeviceDiscoveryAgent::finished, this,
             &Bluetooth::DeviceDiscoveryAgentFinished);
