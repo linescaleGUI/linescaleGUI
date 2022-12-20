@@ -2,7 +2,8 @@
 ![Banner](assets/logo/banner.svg)
 
 [![CI](https://github.com/linescaleGUI/linescaleGUI/actions/workflows/ci.yml/badge.svg)](https://github.com/linescaleGUI/linescaleGUI/actions/workflows/ci.yml)
-![GitHub](https://img.shields.io/github/license/linescaleGUI/linescaleGUI)
+[![Docs](https://github.com/linescaleGUI/linescaleGUI/actions/workflows/documentation.yml/badge.svg)](https://github.com/linescaleGUI/linescaleGUI/actions/workflows/documentation.yml)
+![GitHub](https://img.shields.io/github/license/linescaleGUI/linescaleGUI?color=success)
 ![Platforms](https://img.shields.io/badge/platforms-Linux%20%7C%20win7%20%7C%20win10-lightgrey)
 ![GitHub all releases](https://img.shields.io/github/downloads/linescaleGUI/linescaleGUI/total?color=lightgrey)
 
@@ -19,8 +20,7 @@ The CI pipeline however builds successfully on Windows, Ubuntu and Linux.
 
 If you are familiar with building C++ Qt desktop applications with Qt Creator, then this should be as simple as opening `CMakeLists.txt` and build/run the project.
 
-A detailed build description for VS Code is available unter [BUILDING.md](BUILDING.md)
-
+A detailed build description for VS Code is available unter [BUILDING.md](BUILDING.md). The doxygen documentation of the codebase is available unter [github.io](https://linescaleGUI.github.io/linescaleGUI/doxygen).
 
 # License
 This code is released under the [GNU General Public License version 3](http://www.gnu.org/licenses/gpl-3.0.txt).

@@ -1,0 +1,37 @@
+# @file documentation.yml
+# @authors Gschwind, Weber, Schoch, Niederberger
+# @copyright (C) 2022 Gschwind, Weber, Schoch, Niederberger
+#
+# @brief This workflow builds and publish our doxygen documentation every time
+# we push to the main branch.
+
+name: Docs
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  Deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: File handling
+        run: |
+          touch .nojekyll # Disable page generator from GitHub
+          mkdir -p ./build/doxygen # Destination folder from "Doxyfile"
+          mkdir -p ./build/doxygen/assets # Manually copy required images
+          cp -R ./assets/logo ./build/doxygen/assets/logo
+
+      - name: Run doxygen
+        uses: mattnotmitt/doxygen-action@v1.9.5
+
+      - name: Deploy to GitHub Pages (only from main)
+        if: github.ref == 'refs/heads/main'
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./build # Source folder for gh-pages deploy
