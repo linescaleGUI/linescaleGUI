@@ -1,0 +1,4 @@
+<map id="Plot::mousePress" name="Plot::mousePress">
+<area shape="rect" id="node1" title="Handle a mouse press inside the plot." alt="" coords="128,5,252,31"/>
+<area shape="rect" id="node2" href="$class_plot.html#a83d9454de4b05fc361c318317658c734" title="Create a new Plot widget." alt="" coords="5,5,80,31"/>
+</map>

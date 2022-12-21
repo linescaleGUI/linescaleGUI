@@ -1,0 +1,5 @@
+<map id="comm::CommUSB::disconnectDevice" name="comm::CommUSB::disconnectDevice">
+<area shape="rect" id="node1" title="Disconnect from USB device." alt="" coords="276,23,475,63"/>
+<area shape="rect" id="node2" href="$classcomm_1_1_comm_u_s_b.html#a044f3b6d1aa9b36dc9cd21fe92a9c65c" title="Implementation for USB, connect to device as set in the Ctor." alt="" coords="5,5,228,31"/>
+<area shape="rect" id="node3" href="$classcomm_1_1_comm_u_s_b.html#a680fd2b00288a6225b250cd7f4aeb132" title="Disconnect from device and destroy the Comm USB object." alt="" coords="12,55,221,80"/>
+</map>

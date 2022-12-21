@@ -1,0 +1,5 @@
+<map id="Plot::beginNewGraph" name="Plot::beginNewGraph">
+<area shape="rect" id="node1" title="Add a new graph to the plot and use it for all new points added." alt="" coords="388,5,532,31"/>
+<area shape="rect" id="node2" href="$class_plot.html#a20f1b9ce5da6e9baa3a86b7d8359a4f4" title="Add a single data point." alt="" coords="241,5,340,31"/>
+<area shape="rect" id="node3" href="$class_plot.html#ac5af8584145b5c1bd664b43088387433" title="Add a single sample to the data." alt="" coords="5,5,193,31"/>
+</map>

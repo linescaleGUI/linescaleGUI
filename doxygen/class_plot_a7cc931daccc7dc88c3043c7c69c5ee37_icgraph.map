@@ -1,0 +1,6 @@
+<map id="Plot::updatePlot" name="Plot::updatePlot">
+<area shape="rect" id="node1" title="Replot the graph possibly changing the axis ranges." alt="" coords="388,31,501,56"/>
+<area shape="rect" id="node2" href="$class_plot.html#a20f1b9ce5da6e9baa3a86b7d8359a4f4" title="Add a single data point." alt="" coords="241,5,340,31"/>
+<area shape="rect" id="node4" href="$class_plot.html#a83d9454de4b05fc361c318317658c734" title="Create a new Plot widget." alt="" coords="253,55,328,80"/>
+<area shape="rect" id="node3" href="$class_plot.html#ac5af8584145b5c1bd664b43088387433" title="Add a single sample to the data." alt="" coords="5,5,193,31"/>
+</map>

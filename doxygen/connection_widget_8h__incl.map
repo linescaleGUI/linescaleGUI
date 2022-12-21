@@ -1,0 +1,10 @@
+<map id="src/gui/connectionWidget.h" name="src/gui/connectionWidget.h">
+<area shape="rect" id="node1" title="Widget to display the informations about one connection." alt="" coords="21,5,200,31"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,86,77,111"/>
+<area shape="rect" id="node3" href="$comm_master_8h.html" title="This file contains the class to control all connected devices." alt="" coords="101,79,261,119"/>
+<area shape="rect" id="node4" title=" " alt="" coords="143,313,214,339"/>
+<area shape="rect" id="node5" href="$comm_device_8h.html" title="Abstract base class for each type of connection." alt="" coords="181,167,289,192"/>
+<area shape="rect" id="node6" title=" " alt="" coords="216,240,285,265"/>
+<area shape="rect" id="node7" href="$parser_8h.html" title="Parses the line scale communication protocol." alt="" coords="310,240,429,265"/>
+<area shape="rect" id="node8" title=" " alt="" coords="325,313,413,339"/>
+</map>

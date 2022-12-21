@@ -1,0 +1,7 @@
+<map id="DialogDebug::appendText" name="DialogDebug::appendText">
+<area shape="rect" id="node1" title="Append text into the logWindow with a predefined color." alt="" coords="705,31,873,56"/>
+<area shape="rect" id="node2" href="$class_dialog_debug.html#a500e48ba27077941b1f3d479790947de" title="Insert the current selected item from treeCmd into inputPayload." alt="" coords="471,5,657,31"/>
+<area shape="rect" id="node5" href="$class_dialog_debug.html#aaf8cb281c2472853996a680b59bb42f2" title="Send msg to connected device." alt="" coords="487,55,641,80"/>
+<area shape="rect" id="node3" href="$class_dialog_debug.html#aadec9f268b3fa279ea58855176ed104c" title="Insert the double clicked item from treeCmd into inputPayload." alt="" coords="228,29,423,55"/>
+<area shape="rect" id="node4" href="$class_dialog_debug.html#a9525c71924319348ccb3b70da4028fef" title=" " alt="" coords="5,29,180,55"/>
+</map>

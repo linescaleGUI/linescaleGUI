@@ -1,0 +1,9 @@
+<map id="ConnectionWidget" name="ConnectionWidget">
+<area shape="rect" id="node1" title="Class to display informations about a single connection." alt="" coords="5,344,132,369"/>
+<area shape="rect" id="node2" title=" " alt="" coords="11,256,83,281"/>
+<area shape="rect" id="node3" href="$classcomm_1_1_comm_master.html" title=" " alt="" coords="108,256,251,281"/>
+<area shape="rect" id="node4" title=" " alt="" coords="155,5,225,31"/>
+<area shape="rect" id="node5" href="$classcomm_1_1_comm_device.html" title="Base class for every connection." alt="" coords="180,168,323,193"/>
+<area shape="rect" id="node6" href="$class_parser.html" title=" " alt="" coords="228,80,288,105"/>
+<area shape="rect" id="node7" href="$struct_sample.html" title="holds parsed data" alt="" coords="313,80,379,105"/>
+</map>

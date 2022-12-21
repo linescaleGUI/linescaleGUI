@@ -1,0 +1,16 @@
+<map id="src/deviceCommunication/commDevice.h" name="src/deviceCommunication/commDevice.h">
+<area shape="rect" id="node1" title="Abstract base class for each type of connection." alt="" coords="473,5,645,45"/>
+<area shape="rect" id="node2" href="$comm_master_8h.html" title="This file contains the class to control all connected devices." alt="" coords="375,93,547,133"/>
+<area shape="rect" id="node13" href="$comm_u_s_b_8h.html" title="Child class for USB connection." alt="" coords="619,93,791,133"/>
+<area shape="rect" id="node3" href="$comm_master_8cpp.html" title=" " alt="" coords="619,181,791,221"/>
+<area shape="rect" id="node4" href="$connection_widget_8h.html" title="Widget to display the informations about one connection." alt="" coords="147,189,325,214"/>
+<area shape="rect" id="node6" href="$dialogconnect_8h.html" title="DialogConnect class declaration." alt="" coords="221,269,376,295"/>
+<area shape="rect" id="node8" href="$mainwindow_8h.html" title="Mainwindow for the project linescaleGUI." alt="" coords="365,343,512,368"/>
+<area shape="rect" id="node11" href="$dialogdebug_8h.html" title="Dialog to show all available commands." alt="" coords="451,189,595,214"/>
+<area shape="rect" id="node5" href="$connection_widget_8cpp.html" title=" " alt="" coords="5,269,197,295"/>
+<area shape="rect" id="node7" href="$dialogconnect_8cpp.html" title=" " alt="" coords="171,343,341,368"/>
+<area shape="rect" id="node9" href="$mainwindow_8cpp.html" title=" " alt="" coords="281,416,442,441"/>
+<area shape="rect" id="node10" href="$main_8cpp.html" title="Main file of project linescaleGUI." alt="" coords="467,416,563,441"/>
+<area shape="rect" id="node12" href="$dialogdebug_8cpp.html" title=" " alt="" coords="502,269,661,295"/>
+<area shape="rect" id="node14" href="$comm_u_s_b_8cpp.html" title=" " alt="" coords="815,181,987,221"/>
+</map>

@@ -1,0 +1,4 @@
+<map id="DialogConnect::requestConnection" name="DialogConnect::requestConnection">
+<area shape="rect" id="node1" title="Request a new connection from the commMaster." alt="" coords="249,5,469,31"/>
+<area shape="rect" id="node2" href="$class_dialog_connect.html#aefa611b60696bb99f199bd938857c2cb" title="Constructor of the class." alt="" coords="5,5,201,31"/>
+</map>

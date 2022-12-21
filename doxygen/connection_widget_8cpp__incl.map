@@ -1,0 +1,13 @@
+<map id="src/gui/connectionWidget.cpp" name="src/gui/connectionWidget.cpp">
+<area shape="rect" id="node1" title=" " alt="" coords="156,5,348,31"/>
+<area shape="rect" id="node2" href="$connection_widget_8h.html" title="Widget to display the informations about one connection." alt="" coords="43,79,178,104"/>
+<area shape="rect" id="node10" title=" " alt="" coords="202,79,302,104"/>
+<area shape="rect" id="node11" title=" " alt="" coords="327,79,479,104"/>
+<area shape="rect" id="node3" title=" " alt="" coords="5,159,77,185"/>
+<area shape="rect" id="node4" href="$comm_master_8h.html" title="This file contains the class to control all connected devices." alt="" coords="101,152,261,192"/>
+<area shape="rect" id="node5" title=" " alt="" coords="143,387,214,412"/>
+<area shape="rect" id="node6" href="$comm_device_8h.html" title="Abstract base class for each type of connection." alt="" coords="181,240,289,265"/>
+<area shape="rect" id="node7" title=" " alt="" coords="216,313,285,339"/>
+<area shape="rect" id="node8" href="$parser_8h.html" title="Parses the line scale communication protocol." alt="" coords="310,313,429,339"/>
+<area shape="rect" id="node9" title=" " alt="" coords="325,387,413,412"/>
+</map>

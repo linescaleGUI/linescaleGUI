@@ -1,0 +1,4 @@
+<map id="comm::CommUSB::readData" name="comm::CommUSB::readData">
+<area shape="rect" id="node1" title="Method to read the received data." alt="" coords="256,5,444,31"/>
+<area shape="rect" id="node2" href="$classcomm_1_1_comm_u_s_b.html#a29440857f23e85afb8b8c0803c5ba7c5" title="Construct a new Comm USB object." alt="" coords="5,5,208,31"/>
+</map>
