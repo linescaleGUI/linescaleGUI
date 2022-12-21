@@ -28,13 +28,14 @@
 #ifndef NOTIFICATIONS_H_
 #define NOTIFICATIONS_H_
 
+#include <QObject>
 #include <QString>
 #include <QTextBrowser>
 
 /**
  * @brief   Class to handle all notifications
  */
-class Notification {
+class Notification : public QObject {
    public:
     /**
      * @brief   Severity level to which notifications can be set
@@ -63,6 +64,20 @@ class Notification {
      * @return  Returns false if an error occurred. True otherwise.
      */
     bool push(const QString& message, Severity severity = SEVERITY_INFO, bool showDialog = true);
+
+    /**
+     * @brief   Method used to clear its written output
+     * @return  Returns false if an error occurred. True otherwise.
+     */
+    bool clear(void);
+
+    /**
+     * @brief   Method to save the current context of the text browser to a
+     *          file. A system file dialog will open where the destination and
+     *          the name of the file can be selected.
+     * @return  Returns false if an error occurred. True otherwise.
+     */
+    bool saveLog(void);
 
    private:
     static const QString stringColorStart[];
