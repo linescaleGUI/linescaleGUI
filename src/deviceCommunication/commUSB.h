@@ -63,9 +63,8 @@ class CommUSB : public CommDevice {
     /**
      * @brief Implementation for USB, connect to device as set in the Ctor
      *
-     * @return true / false on success or failure of the connection
      */
-    bool connectDevice() override;
+    void connectDevice() override;
 
     /**
      * @brief Disconnect from USB device

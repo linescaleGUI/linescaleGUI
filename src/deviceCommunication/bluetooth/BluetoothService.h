@@ -32,6 +32,7 @@
 #include <QObject>
 #include <vector>
 
+namespace comm {
 class BluetoothService : public QObject {
     Q_OBJECT
 
@@ -42,7 +43,7 @@ class BluetoothService : public QObject {
     bool DiscoverDetails(void);
     QLowEnergyService* ServiceGet(void);
     void Read(QLowEnergyCharacteristic& characteristic);
-    void Write(QLowEnergyCharacteristic& characteristic, QByteArray& value);
+    void Write(QLowEnergyCharacteristic& characteristic, const QByteArray& value);
     void ReadDescriptor(QLowEnergyDescriptor& descriptor);
     void WriteDescriptor(QLowEnergyDescriptor& descriptor, const QByteArray& value);
 
@@ -75,5 +76,6 @@ class BluetoothService : public QObject {
    private:
     QLowEnergyService* service;
 };
+}  // namespace comm
 
 #endif  // BLUETOOTHSERVICE_H_

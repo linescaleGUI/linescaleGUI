@@ -80,7 +80,7 @@ class DialogConnect : public QDialog {
      * established the requested frequency from the comboBox will be sent to the
      * device.
      *
-     * @note If the list `DialogConnect::devices` is empty or the index from the 
+     * @note If the list `DialogConnect::devices` is empty or the index from the
      * combo box is out-of-bound, the method does nothing.
      */
     void requestConnection();
@@ -100,6 +100,13 @@ class DialogConnect : public QDialog {
      * @param index Current selected index of the device selector.
      */
     void updateFrequencySelector(int index);
+
+   private slots:
+    /**
+     * @brief Is called after a master communication has changed its connection
+     * state
+     */
+    void requestConnectionAccepted(bool connected);
 
    private:
     /**

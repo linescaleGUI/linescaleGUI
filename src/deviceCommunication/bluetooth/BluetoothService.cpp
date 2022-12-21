@@ -24,6 +24,7 @@
 
 #include "BluetoothService.h"
 
+namespace comm {
 BluetoothService::BluetoothService(QLowEnergyService* service) : service(service) {
     if (service == nullptr) {
         return;
@@ -95,7 +96,7 @@ void BluetoothService::Read(QLowEnergyCharacteristic& characteristic) {
     service->readCharacteristic(characteristic);
 }
 
-void BluetoothService::Write(QLowEnergyCharacteristic& characteristic, QByteArray& value) {
+void BluetoothService::Write(QLowEnergyCharacteristic& characteristic, const QByteArray& value) {
     if (service == nullptr) {
         return;
     }
@@ -161,4 +162,5 @@ void BluetoothService::LowEnergyServiceStateChanged(QLowEnergyService::ServiceSt
     if (state == QLowEnergyService::ServiceDiscovered) {
         emit DetailsDiscovered();
     }
+}
 }
