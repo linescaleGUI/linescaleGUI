@@ -1,4 +1,4 @@
 <map id="ConnectionWidget" name="ConnectionWidget">
-<area shape="rect" id="node1" title="Class to display informations about a single connection." alt="" coords="5,79,132,104"/>
+<area shape="rect" id="node1" title="Widget to display informations about a single connection." alt="" coords="5,79,132,104"/>
 <area shape="rect" id="node2" title=" " alt="" coords="33,5,105,31"/>
 </map>

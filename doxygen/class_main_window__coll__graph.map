@@ -1,16 +1,16 @@
 <map id="MainWindow" name="MainWindow">
-<area shape="rect" id="node1" title=" " alt="" coords="349,432,445,457"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,344,112,369"/>
-<area shape="rect" id="node3" href="$classcomm_1_1_comm_master.html" title=" " alt="" coords="181,256,323,281"/>
-<area shape="rect" id="node10" href="$class_dialog_debug.html" title="Send predefined snippets to the linescale." alt="" coords="225,344,319,369"/>
-<area shape="rect" id="node11" href="$class_dialog_connect.html" title="Class to handle the connection dialog." alt="" coords="344,344,451,369"/>
-<area shape="rect" id="node4" title=" " alt="" coords="246,5,317,31"/>
-<area shape="rect" id="node5" href="$classcomm_1_1_comm_device.html" title="Base class for every connection." alt="" coords="273,168,415,193"/>
-<area shape="rect" id="node6" href="$class_parser.html" title=" " alt="" coords="319,80,379,105"/>
-<area shape="rect" id="node7" href="$struct_sample.html" title="holds parsed data" alt="" coords="404,80,471,105"/>
-<area shape="rect" id="node8" href="$class_dialog_about.html" title=" " alt="" coords="475,344,567,369"/>
-<area shape="rect" id="node9" title=" " alt="" coords="382,256,450,281"/>
-<area shape="rect" id="node12" href="$class_notification.html" title="Class to handle all notifications." alt="" coords="591,344,678,369"/>
-<area shape="rect" id="node13" href="$class_plot.html" title="A dynamic line graph chart." alt="" coords="705,344,751,369"/>
-<area shape="rect" id="node14" title=" " alt="" coords="692,256,764,281"/>
+<area shape="rect" id="node1" title="Main window for the application linescaleGUI." alt="" coords="349,443,445,468"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,355,112,380"/>
+<area shape="rect" id="node3" href="$classcomm_1_1_comm_master.html" title="Class to handle all connections to the connected LineScales." alt="" coords="218,267,361,292"/>
+<area shape="rect" id="node10" href="$class_dialog_debug.html" title="Dialog to send predefined snippets to the linescale." alt="" coords="225,355,319,380"/>
+<area shape="rect" id="node11" href="$class_dialog_connect.html" title="Dialog to handle the connection with a device." alt="" coords="344,355,451,380"/>
+<area shape="rect" id="node4" title=" " alt="" coords="379,5,450,31"/>
+<area shape="rect" id="node5" href="$classcomm_1_1_comm_device.html" title="Base class for every connection." alt="" coords="218,179,361,204"/>
+<area shape="rect" id="node6" href="$class_parser.html" title="Class to parse the received messages." alt="" coords="177,80,237,105"/>
+<area shape="rect" id="node12" href="$class_notification.html" title="Class to handle all notifications." alt="" coords="534,129,621,155"/>
+<area shape="rect" id="node7" href="$struct_sample.html" title="Struct with the received data." alt="" coords="261,80,328,105"/>
+<area shape="rect" id="node8" href="$class_dialog_about.html" title="Dialog to show basic informations about the linescaleGUI." alt="" coords="475,355,567,380"/>
+<area shape="rect" id="node9" title=" " alt="" coords="402,267,470,292"/>
+<area shape="rect" id="node13" href="$class_plot.html" title="Widget to display a dynamic line graph chart." alt="" coords="688,355,733,380"/>
+<area shape="rect" id="node14" title=" " alt="" coords="695,267,767,292"/>
 </map>

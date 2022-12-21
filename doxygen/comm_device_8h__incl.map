@@ -1,7 +1,7 @@
 <map id="src/deviceCommunication/commDevice.h" name="src/deviceCommunication/commDevice.h">
-<area shape="rect" id="node1" title="Abstract base class for each type of connection." alt="" coords="26,5,198,45"/>
+<area shape="rect" id="node1" title="comm::CommDevice declaration" alt="" coords="26,5,198,45"/>
 <area shape="rect" id="node2" title=" " alt="" coords="5,93,75,119"/>
 <area shape="rect" id="node3" title=" " alt="" coords="77,167,147,192"/>
-<area shape="rect" id="node4" href="$parser_8h.html" title="Parses the line scale communication protocol." alt="" coords="150,93,269,119"/>
+<area shape="rect" id="node4" href="$parser_8h.html" title="Parser declaration" alt="" coords="150,93,269,119"/>
 <area shape="rect" id="node5" title=" " alt="" coords="172,167,260,192"/>
 </map>

@@ -1,13 +1,13 @@
 <map id="src/gui/dialogdebug.cpp" name="src/gui/dialogdebug.cpp">
-<area shape="rect" id="node1" title=" " alt="" coords="135,5,293,31"/>
-<area shape="rect" id="node2" href="$dialogdebug_8h.html" title="Dialog to show all available commands." alt="" coords="58,79,159,104"/>
+<area shape="rect" id="node1" title="DialogDebug implementation" alt="" coords="135,5,293,31"/>
+<area shape="rect" id="node2" href="$dialogdebug_8h.html" title="DialogDebug declaration" alt="" coords="58,79,159,104"/>
 <area shape="rect" id="node10" title=" " alt="" coords="183,79,245,104"/>
 <area shape="rect" id="node11" title=" " alt="" coords="269,79,388,104"/>
 <area shape="rect" id="node3" title=" " alt="" coords="5,159,73,185"/>
-<area shape="rect" id="node4" href="$comm_master_8h.html" title="This file contains the class to control all connected devices." alt="" coords="98,152,258,192"/>
+<area shape="rect" id="node4" href="$comm_master_8h.html" title="comm::CommMaster declaration" alt="" coords="98,152,258,192"/>
 <area shape="rect" id="node5" title=" " alt="" coords="140,387,211,412"/>
-<area shape="rect" id="node6" href="$comm_device_8h.html" title="Abstract base class for each type of connection." alt="" coords="177,240,285,265"/>
+<area shape="rect" id="node6" href="$comm_device_8h.html" title="comm::CommDevice declaration" alt="" coords="177,240,285,265"/>
 <area shape="rect" id="node7" title=" " alt="" coords="213,313,282,339"/>
-<area shape="rect" id="node8" href="$parser_8h.html" title="Parses the line scale communication protocol." alt="" coords="307,313,425,339"/>
+<area shape="rect" id="node8" href="$parser_8h.html" title="Parser declaration" alt="" coords="307,313,425,339"/>
 <area shape="rect" id="node9" title=" " alt="" coords="322,387,410,412"/>
 </map>

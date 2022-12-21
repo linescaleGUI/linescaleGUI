@@ -1,4 +1,4 @@
 <map id="comm::CommMaster" name="comm::CommMaster">
-<area shape="rect" id="node1" title=" " alt="" coords="5,79,148,104"/>
+<area shape="rect" id="node1" title="Class to handle all connections to the connected LineScales." alt="" coords="5,79,148,104"/>
 <area shape="rect" id="node2" title=" " alt="" coords="41,5,112,31"/>
 </map>

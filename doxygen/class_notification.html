@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.5"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Line Scale GUI: Notification Class Reference</title>
+<title>LineScale GUI: Notification Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -22,7 +22,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">Line Scale GUI
+   <div id="projectname">LineScale GUI
    </div>
    <div id="projectbrief">A GUI to interact with the LineGrip LineScale3</div>
   </td>
@@ -85,6 +85,24 @@ $(function() {
  <a href="class_notification.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="notification_8h_source.html">notification.h</a>&gt;</code></p>
+<div class="dynheader">
+Inheritance diagram for Notification:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_notification__inherit__graph.png" border="0" usemap="#a_notification_inherit__map" alt="Inheritance graph"/></div>
+<map name="a_notification_inherit__map" id="a_notification_inherit__map">
+<area shape="rect" title="Class to handle all notifications." alt="" coords="5,79,92,104"/>
+<area shape="rect" title=" " alt="" coords="13,5,84,31"/>
+</map>
+<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
+<div class="dynheader">
+Collaboration diagram for Notification:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_notification__coll__graph.png" border="0" usemap="#a_notification_coll__map" alt="Collaboration graph"/></div>
+<map name="a_notification_coll__map" id="a_notification_coll__map">
+<area shape="rect" title="Class to handle all notifications." alt="" coords="5,79,92,104"/>
+<area shape="rect" title=" " alt="" coords="13,5,84,31"/>
+</map>
+<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
 Public Types</h2></td></tr>
@@ -104,6 +122,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a011f4e614157fb34f7a029c287a6bcb9"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_notification.html#a011f4e614157fb34f7a029c287a6bcb9">push</a> (const QString &amp;message, <a class="el" href="class_notification.html#a3242d62c3c89b48e224f75a92d2b5bdd">Severity</a> severity=<a class="el" href="class_notification.html#a3242d62c3c89b48e224f75a92d2b5bdda657aba63b7f6605f5070b314cabece3a">SEVERITY_INFO</a>, bool showDialog=true)</td></tr>
 <tr class="memdesc:a011f4e614157fb34f7a029c287a6bcb9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Method to write a notification to the already specified text browser.  <a href="class_notification.html#a011f4e614157fb34f7a029c287a6bcb9">More...</a><br /></td></tr>
 <tr class="separator:a011f4e614157fb34f7a029c287a6bcb9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a93771540ae8db40e744a7835944ab22f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_notification.html#a93771540ae8db40e744a7835944ab22f">clear</a> (void)</td></tr>
+<tr class="memdesc:a93771540ae8db40e744a7835944ab22f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Method used to clear its written output.  <a href="class_notification.html#a93771540ae8db40e744a7835944ab22f">More...</a><br /></td></tr>
+<tr class="separator:a93771540ae8db40e744a7835944ab22f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a55ba3de37658a449ffc4687e7f984776"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_notification.html#a55ba3de37658a449ffc4687e7f984776">saveLog</a> (void)</td></tr>
+<tr class="memdesc:a55ba3de37658a449ffc4687e7f984776"><td class="mdescLeft">&#160;</td><td class="mdescRight">Method to save the current context of the text browser to a file. A system file dialog will open where the destination and the name of the file can be selected.  <a href="class_notification.html#a55ba3de37658a449ffc4687e7f984776">More...</a><br /></td></tr>
+<tr class="separator:a55ba3de37658a449ffc4687e7f984776"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -176,6 +200,36 @@ Static Private Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="a93771540ae8db40e744a7835944ab22f" name="a93771540ae8db40e744a7835944ab22f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a93771540ae8db40e744a7835944ab22f">&#9670;&#160;</a></span>clear()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Notification::clear </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Method used to clear its written output. </p>
+<dl class="section return"><dt>Returns</dt><dd>Returns false if an error occurred. True otherwise. </dd></dl>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_notification_a93771540ae8db40e744a7835944ab22f_icgraph.png" border="0" usemap="#aclass_notification_a93771540ae8db40e744a7835944ab22f_icgraph" alt=""/></div>
+<map name="aclass_notification_a93771540ae8db40e744a7835944ab22f_icgraph" id="aclass_notification_a93771540ae8db40e744a7835944ab22f_icgraph">
+<area shape="rect" title="Method used to clear its written output." alt="" coords="229,5,351,31"/>
+<area shape="rect" href="class_main_window.html#a996c5a2b6f77944776856f08ec30858d" title=" " alt="" coords="5,5,181,31"/>
+</map>
+</div>
+
+</div>
+</div>
 <a id="a011f4e614157fb34f7a029c287a6bcb9" name="a011f4e614157fb34f7a029c287a6bcb9"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a011f4e614157fb34f7a029c287a6bcb9">&#9670;&#160;</a></span>push()</h2>
 
@@ -223,8 +277,39 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_notification_a011f4e614157fb34f7a029c287a6bcb9_icgraph.png" border="0" usemap="#aclass_notification_a011f4e614157fb34f7a029c287a6bcb9_icgraph" alt=""/></div>
 <map name="aclass_notification_a011f4e614157fb34f7a029c287a6bcb9_icgraph" id="aclass_notification_a011f4e614157fb34f7a029c287a6bcb9_icgraph">
-<area shape="rect" title="Method to write a notification to the already specified text browser." alt="" coords="469,5,591,31"/>
-<area shape="rect" href="class_main_window.html#a5f3ac70cc2eef797bad37aee830ffbbe" title="Start or stop the readings." alt="" coords="229,5,421,31"/>
+<area shape="rect" title="Method to write a notification to the already specified text browser." alt="" coords="469,31,591,56"/>
+<area shape="rect" href="class_notification.html#a55ba3de37658a449ffc4687e7f984776" title="Method to save the current context of the text browser to a file. A system file dialog will open wher..." alt="" coords="254,5,397,31"/>
+<area shape="rect" href="class_main_window.html#a5f3ac70cc2eef797bad37aee830ffbbe" title="Start or stop the readings." alt="" coords="229,55,421,80"/>
+<area shape="rect" href="class_main_window.html#a996c5a2b6f77944776856f08ec30858d" title=" " alt="" coords="5,31,181,56"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a55ba3de37658a449ffc4687e7f984776" name="a55ba3de37658a449ffc4687e7f984776"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a55ba3de37658a449ffc4687e7f984776">&#9670;&#160;</a></span>saveLog()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Notification::saveLog </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Method to save the current context of the text browser to a file. A system file dialog will open where the destination and the name of the file can be selected. </p>
+<dl class="section return"><dt>Returns</dt><dd>Returns false if an error occurred. True otherwise. </dd></dl>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_notification_a55ba3de37658a449ffc4687e7f984776_icgraph.png" border="0" usemap="#aclass_notification_a55ba3de37658a449ffc4687e7f984776_icgraph" alt=""/></div>
+<map name="aclass_notification_a55ba3de37658a449ffc4687e7f984776_icgraph" id="aclass_notification_a55ba3de37658a449ffc4687e7f984776_icgraph">
+<area shape="rect" title="Method to save the current context of the text browser to a file. A system file dialog will open wher..." alt="" coords="229,5,372,31"/>
 <area shape="rect" href="class_main_window.html#a996c5a2b6f77944776856f08ec30858d" title=" " alt="" coords="5,5,181,31"/>
 </map>
 </div>

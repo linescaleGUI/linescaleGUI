@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.5"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Line Scale GUI: comm::CommMaster Class Reference</title>
+<title>LineScale GUI: comm::CommMaster Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -22,7 +22,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">Line Scale GUI
+   <div id="projectname">LineScale GUI
    </div>
    <div id="projectbrief">A GUI to interact with the LineGrip LineScale3</div>
   </td>
@@ -85,13 +85,16 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
+<p>Class to handle all connections to the connected LineScales.  
+ <a href="classcomm_1_1_comm_master.html#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="comm_master_8h_source.html">commMaster.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for comm::CommMaster:</div>
 <div class="dyncontent">
 <div class="center"><img src="classcomm_1_1_comm_master__inherit__graph.png" border="0" usemap="#acomm_1_1_comm_master_inherit__map" alt="Inheritance graph"/></div>
 <map name="acomm_1_1_comm_master_inherit__map" id="acomm_1_1_comm_master_inherit__map">
-<area shape="rect" title=" " alt="" coords="5,79,148,104"/>
+<area shape="rect" title="Class to handle all connections to the connected LineScales." alt="" coords="5,79,148,104"/>
 <area shape="rect" title=" " alt="" coords="41,5,112,31"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
@@ -100,11 +103,11 @@ Collaboration diagram for comm::CommMaster:</div>
 <div class="dyncontent">
 <div class="center"><img src="classcomm_1_1_comm_master__coll__graph.png" border="0" usemap="#acomm_1_1_comm_master_coll__map" alt="Collaboration graph"/></div>
 <map name="acomm_1_1_comm_master_coll__map" id="acomm_1_1_comm_master_coll__map">
-<area shape="rect" title=" " alt="" coords="5,256,148,281"/>
+<area shape="rect" title="Class to handle all connections to the connected LineScales." alt="" coords="5,256,148,281"/>
 <area shape="rect" title=" " alt="" coords="71,5,141,31"/>
 <area shape="rect" href="classcomm_1_1_comm_device.html" title="Base class for every connection." alt="" coords="97,168,240,193"/>
-<area shape="rect" href="class_parser.html" title=" " alt="" coords="144,80,204,105"/>
-<area shape="rect" href="struct_sample.html" title="holds parsed data" alt="" coords="229,80,295,105"/>
+<area shape="rect" href="class_parser.html" title="Class to parse the received messages." alt="" coords="144,80,204,105"/>
+<area shape="rect" href="struct_sample.html" title="Struct with the received data." alt="" coords="229,80,295,105"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -157,7 +160,11 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:aa1a58e7922ea54cce20700ebe258543e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classcomm_1_1_comm_device.html">CommDevice</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcomm_1_1_comm_master.html#aa1a58e7922ea54cce20700ebe258543e">singleDevice</a> = nullptr</td></tr>
 <tr class="separator:aa1a58e7922ea54cce20700ebe258543e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p >Class to handle all connections to the connected LineScales. </p>
+<p >The <a class="el" href="classcomm_1_1_comm_master.html" title="Class to handle all connections to the connected LineScales.">CommMaster</a> handles all communication with the connected devices. It abstracts the different types of connections so from this stage upwards the type of connection doesn't matter anymore.</p>
+<p >Each device gets a label which is used as an identifier inside the entire code: USB: Port name BLE: tbd </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a09f7e249f2c829f15a557f0d5988a6c4" name="a09f7e249f2c829f15a557f0d5988a6c4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a09f7e249f2c829f15a557f0d5988a6c4">&#9670;&#160;</a></span>~CommMaster()</h2>
 
@@ -347,7 +354,7 @@ Here is the caller graph for this function:</div>
 <p>Emit after new sample was sent by a deviceClass. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">reading</td><td><a class="el" href="struct_sample.html" title="holds parsed data">Sample</a> from device </td></tr>
+    <tr><td class="paramname">reading</td><td><a class="el" href="struct_sample.html" title="Struct with the received data.">Sample</a> from device </td></tr>
   </table>
   </dd>
 </dl>
@@ -392,7 +399,7 @@ Here is the caller graph for this function:</div>
 <p>Slot to receive the emitted signal from a deviceClass. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">reading</td><td><a class="el" href="struct_sample.html" title="holds parsed data">Sample</a> from device </td></tr>
+    <tr><td class="paramname">reading</td><td><a class="el" href="struct_sample.html" title="Struct with the received data.">Sample</a> from device </td></tr>
   </table>
   </dd>
 </dl>

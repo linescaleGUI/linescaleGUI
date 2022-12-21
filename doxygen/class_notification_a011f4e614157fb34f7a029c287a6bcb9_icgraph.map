@@ -1,5 +1,6 @@
 <map id="Notification::push" name="Notification::push">
-<area shape="rect" id="node1" title="Method to write a notification to the already specified text browser." alt="" coords="469,5,591,31"/>
-<area shape="rect" id="node2" href="$class_main_window.html#a5f3ac70cc2eef797bad37aee830ffbbe" title="Start or stop the readings." alt="" coords="229,5,421,31"/>
-<area shape="rect" id="node3" href="$class_main_window.html#a996c5a2b6f77944776856f08ec30858d" title=" " alt="" coords="5,5,181,31"/>
+<area shape="rect" id="node1" title="Method to write a notification to the already specified text browser." alt="" coords="469,31,591,56"/>
+<area shape="rect" id="node2" href="$class_notification.html#a55ba3de37658a449ffc4687e7f984776" title="Method to save the current context of the text browser to a file. A system file dialog will open wher..." alt="" coords="254,5,397,31"/>
+<area shape="rect" id="node4" href="$class_main_window.html#a5f3ac70cc2eef797bad37aee830ffbbe" title="Start or stop the readings." alt="" coords="229,55,421,80"/>
+<area shape="rect" id="node3" href="$class_main_window.html#a996c5a2b6f77944776856f08ec30858d" title=" " alt="" coords="5,31,181,56"/>
 </map>

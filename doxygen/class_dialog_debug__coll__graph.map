@@ -1,9 +1,9 @@
 <map id="DialogDebug" name="DialogDebug">
-<area shape="rect" id="node1" title="Send predefined snippets to the linescale." alt="" coords="13,344,108,369"/>
+<area shape="rect" id="node1" title="Dialog to send predefined snippets to the linescale." alt="" coords="13,344,108,369"/>
 <area shape="rect" id="node2" title=" " alt="" coords="5,256,73,281"/>
-<area shape="rect" id="node3" href="$classcomm_1_1_comm_master.html" title=" " alt="" coords="97,256,240,281"/>
+<area shape="rect" id="node3" href="$classcomm_1_1_comm_master.html" title="Class to handle all connections to the connected LineScales." alt="" coords="97,256,240,281"/>
 <area shape="rect" id="node4" title=" " alt="" coords="144,5,215,31"/>
 <area shape="rect" id="node5" href="$classcomm_1_1_comm_device.html" title="Base class for every connection." alt="" coords="169,168,312,193"/>
-<area shape="rect" id="node6" href="$class_parser.html" title=" " alt="" coords="217,80,277,105"/>
-<area shape="rect" id="node7" href="$struct_sample.html" title="holds parsed data" alt="" coords="302,80,369,105"/>
+<area shape="rect" id="node6" href="$class_parser.html" title="Class to parse the received messages." alt="" coords="217,80,277,105"/>
+<area shape="rect" id="node7" href="$struct_sample.html" title="Struct with the received data." alt="" coords="302,80,369,105"/>
 </map>

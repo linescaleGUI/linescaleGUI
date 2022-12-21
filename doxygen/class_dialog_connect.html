@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.5"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Line Scale GUI: DialogConnect Class Reference</title>
+<title>LineScale GUI: DialogConnect Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -22,7 +22,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">Line Scale GUI
+   <div id="projectname">LineScale GUI
    </div>
    <div id="projectbrief">A GUI to interact with the LineGrip LineScale3</div>
   </td>
@@ -81,7 +81,7 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p>Class to handle the connection dialog.  
+<p>Dialog to handle the connection with a device.  
  <a href="class_dialog_connect.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="dialogconnect_8h_source.html">dialogconnect.h</a>&gt;</code></p>
@@ -90,7 +90,7 @@ Inheritance diagram for DialogConnect:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_dialog_connect__inherit__graph.png" border="0" usemap="#a_dialog_connect_inherit__map" alt="Inheritance graph"/></div>
 <map name="a_dialog_connect_inherit__map" id="a_dialog_connect_inherit__map">
-<area shape="rect" title="Class to handle the connection dialog." alt="" coords="5,79,112,104"/>
+<area shape="rect" title="Dialog to handle the connection with a device." alt="" coords="5,79,112,104"/>
 <area shape="rect" title=" " alt="" coords="25,5,93,31"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
@@ -99,13 +99,13 @@ Collaboration diagram for DialogConnect:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_dialog_connect__coll__graph.png" border="0" usemap="#a_dialog_connect_coll__map" alt="Collaboration graph"/></div>
 <map name="a_dialog_connect_coll__map" id="a_dialog_connect_coll__map">
-<area shape="rect" title="Class to handle the connection dialog." alt="" coords="7,344,114,369"/>
+<area shape="rect" title="Dialog to handle the connection with a device." alt="" coords="7,344,114,369"/>
 <area shape="rect" title=" " alt="" coords="5,256,73,281"/>
-<area shape="rect" href="classcomm_1_1_comm_master.html" title=" " alt="" coords="97,256,240,281"/>
+<area shape="rect" href="classcomm_1_1_comm_master.html" title="Class to handle all connections to the connected LineScales." alt="" coords="97,256,240,281"/>
 <area shape="rect" title=" " alt="" coords="144,5,215,31"/>
 <area shape="rect" href="classcomm_1_1_comm_device.html" title="Base class for every connection." alt="" coords="169,168,312,193"/>
-<area shape="rect" href="class_parser.html" title=" " alt="" coords="217,80,277,105"/>
-<area shape="rect" href="struct_sample.html" title="holds parsed data" alt="" coords="302,80,369,105"/>
+<area shape="rect" href="class_parser.html" title="Class to parse the received messages." alt="" coords="217,80,277,105"/>
+<area shape="rect" href="struct_sample.html" title="Struct with the received data." alt="" coords="302,80,369,105"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -148,7 +148,7 @@ Private Attributes</h2></td></tr>
 <tr class="separator:a304b7ec664d6c3a3a1fc2413a99c9c9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p >Class to handle the connection dialog. </p>
+<div class="textblock"><p >Dialog to handle the connection with a device. </p>
 <p >This dialog displays all available connections and a frequency selector. The available devices are already filtered to only include compatible devices. If the connection was successfully established, this dialog will close. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="aefa611b60696bb99f199bd938857c2cb" name="aefa611b60696bb99f199bd938857c2cb"></a>
@@ -230,7 +230,8 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Reload comboBox with all available connections. </p>
-<p >This method calls the commMaster instance to get an array of deviceInfos. This data is then added to the device selector. This array is later used when establishing a connection as reference. </p>
+<p >This method calls the commMaster instance to get an array of deviceInfos. This data is then added to the device selector. This array is later used when establishing a connection as reference.</p>
+<dl class="section note"><dt>Note</dt><dd>If no devices are available, the UI elements for establishing a connection will be disabled. This prevents a call from <code><a class="el" href="class_dialog_connect.html#abc963c4db196e7c66eb3a61591c6da76" title="Request a new connection from the commMaster.">DialogConnect::requestConnection</a></code> with an empty <code><a class="el" href="class_dialog_connect.html#a304b7ec664d6c3a3a1fc2413a99c9c9f" title="List of available devices.">DialogConnect::devices</a></code> and guides the user. </dd></dl>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -268,7 +269,8 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 
 <p>Request a new connection from the commMaster. </p>
-<p >After the user pressed the connectButton, this method calls the commMaster and requests a new connection. If the connection was successfully established the requested frequency from the comboBox will be sent to the device. </p>
+<p >After the user pressed the connectButton, this method calls the commMaster and requests a new connection. If the connection was successfully established the requested frequency from the comboBox will be sent to the device.</p>
+<dl class="section note"><dt>Note</dt><dd>If the list <code><a class="el" href="class_dialog_connect.html#a304b7ec664d6c3a3a1fc2413a99c9c9f" title="List of available devices.">DialogConnect::devices</a></code> is empty or the index from the combo box is out-of-bound, the method does nothing. </dd></dl>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">

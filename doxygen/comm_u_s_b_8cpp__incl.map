@@ -1,12 +1,12 @@
 <map id="src/deviceCommunication/commUSB.cpp" name="src/deviceCommunication/commUSB.cpp">
-<area shape="rect" id="node1" title=" " alt="" coords="122,5,294,45"/>
-<area shape="rect" id="node2" href="$comm_u_s_b_8h.html" title="Child class for USB connection." alt="" coords="160,93,256,119"/>
-<area shape="rect" id="node3" title=" " alt="" coords="175,240,244,265"/>
-<area shape="rect" id="node4" title=" " alt="" coords="25,167,88,192"/>
-<area shape="rect" id="node5" title=" " alt="" coords="373,313,444,339"/>
-<area shape="rect" id="node6" title=" " alt="" coords="164,167,253,192"/>
-<area shape="rect" id="node7" title=" " alt="" coords="277,167,388,192"/>
-<area shape="rect" id="node8" href="$comm_device_8h.html" title="Abstract base class for each type of connection." alt="" coords="412,167,520,192"/>
-<area shape="rect" id="node9" href="$parser_8h.html" title="Parses the line scale communication protocol." alt="" coords="452,240,570,265"/>
-<area shape="rect" id="node10" title=" " alt="" coords="468,313,556,339"/>
+<area shape="rect" id="node1" title="comm::CommUSB implementation" alt="" coords="136,5,308,45"/>
+<area shape="rect" id="node2" href="$comm_u_s_b_8h.html" title="comm::CommUSB declaration" alt="" coords="174,93,270,119"/>
+<area shape="rect" id="node3" title=" " alt="" coords="21,240,90,265"/>
+<area shape="rect" id="node4" title=" " alt="" coords="260,167,323,192"/>
+<area shape="rect" id="node5" title=" " alt="" coords="88,313,159,339"/>
+<area shape="rect" id="node6" title=" " alt="" coords="347,167,436,192"/>
+<area shape="rect" id="node7" title=" " alt="" coords="460,167,571,192"/>
+<area shape="rect" id="node8" href="$parser_8h.html" title="Parser declaration" alt="" coords="166,240,284,265"/>
+<area shape="rect" id="node10" href="$comm_device_8h.html" title="comm::CommDevice declaration" alt="" coords="76,167,184,192"/>
+<area shape="rect" id="node9" title=" " alt="" coords="184,313,272,339"/>
 </map>

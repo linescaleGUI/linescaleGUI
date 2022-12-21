@@ -1,12 +1,12 @@
 <map id="src/gui/dialogconnect.h" name="src/gui/dialogconnect.h">
-<area shape="rect" id="node1" title="DialogConnect class declaration." alt="" coords="34,5,189,31"/>
+<area shape="rect" id="node1" title="DialogConnect declaration" alt="" coords="34,5,189,31"/>
 <area shape="rect" id="node2" title=" " alt="" coords="5,79,73,104"/>
-<area shape="rect" id="node3" href="$comm_master_8h.html" title="This file contains the class to control all connected devices." alt="" coords="31,152,191,192"/>
-<area shape="rect" id="node9" href="$connection_widget_8h.html" title="Widget to display the informations about one connection." alt="" coords="149,79,284,104"/>
+<area shape="rect" id="node3" href="$comm_master_8h.html" title="comm::CommMaster declaration" alt="" coords="31,152,191,192"/>
+<area shape="rect" id="node9" href="$connection_widget_8h.html" title="ConnectionWidget declaration" alt="" coords="149,79,284,104"/>
 <area shape="rect" id="node4" title=" " alt="" coords="81,387,152,412"/>
-<area shape="rect" id="node5" href="$comm_device_8h.html" title="Abstract base class for each type of connection." alt="" coords="119,240,227,265"/>
+<area shape="rect" id="node5" href="$comm_device_8h.html" title="comm::CommDevice declaration" alt="" coords="119,240,227,265"/>
 <area shape="rect" id="node6" title=" " alt="" coords="154,313,223,339"/>
-<area shape="rect" id="node7" href="$parser_8h.html" title="Parses the line scale communication protocol." alt="" coords="248,313,367,339"/>
+<area shape="rect" id="node7" href="$parser_8h.html" title="Parser declaration" alt="" coords="248,313,367,339"/>
 <area shape="rect" id="node8" title=" " alt="" coords="263,387,351,412"/>
 <area shape="rect" id="node10" title=" " alt="" coords="215,159,287,185"/>
 </map>

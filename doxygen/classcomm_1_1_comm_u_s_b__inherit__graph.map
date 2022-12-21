@@ -1,5 +1,5 @@
 <map id="comm::CommUSB" name="comm::CommUSB">
-<area shape="rect" id="node1" title=" " alt="" coords="11,152,142,177"/>
+<area shape="rect" id="node1" title="Class to handle the communication with a USB device." alt="" coords="11,152,142,177"/>
 <area shape="rect" id="node2" href="$classcomm_1_1_comm_device.html" title="Base class for every connection." alt="" coords="5,79,148,104"/>
 <area shape="rect" id="node3" title=" " alt="" coords="41,5,112,31"/>
 </map>

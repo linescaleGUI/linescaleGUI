@@ -1,5 +1,6 @@
 <map id="src/notification/notification.h" name="src/notification/notification.h">
-<area shape="rect" id="node1" title="Notification class declaration." alt="" coords="5,5,188,31"/>
-<area shape="rect" id="node2" title=" " alt="" coords="9,79,75,104"/>
-<area shape="rect" id="node3" title=" " alt="" coords="100,79,205,104"/>
+<area shape="rect" id="node1" title="Notification declaration" alt="" coords="43,5,225,31"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,79,76,104"/>
+<area shape="rect" id="node3" title=" " alt="" coords="101,79,167,104"/>
+<area shape="rect" id="node4" title=" " alt="" coords="192,79,297,104"/>
 </map>

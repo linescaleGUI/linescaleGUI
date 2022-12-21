@@ -1,9 +1,9 @@
 <map id="src/gui/connectionWidget.h" name="src/gui/connectionWidget.h">
-<area shape="rect" id="node1" title="Widget to display the informations about one connection." alt="" coords="111,5,289,31"/>
-<area shape="rect" id="node2" href="$connection_widget_8cpp.html" title=" " alt="" coords="5,79,197,104"/>
-<area shape="rect" id="node3" href="$dialogconnect_8h.html" title="DialogConnect class declaration." alt="" coords="221,79,376,104"/>
-<area shape="rect" id="node4" href="$dialogconnect_8cpp.html" title=" " alt="" coords="122,152,291,177"/>
-<area shape="rect" id="node5" href="$mainwindow_8h.html" title="Mainwindow for the project linescaleGUI." alt="" coords="316,152,463,177"/>
-<area shape="rect" id="node6" href="$mainwindow_8cpp.html" title=" " alt="" coords="231,225,393,251"/>
+<area shape="rect" id="node1" title="ConnectionWidget declaration" alt="" coords="111,5,289,31"/>
+<area shape="rect" id="node2" href="$connection_widget_8cpp.html" title="ConnectionWidget implementation" alt="" coords="5,79,197,104"/>
+<area shape="rect" id="node3" href="$dialogconnect_8h.html" title="DialogConnect declaration" alt="" coords="221,79,376,104"/>
+<area shape="rect" id="node4" href="$dialogconnect_8cpp.html" title="DialogConnect implementation" alt="" coords="122,152,291,177"/>
+<area shape="rect" id="node5" href="$mainwindow_8h.html" title="MainWindow declaration" alt="" coords="316,152,463,177"/>
+<area shape="rect" id="node6" href="$mainwindow_8cpp.html" title="MainWindow implementation" alt="" coords="231,225,393,251"/>
 <area shape="rect" id="node7" href="$main_8cpp.html" title="Main file of project linescaleGUI." alt="" coords="417,225,513,251"/>
 </map>

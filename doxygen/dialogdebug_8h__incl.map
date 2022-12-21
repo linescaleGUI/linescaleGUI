@@ -1,10 +1,10 @@
 <map id="src/gui/dialogdebug.h" name="src/gui/dialogdebug.h">
-<area shape="rect" id="node1" title="Dialog to show all available commands." alt="" coords="37,5,181,31"/>
+<area shape="rect" id="node1" title="DialogDebug declaration" alt="" coords="37,5,181,31"/>
 <area shape="rect" id="node2" title=" " alt="" coords="5,86,73,111"/>
-<area shape="rect" id="node3" href="$comm_master_8h.html" title="This file contains the class to control all connected devices." alt="" coords="98,79,258,119"/>
+<area shape="rect" id="node3" href="$comm_master_8h.html" title="comm::CommMaster declaration" alt="" coords="98,79,258,119"/>
 <area shape="rect" id="node4" title=" " alt="" coords="140,313,211,339"/>
-<area shape="rect" id="node5" href="$comm_device_8h.html" title="Abstract base class for each type of connection." alt="" coords="177,167,285,192"/>
+<area shape="rect" id="node5" href="$comm_device_8h.html" title="comm::CommDevice declaration" alt="" coords="177,167,285,192"/>
 <area shape="rect" id="node6" title=" " alt="" coords="213,240,282,265"/>
-<area shape="rect" id="node7" href="$parser_8h.html" title="Parses the line scale communication protocol." alt="" coords="307,240,425,265"/>
+<area shape="rect" id="node7" href="$parser_8h.html" title="Parser declaration" alt="" coords="307,240,425,265"/>
 <area shape="rect" id="node8" title=" " alt="" coords="322,313,410,339"/>
 </map>

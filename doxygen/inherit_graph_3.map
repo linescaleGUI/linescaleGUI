@@ -1,4 +1,8 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,112,31"/>
-<area shape="rect" id="node2" href="$class_main_window.html" title=" " alt="" coords="160,5,256,31"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,80,76,105"/>
+<area shape="rect" id="node2" href="$class_notification.html" title="Class to handle all notifications." alt="" coords="152,5,239,31"/>
+<area shape="rect" id="node3" href="$class_parser.html" title="Class to parse the received messages." alt="" coords="165,55,225,80"/>
+<area shape="rect" id="node4" href="$classcomm_1_1_comm_device.html" title="Base class for every connection." alt="" coords="124,104,267,129"/>
+<area shape="rect" id="node6" href="$classcomm_1_1_comm_master.html" title="Class to handle all connections to the connected LineScales." alt="" coords="124,153,267,179"/>
+<area shape="rect" id="node5" href="$classcomm_1_1_comm_u_s_b.html" title="Class to handle the communication with a USB device." alt="" coords="315,104,445,129"/>
 </map>
