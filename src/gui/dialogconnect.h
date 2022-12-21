@@ -108,6 +108,16 @@ class DialogConnect : public QDialog {
      */
     void requestConnectionAccepted(bool connected);
 
+    /**
+     * @brief Is called after a device was discovered by the `commMaster`
+     */
+    void discoveredDevice(comm::DeviceInfo& deviceInfo);
+
+    /**
+     * @brief Is called after all devices have been discovered by the `commMaster`
+     */
+    void discoverDevicesFinished(void);
+
    private:
     /**
      * @brief Expands the `QWidget::showEvent` to update the available devices

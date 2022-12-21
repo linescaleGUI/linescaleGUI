@@ -31,6 +31,12 @@
 #include "command.h"
 
 namespace comm {
+CommMaster::CommMaster(Bluetooth* bluetooth) : bluetooth(bluetooth) {
+    connect(bluetooth, &Bluetooth::ScanDeviceDiscovered, this,
+            &CommMaster::discoveredDeviceBluetooth);
+    connect(bluetooth, &Bluetooth::ScanStopped, this,
+            &CommMaster::discoverDevicesFinishedBluetooth);
+}
 
 CommMaster::~CommMaster() {
     delete singleDevice;
@@ -70,9 +76,10 @@ void CommMaster::removeConnection() {
     singleDevice = nullptr;
 }
 
-QList<DeviceInfo>& CommMaster::getAvailableDevices() {
-    availableDevice.clear();
+void CommMaster::discoverDevices(void) {
+    availableDevices.clear();
 
+    // Discover all available devices connected by USB
     QList<QSerialPortInfo> listOfCOMPorts = QSerialPortInfo::availablePorts();
     for (int i = 0; i < listOfCOMPorts.length(); ++i) {
         // Check vendorID for LineScales or COM101 for debug
@@ -83,14 +90,15 @@ QList<DeviceInfo>& CommMaster::getAvailableDevices() {
             tmp.ID = listOfCOMPorts[i].portName();
             tmp.type = ConnType::USB;
             tmp.baudRate = 230400;
-            availableDevice.append(tmp);
+            availableDevices.append(tmp);
+            emit discoveredDeviceMaster(tmp);
         }
     }
 
     /// @todo remove already connected devices from this list
-    /// @todo Add code for BLE pull
 
-    return availableDevice;
+    // Discover all available devices over BLE
+    bluetooth->ScanStart();
 }
 
 void CommMaster::sendData(const QByteArray& rawData) {
@@ -137,5 +145,14 @@ void CommMaster::setNewFreq(int newFreq) {
         default:
             break;
     }
+}
+
+void CommMaster::discoveredDeviceBluetooth(BluetoothDevice* device) {
+    // availableDevices.append(deviceInfo);
+    // emit discoveredDeviceMaster(deviceInfo);
+}
+
+void CommMaster::discoverDevicesFinishedBluetooth(void) {
+    emit discoverDevicesFinishedMaster();
 }
 }  // namespace comm

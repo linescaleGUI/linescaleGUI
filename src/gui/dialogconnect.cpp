@@ -41,6 +41,8 @@ DialogConnect::DialogConnect(comm::CommMaster* comm, QWidget* parent)
             &DialogConnect::updateFrequencySelector);
     connect(comm, &comm::CommMaster::changedStateMaster, this,
             &DialogConnect::requestConnectionAccepted);
+    connect(comm, &comm::CommMaster::discoveredDeviceMaster, this, &DialogConnect::discoveredDevice);
+    connect(comm, &comm::CommMaster::discoverDevicesFinishedMaster, this, &DialogConnect::discoverDevicesFinished);
 }
 
 DialogConnect::~DialogConnect() {
@@ -55,22 +57,15 @@ void DialogConnect::showEvent(QShowEvent* event) {
 void DialogConnect::reloadConnections() {
     ui->boxConnections->clear();
     devices.clear();
-    devices = comm->getAvailableDevices();
-    if (devices.length() == 0) {
-        ui->boxConnections->addItem("No device");
-        ui->btnConnect->setEnabled(false);
-        ui->boxConnections->setEnabled(false);
-        ui->boxFreq->setEnabled(false);
-        return;
-    }
 
-    for (int i = 0; i < devices.length(); ++i) {
-        ui->boxConnections->addItem(devices[i].ID);
-    }
+    // The connect button is only reenabled after the discovery has finished
+    ui->boxConnections->addItem("No device");
+    ui->btnConnect->setEnabled(false);
+    ui->btnReload->setEnabled(false);
+    ui->boxConnections->setEnabled(false);
+    ui->boxFreq->setEnabled(false);
 
-    ui->btnConnect->setEnabled(true);
-    ui->boxConnections->setEnabled(true);
-    ui->boxFreq->setEnabled(true);
+    comm->discoverDevices();
 }
 
 void DialogConnect::requestConnection() {
@@ -110,4 +105,22 @@ void DialogConnect::requestConnectionAccepted(bool connected) {
 
     comm->setNewFreq(ui->boxFreq->currentData().toInt());
     close();
+}
+
+void DialogConnect::discoveredDevice(comm::DeviceInfo& deviceInfo) {
+    // If a device was found enable the ui elements again except the reload button
+    if (devices.length() == 0) {
+        ui->boxConnections->clear();
+        ui->btnConnect->setEnabled(true);
+        ui->boxConnections->setEnabled(true);
+        ui->boxFreq->setEnabled(true);
+    }
+
+    ui->boxConnections->addItem(deviceInfo.ID);
+    devices.append(deviceInfo);
+}
+
+void DialogConnect::discoverDevicesFinished(void) {
+    // Enable reload button after the scan has finished
+    ui->btnReload->setEnabled(true);
 }

@@ -29,8 +29,8 @@
 #define COMMMASTER_H_
 
 #include <QObject>
-#include "commDevice.h"
 #include "bluetooth/Bluetooth.h"
+#include "commDevice.h"
 
 namespace comm {
 
@@ -50,6 +50,13 @@ class CommMaster : public QObject {
 
    public:
     /**
+     * @brief Constructor of the class
+     *
+     * @param bluetooth Pointer to a bluetooth instance
+     */
+    CommMaster(Bluetooth* bluetooth);
+
+    /**
      * @brief Destroy the Comm Master object
      *
      */
@@ -58,9 +65,10 @@ class CommMaster : public QObject {
     /**
      * @brief Search all possible devices on either USB or BLE
      *
-     * @return QList<QString>& Reference to a list with all devices
+     * `discoveredDeviceMaster` is emitted after a device was discovered. If all
+     * devices have been discovered `discoverDevicesFinishedMaster` is emitted
      */
-    QList<DeviceInfo>& getAvailableDevices();
+    void discoverDevices(void);
 
     /**
      * @brief Send data to the connected devices
@@ -111,6 +119,19 @@ class CommMaster : public QObject {
      */
     void changedStateMaster(bool connected);
 
+    /**
+     * @brief Emit after a device was discovered
+     *
+     * @param deviceInfo Information of the discovered device
+     */
+    void discoveredDeviceMaster(DeviceInfo& deviceInfo);
+
+    /**
+     * @brief Emit after all devices have been discovered
+     *
+     */
+    void discoverDevicesFinishedMaster(void);
+
    private slots:
     /**
      * @brief Slot to receive the emitted signal from a deviceClass
@@ -126,10 +147,23 @@ class CommMaster : public QObject {
      */
     void getChangedState(bool connected);
 
+    /**
+     * @brief Emit after a device was discovered
+     *
+     * @param deviceInfo Information of the discovered device
+     */
+    void discoveredDeviceBluetooth(BluetoothDevice* device);
+
+    /**
+     * @brief Emit after all devices have been discovered
+     *
+     */
+    void discoverDevicesFinishedBluetooth(void);
+
    private:
-    QList<DeviceInfo> availableDevice;
+    QList<DeviceInfo> availableDevices;
     CommDevice* singleDevice = nullptr;
-    Bluetooth bluetooth;
+    Bluetooth* bluetooth = nullptr;
 };
 
 }  // namespace comm
