@@ -1,7 +1,0 @@
-<map id="comm::CommDevice::changedStateDevice" name="comm::CommDevice::changedStateDevice">
-<area shape="rect" id="node1" title="Emit after connection / disconnection to trigger UI changes." alt="" coords="611,49,833,90"/>
-<area shape="rect" id="node2" href="$classcomm_1_1_comm_master.html#a20313a06785b1817ed883e29d72a8282" title="Create connection." alt="" coords="299,5,563,32"/>
-<area shape="rect" id="node3" href="$classcomm_1_1_comm_u_s_b.html#a044f3b6d1aa9b36dc9cd21fe92a9c65c" title="Implementation for USB, connect to device as set in the Ctor." alt="" coords="5,60,251,87"/>
-<area shape="rect" id="node4" href="$classcomm_1_1_comm_u_s_b.html#ace10e3932efc3dbac63663869fd25b08" title="Disconnect from USB device." alt="" coords="321,107,540,149"/>
-<area shape="rect" id="node5" href="$classcomm_1_1_comm_u_s_b.html#a680fd2b00288a6225b250cd7f4aeb132" title="Disconnect from device and destroy the Comm USB object." alt="" coords="13,115,243,141"/>
-</map>

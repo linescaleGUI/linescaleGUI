@@ -1,0 +1,10 @@
+digraph "DialogAbout::replaceVersionInfo"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="RL";
+  Node1 [label="DialogAbout::replaceVersionInfo",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Replace version placeholder in ui file with actual data generated on compile time...."];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="DialogAbout::DialogAbout",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_dialog_about.html#aeac57e0df6e13777560fe3109f7bd6ad",tooltip=" "];
+}

@@ -1,6 +1,0 @@
-<map id="comm::CommMaster::changedStateMaster" name="comm::CommMaster::changedStateMaster">
-<area shape="rect" id="node1" title="Emit after status change." alt="" coords="611,35,833,76"/>
-<area shape="rect" id="node2" href="$classcomm_1_1_comm_master.html#a56d99ac78908f87663c07b401c4d50cf" title="Slot to receive the updated state from a deviceClass." alt="" coords="317,5,563,47"/>
-<area shape="rect" id="node4" href="$class_main_window.html#a996c5a2b6f77944776856f08ec30858d" title=" " alt="" coords="341,71,539,98"/>
-<area shape="rect" id="node3" href="$classcomm_1_1_comm_master.html#a20313a06785b1817ed883e29d72a8282" title="Create connection." alt="" coords="5,13,269,39"/>
-</map>

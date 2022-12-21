@@ -1,0 +1,14 @@
+digraph "comm::CommMaster::changedStateMaster"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="RL";
+  Node1 [label="comm::CommMaster::changed\lStateMaster",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Emit after status change."];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="comm::CommMaster::getChanged\lState",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classcomm_1_1_comm_master.html#a56d99ac78908f87663c07b401c4d50cf",tooltip="Slot to receive the updated state from a deviceClass."];
+  Node2 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="comm::CommMaster::addConnection",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classcomm_1_1_comm_master.html#a20313a06785b1817ed883e29d72a8282",tooltip="Create connection."];
+  Node1 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="MainWindow::MainWindow",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_main_window.html#a996c5a2b6f77944776856f08ec30858d",tooltip=" "];
+}

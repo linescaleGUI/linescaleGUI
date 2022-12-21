@@ -1,8 +1,0 @@
-<map id="src/deviceCommunication/commMaster.h" name="src/deviceCommunication/commMaster.h">
-<area shape="rect" id="node1" title="This file contains the class to control all connected devices." alt="" coords="5,5,196,47"/>
-<area shape="rect" id="node2" title=" " alt="" coords="66,244,141,271"/>
-<area shape="rect" id="node3" href="$comm_device_8h.html" title="Abstract base class for each type of connection." alt="" coords="103,95,223,121"/>
-<area shape="rect" id="node4" title=" " alt="" coords="141,169,215,196"/>
-<area shape="rect" id="node5" href="$parser_8h.html" title="Parses the line scale communication protocol." alt="" coords="239,169,370,196"/>
-<area shape="rect" id="node6" title=" " alt="" coords="256,244,353,271"/>
-</map>

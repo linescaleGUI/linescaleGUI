@@ -1,5 +1,0 @@
-<map id="DialogDebug::insertTreeCmd" name="DialogDebug::insertTreeCmd">
-<area shape="rect" id="node1" title="Insert the current selected item from treeCmd into inputPayload." alt="" coords="516,31,724,57"/>
-<area shape="rect" id="node2" href="$class_dialog_debug.html#aadec9f268b3fa279ea58855176ed104c" title="Insert the double clicked item from treeCmd into inputPayload." alt="" coords="252,5,468,32"/>
-<area shape="rect" id="node3" href="$class_dialog_debug.html#a9525c71924319348ccb3b70da4028fef" title=" " alt="" coords="5,31,204,57"/>
-</map>

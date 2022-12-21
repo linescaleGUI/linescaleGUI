@@ -1,6 +1,0 @@
-<map id="comm::CommDevice::newSampleDevice" name="comm::CommDevice::newSampleDevice">
-<area shape="rect" id="node1" title="Emit after a package was received and parsed." alt="" coords="584,23,827,65"/>
-<area shape="rect" id="node2" href="$classcomm_1_1_comm_master.html#a20313a06785b1817ed883e29d72a8282" title="Create connection." alt="" coords="272,5,536,32"/>
-<area shape="rect" id="node3" href="$classcomm_1_1_comm_u_s_b.html#ad37cdf76196c13ec5e8225853b3f6d05" title="Method to read the received data." alt="" coords="299,56,509,83"/>
-<area shape="rect" id="node4" href="$classcomm_1_1_comm_u_s_b.html#a29440857f23e85afb8b8c0803c5ba7c5" title="Construct a new Comm USB object." alt="" coords="5,56,224,83"/>
-</map>

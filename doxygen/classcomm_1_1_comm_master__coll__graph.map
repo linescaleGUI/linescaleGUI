@@ -1,7 +1,0 @@
-<map id="comm::CommMaster" name="comm::CommMaster">
-<area shape="rect" id="node1" title=" " alt="" coords="5,260,164,287"/>
-<area shape="rect" id="node2" title=" " alt="" coords="77,5,151,32"/>
-<area shape="rect" id="node3" href="$classcomm_1_1_comm_device.html" title="Base class for every connection." alt="" coords="103,171,261,197"/>
-<area shape="rect" id="node5" href="$class_parser.html" title=" " alt="" coords="152,81,215,108"/>
-<area shape="rect" id="node4" href="$struct_sample.html" title="holds parsed data" alt="" coords="239,81,309,108"/>
-</map>

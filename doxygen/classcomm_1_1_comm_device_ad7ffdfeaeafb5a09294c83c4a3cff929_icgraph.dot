@@ -1,0 +1,18 @@
+digraph "comm::CommDevice::sendData"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="RL";
+  Node1 [label="comm::CommDevice::sendData",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Send date to the connected device."];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="comm::CommMaster::sendData",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classcomm_1_1_comm_master.html#a8605d1bc19aed2046b6b4593ac1b361c",tooltip="Send data to the connected devices."];
+  Node2 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="comm::CommMaster::sendData",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classcomm_1_1_comm_master.html#a7ce73489c87b14a0781b2e07f87a5d7b",tooltip="Send data to the connected devices."];
+  Node2 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="comm::CommMaster::setNewFreq",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classcomm_1_1_comm_master.html#a3ff7ddcdaf0f923be560692266d3580f",tooltip="Set a new frequency on the device."];
+  Node4 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="ConnectionWidget::request\lNewFreq",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_connection_widget.html#abae7db7f76bb5ef89d3be9d3e253c737",tooltip="Request new frequency from the connected device."];
+  Node5 -> Node6 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="ConnectionWidget::Connection\lWidget",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_connection_widget.html#a832811b8c579f99b44e45d0b30cef1fd",tooltip="Constructor of the class."];
+}

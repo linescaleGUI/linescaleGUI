@@ -1,0 +1,17 @@
+digraph "comm::CommDevice::changedStateDevice"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="RL";
+  Node1 [label="comm::CommDevice::changed\lStateDevice",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Emit after connection / disconnection to trigger UI changes."];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="comm::CommMaster::addConnection",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classcomm_1_1_comm_master.html#a20313a06785b1817ed883e29d72a8282",tooltip="Create connection."];
+  Node1 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="comm::CommUSB::connectDevice",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classcomm_1_1_comm_u_s_b.html#a044f3b6d1aa9b36dc9cd21fe92a9c65c",tooltip="Implementation for USB, connect to device as set in the Ctor."];
+  Node1 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="comm::CommUSB::disconnect\lDevice",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classcomm_1_1_comm_u_s_b.html#ace10e3932efc3dbac63663869fd25b08",tooltip="Disconnect from USB device."];
+  Node4 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="comm::CommUSB::~CommUSB",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classcomm_1_1_comm_u_s_b.html#a680fd2b00288a6225b250cd7f4aeb132",tooltip="Disconnect from device and destroy the Comm USB object."];
+}

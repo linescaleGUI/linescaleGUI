@@ -1,8 +1,0 @@
-<map id="comm::CommUSB" name="comm::CommUSB">
-<area shape="rect" id="node1" title=" " alt="" coords="112,260,253,287"/>
-<area shape="rect" id="node2" href="$classcomm_1_1_comm_device.html" title="Base class for every connection." alt="" coords="17,171,175,197"/>
-<area shape="rect" id="node3" title=" " alt="" coords="5,5,80,32"/>
-<area shape="rect" id="node5" href="$class_parser.html" title=" " alt="" coords="65,81,127,108"/>
-<area shape="rect" id="node4" href="$struct_sample.html" title="holds parsed data" alt="" coords="151,81,222,108"/>
-<area shape="rect" id="node6" href="$structcomm_1_1_device_info.html" title="Struct to identify a device Used to connect to one device." alt="" coords="200,171,341,197"/>
-</map>
