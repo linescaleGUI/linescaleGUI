@@ -20,8 +20,7 @@
  * @file commUSB.h
  * @authors Gschwind, Weber, Schoch, Niederberger
  *
- * @brief Child class for USB connection
- *
+ * @brief `comm::CommUSB` declaration
  *
  */
 
@@ -34,11 +33,15 @@
 #include <QObject>
 #include <QSerialPort>
 #include <QSerialPortInfo>
-#include "commDevice.h"
 #include "../parser/parser.h"
+#include "commDevice.h"
 
 namespace comm {
 
+/**
+ * @brief Class to handle the communication with a USB device
+ *
+ */
 class CommUSB : public CommDevice {
     Q_OBJECT
 

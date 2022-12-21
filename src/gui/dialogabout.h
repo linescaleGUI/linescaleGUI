@@ -20,7 +20,7 @@
  * @file dialogabout.h
  * @authors Gschwind, Weber, Schoch, Niederberger
  *
- * @brief Dialog to display version info
+ * @brief `DialogAbout` declaration
  *
  */
 
@@ -34,6 +34,10 @@ namespace Ui {
 class DialogAbout;
 }
 
+/**
+ * @brief Dialog to show basic informations about the linescaleGUI
+ * 
+ */
 class DialogAbout : public QDialog {
     Q_OBJECT
 

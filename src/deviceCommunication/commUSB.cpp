@@ -20,7 +20,7 @@
  * @file commUSB.cpp
  * @authors Gschwind, Weber, Schoch, Niederberger
  *
- *
+ * @brief `comm::CommUSB` implementation
  */
 
 #include "commUSB.h"

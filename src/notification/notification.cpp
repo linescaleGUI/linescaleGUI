@@ -19,6 +19,8 @@
 /**
  * @file notification.cpp
  * @authors Gschwind, Weber, Schoch, Niederberger
+ * 
+ * @brief `Notification` implementation
  *
  */
 

@@ -20,7 +20,7 @@
  * @file parser.h
  * @authors Gschwind, Weber, Schoch, Niederberger
  *
- * @brief Parses the line scale communication protocol
+ * @brief `Parser` declaration
  *
  */
 
@@ -58,7 +58,7 @@ enum class UnitValue {
 };
 
 /**
- * @brief holds parsed data
+ * @brief Struct with the received data
  *
  */
 struct Sample {
@@ -71,6 +71,10 @@ struct Sample {
     int frequency; ///< Stores the connection frequency between host device and Line Scale
 };
 
+/**
+ * @brief Class to parse the received messages
+ * 
+ */
 class Parser : public QObject {
     Q_OBJECT
    public:

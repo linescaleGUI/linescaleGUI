@@ -19,6 +19,8 @@
 /**
  * @file dialogdebug.cpp
  * @authors Gschwind, Weber, Schoch, Niederberger
+ * 
+ * @brief `DialogDebug` implementation
  *
  */
 

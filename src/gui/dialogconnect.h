@@ -20,7 +20,7 @@
  * @file dialogconnect.h
  * @authors Gschwind, Weber, Schoch, Niederberger
  *
- * @brief DialogConnect class declaration
+ * @brief `DialogConnect` declaration
  *
  */
 
@@ -37,7 +37,7 @@ class DialogConnect;
 }
 
 /**
- * @brief Class to handle the connection dialog.
+ * @brief Dialog to handle the connection with a device.
  *
  * This dialog displays all available connections and a frequency selector.
  * The available devices are already filtered to only include compatible devices.

@@ -21,7 +21,7 @@
  * @authors Gschwind, Weber, Schoch, Niederberger
  * @copyright (c) 2022 LineGrip Corp Ltd.
  *
- * @brief Parses the line scale communication protocol
+ * @brief `Parser` implementation
  *
  */
 

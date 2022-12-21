@@ -20,7 +20,7 @@
  * @file notification.h
  * @authors Gschwind, Weber, Schoch, Niederberger
  *
- * @brief Notification class declaration
+ * @brief `Notification` declaration
  *
  */
 

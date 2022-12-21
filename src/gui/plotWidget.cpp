@@ -19,6 +19,8 @@
 /**
  * @file plotWidget.cpp
  * @authors Gschwind, Weber, Schoch, Niederberger
+ * 
+ * @brief `Plot` implementation
  */
 
 #include "plotWidget.h"

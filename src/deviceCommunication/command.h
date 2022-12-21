@@ -20,7 +20,7 @@
  * @file command.h
  * @authors Gschwind, Weber, Schoch, Niederberger
  *
- * @brief This file contains all default commands for the LineScale3
+ * @brief All commands for the linescale3
  * 
  * For a detailed description see design/serialProtocol.pdf
  *
@@ -32,6 +32,10 @@
 
 #include <QByteArray>
 
+/**
+ * @brief Namespace for all commands available on the linescale
+ * 
+ */
 namespace command {
 const QByteArray POWEROFF             = QByteArrayLiteral("\x4F\x0D\x0A\x66"); ///< Power off
 const QByteArray SETZERO              = QByteArrayLiteral("\x5A\x0D\x0A\x71"); ///< Zero command

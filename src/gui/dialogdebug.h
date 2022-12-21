@@ -20,7 +20,7 @@
  * @file dialogdebug.h
  * @authors Gschwind, Weber, Schoch, Niederberger
  *
- * @brief Dialog to show all available commands
+ * @brief `DialogDebug` declaration
  *
  */
 
@@ -36,7 +36,7 @@ class DialogDebug;
 }
 
 /**
- * @brief Send predefined snippets to the linescale
+ * @brief Dialog to send predefined snippets to the linescale
  *
  */
 class DialogDebug : public QDialog {

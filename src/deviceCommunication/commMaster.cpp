@@ -19,6 +19,8 @@
 /**
  * @file commMaster.cpp
  * @authors Gschwind, Weber, Schoch, Niederberger
+ * 
+ * @brief `comm::CommMaster` implementation
  *
  */
 
