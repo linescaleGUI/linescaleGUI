@@ -24,6 +24,7 @@
 
 #include "Bluetooth.h"
 
+namespace comm {
 Bluetooth::Bluetooth() {
     stateBefore = localDevice.hostMode();
     deviceDiscoveryAgent.setLowEnergyDiscoveryTimeout(5000);
@@ -39,8 +40,10 @@ Bluetooth::Bluetooth() {
             &Bluetooth::DeviceDiscoveryAgentDeviceDiscovered);
     connect(&deviceDiscoveryAgent, &QBluetoothDeviceDiscoveryAgent::deviceUpdated, this,
             &Bluetooth::DeviceDiscoveryAgentDeviceUpdated);
-    connect(&deviceDiscoveryAgent, qOverload<QBluetoothDeviceDiscoveryAgent::Error>(&QBluetoothDeviceDiscoveryAgent::error), this,
-            &Bluetooth::DeviceDiscoveryAgentErrorOccurred);
+    connect(
+        &deviceDiscoveryAgent,
+        qOverload<QBluetoothDeviceDiscoveryAgent::Error>(&QBluetoothDeviceDiscoveryAgent::error),
+        this, &Bluetooth::DeviceDiscoveryAgentErrorOccurred);
     connect(&deviceDiscoveryAgent, &QBluetoothDeviceDiscoveryAgent::finished, this,
             &Bluetooth::DeviceDiscoveryAgentFinished);
 }
@@ -166,3 +169,4 @@ void Bluetooth::DeviceDiscoveryAgentErrorOccurred(QBluetoothDeviceDiscoveryAgent
 void Bluetooth::DeviceDiscoveryAgentFinished() {
     emit ScanStopped(devices);
 }
+}  // namespace comm

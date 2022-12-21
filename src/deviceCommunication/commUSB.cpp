@@ -32,7 +32,7 @@ CommUSB::CommUSB(DeviceInfo identifier) {
 
     connect(&serialPort, &QSerialPort::readyRead, this, &CommUSB::readData);
     connect(&serialPort, &QSerialPort::errorOccurred, this, &CommUSB::handleError);
-};
+}
 
 CommUSB::~CommUSB() {
     CommUSB::disconnectDevice();
@@ -44,12 +44,12 @@ void CommUSB::disconnectDevice() {
         connected = false;
         emit changedStateDevice(connected);
     }
-};
+}
 
 void CommUSB::sendData(const QByteArray& rawData) {
     serialPort.write(rawData);
     serialPort.flush();
-};
+}
 
 void CommUSB::readData() {
     COMbuffer += serialPort.readAll();
@@ -74,7 +74,7 @@ void CommUSB::handleError(QSerialPort::SerialPortError error) {
     }
 }
 
-bool CommUSB::connectDevice() {
+void CommUSB::connectDevice() {
     if (connected) {
         disconnectDevice();
     }
@@ -83,6 +83,5 @@ bool CommUSB::connectDevice() {
     serialPort.setPortName(identifier.ID);
     connected = serialPort.open(QIODevice::ReadWrite);
     emit changedStateDevice(connected);
-    return connected;
 }
 }  // namespace comm

@@ -33,18 +33,20 @@
 #include <QtBluetooth/QBluetoothDeviceDiscoveryAgent>
 #include <QtBluetooth/QBluetoothLocalDevice>
 #include <vector>
+#include "../commDevice.h"
 #include "BluetoothService.h"
 
-class BluetoothDevice : public QObject {
+namespace comm {
+class BluetoothDevice : public CommDevice {
     Q_OBJECT
 
    public:
     BluetoothDevice(const QBluetoothDeviceInfo& deviceInfo);
-    ~BluetoothDevice();
-    void Connect(void);
-    void Disconnect(void);
-    void Read(void);
-    void Write(QByteArray& value);
+    virtual ~BluetoothDevice();
+    void connectDevice(void) override;
+    void disconnectDevice(void) override;
+    void readData(void) override;
+    void sendData(const QByteArray& value) override;
     QBluetoothDeviceInfo& DeviceInfoGet(void);
 
    signals:
@@ -92,5 +94,6 @@ class BluetoothDevice : public QObject {
     QLowEnergyCharacteristic communicationCharacteristicRead;
     QLowEnergyCharacteristic communicationCharacteristicWrite;
 };
+}  // namespace comm
 
 #endif  // BLUETOOTHDEVICE_H_

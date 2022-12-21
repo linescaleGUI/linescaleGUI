@@ -35,6 +35,7 @@
 #include <vector>
 #include "BluetoothDevice.h"
 
+namespace comm {
 class Bluetooth : public QObject {
     Q_OBJECT
 
@@ -84,5 +85,6 @@ class Bluetooth : public QObject {
     QBluetoothDeviceDiscoveryAgent deviceDiscoveryAgent;
     std::vector<BluetoothDevice*> devices;
 };
+}  // namespace comm
 
 #endif  // BLUETOOTH_H_

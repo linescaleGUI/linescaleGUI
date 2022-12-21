@@ -36,10 +36,11 @@ CommMaster::~CommMaster() {
     delete singleDevice;
 }
 
-bool CommMaster::addConnection(DeviceInfo identifier) {
+void CommMaster::addConnection(DeviceInfo identifier) {
     if (singleDevice != nullptr) {
         removeConnection();
     }
+
     switch (identifier.type) {
         case ConnType::USB:
             singleDevice = new CommUSB(identifier);
@@ -56,10 +57,7 @@ bool CommMaster::addConnection(DeviceInfo identifier) {
     if (singleDevice != nullptr) {
         connect(singleDevice, &CommDevice::newSampleDevice, this, &CommMaster::receiveSampleMaster);
         connect(singleDevice, &CommDevice::changedStateDevice, this, &CommMaster::getChangedState);
-        return singleDevice->connectDevice();
-
-    } else {
-        return false;
+        singleDevice->connectDevice();
     }
 }
 

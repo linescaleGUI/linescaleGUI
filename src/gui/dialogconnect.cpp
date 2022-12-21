@@ -39,6 +39,8 @@ DialogConnect::DialogConnect(comm::CommMaster* comm, QWidget* parent)
     connect(ui->btnReload, &QPushButton::pressed, this, &DialogConnect::reloadConnections);
     connect(ui->boxConnections, QOverload<int>::of(&QComboBox::currentIndexChanged), this,
             &DialogConnect::updateFrequencySelector);
+    connect(comm, &comm::CommMaster::changedStateMaster, this,
+            &DialogConnect::requestConnectionAccepted);
 }
 
 DialogConnect::~DialogConnect() {
@@ -82,11 +84,8 @@ void DialogConnect::requestConnection() {
         // Index out of range
         return;
     }
-    bool success = comm->addConnection(devices[index]);
-    if (success) {
-        comm->setNewFreq(ui->boxFreq->currentData().toInt());
-        close();
-    }
+
+    comm->addConnection(devices[index]);
 }
 
 void DialogConnect::updateFrequencySelector(int index) {
@@ -102,4 +101,13 @@ void DialogConnect::updateFrequencySelector(int index) {
         ui->boxFreq->addItem("640 Hz", int(640));
         ui->boxFreq->addItem("1280 Hz", int(1280));
     }
+}
+
+void DialogConnect::requestConnectionAccepted(bool connected) {
+    if (!connected) {
+        return;
+    }
+
+    comm->setNewFreq(ui->boxFreq->currentData().toInt());
+    close();
 }

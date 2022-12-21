@@ -30,6 +30,7 @@
 
 #include <QObject>
 #include "commDevice.h"
+#include "bluetooth/Bluetooth.h"
 
 namespace comm {
 
@@ -79,10 +80,8 @@ class CommMaster : public QObject {
      * @brief Create connection
      *
      * @param identifier Struct with the device info
-     * @return true Connection established
-     * @return false Connection failed
      */
-    bool addConnection(const DeviceInfo identifier);
+    void addConnection(const DeviceInfo identifier);
 
     /**
      * @brief Terminate the connection and remove all references with the class
@@ -130,6 +129,7 @@ class CommMaster : public QObject {
    private:
     QList<DeviceInfo> availableDevice;
     CommDevice* singleDevice = nullptr;
+    Bluetooth bluetooth;
 };
 
 }  // namespace comm

@@ -70,10 +70,8 @@ class CommDevice : public QObject {
      * @brief Connect device to host
      * Implemented in USB or BLE class
      *
-     * @return true Connection established successfully
-     * @return false Connection failed
      */
-    virtual bool connectDevice() { return false; };
+    virtual void connectDevice(){};
 
     /**
      * @brief Disconnect device from host
