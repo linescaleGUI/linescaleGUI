@@ -102,7 +102,7 @@ bool Notification::saveLog(void) {
     if (fileExtension == ".html") {
         fileContent = textDocument->toHtml();
     } else if (fileExtension == ".md") {
-        fileContent = textDocument->toMarkdown();
+        fileContent = textDocument->toMarkdown().replace("\n\n", "\n");
     } else {
         fileContent = textDocument->toPlainText();
     }
