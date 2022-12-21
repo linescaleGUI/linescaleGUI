@@ -29,6 +29,7 @@
 #define MAINWINDOW_H_
 
 #include <QMainWindow>
+#include "../deviceCommunication/bluetooth/Bluetooth.h"
 #include "../deviceCommunication/commMaster.h"
 #include "../notification/notification.h"
 #include "../parser/parser.h"
@@ -139,6 +140,7 @@ class MainWindow : public QMainWindow {
 
    private:
     Ui::MainWindow* ui;
+    comm::Bluetooth* bluetooth;
     comm::CommMaster* comm;
     DialogAbout* dAbout;
     DialogDebug* dDebug;
