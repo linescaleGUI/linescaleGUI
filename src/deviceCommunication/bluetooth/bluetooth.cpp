@@ -17,12 +17,12 @@
  * along with linescaleGUI. If not, see <http://www.gnu.org/licenses/>.       *
  ******************************************************************************/
 /**
- * @file Bluetooth.cpp
+ * @file bluetooth.cpp
  * @authors Gschwind, Weber, Schoch, Niederberger
  *
  */
 
-#include "Bluetooth.h"
+#include "bluetooth.h"
 
 namespace comm {
 Bluetooth::Bluetooth() {

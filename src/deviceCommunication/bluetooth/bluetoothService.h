@@ -17,7 +17,7 @@
  * along with linescaleGUI. If not, see <http://www.gnu.org/licenses/>.       *
  ******************************************************************************/
 /**
- * @file BluetoothService.h
+ * @file bluetoothService.h
  * @authors Gschwind, Weber, Schoch, Niederberger
  *
  * @brief Bluetooth service class declaration

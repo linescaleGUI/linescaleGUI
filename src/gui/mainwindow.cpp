@@ -38,7 +38,7 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWi
 
     notification = new Notification(ui->textBrowserLog);
     bluetooth = new comm::Bluetooth();
-    comm = new comm::CommMaster(bluetooth);
+    comm = new comm::CommMaster(notification, bluetooth);
 
     dAbout = new DialogAbout(this);
     dDebug = new DialogDebug(comm, this);

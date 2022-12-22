@@ -29,7 +29,8 @@
 #define COMMMASTER_H_
 
 #include <QObject>
-#include "bluetooth/Bluetooth.h"
+#include "../notification/notification.h"
+#include "bluetooth/bluetooth.h"
 #include "commDevice.h"
 
 namespace comm {
@@ -52,9 +53,10 @@ class CommMaster : public QObject {
     /**
      * @brief Constructor of the class
      *
+     * @param notification Pointer to a notification instance to push messages
      * @param bluetooth Pointer to a bluetooth instance
      */
-    CommMaster(Bluetooth* bluetooth);
+    CommMaster(Notification* notification, Bluetooth* bluetooth);
 
     /**
      * @brief Destroy the Comm Master object
@@ -163,6 +165,7 @@ class CommMaster : public QObject {
    private:
     QList<DeviceInfo> availableDevices;
     CommDevice* singleDevice = nullptr;
+    Notification* notification = nullptr;
     Bluetooth* bluetooth = nullptr;
 };
 
