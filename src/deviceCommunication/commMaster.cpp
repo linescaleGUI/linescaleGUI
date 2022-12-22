@@ -31,7 +31,8 @@
 #include "command.h"
 
 namespace comm {
-CommMaster::CommMaster(Bluetooth* bluetooth) : bluetooth(bluetooth) {
+CommMaster::CommMaster(Notification* notification, Bluetooth* bluetooth)
+    : bluetooth(bluetooth), notification(notification) {
     connect(bluetooth, &Bluetooth::ScanDeviceDiscovered, this,
             &CommMaster::discoveredDeviceBluetooth);
     connect(bluetooth, &Bluetooth::ScanStopped, this,
@@ -77,6 +78,7 @@ void CommMaster::removeConnection() {
 }
 
 void CommMaster::discoverDevices(void) {
+    notification->push("Scan for devices");
     availableDevices.clear();
 
     // Discover all available devices connected by USB
@@ -153,6 +155,7 @@ void CommMaster::discoveredDeviceBluetooth(BluetoothDevice* device) {
 }
 
 void CommMaster::discoverDevicesFinishedBluetooth(void) {
+    notification->push("Scan for devices finished");
     emit discoverDevicesFinishedMaster();
 }
 }  // namespace comm

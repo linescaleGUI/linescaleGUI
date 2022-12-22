@@ -29,7 +29,7 @@
 #define MAINWINDOW_H_
 
 #include <QMainWindow>
-#include "../deviceCommunication/bluetooth/Bluetooth.h"
+#include "../deviceCommunication/bluetooth/bluetooth.h"
 #include "../deviceCommunication/commMaster.h"
 #include "../notification/notification.h"
 #include "../parser/parser.h"

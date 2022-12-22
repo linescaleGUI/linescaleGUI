@@ -17,12 +17,12 @@
  * along with linescaleGUI. If not, see <http://www.gnu.org/licenses/>.       *
  ******************************************************************************/
 /**
- * @file BluetoothDevice.cpp
+ * @file bluetoothDevice.cpp
  * @authors Gschwind, Weber, Schoch, Niederberger
  *
  */
 
-#include "BluetoothDevice.h"
+#include "bluetoothDevice.h"
 
 namespace comm {
 const QBluetoothUuid BluetoothDevice::UUID_SERVICE = "00001000-0000-1000-8000-00805f9b34fb";

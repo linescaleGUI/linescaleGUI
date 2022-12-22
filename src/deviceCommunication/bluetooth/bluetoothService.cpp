@@ -17,12 +17,12 @@
  * along with linescaleGUI. If not, see <http://www.gnu.org/licenses/>.       *
  ******************************************************************************/
 /**
- * @file BluetoothService.cpp
+ * @file bluetoothService.cpp
  * @authors Gschwind, Weber, Schoch, Niederberger
  *
  */
 
-#include "BluetoothService.h"
+#include "bluetoothService.h"
 
 namespace comm {
 BluetoothService::BluetoothService(QLowEnergyService* service) : service(service) {

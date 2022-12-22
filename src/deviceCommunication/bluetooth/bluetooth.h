@@ -17,7 +17,7 @@
  * along with linescaleGUI. If not, see <http://www.gnu.org/licenses/>.       *
  ******************************************************************************/
 /**
- * @file Bluetooth.h
+ * @file bluetooth.h
  * @authors Gschwind, Weber, Schoch, Niederberger
  *
  * @brief Bluetooth class declaration
@@ -33,7 +33,7 @@
 #include <QtBluetooth/QBluetoothDeviceDiscoveryAgent>
 #include <QtBluetooth/QBluetoothLocalDevice>
 #include <vector>
-#include "BluetoothDevice.h"
+#include "bluetoothDevice.h"
 
 namespace comm {
 class Bluetooth : public QObject {
