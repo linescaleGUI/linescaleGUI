@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['license_0',['LICENSE',['../md__l_i_c_e_n_s_e.html',1,'']]],
-  ['linescalegui_1',['linescaleGUI',['../index.html',1,'']]]
+  ['development_20setup_0',['Development setup',['../md__b_u_i_l_d_i_n_g.html',1,'']]]
 ];

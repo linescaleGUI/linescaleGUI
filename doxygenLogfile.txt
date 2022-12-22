@@ -1,1 +1,0 @@
-/github/workspace/README.md:23: warning: unable to resolve reference to '/github/workspace/BUILDING.md' for \ref command

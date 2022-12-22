@@ -1,4 +1,4 @@
 <map id="DialogDebug::clearLog" name="DialogDebug::clearLog">
 <area shape="rect" id="node1" title="Clear the logWindow." alt="" coords="228,5,379,31"/>
-<area shape="rect" id="node2" href="$class_dialog_debug.html#a9525c71924319348ccb3b70da4028fef" title=" " alt="" coords="5,5,180,31"/>
+<area shape="rect" id="node2" href="$class_dialog_debug.html#a9525c71924319348ccb3b70da4028fef" title="Construct a new DialogDebug object." alt="" coords="5,5,180,31"/>
 </map>

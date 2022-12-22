@@ -3,5 +3,5 @@
 <area shape="rect" id="node2" title=" " alt="" coords="71,5,141,31"/>
 <area shape="rect" id="node3" href="$classcomm_1_1_comm_device.html" title="Base class for every connection." alt="" coords="97,168,240,193"/>
 <area shape="rect" id="node4" href="$class_parser.html" title="Class to parse the received messages." alt="" coords="144,80,204,105"/>
-<area shape="rect" id="node5" href="$struct_sample.html" title="Struct with the received data." alt="" coords="229,80,295,105"/>
+<area shape="rect" id="node5" href="$struct_sample.html" title="A sample received from a LineScale." alt="" coords="229,80,295,105"/>
 </map>
