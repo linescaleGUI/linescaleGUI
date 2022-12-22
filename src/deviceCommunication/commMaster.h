@@ -20,15 +20,7 @@
  * @file commMaster.h
  * @authors Gschwind, Weber, Schoch, Niederberger
  *
- * @brief This file contains the class to control all connected devices
- *
- * The CommMaster handles all communication with the connected devices.
- * It abstracts the different types of connections so from this stage upwards
- * the type of connection doesn't matter anymore.
- *
- * Each device gets a label which is used as an identifier inside the entire code:
- * USB: Port name
- * BLE: tbd
+ * @brief `comm::CommMaster` declaration
  *
  */
 
@@ -41,6 +33,17 @@
 
 namespace comm {
 
+/**
+ * @brief Class to handle all connections to the connected LineScales.
+ * 
+ * The CommMaster handles all communication with the connected devices.
+ * It abstracts the different types of connections so from this stage upwards
+ * the type of connection doesn't matter anymore.
+ *
+ * Each device gets a label which is used as an identifier inside the entire code:
+ * USB: Port name
+ * BLE: tbd
+ */
 class CommMaster : public QObject {
     Q_OBJECT
 

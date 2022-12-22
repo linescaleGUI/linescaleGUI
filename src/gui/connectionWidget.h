@@ -20,7 +20,7 @@
  * @file connectionWidget.h
  * @authors Gschwind, Weber, Schoch, Niederberger
  *
- * @brief Widget to display the informations about one connection
+ * @brief `ConnectionWidget` declaration
  *
  */
 
@@ -36,7 +36,7 @@ class ConnectionWidget;
 }
 
 /**
- * @brief Class to display informations about a single connection
+ * @brief Widget to display informations about a single connection
  *
  * This class can display information extracted from the data stream to the user.
  * It also enables interaction with a device; e.g. change the frequency or

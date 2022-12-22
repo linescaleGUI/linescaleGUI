@@ -19,6 +19,8 @@
 /**
  * @file dialogconnect.cpp
  * @authors Gschwind, Weber, Schoch, Niederberger
+ * 
+ * @brief `DialogConnect` implementation
  *
  */
 

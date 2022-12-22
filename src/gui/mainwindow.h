@@ -20,7 +20,7 @@
  * @file mainwindow.h
  * @authors Gschwind, Weber, Schoch, Niederberger
  *
- * @brief Mainwindow for the project linescaleGUI
+ * @brief `MainWindow` declaration
  *
  */
 
@@ -38,11 +38,19 @@
 #include "plotWidget.h"
 
 QT_BEGIN_NAMESPACE
+/**
+ * @brief Namespace for all GUI elements
+ * 
+ */
 namespace Ui {
 class MainWindow;
 }
 QT_END_NAMESPACE
 
+/**
+ * @brief Main window for the application linescaleGUI
+ * 
+ */
 class MainWindow : public QMainWindow {
     Q_OBJECT
 

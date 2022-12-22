@@ -20,7 +20,7 @@
  * @file dialogdebug.h
  * @authors Gschwind, Weber, Schoch, Niederberger
  *
- * @brief Dialog to show all available commands
+ * @brief `DialogDebug` declaration
  *
  */
 
@@ -36,13 +36,19 @@ class DialogDebug;
 }
 
 /**
- * @brief Send predefined snippets to the linescale
+ * @brief Dialog to send predefined snippets to the linescale
  *
  */
 class DialogDebug : public QDialog {
     Q_OBJECT
 
    public:
+    /**
+    * @brief Construct a new DialogDebug object
+    * 
+    * @param comm Pointer to the `comm::CommMaster` instance
+    * @param parent Pointer to the parent QWidget (used by Qt for parent/child)
+    */
     DialogDebug(comm::CommMaster* comm, QWidget* parent = nullptr);
     ~DialogDebug();
 

@@ -19,6 +19,8 @@
 /**
  * @file dialogabout.cpp
  * @authors Gschwind, Weber, Schoch, Niederberger
+ * 
+ * @brief `DialogAbout` implementation
  *
  */
 

@@ -17,16 +17,16 @@
  * along with linescaleGUI. If not, see <http://www.gnu.org/licenses/>.       *
  ******************************************************************************/
 /**
- * @file notifications.h
+ * @file notification.h
  * @authors Gschwind, Weber, Schoch, Niederberger
  *
- * @brief Notification class declaration
+ * @brief `Notification` declaration
  *
  */
 
 #pragma once
-#ifndef NOTIFICATIONS_H_
-#define NOTIFICATIONS_H_
+#ifndef NOTIFICATION_H_
+#define NOTIFICATION_H_
 
 #include <QObject>
 #include <QString>
@@ -86,4 +86,4 @@ class Notification : public QObject {
     QTextBrowser* textBrowser;
 };
 
-#endif  // NOTIFICATIONS_H_
+#endif  // NOTIFICATION_H_

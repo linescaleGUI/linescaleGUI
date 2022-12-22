@@ -19,6 +19,8 @@
 /**
  * @file connectionWidget.cpp
  * @authors Gschwind, Weber, Schoch, Niederberger
+ * 
+ * @brief `ConnectionWidget` implementation
  *
  */
 

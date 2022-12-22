@@ -20,7 +20,7 @@
  * @file dialogabout.h
  * @authors Gschwind, Weber, Schoch, Niederberger
  *
- * @brief Dialog to display version info
+ * @brief `DialogAbout` declaration
  *
  */
 
@@ -34,10 +34,19 @@ namespace Ui {
 class DialogAbout;
 }
 
+/**
+ * @brief Dialog to show basic informations about the linescaleGUI
+ * 
+ */
 class DialogAbout : public QDialog {
     Q_OBJECT
 
    public:
+   /**
+    * @brief Construct a new DialogAbout object
+    * 
+    * @param parent Pointer to the parent QWidget (used by Qt for parent/child)
+    */
     DialogAbout(QWidget* parent = nullptr);
     ~DialogAbout();
 

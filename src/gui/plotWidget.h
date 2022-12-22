@@ -20,7 +20,7 @@
  * @file plotWidget.h
  * @authors Gschwind, Weber, Schoch, Niederberger
  *
- * @brief Plotting functionality based on QCustomPlot
+ * @brief `Plot` declaration
  *
  */
 
@@ -45,7 +45,7 @@
 #include "../parser/parser.h"
 
 /**
- * @brief A dynamic line graph chart.
+ * @brief Widget to display a dynamic line graph chart.
  *
  * @todo Allow to zoom with panning (touchscreen).
  * @todo Maybe implement custom range dialog.

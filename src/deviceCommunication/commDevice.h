@@ -20,7 +20,7 @@
  * @file commDevice.h
  * @authors Gschwind, Weber, Schoch, Niederberger
  *
- * @brief Abstract base class for each type of connection
+ * @brief `comm::CommDevice` declaration
  *
  */
 
@@ -32,6 +32,10 @@
 #include <QObject>
 #include "../parser/parser.h"
 
+/**
+ * @brief Namespace for everything related to the communication.
+ *
+ */
 namespace comm {
 
 /**
@@ -132,7 +136,7 @@ class CommDevice : public QObject {
     /**
      * @brief Emit after a package was received and parsed
      *
-     * @param value
+     * @param reading A new `Parser::Sample` from the device
      */
     void newSampleDevice(Sample reading);
 

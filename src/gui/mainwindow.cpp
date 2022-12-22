@@ -19,6 +19,8 @@
 /**
  * @file mainwindow.cpp
  * @authors Gschwind, Weber, Schoch, Niederberger
+ * 
+ * @brief `MainWindow` implementation
  *
  */
 
