@@ -43,6 +43,12 @@ class DialogDebug : public QDialog {
     Q_OBJECT
 
    public:
+    /**
+    * @brief Construct a new DialogDebug object
+    * 
+    * @param comm Pointer to the `comm::CommMaster` instance
+    * @param parent Pointer to the parent QWidget (used by Qt for parent/child)
+    */
     DialogDebug(comm::CommMaster* comm, QWidget* parent = nullptr);
     ~DialogDebug();
 

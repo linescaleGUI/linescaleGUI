@@ -56,10 +56,13 @@ enum class UnitValue {
     KGF,  ///< The unit of measurement is kgf
     LBF,  ///< Indicates that the unit of measurement is lbf
 };
-
 /**
- * @brief Struct with the received data
+ * @brief A sample received from a LineScale.
  *
+ * This struct holds all data that the LineScale sends in a single packet.
+ * A single packet corresponds to a force sample. 
+ * The device also sends auxiliary information such as the sampling frequency, 
+ * percent of battery left, and so on.
  */
 struct Sample {
     WorkingMode workingMode; ///< Indicates the working mode sent by the Line Scale
@@ -73,7 +76,7 @@ struct Sample {
 
 /**
  * @brief Class to parse the received messages
- * 
+ *
  */
 class Parser : public QObject {
     Q_OBJECT

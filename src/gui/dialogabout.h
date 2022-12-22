@@ -42,6 +42,11 @@ class DialogAbout : public QDialog {
     Q_OBJECT
 
    public:
+   /**
+    * @brief Construct a new DialogAbout object
+    * 
+    * @param parent Pointer to the parent QWidget (used by Qt for parent/child)
+    */
     DialogAbout(QWidget* parent = nullptr);
     ~DialogAbout();
 
