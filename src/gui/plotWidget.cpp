@@ -52,7 +52,7 @@ Plot::Plot(QWidget* parent) : QWidget(parent) {
 
     QPen graphPen;
     graphPen.setColor(QColor(78, 50, 168, 255));
-    graphPen.setWidthF(1.5);
+    graphPen.setWidthF(1);
     customPlot->graph()->setPen(graphPen);
     customPlot->replot();
     customPlot->rescaleAxes();
@@ -263,30 +263,20 @@ void Plot::clearSelection() {
     }
 }
 
-void Plot::updateValues(UnitValue current, UnitValue next) {
+void Plot::convertToNewUnit(UnitValue current, UnitValue next) {
+    // Check for a valid unit
+    if(current != UnitValue::KN && current != UnitValue::KGF && current != UnitValue::LBF) {
+        return;
+    }
+
     double factorBack = 1;
-    switch (current) {
-        case UnitValue::LBF:
-            factorBack = 0.00444822;
-            break;
-
-        case UnitValue::KGF:
-            factorBack = 0.00980665;
-        default:
-            break;
-    }
-
     double factorForward = 1;
-    switch (next) {
-        case UnitValue::LBF:
-            factorForward = 1/0.00444822;
-            break;
 
-        case UnitValue::KGF:
-            factorForward = 1/0.00980665;
-        default:
-            break;
-    }
+    factorBack = (current == UnitValue::LBF) ? 1 / factorKnToLbf : factorBack;
+    factorBack = (current == UnitValue::KGF) ? 1 / factorKnToKgf : factorBack;
+
+    factorForward = (next == UnitValue::LBF) ? factorKnToLbf : factorForward;
+    factorForward = (next == UnitValue::KGF) ? factorKnToKgf : factorForward;
 
     double factor = factorBack * factorForward;
 
@@ -302,9 +292,8 @@ void Plot::updateValues(UnitValue current, UnitValue next) {
 
             maxValue = newValue > maxValue ? newValue : maxValue;
             minValue = newValue < minValue ? newValue : minValue;
+
             dataPoint->value = newValue;
         }
-
-        qDebug() << plotData;
     }
 }
