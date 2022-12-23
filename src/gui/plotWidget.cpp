@@ -19,7 +19,7 @@
 /**
  * @file plotWidget.cpp
  * @authors Gschwind, Weber, Schoch, Niederberger
- * 
+ *
  * @brief `Plot` implementation
  */
 
@@ -52,7 +52,7 @@ Plot::Plot(QWidget* parent) : QWidget(parent) {
 
     QPen graphPen;
     graphPen.setColor(QColor(78, 50, 168, 255));
-    graphPen.setWidthF(1.5);
+    graphPen.setWidthF(1);
     customPlot->graph()->setPen(graphPen);
     customPlot->replot();
     customPlot->rescaleAxes();
@@ -261,4 +261,57 @@ void Plot::clearSelection() {
     for (auto graph : customPlot->selectedPlottables()) {
         graph->setSelection(QCPDataSelection{});
     }
+}
+
+void Plot::convertToNewUnit(UnitValue nextUnit) {
+    double factorBack = 1;
+    double factorForward = 1;
+
+    switch (currentUnit) {
+        case UnitValue::LBF:
+            factorBack = 1 / factorKnToLbf;
+            break;
+
+        case UnitValue::KGF:
+            factorBack = 1 / factorKnToKgf;
+            break;
+
+        default:
+            break;
+    }
+
+    switch (nextUnit) {
+        case UnitValue::LBF:
+            factorForward = factorKnToLbf;
+            break;
+
+        case UnitValue::KGF:
+            factorForward = factorKnToKgf;
+            break;
+
+        default:
+            break;
+    }
+
+    double factor = factorBack * factorForward;
+
+    maxValue = 0.5 * factorForward;  // Hide sensor noise (threshold in kN)
+    minValue = 0;
+
+    int graphCount = customPlot->graphCount();
+    for (int i = 0; i < graphCount; ++i) {
+        auto plotData = customPlot->graph(i)->data();
+        QCPGraphData* dataPoint;
+        double newValue;
+        for (dataPoint = plotData->begin(); dataPoint < plotData->end(); ++dataPoint) {
+            newValue = dataPoint->value * factor;
+
+            maxValue = newValue > maxValue ? newValue : maxValue;
+            minValue = newValue < minValue ? newValue : minValue;
+
+            dataPoint->value = newValue;
+        }
+    }
+
+    currentUnit = nextUnit;
 }

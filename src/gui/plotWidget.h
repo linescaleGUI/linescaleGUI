@@ -77,11 +77,14 @@ class Plot : public QWidget {
      * `lastTime + 1/sample.frequency` where `lastTime` is the time of the last data point
      * added to the current graph. `sample.measuredValue` will be used as the force value.
      *
-     * @todo Handle different `Sample::unitValue`s.
+     * If the current unit differs from the previous, the existing plot will be recalculated.
      *
      * @param sample The sample to add.
      */
     inline void addConsecutiveSample(const Sample& sample) {
+        if (currentUnit != sample.unitValue) {
+            convertToNewUnit(sample.unitValue);
+        }
         addData(lastTime + 1.0 / (double)sample.frequency, sample.measuredValue);
     }
 
@@ -98,19 +101,23 @@ class Plot : public QWidget {
      * @brief Handle a selection change inside the plot.
      */
     void selectionChanged();
+
     /**
      * @brief Handle a mouse press inside the plot.
      * @param evt Mouse event from qt.
      */
     void mousePress(QMouseEvent* evt);
+
     /**
      * @brief Handle mouse wheel events inside the plot.
      */
     void mouseWheel();
+
     /**
      * @brief Handle mouse move events inside the plot.
      */
     void mouseMove();
+
     /**
      * @brief Show a context menu for the plot.
      * @param pos Mouse position of the right-click relative to the plot.
@@ -134,6 +141,7 @@ class Plot : public QWidget {
      * @brief Disable the auto updating timer.
      */
     void disableUpdating();
+
     /**
      * @brief Delete all selected graphs.
      */
@@ -141,15 +149,29 @@ class Plot : public QWidget {
 
    private:
     /**
-     * @brief Clear the current selection insde the plot.
+     * @brief Clear the current selection inside the plot.
      */
     void clearSelection();
+
+    /**
+     * @brief Update the plot after a unit change was detected
+     *
+     * To go from the current unit to the `next`, all values in the plot are
+     * multiplied by a conversion factor.
+     * The minimum and maximum values are update according to the new values.
+     * The initial maximum value is slightly above zero to hide the sensor noise.
+     *
+     * @param next The next unit
+     */
+    void convertToNewUnit(UnitValue next);
 
    private:
     QCustomPlot* customPlot;
     double minValue = 0.0, maxValue = 0.0;
     double lastTime = 0.0;
     bool hadNewData = false;
+
+    UnitValue currentUnit;
 
     QTimer* updateTimer;
     QTimer* disableReplotTimer;
@@ -158,6 +180,9 @@ class Plot : public QWidget {
     QAction* autoRangeAction;
     QAction* autoShowNewestAction;
     QAction* clearSelectionAction;
+
+    static constexpr double factorKnToLbf = 224.8089431;  ///< Convert from kN to lbf
+    static constexpr double factorKnToKgf = 101.9716213;  ///< Convert from kN to kgf
 };
 
 #endif  // PLOTWIDGET_H_
