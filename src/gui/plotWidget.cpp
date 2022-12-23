@@ -19,7 +19,7 @@
 /**
  * @file plotWidget.cpp
  * @authors Gschwind, Weber, Schoch, Niederberger
- * 
+ *
  * @brief `Plot` implementation
  */
 
@@ -260,5 +260,51 @@ void Plot::clearSelection() {
     }
     for (auto graph : customPlot->selectedPlottables()) {
         graph->setSelection(QCPDataSelection{});
+    }
+}
+
+void Plot::updateValues(UnitValue current, UnitValue next) {
+    double factorBack = 1;
+    switch (current) {
+        case UnitValue::LBF:
+            factorBack = 0.00444822;
+            break;
+
+        case UnitValue::KGF:
+            factorBack = 0.00980665;
+        default:
+            break;
+    }
+
+    double factorForward = 1;
+    switch (next) {
+        case UnitValue::LBF:
+            factorForward = 1/0.00444822;
+            break;
+
+        case UnitValue::KGF:
+            factorForward = 1/0.00980665;
+        default:
+            break;
+    }
+
+    double factor = factorBack * factorForward;
+
+    int graphCount = customPlot->graphCount();
+    for (int i = 0; i < graphCount; ++i) {
+        auto plotData = customPlot->graph(i)->data();
+        QCPGraphData* dataPoint;
+        double newValue;
+        maxValue = 0;
+        minValue = 0;
+        for (dataPoint = plotData->begin(); dataPoint < plotData->end(); ++dataPoint) {
+            newValue = dataPoint->value * factor;
+
+            maxValue = newValue > maxValue ? newValue : maxValue;
+            minValue = newValue < minValue ? newValue : minValue;
+            dataPoint->value = newValue;
+        }
+
+        qDebug() << plotData;
     }
 }

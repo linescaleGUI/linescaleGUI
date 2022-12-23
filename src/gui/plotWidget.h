@@ -83,6 +83,10 @@ class Plot : public QWidget {
      */
     inline void addConsecutiveSample(const Sample& sample) {
         addData(lastTime + 1.0 / (double)sample.frequency, sample.measuredValue);
+        if(lastUnit != sample.unitValue) {
+            updateValues(lastUnit, sample.unitValue);
+            lastUnit = sample.unitValue;
+        }
     }
 
     /**
@@ -141,15 +145,27 @@ class Plot : public QWidget {
 
    private:
     /**
-     * @brief Clear the current selection insde the plot.
+     * @brief Clear the current selection inside the plot.
      */
     void clearSelection();
+
+    /**
+     * @brief Update the plot after a unit change was detected
+     * 
+     * Calculate the factor based from current to KN and from KN to next.
+     * 
+     * @param current The previous unit
+     * @param next The next unit
+     */
+    void updateValues(UnitValue current, UnitValue next);
 
    private:
     QCustomPlot* customPlot;
     double minValue = 0.0, maxValue = 0.0;
     double lastTime = 0.0;
     bool hadNewData = false;
+
+    UnitValue lastUnit = UnitValue::KN;
 
     QTimer* updateTimer;
     QTimer* disableReplotTimer;
