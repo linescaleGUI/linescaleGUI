@@ -48,9 +48,7 @@ Bluetooth::Bluetooth() {
             &Bluetooth::DeviceDiscoveryAgentFinished);
 }
 
-Bluetooth::~Bluetooth(void) {
-    devices.clear();
-}
+Bluetooth::~Bluetooth(void) {}
 
 void Bluetooth::PowerOn(void) {
     /* May not work on iOS*/
@@ -59,7 +57,6 @@ void Bluetooth::PowerOn(void) {
 
 void Bluetooth::PowerOff(void) {
     ScanStop();
-    devices.clear();
 
     /* May not work on iOS*/
     localDevice.setHostMode(QBluetoothLocalDevice::HostPoweredOff);
@@ -83,8 +80,8 @@ void Bluetooth::ScanStart(void) {
     }
 
     if (!IsScanning()) {
-        devices.clear();
         emit ScanStarted();
+        ///@todo Fails if flight mode is active
         deviceDiscoveryAgent.start();
     }
 }
@@ -107,10 +104,6 @@ bool Bluetooth::IsScanning(void) {
     return deviceDiscoveryAgent.isActive();
 }
 
-std::vector<BluetoothDevice*>& Bluetooth::DevicesGet(void) {
-    return devices;
-}
-
 /*
 void Bluetooth::LocalDeviceConnected(const QBluetoothAddress &address) {
 
@@ -131,7 +124,6 @@ void Bluetooth::LocalDeviceHostModeStateChanged(QBluetoothLocalDevice::HostMode 
         emit PowerTurnedOn();
     } else if (state == QBluetoothLocalDevice::HostMode::HostPoweredOff) {
         ScanStop();
-        devices.clear();
         emit PowerTurnedOff();
     }
 
@@ -146,18 +138,25 @@ QBluetoothLocalDevice::Pairing pairing) {
 */
 
 void Bluetooth::DeviceDiscoveryAgentCanceled() {
-    emit ScanStopped(devices);
+    emit ScanStopped();
 }
 
-void Bluetooth::DeviceDiscoveryAgentDeviceDiscovered(const QBluetoothDeviceInfo& deviceInfo) {
-    if (deviceInfo.coreConfigurations() == QBluetoothDeviceInfo::LowEnergyCoreConfiguration) {
-        BluetoothDevice* device = new BluetoothDevice(deviceInfo);
-        devices.push_back(device);
-        emit ScanDeviceDiscovered(device);
+void Bluetooth::DeviceDiscoveryAgentDeviceDiscovered(
+    const QBluetoothDeviceInfo& bluetoothDeviceInfo) {
+    if (bluetoothDeviceInfo.coreConfigurations() !=
+            QBluetoothDeviceInfo::LowEnergyCoreConfiguration ||
+        (bluetoothDeviceInfo.name() != "LineScale 3")) {
+        return;
     }
+
+    DeviceInfo deviceInfo;
+    deviceInfo.type = ConnType::BLE;
+    deviceInfo.ID = bluetoothDeviceInfo.name();
+    deviceInfo.bluetooth = bluetoothDeviceInfo;
+    emit ScanDeviceDiscovered(deviceInfo);
 }
 
-void Bluetooth::DeviceDiscoveryAgentDeviceUpdated(const QBluetoothDeviceInfo& deviceInfo,
+void Bluetooth::DeviceDiscoveryAgentDeviceUpdated(const QBluetoothDeviceInfo& bluetoothDeviceInfo,
                                                   QBluetoothDeviceInfo::Fields fields) {
     // TODO: Implement function
 }
@@ -167,6 +166,6 @@ void Bluetooth::DeviceDiscoveryAgentErrorOccurred(QBluetoothDeviceDiscoveryAgent
 }
 
 void Bluetooth::DeviceDiscoveryAgentFinished() {
-    emit ScanStopped(devices);
+    emit ScanStopped();
 }
 }  // namespace comm

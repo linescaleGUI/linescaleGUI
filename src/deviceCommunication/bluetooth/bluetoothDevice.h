@@ -41,13 +41,13 @@ class BluetoothDevice : public CommDevice {
     Q_OBJECT
 
    public:
-    BluetoothDevice(const QBluetoothDeviceInfo& deviceInfo);
+    BluetoothDevice(const DeviceInfo& deviceInfo);
     virtual ~BluetoothDevice();
     void connectDevice(void) override;
     void disconnectDevice(void) override;
     void readData(void) override;
     void sendData(const QByteArray& value) override;
-    QBluetoothDeviceInfo& DeviceInfoGet(void);
+    DeviceInfo& deviceInfoGet(void);
 
    signals:
     void Connected(BluetoothDevice* device);
@@ -84,7 +84,7 @@ class BluetoothDevice : public CommDevice {
     static const QBluetoothUuid UUID_CHARACTERISTIC_READ;
     static const QBluetoothUuid UUID_CHARACTERISTIC_WRITE;
 
-    QBluetoothDeviceInfo deviceInfo;
+    DeviceInfo deviceInfo;
 
     size_t serviceIndex;
     QLowEnergyController* lowEnergyController;
