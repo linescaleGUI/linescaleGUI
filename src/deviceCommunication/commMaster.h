@@ -37,7 +37,7 @@ namespace comm {
 
 /**
  * @brief Class to handle all connections to the connected LineScales.
- * 
+ *
  * The CommMaster handles all communication with the connected devices.
  * It abstracts the different types of connections so from this stage upwards
  * the type of connection doesn't matter anymore.
@@ -154,7 +154,7 @@ class CommMaster : public QObject {
      *
      * @param deviceInfo Information of the discovered device
      */
-    void discoveredDeviceBluetooth(BluetoothDevice* device);
+    void discoveredDeviceBluetooth(DeviceInfo& deviceInfo);
 
     /**
      * @brief Emit after all devices have been discovered

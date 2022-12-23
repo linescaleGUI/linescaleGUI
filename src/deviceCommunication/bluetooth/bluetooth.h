@@ -33,6 +33,7 @@
 #include <QtBluetooth/QBluetoothDeviceDiscoveryAgent>
 #include <QtBluetooth/QBluetoothLocalDevice>
 #include <vector>
+#include "../commDevice.h"
 #include "bluetoothDevice.h"
 
 namespace comm {
@@ -51,7 +52,6 @@ class Bluetooth : public QObject {
     void ScanStop(void);
     void ScanToggle(void);
     bool IsScanning(void);
-    std::vector<BluetoothDevice*>& DevicesGet(void);
 
    signals:
     // void PowerChanged(void);
@@ -59,8 +59,8 @@ class Bluetooth : public QObject {
     void PowerTurnedOff(void);
 
     void ScanStarted(void);
-    void ScanStopped(std::vector<BluetoothDevice*>& devices);
-    void ScanDeviceDiscovered(BluetoothDevice* device);
+    void ScanStopped(void);
+    void ScanDeviceDiscovered(DeviceInfo& deviceInfo);
 
     // void Connected(BluetoothDevice* device);
     // void Disconnected(BluetoothDevice* device);
@@ -73,8 +73,8 @@ class Bluetooth : public QObject {
     // void LocalDevicePairingFinished(const QBluetoothAddress &address,
     // QBluetoothLocalDevice::Pairing pairing);
     void DeviceDiscoveryAgentCanceled(void);
-    void DeviceDiscoveryAgentDeviceDiscovered(const QBluetoothDeviceInfo& deviceInfo);
-    void DeviceDiscoveryAgentDeviceUpdated(const QBluetoothDeviceInfo& deviceInfo,
+    void DeviceDiscoveryAgentDeviceDiscovered(const QBluetoothDeviceInfo& bluetoothDeviceInfo);
+    void DeviceDiscoveryAgentDeviceUpdated(const QBluetoothDeviceInfo& bluetoothDeviceInfo,
                                            QBluetoothDeviceInfo::Fields fields);
     void DeviceDiscoveryAgentErrorOccurred(QBluetoothDeviceDiscoveryAgent::Error error);
     void DeviceDiscoveryAgentFinished(void);
@@ -83,7 +83,6 @@ class Bluetooth : public QObject {
     QBluetoothLocalDevice::HostMode stateBefore;
     QBluetoothLocalDevice localDevice;
     QBluetoothDeviceDiscoveryAgent deviceDiscoveryAgent;
-    std::vector<BluetoothDevice*> devices;
 };
 }  // namespace comm
 

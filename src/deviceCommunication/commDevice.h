@@ -28,6 +28,7 @@
 #ifndef COMMDEVICE_H_
 #define COMMDEVICE_H_
 
+#include <QBluetoothDeviceInfo>
 #include <QDebug>
 #include <QObject>
 #include "../parser/parser.h"
@@ -53,9 +54,10 @@ enum class ConnType {
  *
  */
 struct DeviceInfo {
-    ConnType type;  ///< Type of connection
-    QString ID;     ///< Identifier of a given connection; e.g. COM101
-    int baudRate;   ///< Baudrate, used by USB connection
+    ConnType type;                   ///< Type of connection
+    QString ID;                      ///< Identifier of a given connection; e.g. COM101
+    int baudRate;                    ///< Baudrate, used by USB connection
+    QBluetoothDeviceInfo bluetooth;  ///< Device info, used by BLE connection
 };
 
 /**

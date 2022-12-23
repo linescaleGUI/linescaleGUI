@@ -19,7 +19,7 @@
 /**
  * @file commMaster.cpp
  * @authors Gschwind, Weber, Schoch, Niederberger
- * 
+ *
  * @brief `comm::CommMaster` implementation
  *
  */
@@ -54,7 +54,7 @@ void CommMaster::addConnection(DeviceInfo identifier) {
             break;
 
         case ConnType::BLE:
-            /// @todo add BLE ctor
+            singleDevice = new BluetoothDevice(identifier);
             break;
 
         default:
@@ -73,6 +73,7 @@ void CommMaster::removeConnection() {
         singleDevice->disconnectDevice();
         disconnect(singleDevice);
     }
+
     delete singleDevice;
     singleDevice = nullptr;
 }
@@ -88,12 +89,12 @@ void CommMaster::discoverDevices(void) {
         /// @todo Check vendorID on multiple devices/batches
         if (listOfCOMPorts[i].vendorIdentifier() == 0x1a86 ||
             listOfCOMPorts[i].portName() == "COM101") {
-            DeviceInfo tmp;
-            tmp.ID = listOfCOMPorts[i].portName();
-            tmp.type = ConnType::USB;
-            tmp.baudRate = 230400;
-            availableDevices.append(tmp);
-            emit discoveredDeviceMaster(tmp);
+            DeviceInfo deviceInfo;
+            deviceInfo.ID = listOfCOMPorts[i].portName();
+            deviceInfo.type = ConnType::USB;
+            deviceInfo.baudRate = 230400;
+            availableDevices.append(deviceInfo);
+            emit discoveredDeviceMaster(deviceInfo);
         }
     }
 
@@ -127,10 +128,27 @@ void CommMaster::receiveSampleMaster(Sample reading) {
 }
 
 void CommMaster::getChangedState(bool connected) {
+    ///@todo Add actual device names
+    if (connected) {
+        if(singleDevice->getConnType() == ConnType::USB) {
+            notification->push("USB connected:");
+        } else {
+            notification->push("BLE connected:");
+        }
+    } else {
+        if(singleDevice->getConnType() == ConnType::USB) {
+            notification->push("USB disconnected:");
+        } else {
+            notification->push("BLE disconnected:");
+        }
+    }
+
     emit changedStateMaster(connected);
 }
 
 void CommMaster::setNewFreq(int newFreq) {
+    ///@todo Change frequency tags to enum types
+    ///@todo Whole frequency selection for BLE is bugged
     switch (newFreq) {
         case 10:
             sendData(command::SETSPEED10);
@@ -149,9 +167,9 @@ void CommMaster::setNewFreq(int newFreq) {
     }
 }
 
-void CommMaster::discoveredDeviceBluetooth(BluetoothDevice* device) {
-    // availableDevices.append(deviceInfo);
-    // emit discoveredDeviceMaster(deviceInfo);
+void CommMaster::discoveredDeviceBluetooth(DeviceInfo& deviceInfo) {
+    availableDevices.append(deviceInfo);
+    emit discoveredDeviceMaster(deviceInfo);
 }
 
 void CommMaster::discoverDevicesFinishedBluetooth(void) {
