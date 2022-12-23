@@ -263,11 +263,11 @@ void Plot::clearSelection() {
     }
 }
 
-void Plot::convertToNewUnit(UnitValue next) {
+void Plot::convertToNewUnit(UnitValue nextUnit) {
     double factorBack = 1;
     double factorForward = 1;
 
-    switch (lastUnit) {
+    switch (currentUnit) {
         case UnitValue::LBF:
             factorBack = 1 / factorKnToLbf;
             break;
@@ -280,7 +280,7 @@ void Plot::convertToNewUnit(UnitValue next) {
             break;
     }
 
-    switch (next) {
+    switch (nextUnit) {
         case UnitValue::LBF:
             factorForward = factorKnToLbf;
             break;
@@ -312,4 +312,6 @@ void Plot::convertToNewUnit(UnitValue next) {
             dataPoint->value = newValue;
         }
     }
+
+    currentUnit = nextUnit;
 }

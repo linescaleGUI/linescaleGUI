@@ -82,9 +82,8 @@ class Plot : public QWidget {
      * @param sample The sample to add.
      */
     inline void addConsecutiveSample(const Sample& sample) {
-        if (lastUnit != sample.unitValue) {
+        if (currentUnit != sample.unitValue) {
             convertToNewUnit(sample.unitValue);
-            lastUnit = sample.unitValue;
         }
         addData(lastTime + 1.0 / (double)sample.frequency, sample.measuredValue);
     }
@@ -157,10 +156,8 @@ class Plot : public QWidget {
     /**
      * @brief Update the plot after a unit change was detected
      *
-     * Calculation is done in two steps. First from the current unit to kN
-     * and afterwards from kN to the next unit. This reduces the amount of
-     * different factors.
-     * 
+     * To go from the current unit to the `next`, all values in the plot are
+     * multiplied by a conversion factor.
      * The minimum and maximum values are update according to the new values.
      * The initial maximum value is slightly above zero to hide the sensor noise.
      *
@@ -174,7 +171,7 @@ class Plot : public QWidget {
     double lastTime = 0.0;
     bool hadNewData = false;
 
-    UnitValue lastUnit;
+    UnitValue currentUnit;
 
     QTimer* updateTimer;
     QTimer* disableReplotTimer;
