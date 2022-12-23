@@ -76,6 +76,7 @@ $(function() {
 <a href="#pri-slots">Private Slots</a> &#124;
 <a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="#pri-attribs">Private Attributes</a> &#124;
+<a href="#pri-static-attribs">Static Private Attributes</a> &#124;
 <a href="class_plot-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">Plot Class Reference</div></div>
 </div><!--header-->
@@ -146,8 +147,11 @@ Private Slots</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
 <tr class="memitem:a5e94f3844acb2365e1114be7be2f374c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_plot.html#a5e94f3844acb2365e1114be7be2f374c">clearSelection</a> ()</td></tr>
-<tr class="memdesc:a5e94f3844acb2365e1114be7be2f374c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear the current selection insde the plot.  <a href="class_plot.html#a5e94f3844acb2365e1114be7be2f374c">More...</a><br /></td></tr>
+<tr class="memdesc:a5e94f3844acb2365e1114be7be2f374c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear the current selection inside the plot.  <a href="class_plot.html#a5e94f3844acb2365e1114be7be2f374c">More...</a><br /></td></tr>
 <tr class="separator:a5e94f3844acb2365e1114be7be2f374c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aed76fa67019f5cb37fa21b648f9f106d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_plot.html#aed76fa67019f5cb37fa21b648f9f106d">convertToNewUnit</a> (<a class="el" href="parser_8h.html#abff5caf087a07cc148739d3b4dbbe65b">UnitValue</a> next)</td></tr>
+<tr class="memdesc:aed76fa67019f5cb37fa21b648f9f106d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update the plot after a unit change was detected.  <a href="class_plot.html#aed76fa67019f5cb37fa21b648f9f106d">More...</a><br /></td></tr>
+<tr class="separator:aed76fa67019f5cb37fa21b648f9f106d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -161,6 +165,8 @@ Private Attributes</h2></td></tr>
 <tr class="separator:a71695630a77827df3aee10203812509c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab7bc34ab0ded92f9ea4429c2813a5342"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_plot.html#ab7bc34ab0ded92f9ea4429c2813a5342">hadNewData</a> = false</td></tr>
 <tr class="separator:ab7bc34ab0ded92f9ea4429c2813a5342"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a356f82da214e22caa4541a01ec821d1e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="parser_8h.html#abff5caf087a07cc148739d3b4dbbe65b">UnitValue</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_plot.html#a356f82da214e22caa4541a01ec821d1e">currentUnit</a></td></tr>
+<tr class="separator:a356f82da214e22caa4541a01ec821d1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac1a489211e43dd529ea1304c65bdf801"><td class="memItemLeft" align="right" valign="top">QTimer *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_plot.html#ac1a489211e43dd529ea1304c65bdf801">updateTimer</a></td></tr>
 <tr class="separator:ac1a489211e43dd529ea1304c65bdf801"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a097ad5ce663fcca107535e11ef59a8ac"><td class="memItemLeft" align="right" valign="top">QTimer *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_plot.html#a097ad5ce663fcca107535e11ef59a8ac">disableReplotTimer</a></td></tr>
@@ -173,6 +179,15 @@ Private Attributes</h2></td></tr>
 <tr class="separator:aff3ad60ad669a0db6b792087088cd03c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad5c3f52e492bd9aa2ad4e08ad3aac044"><td class="memItemLeft" align="right" valign="top">QAction *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_plot.html#ad5c3f52e492bd9aa2ad4e08ad3aac044">clearSelectionAction</a></td></tr>
 <tr class="separator:ad5c3f52e492bd9aa2ad4e08ad3aac044"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-static-attribs" name="pri-static-attribs"></a>
+Static Private Attributes</h2></td></tr>
+<tr class="memitem:a8ece0d31519e16e55d3fdf2f7c0486f0"><td class="memItemLeft" align="right" valign="top">static constexpr double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_plot.html#a8ece0d31519e16e55d3fdf2f7c0486f0">factorKnToLbf</a> = 224.8089431</td></tr>
+<tr class="memdesc:a8ece0d31519e16e55d3fdf2f7c0486f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert from kN to lbf.  <a href="class_plot.html#a8ece0d31519e16e55d3fdf2f7c0486f0">More...</a><br /></td></tr>
+<tr class="separator:a8ece0d31519e16e55d3fdf2f7c0486f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5f39817b71ba49df0c325338ace92bd2"><td class="memItemLeft" align="right" valign="top">static constexpr double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_plot.html#a5f39817b71ba49df0c325338ace92bd2">factorKnToKgf</a> = 101.9716213</td></tr>
+<tr class="memdesc:a5f39817b71ba49df0c325338ace92bd2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert from kN to kgf.  <a href="class_plot.html#a5f39817b71ba49df0c325338ace92bd2">More...</a><br /></td></tr>
+<tr class="separator:a5f39817b71ba49df0c325338ace92bd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p >Widget to display a dynamic line graph chart. </p>
@@ -234,7 +249,7 @@ Private Attributes</h2></td></tr>
 
 <p>Add a single sample to the data. </p>
 <p >The sample is appended to the data; its time value will be set as <code>lastTime + 1/sample.frequency</code> where <code>lastTime</code> is the time of the last data point added to the current graph. <code>sample.measuredValue</code> will be used as the force value.</p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000008">Todo:</a></b></dt><dd>Handle different <code><a class="el" href="struct_sample.html#af232d0e407a4a28bd807250c6b1b8fad" title="Stores the unit of the measured force.">Sample::unitValue</a></code>s.</dd></dl>
+<p >If the current unit differs from the previous, the existing plot will be recalculated.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">sample</td><td>The sample to add. </td></tr>
@@ -343,7 +358,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Clear the current selection insde the plot. </p>
+<p>Clear the current selection inside the plot. </p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -388,6 +403,47 @@ Here is the caller graph for this function:</div>
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><iframe scrolling="no" frameborder="0" src="class_plot_aa300b9b299eeff78f428777b8e2f6085_icgraph.svg" width="307" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
+</div>
+
+</div>
+</div>
+<a id="aed76fa67019f5cb37fa21b648f9f106d" name="aed76fa67019f5cb37fa21b648f9f106d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aed76fa67019f5cb37fa21b648f9f106d">&#9670;&#160;</a></span>convertToNewUnit()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Plot::convertToNewUnit </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="parser_8h.html#abff5caf087a07cc148739d3b4dbbe65b">UnitValue</a>&#160;</td>
+          <td class="paramname"><em>next</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Update the plot after a unit change was detected. </p>
+<p >To go from the current unit to the <code>next</code>, all values in the plot are multiplied by a conversion factor. The minimum and maximum values are update according to the new values. The initial maximum value is slightly above zero to hide the sensor noise.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">next</td><td>The next unit </td></tr>
+  </table>
+  </dd>
+</dl>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_plot_aed76fa67019f5cb37fa21b648f9f106d_icgraph.svg" width="407" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 
@@ -750,6 +806,28 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
+<a id="a356f82da214e22caa4541a01ec821d1e" name="a356f82da214e22caa4541a01ec821d1e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a356f82da214e22caa4541a01ec821d1e">&#9670;&#160;</a></span>currentUnit</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="parser_8h.html#abff5caf087a07cc148739d3b4dbbe65b">UnitValue</a> Plot::currentUnit</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a83bdbe01b30b1f675b1df850374f84df" name="a83bdbe01b30b1f675b1df850374f84df"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a83bdbe01b30b1f675b1df850374f84df">&#9670;&#160;</a></span>customPlot</h2>
 
@@ -813,6 +891,54 @@ Here is the caller graph for this function:</div>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5f39817b71ba49df0c325338ace92bd2" name="a5f39817b71ba49df0c325338ace92bd2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5f39817b71ba49df0c325338ace92bd2">&#9670;&#160;</a></span>factorKnToKgf</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr double Plot::factorKnToKgf = 101.9716213</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Convert from kN to kgf. </p>
+
+</div>
+</div>
+<a id="a8ece0d31519e16e55d3fdf2f7c0486f0" name="a8ece0d31519e16e55d3fdf2f7c0486f0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8ece0d31519e16e55d3fdf2f7c0486f0">&#9670;&#160;</a></span>factorKnToLbf</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr double Plot::factorKnToLbf = 224.8089431</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Convert from kN to lbf. </p>
 
 </div>
 </div>

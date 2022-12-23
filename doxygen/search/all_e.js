@@ -25,11 +25,12 @@ var searchData=
   ['parsereferencezero_22',['parseReferenceZero',['../class_parser.html#ab6755be523f08bc1124519465b267c94',1,'Parser']]],
   ['parseunitvalue_23',['parseUnitValue',['../class_parser.html#a0904f63d16c490f8c0d1a37d39c07f0a',1,'Parser']]],
   ['parseworkingmode_24',['parseWorkingMode',['../class_parser.html#a75eae8b921d73f832c736ed831f96fc4',1,'Parser']]],
-  ['plot_25',['plot',['../class_main_window.html#ad2cb6f037a263402f1285c21d578ca6f',1,'MainWindow']]],
-  ['plot_26',['Plot',['../class_plot.html#a83d9454de4b05fc361c318317658c734',1,'Plot::Plot()'],['../class_plot.html',1,'Plot']]],
-  ['plotwidget_2ecpp_27',['plotWidget.cpp',['../plot_widget_8cpp.html',1,'']]],
-  ['plotwidget_2eh_28',['plotWidget.h',['../plot_widget_8h.html',1,'']]],
-  ['plotwidget_5fh_5f_29',['PLOTWIDGET_H_',['../plot_widget_8h.html#a77073685ce41ec1b0f0662e824f1e899',1,'plotWidget.h']]],
-  ['poweroff_30',['POWEROFF',['../namespacecommand.html#a32830e687229b6efe47bd7f4ce0f042f',1,'command']]],
-  ['push_31',['push',['../class_notification.html#a011f4e614157fb34f7a029c287a6bcb9',1,'Notification']]]
+  ['plot_25',['Plot',['../class_plot.html#a83d9454de4b05fc361c318317658c734',1,'Plot']]],
+  ['plot_26',['plot',['../class_main_window.html#ad2cb6f037a263402f1285c21d578ca6f',1,'MainWindow']]],
+  ['plot_27',['Plot',['../class_plot.html',1,'']]],
+  ['plotwidget_2ecpp_28',['plotWidget.cpp',['../plot_widget_8cpp.html',1,'']]],
+  ['plotwidget_2eh_29',['plotWidget.h',['../plot_widget_8h.html',1,'']]],
+  ['plotwidget_5fh_5f_30',['PLOTWIDGET_H_',['../plot_widget_8h.html#a77073685ce41ec1b0f0662e824f1e899',1,'plotWidget.h']]],
+  ['poweroff_31',['POWEROFF',['../namespacecommand.html#a32830e687229b6efe47bd7f4ce0f042f',1,'command']]],
+  ['push_32',['push',['../class_notification.html#a011f4e614157fb34f7a029c287a6bcb9',1,'Notification']]]
 ];

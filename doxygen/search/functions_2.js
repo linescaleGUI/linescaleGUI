@@ -10,5 +10,6 @@ var searchData=
   ['commusb_7',['CommUSB',['../classcomm_1_1_comm_u_s_b.html#a29440857f23e85afb8b8c0803c5ba7c5',1,'comm::CommUSB']]],
   ['connectdevice_8',['connectDevice',['../classcomm_1_1_comm_device.html#a02700ac6850a8d908630a5ca7b000719',1,'comm::CommDevice::connectDevice()'],['../classcomm_1_1_comm_u_s_b.html#a044f3b6d1aa9b36dc9cd21fe92a9c65c',1,'comm::CommUSB::connectDevice()']]],
   ['connectionwidget_9',['ConnectionWidget',['../class_connection_widget.html#a832811b8c579f99b44e45d0b30cef1fd',1,'ConnectionWidget']]],
-  ['contextmenurequest_10',['contextMenuRequest',['../class_plot.html#aa300b9b299eeff78f428777b8e2f6085',1,'Plot']]]
+  ['contextmenurequest_10',['contextMenuRequest',['../class_plot.html#aa300b9b299eeff78f428777b8e2f6085',1,'Plot']]],
+  ['converttonewunit_11',['convertToNewUnit',['../class_plot.html#aed76fa67019f5cb37fa21b648f9f106d',1,'Plot']]]
 ];

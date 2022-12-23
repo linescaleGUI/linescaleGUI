@@ -11,7 +11,7 @@
 <!-- Node1 -->
 <g id="node1" class="node">
 <title>Node1</title>
-<g id="a_node1"><a xlink:title="Clear the current selection insde the plot.">
+<g id="a_node1"><a xlink:title="Clear the current selection inside the plot.">
 <polygon fill="#999999" stroke="#666666" points="358,-19 258,-19 258,0 358,0 358,-19"/>
 <text text-anchor="middle" x="308" y="-7" font-family="Helvetica,sans-Serif" font-size="10.00">Plot::clearSelection</text>
 </a>

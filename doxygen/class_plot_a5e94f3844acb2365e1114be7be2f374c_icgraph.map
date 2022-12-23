@@ -1,5 +1,5 @@
 <map id="Plot::clearSelection" name="Plot::clearSelection">
-<area shape="rect" id="node1" title="Clear the current selection insde the plot." alt="" coords="349,31,483,56"/>
+<area shape="rect" id="node1" title="Clear the current selection inside the plot." alt="" coords="349,31,483,56"/>
 <area shape="rect" id="node2" href="$class_plot.html#aa300b9b299eeff78f428777b8e2f6085" title="Show a context menu for the plot." alt="" coords="128,5,301,31"/>
 <area shape="rect" id="node3" href="$class_plot.html#a83d9454de4b05fc361c318317658c734" title="Create a new Plot widget." alt="" coords="5,31,80,56"/>
 </map>

@@ -33,6 +33,7 @@ var searchData=
   ['connectionwidget_5fh_5f_30',['CONNECTIONWIDGET_H_',['../connection_widget_8h.html#a71c8877ce2386fff9279f55d88bc90e7',1,'connectionWidget.h']]],
   ['conntype_31',['ConnType',['../namespacecomm.html#abee3a290deb218eebe3f5eaee8bd458b',1,'comm']]],
   ['contextmenurequest_32',['contextMenuRequest',['../class_plot.html#aa300b9b299eeff78f428777b8e2f6085',1,'Plot']]],
-  ['currentunit_33',['currentUnit',['../class_main_window.html#add6d8534c5f1de19627ee626dde72897',1,'MainWindow']]],
-  ['customplot_34',['customPlot',['../class_plot.html#a83bdbe01b30b1f675b1df850374f84df',1,'Plot']]]
+  ['converttonewunit_33',['convertToNewUnit',['../class_plot.html#aed76fa67019f5cb37fa21b648f9f106d',1,'Plot']]],
+  ['currentunit_34',['currentUnit',['../class_plot.html#a356f82da214e22caa4541a01ec821d1e',1,'Plot::currentUnit()'],['../class_main_window.html#add6d8534c5f1de19627ee626dde72897',1,'MainWindow::currentUnit()']]],
+  ['customplot_35',['customPlot',['../class_plot.html#a83bdbe01b30b1f675b1df850374f84df',1,'Plot']]]
 ];
