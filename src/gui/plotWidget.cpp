@@ -263,30 +263,46 @@ void Plot::clearSelection() {
     }
 }
 
-void Plot::convertToNewUnit(UnitValue current, UnitValue next) {
-    // Check for a valid unit
-    if(current != UnitValue::KN && current != UnitValue::KGF && current != UnitValue::LBF) {
-        return;
-    }
-
+void Plot::convertToNewUnit(UnitValue next) {
     double factorBack = 1;
     double factorForward = 1;
 
-    factorBack = (current == UnitValue::LBF) ? 1 / factorKnToLbf : factorBack;
-    factorBack = (current == UnitValue::KGF) ? 1 / factorKnToKgf : factorBack;
+    switch (lastUnit) {
+        case UnitValue::LBF:
+            factorBack = 1 / factorKnToLbf;
+            break;
 
-    factorForward = (next == UnitValue::LBF) ? factorKnToLbf : factorForward;
-    factorForward = (next == UnitValue::KGF) ? factorKnToKgf : factorForward;
+        case UnitValue::KGF:
+            factorBack = 1 / factorKnToKgf;
+            break;
+
+        default:
+            break;
+    }
+
+    switch (next) {
+        case UnitValue::LBF:
+            factorForward = factorKnToLbf;
+            break;
+
+        case UnitValue::KGF:
+            factorForward = factorKnToKgf;
+            break;
+
+        default:
+            break;
+    }
 
     double factor = factorBack * factorForward;
+
+    maxValue = 0.5 * factorForward;  // Hide sensor noise (threshold in kN)
+    minValue = 0;
 
     int graphCount = customPlot->graphCount();
     for (int i = 0; i < graphCount; ++i) {
         auto plotData = customPlot->graph(i)->data();
         QCPGraphData* dataPoint;
         double newValue;
-        maxValue = 0;
-        minValue = 0;
         for (dataPoint = plotData->begin(); dataPoint < plotData->end(); ++dataPoint) {
             newValue = dataPoint->value * factor;
 
