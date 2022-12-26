@@ -27,16 +27,19 @@
 #include "commMaster.h"
 #include <QDebug>
 #include <QSerialPortInfo>
+#include <cassert>
 #include "commUSB.h"
 #include "command.h"
 
 namespace comm {
 CommMaster::CommMaster(Notification* notification, Bluetooth* bluetooth)
     : bluetooth(bluetooth), notification(notification) {
-    connect(bluetooth, &Bluetooth::deviceDiscovered, this,
-            &CommMaster::discoveredDeviceBluetooth);
-    connect(bluetooth, &Bluetooth::scanStopped, this,
-            &CommMaster::discoverDevicesFinishedBluetooth);
+    assert(notification != nullptr);
+    assert(bluetooth != nullptr);
+
+    connect(bluetooth, &Bluetooth::deviceDiscovered, this, &CommMaster::discoveredDeviceBluetooth);
+    connect(bluetooth, &Bluetooth::scanStarted, this, &CommMaster::discoverDevicesStartedBluetooth);
+    connect(bluetooth, &Bluetooth::scanStopped, this, &CommMaster::discoverDevicesStoppedBluetooth);
 }
 
 CommMaster::~CommMaster() {
@@ -79,8 +82,8 @@ void CommMaster::removeConnection() {
 }
 
 void CommMaster::discoverDevices(void) {
-    notification->push("Scan for devices");
     availableDevices.clear();
+    notification->push("Scan for USB devices");
 
     // Discover all available devices connected by USB
     QList<QSerialPortInfo> listOfCOMPorts = QSerialPortInfo::availablePorts();
@@ -98,10 +101,12 @@ void CommMaster::discoverDevices(void) {
         }
     }
 
-    /// @todo remove already connected devices from this list
+    notification->push("Scan for USB devices finished");
 
     // Discover all available devices over BLE
     bluetooth->scanStart();
+
+    /// @todo remove already connected devices from this list
 }
 
 void CommMaster::sendData(const QByteArray& rawData) {
@@ -130,13 +135,13 @@ void CommMaster::receiveSampleMaster(Sample reading) {
 void CommMaster::getChangedState(bool connected) {
     ///@todo Add actual device names
     if (connected) {
-        if(singleDevice->getConnType() == ConnType::USB) {
+        if (singleDevice->getConnType() == ConnType::USB) {
             notification->push("USB connected:");
         } else {
             notification->push("BLE connected:");
         }
     } else {
-        if(singleDevice->getConnType() == ConnType::USB) {
+        if (singleDevice->getConnType() == ConnType::USB) {
             notification->push("USB disconnected:");
         } else {
             notification->push("BLE disconnected:");
@@ -172,8 +177,12 @@ void CommMaster::discoveredDeviceBluetooth(DeviceInfo& deviceInfo) {
     emit discoveredDeviceMaster(deviceInfo);
 }
 
-void CommMaster::discoverDevicesFinishedBluetooth(void) {
-    notification->push("Scan for devices finished");
+void CommMaster::discoverDevicesStartedBluetooth(void) {
+    notification->push("Scan for BLE devices");
+}
+
+void CommMaster::discoverDevicesStoppedBluetooth(void) {
+    notification->push("Scan for BLE devices finished");
     emit discoverDevicesFinishedMaster();
 }
 }  // namespace comm

@@ -150,17 +150,25 @@ class CommMaster : public QObject {
     void getChangedState(bool connected);
 
     /**
-     * @brief Emit after a device was discovered
+     * @brief Slot to receive the emitted signal after a device was discovered
      *
      * @param deviceInfo Information of the discovered device
      */
     void discoveredDeviceBluetooth(DeviceInfo& deviceInfo);
 
     /**
-     * @brief Emit after all devices have been discovered
+     * @brief Slot to receive the emitted signal after the bluetooth device
+     * discovery has started
      *
      */
-    void discoverDevicesFinishedBluetooth(void);
+    void discoverDevicesStartedBluetooth(void);
+
+    /**
+     * @brief Slot to receive the emitted signal after all bluetooth devices
+     * have been discovered
+     *
+     */
+    void discoverDevicesStoppedBluetooth(void);
 
    private:
     QList<DeviceInfo> availableDevices;

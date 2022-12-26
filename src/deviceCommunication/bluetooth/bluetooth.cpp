@@ -23,11 +23,14 @@
  */
 
 #include "bluetooth.h"
+#include <cassert>
 
 namespace comm {
 const QString Bluetooth::FILTER_NAME = "LineScale 3";
 
-Bluetooth::Bluetooth() {
+Bluetooth::Bluetooth(Notification* notification) : notification(notification) {
+    assert(notification != nullptr);
+
     stateBefore = localDevice.hostMode();
     deviceDiscoveryAgent.setLowEnergyDiscoveryTimeout(5000);
     scanStop();
@@ -155,7 +158,8 @@ void Bluetooth::deviceDiscoveryAgentDeviceUpdated(const QBluetoothDeviceInfo& bl
 }
 
 void Bluetooth::deviceDiscoveryAgentErrorOccurred(QBluetoothDeviceDiscoveryAgent::Error error) {
-    // TODO: Do error checking
+    notification->push("Error occurred during device discovery: " + error,
+                       Notification::SEVERITY_ERROR);
 }
 
 void Bluetooth::deviceDiscoveryAgentFinished() {

@@ -19,7 +19,7 @@
 /**
  * @file mainwindow.cpp
  * @authors Gschwind, Weber, Schoch, Niederberger
- * 
+ *
  * @brief `MainWindow` implementation
  *
  */
@@ -37,7 +37,7 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWi
     ui->setupUi(this);
 
     notification = new Notification(ui->textBrowserLog);
-    bluetooth = new comm::Bluetooth();
+    bluetooth = new comm::Bluetooth(notification);
     comm = new comm::CommMaster(notification, bluetooth);
 
     dAbout = new DialogAbout(this);

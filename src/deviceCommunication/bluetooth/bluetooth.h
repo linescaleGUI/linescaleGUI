@@ -33,6 +33,7 @@
 #include <QtBluetooth/QBluetoothDeviceDiscoveryAgent>
 #include <QtBluetooth/QBluetoothLocalDevice>
 #include <vector>
+#include "../../notification/notification.h"
 #include "../commDevice.h"
 #include "bluetoothDevice.h"
 
@@ -41,7 +42,7 @@ class Bluetooth : public QObject {
     Q_OBJECT
 
    public:
-    Bluetooth();
+    Bluetooth(Notification* notification);
     ~Bluetooth();
     void powerTurnOn(void);
     void powerTurnOff(void);
@@ -75,6 +76,7 @@ class Bluetooth : public QObject {
    private:
     static const QString FILTER_NAME;
 
+    Notification* notification;
     QBluetoothLocalDevice::HostMode stateBefore;
     QBluetoothLocalDevice localDevice;
     QBluetoothDeviceDiscoveryAgent deviceDiscoveryAgent;
