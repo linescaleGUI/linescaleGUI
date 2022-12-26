@@ -25,127 +25,120 @@
 #include "bluetooth.h"
 
 namespace comm {
+const QString Bluetooth::FILTER_NAME = "LineScale 3";
+
 Bluetooth::Bluetooth() {
     stateBefore = localDevice.hostMode();
     deviceDiscoveryAgent.setLowEnergyDiscoveryTimeout(5000);
-    ScanStop();
+    scanStop();
 
     connect(&localDevice, &QBluetoothLocalDevice::error, this,
-            &Bluetooth::LocalDeviceErrorOccurred);
+            &Bluetooth::localDeviceErrorOccurred);
     connect(&localDevice, &QBluetoothLocalDevice::hostModeStateChanged, this,
-            &Bluetooth::LocalDeviceHostModeStateChanged);
+            &Bluetooth::localDeviceHostModeStateChanged);
     connect(&deviceDiscoveryAgent, &QBluetoothDeviceDiscoveryAgent::canceled, this,
-            &Bluetooth::DeviceDiscoveryAgentCanceled);
+            &Bluetooth::deviceDiscoveryAgentCanceled);
     connect(&deviceDiscoveryAgent, &QBluetoothDeviceDiscoveryAgent::deviceDiscovered, this,
-            &Bluetooth::DeviceDiscoveryAgentDeviceDiscovered);
+            &Bluetooth::deviceDiscoveryAgentDeviceDiscovered);
     connect(&deviceDiscoveryAgent, &QBluetoothDeviceDiscoveryAgent::deviceUpdated, this,
-            &Bluetooth::DeviceDiscoveryAgentDeviceUpdated);
+            &Bluetooth::deviceDiscoveryAgentDeviceUpdated);
     connect(
         &deviceDiscoveryAgent,
         qOverload<QBluetoothDeviceDiscoveryAgent::Error>(&QBluetoothDeviceDiscoveryAgent::error),
-        this, &Bluetooth::DeviceDiscoveryAgentErrorOccurred);
+        this, &Bluetooth::deviceDiscoveryAgentErrorOccurred);
     connect(&deviceDiscoveryAgent, &QBluetoothDeviceDiscoveryAgent::finished, this,
-            &Bluetooth::DeviceDiscoveryAgentFinished);
+            &Bluetooth::deviceDiscoveryAgentFinished);
 }
 
-Bluetooth::~Bluetooth(void) {}
+Bluetooth::~Bluetooth() {}
 
-void Bluetooth::PowerOn(void) {
+void Bluetooth::powerTurnOn(void) {
     /* May not work on iOS*/
     localDevice.setHostMode(QBluetoothLocalDevice::HostConnectable);
 }
 
-void Bluetooth::PowerOff(void) {
-    ScanStop();
+void Bluetooth::powerTurnOff(void) {
+    scanStop();
 
     /* May not work on iOS*/
     localDevice.setHostMode(QBluetoothLocalDevice::HostPoweredOff);
 }
 
-void Bluetooth::PowerToggle(void) {
-    if (IsPowerOn()) {
-        PowerOff();
+void Bluetooth::powerSet(bool on) {
+    if (on) {
+        powerTurnOn();
     } else {
-        PowerOn();
+        powerTurnOff();
     }
 }
 
-bool Bluetooth::IsPowerOn(void) {
+void Bluetooth::powerToggle(void) {
+    if (isPowerOn()) {
+        powerTurnOff();
+    } else {
+        powerTurnOn();
+    }
+}
+
+bool Bluetooth::isPowerOn(void) {
     return (localDevice.hostMode() == QBluetoothLocalDevice::HostPoweredOff) ? false : true;
 }
 
-void Bluetooth::ScanStart(void) {
-    if (!IsPowerOn()) {
+void Bluetooth::scanStart(void) {
+    if (!isPowerOn()) {
         return;
     }
 
-    if (!IsScanning()) {
-        emit ScanStarted();
+    if (!isScanning()) {
+        emit scanStarted();
         ///@todo Fails if flight mode is active
         deviceDiscoveryAgent.start();
     }
 }
 
-void Bluetooth::ScanStop(void) {
-    if (IsScanning()) {
+void Bluetooth::scanStop(void) {
+    if (isScanning()) {
         deviceDiscoveryAgent.stop();
     }
 }
 
-void Bluetooth::ScanToggle(void) {
-    if (IsScanning()) {
-        ScanStop();
+void Bluetooth::scanToggle(void) {
+    if (isScanning()) {
+        scanStop();
     } else {
-        ScanStart();
+        scanStart();
     }
 }
 
-bool Bluetooth::IsScanning(void) {
+bool Bluetooth::isScanning(void) {
     return deviceDiscoveryAgent.isActive();
 }
 
-/*
-void Bluetooth::LocalDeviceConnected(const QBluetoothAddress &address) {
-
-}
-
-void Bluetooth::LocalDeviceDisconnected(const QBluetoothAddress &address) {
-
-}
-*/
-
-void Bluetooth::LocalDeviceErrorOccurred(QBluetoothLocalDevice::Error error) {
+void Bluetooth::localDeviceErrorOccurred(QBluetoothLocalDevice::Error error) {
     // TODO: Do error checking
 }
 
-void Bluetooth::LocalDeviceHostModeStateChanged(QBluetoothLocalDevice::HostMode state) {
+void Bluetooth::localDeviceHostModeStateChanged(QBluetoothLocalDevice::HostMode state) {
     if ((stateBefore == QBluetoothLocalDevice::HostMode::HostPoweredOff) &&
         (state != QBluetoothLocalDevice::HostMode::HostPoweredOff)) {
-        emit PowerTurnedOn();
+        emit powerTurnedOn();
     } else if (state == QBluetoothLocalDevice::HostMode::HostPoweredOff) {
-        ScanStop();
-        emit PowerTurnedOff();
+        scanStop();
+        emit powerTurnedOff();
     }
 
     stateBefore = state;
 }
 
-/*
-void Bluetooth::LocalDevicePairingFinished(const QBluetoothAddress &address,
-QBluetoothLocalDevice::Pairing pairing) {
-
-}
-*/
-
-void Bluetooth::DeviceDiscoveryAgentCanceled() {
-    emit ScanStopped();
+void Bluetooth::deviceDiscoveryAgentCanceled() {
+    emit scanStopped();
 }
 
-void Bluetooth::DeviceDiscoveryAgentDeviceDiscovered(
+void Bluetooth::deviceDiscoveryAgentDeviceDiscovered(
     const QBluetoothDeviceInfo& bluetoothDeviceInfo) {
     if (bluetoothDeviceInfo.coreConfigurations() !=
             QBluetoothDeviceInfo::LowEnergyCoreConfiguration ||
-        (bluetoothDeviceInfo.name() != "LineScale 3")) {
+        (bluetoothDeviceInfo.name() != FILTER_NAME)) {
         return;
     }
 
@@ -153,19 +146,19 @@ void Bluetooth::DeviceDiscoveryAgentDeviceDiscovered(
     deviceInfo.type = ConnType::BLE;
     deviceInfo.ID = bluetoothDeviceInfo.name();
     deviceInfo.bluetooth = bluetoothDeviceInfo;
-    emit ScanDeviceDiscovered(deviceInfo);
+    emit deviceDiscovered(deviceInfo);
 }
 
-void Bluetooth::DeviceDiscoveryAgentDeviceUpdated(const QBluetoothDeviceInfo& bluetoothDeviceInfo,
+void Bluetooth::deviceDiscoveryAgentDeviceUpdated(const QBluetoothDeviceInfo& bluetoothDeviceInfo,
                                                   QBluetoothDeviceInfo::Fields fields) {
     // TODO: Implement function
 }
 
-void Bluetooth::DeviceDiscoveryAgentErrorOccurred(QBluetoothDeviceDiscoveryAgent::Error error) {
+void Bluetooth::deviceDiscoveryAgentErrorOccurred(QBluetoothDeviceDiscoveryAgent::Error error) {
     // TODO: Do error checking
 }
 
-void Bluetooth::DeviceDiscoveryAgentFinished() {
-    emit ScanStopped();
+void Bluetooth::deviceDiscoveryAgentFinished() {
+    emit scanStopped();
 }
 }  // namespace comm

@@ -42,44 +42,39 @@ class Bluetooth : public QObject {
 
    public:
     Bluetooth();
-    ~Bluetooth(void);
-    void PowerOn(void);
-    void PowerOff(void);
-    void PowerToggle(void);
-    bool IsPowerOn(void);
+    ~Bluetooth();
+    void powerTurnOn(void);
+    void powerTurnOff(void);
+    void powerSet(bool on);
+    void powerToggle(void);
+    bool isPowerOn(void);
 
-    void ScanStart(void);
-    void ScanStop(void);
-    void ScanToggle(void);
-    bool IsScanning(void);
+    void scanStart(void);
+    void scanStop(void);
+    void scanToggle(void);
+    bool isScanning(void);
 
    signals:
-    // void PowerChanged(void);
-    void PowerTurnedOn(void);
-    void PowerTurnedOff(void);
+    void powerTurnedOn(void);
+    void powerTurnedOff(void);
 
-    void ScanStarted(void);
-    void ScanStopped(void);
-    void ScanDeviceDiscovered(DeviceInfo& deviceInfo);
-
-    // void Connected(BluetoothDevice* device);
-    // void Disconnected(BluetoothDevice* device);
+    void scanStarted(void);
+    void scanStopped(void);
+    void deviceDiscovered(DeviceInfo& deviceInfo);
 
    private slots:
-    // void LocalDeviceConnected(const QBluetoothAddress &address);
-    // void LocalDeviceDisconnected(const QBluetoothAddress &address);
-    void LocalDeviceErrorOccurred(QBluetoothLocalDevice::Error error);
-    void LocalDeviceHostModeStateChanged(QBluetoothLocalDevice::HostMode state);
-    // void LocalDevicePairingFinished(const QBluetoothAddress &address,
-    // QBluetoothLocalDevice::Pairing pairing);
-    void DeviceDiscoveryAgentCanceled(void);
-    void DeviceDiscoveryAgentDeviceDiscovered(const QBluetoothDeviceInfo& bluetoothDeviceInfo);
-    void DeviceDiscoveryAgentDeviceUpdated(const QBluetoothDeviceInfo& bluetoothDeviceInfo,
+    void localDeviceErrorOccurred(QBluetoothLocalDevice::Error error);
+    void localDeviceHostModeStateChanged(QBluetoothLocalDevice::HostMode state);
+    void deviceDiscoveryAgentCanceled(void);
+    void deviceDiscoveryAgentDeviceDiscovered(const QBluetoothDeviceInfo& bluetoothDeviceInfo);
+    void deviceDiscoveryAgentDeviceUpdated(const QBluetoothDeviceInfo& bluetoothDeviceInfo,
                                            QBluetoothDeviceInfo::Fields fields);
-    void DeviceDiscoveryAgentErrorOccurred(QBluetoothDeviceDiscoveryAgent::Error error);
-    void DeviceDiscoveryAgentFinished(void);
+    void deviceDiscoveryAgentErrorOccurred(QBluetoothDeviceDiscoveryAgent::Error error);
+    void deviceDiscoveryAgentFinished(void);
 
    private:
+    static const QString FILTER_NAME;
+
     QBluetoothLocalDevice::HostMode stateBefore;
     QBluetoothLocalDevice localDevice;
     QBluetoothDeviceDiscoveryAgent deviceDiscoveryAgent;

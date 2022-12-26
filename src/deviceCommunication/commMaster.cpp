@@ -33,9 +33,9 @@
 namespace comm {
 CommMaster::CommMaster(Notification* notification, Bluetooth* bluetooth)
     : bluetooth(bluetooth), notification(notification) {
-    connect(bluetooth, &Bluetooth::ScanDeviceDiscovered, this,
+    connect(bluetooth, &Bluetooth::deviceDiscovered, this,
             &CommMaster::discoveredDeviceBluetooth);
-    connect(bluetooth, &Bluetooth::ScanStopped, this,
+    connect(bluetooth, &Bluetooth::scanStopped, this,
             &CommMaster::discoverDevicesFinishedBluetooth);
 }
 
@@ -101,7 +101,7 @@ void CommMaster::discoverDevices(void) {
     /// @todo remove already connected devices from this list
 
     // Discover all available devices over BLE
-    bluetooth->ScanStart();
+    bluetooth->scanStart();
 }
 
 void CommMaster::sendData(const QByteArray& rawData) {
