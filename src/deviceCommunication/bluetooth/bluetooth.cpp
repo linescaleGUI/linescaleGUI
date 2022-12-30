@@ -31,6 +31,11 @@ const QString Bluetooth::FILTER_NAME = "LineScale 3";
 Bluetooth::Bluetooth(Notification* notification) : notification(notification) {
     assert(notification != nullptr);
 
+    ///@todo Where must this guard be called?
+    if (!localDevice.isValid()) {
+        return;
+    }
+
     stateBefore = localDevice.hostMode();
     deviceDiscoveryAgent.setLowEnergyDiscoveryTimeout(5000);
     scanStop();
@@ -84,6 +89,8 @@ void Bluetooth::powerToggle(void) {
 }
 
 bool Bluetooth::isPowerOn(void) {
+    ///@todo Not returning the correct state. Returns always true. Even though Bluetooth is turned
+    /// off
     return (localDevice.hostMode() == QBluetoothLocalDevice::HostPoweredOff) ? false : true;
 }
 

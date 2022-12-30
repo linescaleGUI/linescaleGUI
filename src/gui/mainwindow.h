@@ -41,7 +41,7 @@
 QT_BEGIN_NAMESPACE
 /**
  * @brief Namespace for all GUI elements
- * 
+ *
  */
 namespace Ui {
 class MainWindow;
@@ -50,7 +50,7 @@ QT_END_NAMESPACE
 
 /**
  * @brief Main window for the application linescaleGUI
- * 
+ *
  */
 class MainWindow : public QMainWindow {
     Q_OBJECT
@@ -134,6 +134,13 @@ class MainWindow : public QMainWindow {
      * a delay. This is to prevent buffered data from setting the bool to true.
      */
     void triggerReadings();
+
+    /**
+     * @brief Toggle the bluetooth power
+     *
+     * Slot which is called after the respective action button is pressed
+     */
+    void toggleBluetooth(void);
 
    private:
     void updateImportantValues(float time, float value);

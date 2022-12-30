@@ -54,6 +54,7 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWi
     connect(ui->actionShowLog, &QAction::triggered, this, &MainWindow::showLog);
     connect(ui->actionClearLog, &QAction::triggered, notification, &Notification::clear);
     connect(ui->actionSaveLog, &QAction::triggered, notification, &Notification::saveLog);
+    connect(ui->actionBluetoothOn, &QAction::triggered, this, &MainWindow::toggleBluetooth);
 
     // Tool bar actions
     connect(ui->actionConnect, &QAction::triggered, dConnect, &DialogConnect::show);
@@ -73,6 +74,10 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWi
     dAbout->setAttribute(Qt::WA_QuitOnClose, false);
     dDebug->setAttribute(Qt::WA_QuitOnClose, false);
     dConnect->setAttribute(Qt::WA_QuitOnClose, false);
+
+    // Set default bluetooth state
+    bool isChecked = bluetooth->isPowerOn();
+    ui->actionBluetoothOn->setChecked(isChecked);
 
     // Set default log visibility to match the actionShowLog button
     showLog();
@@ -124,8 +129,8 @@ void MainWindow::triggerReadings() {
 
 void MainWindow::receiveNewSample(Sample reading) {
     statusReading = true;
-    if(currentUnit != reading.unitValue) {
-        maxValue = 0; // Trigger reset of peak value to update the unit
+    if (currentUnit != reading.unitValue) {
+        maxValue = 0;  // Trigger reset of peak value to update the unit
         currentUnit = reading.unitValue;
         switch (reading.unitValue) {
             case UnitValue::KN:
@@ -158,4 +163,9 @@ void MainWindow::toggleActions(bool connected) {
     ui->actionStartStop->setEnabled(connected);
     ui->actionConnect->setEnabled(!connected);
     ui->widgetConnection->setEnabled(connected);
+}
+
+void MainWindow::toggleBluetooth(void) {
+    bool isChecked = ui->actionBluetoothOn->isChecked();
+    bluetooth->powerSet(isChecked);
 }
