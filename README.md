@@ -25,6 +25,15 @@ Currently there is a zip file for Windows available unter [Release](https://gith
 Download this file and unzip it afterwards.
 After a security prompt the application can be executed.
 
+## from source
+
+1. Configure and build the cmake project in realease mode.
+2. Run `cmake --install build/Release/ --prefix <install_dir>`
+    This will install all binaries into `<install_dir>`.
+3. Create packages with cpack (Windows only, currently):
+    1. (ZIP) `cpack -G ZIP --config build/Release/BundleConfig.cmake`
+    2. (Qt Installer Framework) `cpack -G IFW --config build/Release/BundleConfig.cmake`
+
 # Development
 Current development is done using Visual Studio Code and Qt v5.15 on Windows.
 The CI pipeline however builds successfully on Windows, Ubuntu and Linux.
