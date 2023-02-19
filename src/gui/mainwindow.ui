@@ -419,8 +419,6 @@
     </property>
     <addaction name="actionDebug"/>
     <addaction name="separator"/>
-    <addaction name="actionBluetoothOn"/>
-    <addaction name="separator"/>
     <addaction name="actionShowLog"/>
     <addaction name="actionClearLog"/>
     <addaction name="actionSaveLog"/>
@@ -530,14 +528,6 @@
    </property>
    <property name="toolTip">
     <string>Connect to a device</string>
-   </property>
-  </action>
-  <action name="actionBluetoothOn">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="text">
-    <string>Bluetooth On</string>
    </property>
   </action>
  </widget>
