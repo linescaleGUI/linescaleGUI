@@ -65,9 +65,6 @@ BluetoothService::~BluetoothService() {
                &BluetoothService::LowEnergyServiceErrorOccurred);
     disconnect(service, &QLowEnergyService::stateChanged, this,
                &BluetoothService::LowEnergyServiceStateChanged);
-
-    // TODO: Is this redundant?
-    delete service;
 }
 
 bool BluetoothService::DiscoverDetails(void) {

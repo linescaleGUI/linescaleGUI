@@ -45,8 +45,6 @@ BluetoothDevice::~BluetoothDevice() {
     if (lowEnergyController != nullptr) {
         delete lowEnergyController;
     }
-
-    services.clear();
 }
 
 void BluetoothDevice::connectDevice(void) {
@@ -55,8 +53,6 @@ void BluetoothDevice::connectDevice(void) {
         lowEnergyController = QLowEnergyController::createCentral(deviceInfo.bluetooth);
         connect(lowEnergyController, &QLowEnergyController::connected, this,
                 &BluetoothDevice::LowEnergyControllerConnected);
-        connect(lowEnergyController, &QLowEnergyController::connectionUpdated, this,
-                &BluetoothDevice::LowEnergyControllerConnectionUpdated);
         connect(lowEnergyController, &QLowEnergyController::disconnected, this,
                 &BluetoothDevice::LowEnergyControllerDisconnected);
         connect(lowEnergyController, &QLowEnergyController::discoveryFinished, this,
@@ -66,8 +62,6 @@ void BluetoothDevice::connectDevice(void) {
                 &BluetoothDevice::LowEnergyControllerErrorOccurred);
         connect(lowEnergyController, &QLowEnergyController::serviceDiscovered, this,
                 &BluetoothDevice::LowEnergyControllerServiceDiscovered);
-        connect(lowEnergyController, &QLowEnergyController::stateChanged, this,
-                &BluetoothDevice::LowEnergyControllerStateChanged);
     } else {
         if (lowEnergyController->state() != QLowEnergyController::UnconnectedState) {
             return;
@@ -112,11 +106,6 @@ void BluetoothDevice::LowEnergyControllerConnected(void) {
     lowEnergyController->discoverServices();
 }
 
-void BluetoothDevice::LowEnergyControllerConnectionUpdated(
-    const QLowEnergyConnectionParameters& connectionParameters) {
-    // TODO: Implement function
-}
-
 void BluetoothDevice::LowEnergyControllerDisconnected(void) {
     if (communicationService != nullptr) {
         disconnect(communicationService, &BluetoothService::CharacteristicChanged, this,
@@ -127,8 +116,14 @@ void BluetoothDevice::LowEnergyControllerDisconnected(void) {
                    &BluetoothDevice::ServiceCharacteristicWritten);
     }
 
-    communicationService = nullptr;
+    for (BluetoothService* service : services) {
+        if (service != nullptr) {
+            delete service;
+        }
+    }
+
     services.clear();
+    communicationService = nullptr;
     emit Disconnected(this);
     /// @todo Add multiple device support
     emit changedStateDevice(false);
@@ -164,13 +159,9 @@ void BluetoothDevice::LowEnergyControllerDiscoveryFinished(void) {
     }
 }
 
-void BluetoothDevice::LowEnergyControllerErrorOccurred(QLowEnergyController::Error error) {}
-
-/*
-void BluetoothDevice::LowEnergyControllerMtuChanged(int mtu) {
-
+void BluetoothDevice::LowEnergyControllerErrorOccurred(QLowEnergyController::Error error) {
+    /// @todo Implement function
 }
-*/
 
 void BluetoothDevice::LowEnergyControllerServiceDiscovered(const QBluetoothUuid& uuid) {
     BluetoothService* service =
@@ -178,10 +169,6 @@ void BluetoothDevice::LowEnergyControllerServiceDiscovered(const QBluetoothUuid&
     service->connect(service, &BluetoothService::DetailsDiscovered, this,
                      &BluetoothDevice::ServiceDetailsDiscovered);
     services.push_back(service);
-}
-
-void BluetoothDevice::LowEnergyControllerStateChanged(QLowEnergyController::ControllerState state) {
-    // TODO: Implement function
 }
 
 void BluetoothDevice::ServiceDetailsDiscovered(void) {

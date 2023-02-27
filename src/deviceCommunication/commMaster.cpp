@@ -136,15 +136,15 @@ void CommMaster::getChangedState(bool connected) {
     ///@todo Add actual device names
     if (connected) {
         if (singleDevice->getConnType() == ConnType::USB) {
-            notification->push("USB connected:");
+            notification->push("USB connected");
         } else {
-            notification->push("BLE connected:");
+            notification->push("BLE connected");
         }
     } else {
         if (singleDevice->getConnType() == ConnType::USB) {
-            notification->push("USB disconnected:");
+            notification->push("USB disconnected");
         } else {
-            notification->push("BLE disconnected:");
+            notification->push("BLE disconnected");
         }
     }
 

@@ -44,10 +44,6 @@ class Bluetooth : public QObject {
    public:
     Bluetooth(Notification* notification);
     ~Bluetooth();
-    void powerTurnOn(void);
-    void powerTurnOff(void);
-    void powerSet(bool on);
-    void powerToggle(void);
     bool isPowerOn(void);
 
     void scanStart(void);
@@ -68,8 +64,6 @@ class Bluetooth : public QObject {
     void localDeviceHostModeStateChanged(QBluetoothLocalDevice::HostMode state);
     void deviceDiscoveryAgentCanceled(void);
     void deviceDiscoveryAgentDeviceDiscovered(const QBluetoothDeviceInfo& bluetoothDeviceInfo);
-    void deviceDiscoveryAgentDeviceUpdated(const QBluetoothDeviceInfo& bluetoothDeviceInfo,
-                                           QBluetoothDeviceInfo::Fields fields);
     void deviceDiscoveryAgentErrorOccurred(QBluetoothDeviceDiscoveryAgent::Error error);
     void deviceDiscoveryAgentFinished(void);
 

@@ -31,7 +31,6 @@ const QString Bluetooth::FILTER_NAME = "LineScale 3";
 Bluetooth::Bluetooth(Notification* notification) : notification(notification) {
     assert(notification != nullptr);
 
-    ///@todo Where must this guard be called?
     if (!localDevice.isValid()) {
         return;
     }
@@ -48,8 +47,6 @@ Bluetooth::Bluetooth(Notification* notification) : notification(notification) {
             &Bluetooth::deviceDiscoveryAgentCanceled);
     connect(&deviceDiscoveryAgent, &QBluetoothDeviceDiscoveryAgent::deviceDiscovered, this,
             &Bluetooth::deviceDiscoveryAgentDeviceDiscovered);
-    connect(&deviceDiscoveryAgent, &QBluetoothDeviceDiscoveryAgent::deviceUpdated, this,
-            &Bluetooth::deviceDiscoveryAgentDeviceUpdated);
     connect(
         &deviceDiscoveryAgent,
         qOverload<QBluetoothDeviceDiscoveryAgent::Error>(&QBluetoothDeviceDiscoveryAgent::error),
@@ -59,34 +56,6 @@ Bluetooth::Bluetooth(Notification* notification) : notification(notification) {
 }
 
 Bluetooth::~Bluetooth() {}
-
-void Bluetooth::powerTurnOn(void) {
-    /* May not work on iOS*/
-    localDevice.setHostMode(QBluetoothLocalDevice::HostConnectable);
-}
-
-void Bluetooth::powerTurnOff(void) {
-    scanStop();
-
-    /* May not work on iOS*/
-    localDevice.setHostMode(QBluetoothLocalDevice::HostPoweredOff);
-}
-
-void Bluetooth::powerSet(bool on) {
-    if (on) {
-        powerTurnOn();
-    } else {
-        powerTurnOff();
-    }
-}
-
-void Bluetooth::powerToggle(void) {
-    if (isPowerOn()) {
-        powerTurnOff();
-    } else {
-        powerTurnOn();
-    }
-}
 
 bool Bluetooth::isPowerOn(void) {
     ///@todo Not returning the correct state. Returns always true. Even though Bluetooth is turned
@@ -125,7 +94,7 @@ bool Bluetooth::isScanning(void) {
 }
 
 void Bluetooth::localDeviceErrorOccurred(QBluetoothLocalDevice::Error error) {
-    // TODO: Do error checking
+    notification->push("Local device error occurred" + error, Notification::SEVERITY_ERROR);
 }
 
 void Bluetooth::localDeviceHostModeStateChanged(QBluetoothLocalDevice::HostMode state) {
@@ -157,11 +126,6 @@ void Bluetooth::deviceDiscoveryAgentDeviceDiscovered(
     deviceInfo.ID = bluetoothDeviceInfo.name();
     deviceInfo.bluetooth = bluetoothDeviceInfo;
     emit deviceDiscovered(deviceInfo);
-}
-
-void Bluetooth::deviceDiscoveryAgentDeviceUpdated(const QBluetoothDeviceInfo& bluetoothDeviceInfo,
-                                                  QBluetoothDeviceInfo::Fields fields) {
-    // TODO: Implement function
 }
 
 void Bluetooth::deviceDiscoveryAgentErrorOccurred(QBluetoothDeviceDiscoveryAgent::Error error) {

@@ -62,14 +62,10 @@ class BluetoothDevice : public CommDevice {
 
    private slots:
     void LowEnergyControllerConnected(void);
-    void LowEnergyControllerConnectionUpdated(
-        const QLowEnergyConnectionParameters& connectionParameters);
     void LowEnergyControllerDisconnected(void);
     void LowEnergyControllerDiscoveryFinished(void);
     void LowEnergyControllerErrorOccurred(QLowEnergyController::Error error);
-    // void LowEnergyControllerMtuChanged(int mtu);
     void LowEnergyControllerServiceDiscovered(const QBluetoothUuid& uuid);
-    void LowEnergyControllerStateChanged(QLowEnergyController::ControllerState state);
 
     void ServiceDetailsDiscovered(void);
     void ServiceCharacteristicChanged(const QLowEnergyCharacteristic& characteristic,
