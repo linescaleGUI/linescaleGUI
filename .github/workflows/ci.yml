@@ -54,6 +54,7 @@ jobs:
 
       
       - name: Install appImageBuilder
+        if: ${matrix.os} == "ubuntu_latest"
         shell: bash
         run: |
           ls
