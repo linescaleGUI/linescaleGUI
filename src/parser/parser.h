@@ -39,6 +39,7 @@ enum class WorkingMode {
     OVERLOADED,    ///< Indicates that the test is overloaded
     MAX_CAPACITY,  ///< Indicates the maximum capacity (default 3000 not received)
 };
+
 /**
  * @brief   Indicates if the measured force is relative to a previous set value or if it is absolute
  *
@@ -47,6 +48,7 @@ enum class MeasureMode {
     ABS_ZERO,  ///< Represents the absolute zero measurement mode
     REL_ZERO,  ///< Represents the relative zero measurement mode
 };
+
 /**
  * @brief Unit of the measured force
  *
@@ -56,12 +58,13 @@ enum class UnitValue {
     KGF,  ///< The unit of measurement is kgf
     LBF,  ///< Indicates that the unit of measurement is lbf
 };
+
 /**
  * @brief A sample received from a LineScale.
  *
  * This struct holds all data that the LineScale sends in a single packet.
- * A single packet corresponds to a force sample. 
- * The device also sends auxiliary information such as the sampling frequency, 
+ * A single packet corresponds to a force sample.
+ * The device also sends auxiliary information such as the sampling frequency,
  * percent of battery left, and so on.
  */
 struct Sample {
