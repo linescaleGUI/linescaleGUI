@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=linescaleGUI
+Comment=Graphical user interface for the linescale.
+Terminal=false
+Exec=linescaleGUI
+Categories=Qt;Utility;
+Icon=linescaleGUI
