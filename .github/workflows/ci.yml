@@ -57,12 +57,13 @@ jobs:
         if: runner.os == 'Linux'
         shell: bash
         run: |
-          sudo apt install tree
-          tree
+          tree -L 4
           wget --no-verbose "https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage"
           wget --no-verbose "https://github.com/linuxdeploy/linuxdeploy-plugin-qt/releases/download/continuous/linuxdeploy-plugin-qt-x86_64.AppImage"
           chmod a+x linuxdeploy*
-          cp linuxdeploy* Qt/5.15.2/bin
+          cp linuxdeploy* Qt/5.15.2/
+          cp linuxdeploy* tools/cmake/
+          tree -L 4
 
       - name: Set up environment variables
         shell: bash
