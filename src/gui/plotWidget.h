@@ -28,6 +28,13 @@
 #ifndef PLOTWIDGET_H_
 #define PLOTWIDGET_H_
 
+#include <QTimer>
+#include <QVector>
+#include <QWidget>
+
+#include "../notification/notification.h"
+#include "../parser/parser.h"
+
 // @todo Better way to disable this warning for MSVC.
 #if _MSC_VER && !__INTEL_COMPILER
 #pragma warning(push)
@@ -38,18 +45,11 @@
 #include <QCustomPlot/qcustomplot.h>
 #endif
 
-#include <QTimer>
-#include <QVector>
-#include <QWidget>
-
-#include "../parser/parser.h"
-
 /**
  * @brief Widget to display a dynamic line graph chart.
  *
  * @todo Allow to zoom with panning (touchscreen).
  * @todo Maybe implement custom range dialog.
- * @todo Implement saving the graph as image.
  */
 class Plot : public QWidget {
    public:
@@ -95,6 +95,13 @@ class Plot : public QWidget {
      *                        time of the previous graph.
      */
     void beginNewGraph(bool startFromOrigin = true);
+
+    /**
+     * @brief Save the current plot window as png to the local machine
+     *
+     * @param notification Pointer to send some outputs to the user
+     */
+    void saveImage(Notification* notification);
 
    private slots:
     /**

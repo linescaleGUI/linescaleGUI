@@ -135,9 +135,6 @@ class MainWindow : public QMainWindow {
     void triggerReadings();
 
    private:
-    void updateImportantValues(float time, float value);
-
-   private:
     Ui::MainWindow* ui;
     comm::CommMaster* comm;
     DialogAbout* dAbout;

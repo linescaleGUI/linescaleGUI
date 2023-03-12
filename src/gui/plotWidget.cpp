@@ -25,6 +25,8 @@
 
 #include "plotWidget.h"
 #include <QDebug>
+#include <QFileDialog>
+#include <QStandardPaths>
 
 Plot::Plot(QWidget* parent) : QWidget(parent) {
     updateTimer = new QTimer(this);
@@ -41,8 +43,8 @@ Plot::Plot(QWidget* parent) : QWidget(parent) {
     // customPlot->setOpenGl(true); @todo Fix HiDPI bug in QCustomPlot library.
     customPlot->setNoAntialiasingOnDrag(true);
 
-    customPlot->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom | QCP::iSelectAxes |
-                                QCP::iSelectPlottables | QCP::iMultiSelect);
+    customPlot->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom | QCP::iSelectAxes | QCP::iSelectPlottables |
+                                QCP::iMultiSelect);
     customPlot->xAxis->setLabel("");
     customPlot->yAxis->setLabel("");
     customPlot->legend->setVisible(false);
@@ -200,14 +202,11 @@ void Plot::contextMenuRequest(QPoint pos) {
     bool clickedOnAxis = false;
     if (auto val = customPlot->yAxis->selectTest(pos, true); val > 0 && val < selectionTol) {
         clearSelection();
-        customPlot->yAxis->setSelectedParts(QCPAxis::spAxis | QCPAxis::spAxisLabel |
-                                            QCPAxis::spTickLabels);
+        customPlot->yAxis->setSelectedParts(QCPAxis::spAxis | QCPAxis::spAxisLabel | QCPAxis::spTickLabels);
         clickedOnAxis = true;
-    } else if (auto val2 = customPlot->xAxis->selectTest(pos, true);
-               val2 > 0 && val2 < selectionTol) {
+    } else if (auto val2 = customPlot->xAxis->selectTest(pos, true); val2 > 0 && val2 < selectionTol) {
         clearSelection();
-        customPlot->xAxis->setSelectedParts(QCPAxis::spAxis | QCPAxis::spAxisLabel |
-                                            QCPAxis::spTickLabels);
+        customPlot->xAxis->setSelectedParts(QCPAxis::spAxis | QCPAxis::spAxisLabel | QCPAxis::spTickLabels);
         clickedOnAxis = true;
     }
     if (!clickedOnAxis && customPlot->selectedGraphs().length() > 0) {
@@ -314,4 +313,15 @@ void Plot::convertToNewUnit(UnitValue nextUnit) {
     }
 
     currentUnit = nextUnit;
+}
+
+void Plot::saveImage(Notification* notification) {
+    QString desktopPath = QStandardPaths::writableLocation(QStandardPaths::DesktopLocation);
+    QString filename = QFileDialog::getSaveFileName(this, tr("Save file"), desktopPath + tr("/LineScale3.png"), ".png");
+    if (filename != "") {
+        customPlot->grab().save(filename);
+        notification->push(tr("Saved as ") + filename, Notification::SEVERITY_INFO);
+    } else {
+        notification->push(tr("Invalid file name"), Notification::SEVERITY_WARNING);
+    }
 }

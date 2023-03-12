@@ -402,6 +402,13 @@
     <property name="title">
      <string>File</string>
     </property>
+    <widget class="QMenu" name="menuSavePlot">
+     <property name="title">
+      <string>Save plot</string>
+     </property>
+     <addaction name="actionAsPng"/>
+    </widget>
+    <addaction name="menuSavePlot"/>
     <addaction name="actionExit"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
@@ -484,6 +491,9 @@
    <property name="text">
     <string>StartStop</string>
    </property>
+   <property name="shortcut">
+    <string>Space</string>
+   </property>
   </action>
   <action name="actionDisconnect">
    <property name="icon">
@@ -528,6 +538,11 @@
    </property>
    <property name="toolTip">
     <string>Connect to a device</string>
+   </property>
+  </action>
+  <action name="actionAsPng">
+   <property name="text">
+    <string>image (png)</string>
    </property>
   </action>
  </widget>

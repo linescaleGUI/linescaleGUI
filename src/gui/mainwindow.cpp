@@ -19,15 +19,13 @@
 /**
  * @file mainwindow.cpp
  * @authors Gschwind, Weber, Schoch, Niederberger
- * 
+ *
  * @brief `MainWindow` implementation
  *
  */
 
 #include "mainwindow.h"
 #include <QDesktopServices>
-#include <QFileDialog>
-#include <QStandardPaths>
 #include <QTimer>
 #include "../deviceCommunication/command.h"
 #include "../notification/notification.h"
@@ -53,6 +51,7 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWi
     connect(ui->actionShowLog, &QAction::triggered, this, &MainWindow::showLog);
     connect(ui->actionClearLog, &QAction::triggered, notification, &Notification::clear);
     connect(ui->actionSaveLog, &QAction::triggered, notification, &Notification::saveLog);
+    connect(ui->actionAsPng, &QAction::triggered, this, [=] { ui->widgetChart->saveImage(notification); });
 
     // Tool bar actions
     connect(ui->actionConnect, &QAction::triggered, dConnect, &DialogConnect::show);
@@ -123,8 +122,8 @@ void MainWindow::triggerReadings() {
 
 void MainWindow::receiveNewSample(Sample reading) {
     statusReading = true;
-    if(currentUnit != reading.unitValue) {
-        maxValue = 0; // Trigger reset of peak value to update the unit
+    if (currentUnit != reading.unitValue) {
+        maxValue = 0;  // Trigger reset of peak value to update the unit
         currentUnit = reading.unitValue;
         switch (reading.unitValue) {
             case UnitValue::KN:
