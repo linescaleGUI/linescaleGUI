@@ -14,12 +14,11 @@
  * GNU General Public License for more details.                               *
  *                                                                            *
  * You should have received a copy of the GNU General Public License          *
- * along with LinescaleGUI.  If not, see <http://www.gnu.org/licenses/>.      *
+ * along with LinescaleGUI. If not, see <http://www.gnu.org/licenses/>.       *
  ******************************************************************************/
 /**
  * @file parser.cpp
  * @authors Gschwind, Weber, Schoch, Niederberger
- * @copyright (c) 2022 LineGrip Corp Ltd.
  *
  * @brief `Parser` implementation
  *

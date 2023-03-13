@@ -19,7 +19,6 @@
 /**
  * @file main.cpp
  * @authors Gschwind, Weber, Schoch, Niederberger
- * @copyright (c) 2022 LineGrip Corp Ltd.
  *
  * @brief Main file of project linescaleGUI
  *
