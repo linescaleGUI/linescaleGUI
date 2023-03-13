@@ -157,4 +157,6 @@ void MainWindow::toggleActions(bool connected) {
     ui->actionStartStop->setEnabled(connected);
     ui->actionConnect->setEnabled(!connected);
     ui->widgetConnection->setEnabled(connected);
+    ui->groupCurrent->setEnabled(connected);
+    ui->groupPeak->setEnabled(connected);
 }
