@@ -99,9 +99,15 @@ class Plot : public QWidget {
     /**
      * @brief Save the current plot window as png to the local machine
      *
-     * @param notification Pointer to send some outputs to the user
      */
-    void saveImage(Notification* notification);
+    void saveImage();
+
+    /**
+     * @brief Attach a notification instance to the plot widget to notify the user.
+     *
+     * @param notification Pointer to the notification instance
+     */
+    void attachNotification(Notification* notification);
 
    private slots:
     /**
@@ -187,6 +193,9 @@ class Plot : public QWidget {
     QAction* autoRangeAction;
     QAction* autoShowNewestAction;
     QAction* clearSelectionAction;
+    QAction* saveImageAction;
+
+    Notification* notification = nullptr;
 
     static constexpr double factorKnToLbf = 224.8089431;  ///< Convert from kN to lbf
     static constexpr double factorKnToKgf = 101.9716213;  ///< Convert from kN to kgf

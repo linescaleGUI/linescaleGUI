@@ -41,6 +41,7 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWi
     dDebug = new DialogDebug(comm, this);
     dConnect = new DialogConnect(comm, this);
     ui->widgetConnection->setCommunicationMaster(comm);
+    ui->widgetChart->attachNotification(notification);
 
     // menu actions
     connect(ui->actionAbout_Qt, &QAction::triggered, qApp, &QApplication::aboutQt);
@@ -51,7 +52,7 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWi
     connect(ui->actionShowLog, &QAction::triggered, this, &MainWindow::showLog);
     connect(ui->actionClearLog, &QAction::triggered, notification, &Notification::clear);
     connect(ui->actionSaveLog, &QAction::triggered, notification, &Notification::saveLog);
-    connect(ui->actionAsPng, &QAction::triggered, this, [=] { ui->widgetChart->saveImage(notification); });
+    connect(ui->actionAsPng, &QAction::triggered, ui->widgetChart, &Plot::saveImage);
 
     // Tool bar actions
     connect(ui->actionConnect, &QAction::triggered, dConnect, &DialogConnect::show);

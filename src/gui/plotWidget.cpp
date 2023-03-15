@@ -90,6 +90,10 @@ Plot::Plot(QWidget* parent) : QWidget(parent) {
     autoShowNewestAction->setChecked(true);
     addAction(autoShowNewestAction);
 
+    saveImageAction = new QAction("Save as image", this);
+    connect(saveImageAction, &QAction::triggered, this, &Plot::saveImage);
+    addAction(saveImageAction);
+
     clearSelectionAction = new QAction("Clear selection", this);
     clearSelectionAction->setShortcut(QKeySequence::Cancel);
     connect(clearSelectionAction, &QAction::triggered, this, &Plot::clearSelection);
@@ -221,6 +225,9 @@ void Plot::contextMenuRequest(QPoint pos) {
         menu->addAction(autoShowNewestAction);
     }
 
+    menu->addSeparator();
+    menu->addAction(saveImageAction);
+
     menu->popup(customPlot->mapToGlobal(pos));
 }
 
@@ -315,13 +322,22 @@ void Plot::convertToNewUnit(UnitValue nextUnit) {
     currentUnit = nextUnit;
 }
 
-void Plot::saveImage(Notification* notification) {
+void Plot::saveImage() {
     QString desktopPath = QStandardPaths::writableLocation(QStandardPaths::DesktopLocation);
     QString filename = QFileDialog::getSaveFileName(this, tr("Save file"), desktopPath + tr("/LineScale3.png"), ".png");
+
     if (filename != "") {
         customPlot->grab().save(filename);
+    }
+
+    if (notification && filename != "") {
         notification->push(tr("Saved as ") + filename, Notification::SEVERITY_INFO);
-    } else {
+    }
+    else if(notification) {
         notification->push(tr("Invalid file name"), Notification::SEVERITY_WARNING);
     }
+}
+
+void Plot::attachNotification(Notification* _notification) {
+    this->notification = _notification;
 }
