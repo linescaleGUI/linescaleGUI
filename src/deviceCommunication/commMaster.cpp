@@ -19,7 +19,7 @@
 /**
  * @file commMaster.cpp
  * @authors Gschwind, Weber, Schoch, Niederberger
- * 
+ *
  * @brief `comm::CommMaster` implementation
  *
  */
@@ -136,6 +136,24 @@ void CommMaster::setNewFreq(int newFreq) {
         case 1280:
             sendData(command::SETSPEED1280);
             break;
+        default:
+            break;
+    }
+}
+void CommMaster::setNewUnit(UnitValue unit) {
+    switch (unit) {
+        case UnitValue::KN:
+            sendData(command::SWITCHTOKN);
+            break;
+
+        case UnitValue::KGF:
+            sendData(command::SWITCHTOKGF);
+            break;
+
+        case UnitValue::LBF:
+            sendData(command::SWITCHTOLBF);
+            break;
+
         default:
             break;
     }

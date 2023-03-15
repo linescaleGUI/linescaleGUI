@@ -97,6 +97,13 @@ class CommMaster : public QObject {
      */
     void setNewFreq(int newFreq);
 
+    /**
+     * @brief Set a new unit on the device
+     * 
+     * @param unit `UnitValue` to switch to
+     */
+    void setNewUnit(UnitValue unit);
+
    signals:
     /**
      * @brief Emit after new sample was sent by a deviceClass
