@@ -52,6 +52,8 @@
  * @todo Maybe implement custom range dialog.
  */
 class Plot : public QWidget {
+    Q_OBJECT
+
    public:
     /**
      * @brief Create a new Plot widget.
@@ -99,6 +101,9 @@ class Plot : public QWidget {
     /**
      * @brief Save the current plot window as png to the local machine
      *
+     * Uses the native file dialogue box to select the save location. The resolution
+     * and aspect ratio will be the same as the current plot widget.
+     *
      */
     void saveImage();
 
@@ -142,8 +147,9 @@ class Plot : public QWidget {
      * @param plottable The plottable that was clicked.
      * @param dataIndex The nearest data point index to the click position.
      * @param event The actual mouse event of the click.
+     * @todo Create implementation
      */
-    void graphClicked(QCPAbstractPlottable* plottable, int dataIndex, QMouseEvent* event);
+    // void graphClicked(QCPAbstractPlottable* plottable, int dataIndex, QMouseEvent* event);
 
     /**
      * @brief Replot the graph possibly changing the axis ranges.
@@ -177,6 +183,13 @@ class Plot : public QWidget {
      * @param next The next unit
      */
     void convertToNewUnit(UnitValue next);
+
+   signals:
+    /**
+     * @brief Emit before saving a plot. Prevent simultaneous export and new data acquisition
+     *
+     */
+    void stopHardware(void);
 
    private:
     QCustomPlot* customPlot;

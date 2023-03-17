@@ -68,6 +68,9 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWi
     connect(comm, &comm::CommMaster::newSampleMaster, this, &MainWindow::receiveNewSample);
     connect(comm, &comm::CommMaster::changedStateMaster, this, &MainWindow::toggleActions);
 
+    // Signal from plotWidget
+    connect(ui->widgetChart, &Plot::stopHardware, this, [=]{triggerReadings(true);});
+
     // disable wait for close, automatic close after main window close
     dAbout->setAttribute(Qt::WA_QuitOnClose, false);
     dDebug->setAttribute(Qt::WA_QuitOnClose, false);
@@ -110,7 +113,8 @@ void MainWindow::sendSetRelativeZero() {
     comm->sendData(command::SETZERO);
 }
 
-void MainWindow::triggerReadings() {
+void MainWindow::triggerReadings(bool forceStop) {
+    statusReading = forceStop ? forceStop : statusReading;
     if (!statusReading) {
         notification->push("Start reading");
         comm->sendData(command::REQUESTONLINE);

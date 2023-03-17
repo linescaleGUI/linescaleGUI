@@ -24,7 +24,6 @@
  */
 
 #include "plotWidget.h"
-#include <QDebug>
 #include <QFileDialog>
 #include <QStandardPaths>
 
@@ -323,6 +322,8 @@ void Plot::convertToNewUnit(UnitValue nextUnit) {
 }
 
 void Plot::saveImage() {
+    emit stopHardware(); // Pause any connection
+
     QString desktopPath = QStandardPaths::writableLocation(QStandardPaths::DesktopLocation);
     QString filename = QFileDialog::getSaveFileName(this, tr("Save file"), desktopPath + tr("/LineScale3.png"), ".png");
 
