@@ -31,7 +31,7 @@
        <property name="childrenCollapsible">
         <bool>false</bool>
        </property>
-       <widget class="QWidget" name="">
+       <widget class="QWidget" name="layoutWidget">
         <layout class="QVBoxLayout" name="groupAllLogfiles">
          <item>
           <widget class="QTreeWidget" name="treeLogfiles">
@@ -705,8 +705,17 @@
     </property>
     <addaction name="actionOpen_online_help"/>
    </widget>
+   <widget class="QMenu" name="menuWindow">
+    <property name="title">
+     <string>Window</string>
+    </property>
+    <addaction name="actionFile_browser"/>
+    <addaction name="actionSelected_logfile"/>
+    <addaction name="actionMerged_logfile"/>
+   </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>
+   <addaction name="menuWindow"/>
    <addaction name="menuHelp"/>
   </widget>
   <action name="actionExit_file_editor">
@@ -737,6 +746,39 @@
   <action name="actionOpen_online_help">
    <property name="text">
     <string>Open online help</string>
+   </property>
+  </action>
+  <action name="actionFile_browser">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>File browser</string>
+   </property>
+  </action>
+  <action name="actionSelected_logfile">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Selected logfile</string>
+   </property>
+  </action>
+  <action name="actionMerged_logfile">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Merged logfile</string>
    </property>
   </action>
  </widget>
