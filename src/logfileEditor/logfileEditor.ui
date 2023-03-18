@@ -18,11 +18,14 @@
     <normaloff>:/linescaleGUI/logo/logo.png</normaloff>:/linescaleGUI/logo/logo.png</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QVBoxLayout" name="verticalLayout_3">
+   <layout class="QVBoxLayout" name="verticalLayout">
     <item>
-     <widget class="QSplitter" name="splitterVertical">
+     <widget class="QSplitter" name="splitter">
       <property name="orientation">
        <enum>Qt::Vertical</enum>
+      </property>
+      <property name="childrenCollapsible">
+       <bool>false</bool>
       </property>
       <widget class="QSplitter" name="splitterUpperHorizontal">
        <property name="orientation">
@@ -31,8 +34,8 @@
        <property name="childrenCollapsible">
         <bool>false</bool>
        </property>
-       <widget class="QWidget" name="layoutWidget">
-        <layout class="QVBoxLayout" name="groupAllLogfiles">
+       <widget class="QWidget" name="widgetFileBrowser" native="true">
+        <layout class="QVBoxLayout" name="groupFileBrowser">
          <item>
           <widget class="QTreeWidget" name="treeLogfiles">
            <property name="minimumSize">
@@ -249,6 +252,9 @@
                <property name="text">
                 <string>45:34:DF</string>
                </property>
+               <property name="alignment">
+                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+               </property>
                <property name="textInteractionFlags">
                 <set>Qt::TextSelectableByMouse</set>
                </property>
@@ -270,6 +276,9 @@
               <widget class="QLabel" name="outDate">
                <property name="text">
                 <string>15.05.22</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
                </property>
                <property name="textInteractionFlags">
                 <set>Qt::TextSelectableByMouse</set>
@@ -293,6 +302,9 @@
                <property name="text">
                 <string>16.30:23</string>
                </property>
+               <property name="alignment">
+                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+               </property>
                <property name="textInteractionFlags">
                 <set>Qt::TextSelectableByMouse</set>
                </property>
@@ -314,6 +326,9 @@
               <widget class="QLabel" name="outLogNr">
                <property name="text">
                 <string>002</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
                </property>
                <property name="textInteractionFlags">
                 <set>Qt::TextSelectableByMouse</set>
@@ -337,6 +352,9 @@
                <property name="text">
                 <string>kN</string>
                </property>
+               <property name="alignment">
+                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+               </property>
                <property name="textInteractionFlags">
                 <set>Qt::TextSelectableByMouse</set>
                </property>
@@ -359,12 +377,28 @@
                <property name="text">
                 <string>0.02</string>
                </property>
+               <property name="alignment">
+                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+               </property>
                <property name="textInteractionFlags">
                 <set>Qt::TextSelectableByMouse</set>
                </property>
               </widget>
              </item>
             </layout>
+           </item>
+           <item>
+            <spacer name="horizontalSpacer_2">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
            </item>
            <item>
             <layout class="QFormLayout" name="middleMetaData">
@@ -384,6 +418,9 @@
               <widget class="QLabel" name="outSpeed">
                <property name="text">
                 <string>1280</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
                </property>
                <property name="textInteractionFlags">
                 <set>Qt::TextSelectableByMouse</set>
@@ -407,6 +444,9 @@
                <property name="text">
                 <string>0.70</string>
                </property>
+               <property name="alignment">
+                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+               </property>
                <property name="textInteractionFlags">
                 <set>Qt::TextSelectableByMouse</set>
                </property>
@@ -428,6 +468,9 @@
               <widget class="QLabel" name="outStopForce">
                <property name="text">
                 <string>0.00</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
                </property>
                <property name="textInteractionFlags">
                 <set>Qt::TextSelectableByMouse</set>
@@ -451,6 +494,9 @@
                <property name="text">
                 <string>3</string>
                </property>
+               <property name="alignment">
+                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+               </property>
                <property name="textInteractionFlags">
                 <set>Qt::TextSelectableByMouse</set>
                </property>
@@ -472,6 +518,9 @@
               <widget class="QLabel" name="outCatchTime">
                <property name="text">
                 <string>15</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
                </property>
                <property name="textInteractionFlags">
                 <set>Qt::TextSelectableByMouse</set>
@@ -495,12 +544,28 @@
                <property name="text">
                 <string>18</string>
                </property>
+               <property name="alignment">
+                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+               </property>
                <property name="textInteractionFlags">
                 <set>Qt::TextSelectableByMouse</set>
                </property>
               </widget>
              </item>
             </layout>
+           </item>
+           <item>
+            <spacer name="horizontalSpacer">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
            </item>
            <item>
             <layout class="QFormLayout" name="rightMetaData">
@@ -520,6 +585,9 @@
               <widget class="QLabel" name="outMinForce">
                <property name="text">
                 <string>0</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
                </property>
                <property name="textInteractionFlags">
                 <set>Qt::TextSelectableByMouse</set>
@@ -543,6 +611,9 @@
                <property name="text">
                 <string>0</string>
                </property>
+               <property name="alignment">
+                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+               </property>
                <property name="textInteractionFlags">
                 <set>Qt::TextSelectableByMouse</set>
                </property>
@@ -564,6 +635,9 @@
               <widget class="QLabel" name="outMaxForce">
                <property name="text">
                 <string>4.1</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
                </property>
                <property name="textInteractionFlags">
                 <set>Qt::TextSelectableByMouse</set>
@@ -587,6 +661,9 @@
                <property name="text">
                 <string>4</string>
                </property>
+               <property name="alignment">
+                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+               </property>
                <property name="textInteractionFlags">
                 <set>Qt::TextSelectableByMouse</set>
                </property>
@@ -604,37 +681,13 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="widgetPlotSelLogfile">
-           <property name="maximumSize">
-            <size>
-             <width>550</width>
-             <height>150</height>
-            </size>
-           </property>
-           <property name="text">
-            <string/>
-           </property>
-           <property name="pixmap">
-            <pixmap resource="../../assets/resource.qrc">:/linescaleGUI/mockup/graph.jpeg</pixmap>
-           </property>
-           <property name="scaledContents">
-            <bool>true</bool>
-           </property>
-          </widget>
+          <layout class="QVBoxLayout" name="layoutPlotSelected"/>
          </item>
         </layout>
        </widget>
       </widget>
-      <widget class="QLabel" name="widgetPlotMerged">
-       <property name="text">
-        <string/>
-       </property>
-       <property name="pixmap">
-        <pixmap resource="../../assets/resource.qrc">:/linescaleGUI/mockup/graphCombined.jpeg</pixmap>
-       </property>
-       <property name="scaledContents">
-        <bool>true</bool>
-       </property>
+      <widget class="QWidget" name="">
+       <layout class="QVBoxLayout" name="layoutPlotMerged"/>
       </widget>
      </widget>
     </item>
@@ -709,9 +762,8 @@
     <property name="title">
      <string>Window</string>
     </property>
-    <addaction name="actionFile_browser"/>
-    <addaction name="actionSelected_logfile"/>
-    <addaction name="actionMerged_logfile"/>
+    <addaction name="actionFileBrowser"/>
+    <addaction name="actionSelectedLogfile"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>
@@ -748,7 +800,7 @@
     <string>Open online help</string>
    </property>
   </action>
-  <action name="actionFile_browser">
+  <action name="actionFileBrowser">
    <property name="checkable">
     <bool>true</bool>
    </property>
@@ -759,7 +811,7 @@
     <string>File browser</string>
    </property>
   </action>
-  <action name="actionSelected_logfile">
+  <action name="actionSelectedLogfile">
    <property name="checkable">
     <bool>true</bool>
    </property>
@@ -768,17 +820,6 @@
    </property>
    <property name="text">
     <string>Selected logfile</string>
-   </property>
-  </action>
-  <action name="actionMerged_logfile">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="checked">
-    <bool>true</bool>
-   </property>
-   <property name="text">
-    <string>Merged logfile</string>
    </property>
   </action>
  </widget>

@@ -403,6 +403,8 @@
      <string>File</string>
     </property>
     <addaction name="actionSaveImage"/>
+    <addaction name="actionLogfileEditor"/>
+    <addaction name="separator"/>
     <addaction name="actionExit"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
@@ -537,6 +539,11 @@
   <action name="actionSaveImage">
    <property name="text">
     <string>Save image</string>
+   </property>
+  </action>
+  <action name="actionLogfileEditor">
+   <property name="text">
+    <string>Logfile editor</string>
    </property>
   </action>
  </widget>

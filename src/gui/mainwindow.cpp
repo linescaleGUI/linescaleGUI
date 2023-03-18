@@ -36,6 +36,7 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWi
 
     notification = new Notification(ui->textBrowserLog);
     comm = new comm::CommMaster();
+    logfileEditor = new LogfileEditor(this);
 
     dAbout = new DialogAbout(this);
     dDebug = new DialogDebug(comm, this);
@@ -53,6 +54,8 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWi
     connect(ui->actionClearLog, &QAction::triggered, notification, &Notification::clear);
     connect(ui->actionSaveLog, &QAction::triggered, notification, &Notification::saveLog);
     connect(ui->actionSaveImage, &QAction::triggered, ui->widgetChart, &Plot::saveImage);
+    connect(ui->actionLogfileEditor, &QAction::triggered, logfileEditor, &LogfileEditor::show);
+
 
     // Tool bar actions
     connect(ui->actionConnect, &QAction::triggered, dConnect, &DialogConnect::show);

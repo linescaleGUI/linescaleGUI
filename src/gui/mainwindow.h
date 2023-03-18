@@ -31,6 +31,7 @@
 #include <QMainWindow>
 #include "../deviceCommunication/commMaster.h"
 #include "../notification/notification.h"
+#include "../logfileEditor/logfileEditor.h"
 #include "../parser/parser.h"
 #include "dialogabout.h"
 #include "dialogconnect.h"
@@ -143,6 +144,7 @@ class MainWindow : public QMainWindow {
     DialogDebug* dDebug;
     DialogConnect* dConnect;
     Notification* notification;
+    LogfileEditor* logfileEditor;
     Plot* plot;
     float maxValue = 0;
     bool statusReading = false;  ///< Tracks whether the host reads data or not
