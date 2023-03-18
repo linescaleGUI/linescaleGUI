@@ -402,13 +402,7 @@
     <property name="title">
      <string>File</string>
     </property>
-    <widget class="QMenu" name="menuSavePlot">
-     <property name="title">
-      <string>Save plot</string>
-     </property>
-     <addaction name="actionAsPng"/>
-    </widget>
-    <addaction name="menuSavePlot"/>
+    <addaction name="actionSaveImage"/>
     <addaction name="actionExit"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
@@ -540,9 +534,9 @@
     <string>Connect to a device</string>
    </property>
   </action>
-  <action name="actionAsPng">
+  <action name="actionSaveImage">
    <property name="text">
-    <string>image (png)</string>
+    <string>Save image</string>
    </property>
   </action>
  </widget>

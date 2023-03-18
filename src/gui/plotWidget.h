@@ -35,7 +35,7 @@
 #include "../notification/notification.h"
 #include "../parser/parser.h"
 
-// @todo Better way to disable this warning for MSVC.
+/// @todo Better way to disable this warning for MSVC.
 #if _MSC_VER && !__INTEL_COMPILER
 #pragma warning(push)
 #pragma warning(disable : 4127)

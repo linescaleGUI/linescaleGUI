@@ -39,7 +39,8 @@ Plot::Plot(QWidget* parent) : QWidget(parent) {
     connect(disableReplotTimer, &QTimer::timeout, this, &Plot::disableUpdating);
 
     customPlot = new QCustomPlot(parent);
-    // customPlot->setOpenGl(true); @todo Fix HiDPI bug in QCustomPlot library.
+    // customPlot->setOpenGl(true); 
+    /// @todo Fix HiDPI bug in QCustomPlot library.
     customPlot->setNoAntialiasingOnDrag(true);
 
     customPlot->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom | QCP::iSelectAxes | QCP::iSelectPlottables |
@@ -233,7 +234,7 @@ void Plot::contextMenuRequest(QPoint pos) {
 void Plot::updatePlot() {
     auto lowerBound = lastTime - customPlot->xAxis->range().size();
 
-    // @todo Scale to what data-range is in the viewport as option (default?).
+    /// @todo Scale to what data-range is in the viewport as option (default?).
     if (autoShowNewestAction->isChecked()) {
         customPlot->xAxis->setRange(lowerBound, lastTime);
     }
@@ -322,19 +323,34 @@ void Plot::convertToNewUnit(UnitValue nextUnit) {
 }
 
 void Plot::saveImage() {
-    emit stopHardware(); // Pause any connection
+    emit stopHardware();  // Pause any connection to prevent simultaneous read and write
 
     QString desktopPath = QStandardPaths::writableLocation(QStandardPaths::DesktopLocation);
-    QString filename = QFileDialog::getSaveFileName(this, tr("Save file"), desktopPath + tr("/LineScale3.png"), ".png");
+    QString filename = QFileDialog::getSaveFileName(this, tr("Save file"), desktopPath + tr("/LineScale3.png"),
+                                                    tr("Graphics (*.jpg *.png *.pdf)"));
 
-    if (filename != "") {
-        customPlot->grab().save(filename);
+    bool success = false;
+    if (filename.endsWith("png")) {
+        success = customPlot->savePng(filename, 0, 0, 2);
     }
 
-    if (notification && filename != "") {
+    else if (filename.endsWith("pdf")) {
+        // Documentation: https://evileg.com/en/post/96/
+        // `QCP::epAllowCosmetic` Print pdf without dotted lines
+        // `QCP::epNoCosmetic` Print pdf with dotted lines
+        success = customPlot->savePdf(filename, 0, 0, QCP::epNoCosmetic);
+    }
+
+    else if (filename.endsWith("jpg")) {
+        success = customPlot->saveJpg(filename);
+    }
+
+    if (!notification)  // Return without user msg if no notification instance is present
+        return;
+
+    if (success) {
         notification->push(tr("Saved as ") + filename, Notification::SEVERITY_INFO);
-    }
-    else if(notification) {
+    } else {
         notification->push(tr("Invalid file name"), Notification::SEVERITY_WARNING);
     }
 }
