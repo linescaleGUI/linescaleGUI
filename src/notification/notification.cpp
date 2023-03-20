@@ -19,18 +19,18 @@
 /**
  * @file notification.cpp
  * @authors Gschwind, Weber, Schoch, Niederberger
- * 
+ *
  * @brief `Notification` implementation
  *
  */
 
 #include "notification.h"
-#include <iostream>
-#include <fstream>
-#include <filesystem>
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QTime>
+#include <filesystem>
+#include <fstream>
+#include <iostream>
 
 const QString Notification::stringColorStart[] = {
     "",
@@ -56,18 +56,18 @@ const QString Notification::stringSeverity[] = {
 Notification::Notification(QTextBrowser* textBrowser) : textBrowser(textBrowser) {}
 
 bool Notification::push(const QString& message, Severity severity, bool showDialog) {
-    if ((textBrowser == nullptr) || (severity < SEVERITY_NONE) || (severity > SEVERITY_ERROR)) {
+    if ((textBrowser == nullptr) || (severity < SEVERITY_NONE) || (severity > SEVERITY_CRITICAL)) {
         return false;
     }
 
     QTime time = QTime::currentTime();
-    QString string = stringColorStart[severity] + time.toString() + stringSeverity[severity] +
-                     ": " + stringColorEnd[severity] + message;
+    QString string = stringColorStart[severity] + time.toString() + stringSeverity[severity] + ": " +
+                     stringColorEnd[severity] + message;
     textBrowser->append(string);
 
-    if ((severity == SEVERITY_ERROR) && (showDialog == true)) {
-        QMessageBox::critical(textBrowser->parentWidget(), stringSeverity[severity], message,
-                              QMessageBox::Cancel, QMessageBox::Cancel);
+    if ((severity == SEVERITY_CRITICAL) && (showDialog == true)) {
+        QMessageBox::critical(textBrowser->parentWidget(), stringSeverity[severity], message, QMessageBox::Cancel,
+                              QMessageBox::Cancel);
     }
 
     return true;
@@ -87,9 +87,8 @@ bool Notification::saveLog(void) {
         return false;
     }
 
-    QString fileName = QFileDialog::getSaveFileName(
-        textBrowser->parentWidget(), "", "Log",
-        "Text File (*.txt)\n Markdown File (*.md)\nHTML File (*.html)");
+    QString fileName = QFileDialog::getSaveFileName(textBrowser->parentWidget(), "", "Log",
+                                                    "Text File (*.txt)\n Markdown File (*.md)\nHTML File (*.html)");
     std::ofstream file(fileName.toStdString());
 
     if (!file.is_open()) {
