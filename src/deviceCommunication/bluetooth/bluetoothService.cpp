@@ -31,19 +31,19 @@ BluetoothService::BluetoothService(QLowEnergyService* service) : service(service
     }
 
     connect(service, &QLowEnergyService::characteristicChanged, this,
-            &BluetoothService::LowEnergyServiceCharacteristicChanged);
+            &BluetoothService::lowEnergyServiceCharacteristicChanged);
     connect(service, &QLowEnergyService::characteristicRead, this,
-            &BluetoothService::LowEnergyServiceCharacteristicRead);
+            &BluetoothService::lowEnergyServiceCharacteristicRead);
     connect(service, &QLowEnergyService::characteristicWritten, this,
-            &BluetoothService::LowEnergyServiceCharacteristicWritten);
+            &BluetoothService::lowEnergyServiceCharacteristicWritten);
     connect(service, &QLowEnergyService::descriptorRead, this,
-            &BluetoothService::LowEnergyServiceDescriptorRead);
+            &BluetoothService::lowEnergyServiceDescriptorRead);
     connect(service, &QLowEnergyService::descriptorWritten, this,
-            &BluetoothService::LowEnergyServiceDescriptorWritten);
+            &BluetoothService::lowEnergyServiceDescriptorWritten);
     connect(service, qOverload<QLowEnergyService::ServiceError>(&QLowEnergyService::error), this,
-            &BluetoothService::LowEnergyServiceErrorOccurred);
+            &BluetoothService::lowEnergyServiceErrorOccurred);
     connect(service, &QLowEnergyService::stateChanged, this,
-            &BluetoothService::LowEnergyServiceStateChanged);
+            &BluetoothService::lowEnergyServiceStateChanged);
 }
 
 BluetoothService::~BluetoothService() {
@@ -52,22 +52,22 @@ BluetoothService::~BluetoothService() {
     }
 
     disconnect(service, &QLowEnergyService::characteristicChanged, this,
-               &BluetoothService::LowEnergyServiceCharacteristicChanged);
+               &BluetoothService::lowEnergyServiceCharacteristicChanged);
     disconnect(service, &QLowEnergyService::characteristicRead, this,
-               &BluetoothService::LowEnergyServiceCharacteristicRead);
+               &BluetoothService::lowEnergyServiceCharacteristicRead);
     disconnect(service, &QLowEnergyService::characteristicWritten, this,
-               &BluetoothService::LowEnergyServiceCharacteristicWritten);
+               &BluetoothService::lowEnergyServiceCharacteristicWritten);
     disconnect(service, &QLowEnergyService::descriptorRead, this,
-               &BluetoothService::LowEnergyServiceDescriptorRead);
+               &BluetoothService::lowEnergyServiceDescriptorRead);
     disconnect(service, &QLowEnergyService::descriptorWritten, this,
-               &BluetoothService::LowEnergyServiceDescriptorWritten);
+               &BluetoothService::lowEnergyServiceDescriptorWritten);
     disconnect(service, qOverload<QLowEnergyService::ServiceError>(&QLowEnergyService::error), this,
-               &BluetoothService::LowEnergyServiceErrorOccurred);
+               &BluetoothService::lowEnergyServiceErrorOccurred);
     disconnect(service, &QLowEnergyService::stateChanged, this,
-               &BluetoothService::LowEnergyServiceStateChanged);
+               &BluetoothService::lowEnergyServiceStateChanged);
 }
 
-bool BluetoothService::DiscoverDetails(void) {
+bool BluetoothService::discoverDetails(void) {
     switch (service->state()) {
         case QLowEnergyService::DiscoveryRequired:
             service->discoverDetails();
@@ -81,11 +81,11 @@ bool BluetoothService::DiscoverDetails(void) {
     }
 }
 
-QLowEnergyService* BluetoothService::ServiceGet(void) {
+QLowEnergyService* BluetoothService::getService(void) {
     return service;
 }
 
-void BluetoothService::Read(QLowEnergyCharacteristic& characteristic) {
+void BluetoothService::read(QLowEnergyCharacteristic& characteristic) {
     if (service == nullptr) {
         return;
     }
@@ -93,7 +93,7 @@ void BluetoothService::Read(QLowEnergyCharacteristic& characteristic) {
     service->readCharacteristic(characteristic);
 }
 
-void BluetoothService::Write(QLowEnergyCharacteristic& characteristic, const QByteArray& value) {
+void BluetoothService::write(QLowEnergyCharacteristic& characteristic, const QByteArray& value) {
     if (service == nullptr) {
         return;
     }
@@ -101,7 +101,7 @@ void BluetoothService::Write(QLowEnergyCharacteristic& characteristic, const QBy
     service->writeCharacteristic(characteristic, value);
 }
 
-void BluetoothService::ReadDescriptor(QLowEnergyDescriptor& descriptor) {
+void BluetoothService::readDescriptor(QLowEnergyDescriptor& descriptor) {
     if (service == nullptr) {
         return;
     }
@@ -109,7 +109,7 @@ void BluetoothService::ReadDescriptor(QLowEnergyDescriptor& descriptor) {
     service->readDescriptor(descriptor);
 }
 
-void BluetoothService::WriteDescriptor(QLowEnergyDescriptor& descriptor, const QByteArray& value) {
+void BluetoothService::writeDescriptor(QLowEnergyDescriptor& descriptor, const QByteArray& value) {
     if (service == nullptr) {
         return;
     }
@@ -117,47 +117,41 @@ void BluetoothService::WriteDescriptor(QLowEnergyDescriptor& descriptor, const Q
     service->writeDescriptor(descriptor, value);
 }
 
-/*
-bool BluetoothService::UuidSet(const QBluetoothUuid &uuid) {
-
-}
-*/
-
-void BluetoothService::LowEnergyServiceCharacteristicChanged(
+void BluetoothService::lowEnergyServiceCharacteristicChanged(
     const QLowEnergyCharacteristic& characteristic,
     const QByteArray& value) {
-    emit CharacteristicChanged(characteristic, value);
+    emit characteristicChanged(characteristic, value);
 }
 
-void BluetoothService::LowEnergyServiceCharacteristicRead(
+void BluetoothService::lowEnergyServiceCharacteristicRead(
     const QLowEnergyCharacteristic& characteristic,
     const QByteArray& value) {
-    emit CharacteristicRead(characteristic, value);
+    emit characteristicRead(characteristic, value);
 }
 
-void BluetoothService::LowEnergyServiceCharacteristicWritten(
+void BluetoothService::lowEnergyServiceCharacteristicWritten(
     const QLowEnergyCharacteristic& characteristic,
     const QByteArray& value) {
-    emit CharacteristicWritten(characteristic, value);
+    emit characteristicWritten(characteristic, value);
 }
 
-void BluetoothService::LowEnergyServiceDescriptorRead(const QLowEnergyDescriptor& descriptor,
+void BluetoothService::lowEnergyServiceDescriptorRead(const QLowEnergyDescriptor& descriptor,
                                                       const QByteArray& value) {
-    emit DescriptorRead(descriptor, value);
+    emit descriptorRead(descriptor, value);
 }
 
-void BluetoothService::LowEnergyServiceDescriptorWritten(const QLowEnergyDescriptor& descriptor,
+void BluetoothService::lowEnergyServiceDescriptorWritten(const QLowEnergyDescriptor& descriptor,
                                                          const QByteArray& value) {
-    emit DescriptorWritten(descriptor, value);
+    emit descriptorWritten(descriptor, value);
 }
 
-void BluetoothService::LowEnergyServiceErrorOccurred(QLowEnergyService::ServiceError error) {
+void BluetoothService::lowEnergyServiceErrorOccurred(QLowEnergyService::ServiceError error) {
     // TODO: Implement function
 }
 
-void BluetoothService::LowEnergyServiceStateChanged(QLowEnergyService::ServiceState state) {
+void BluetoothService::lowEnergyServiceStateChanged(QLowEnergyService::ServiceState state) {
     if (state == QLowEnergyService::ServiceDiscovered) {
-        emit DetailsDiscovered();
+        emit detailsDiscovered();
     }
 }
 }

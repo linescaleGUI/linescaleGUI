@@ -47,32 +47,32 @@ class BluetoothDevice : public CommDevice {
     void disconnectDevice(void) override;
     void readData(void) override;
     void sendData(const QByteArray& value) override;
-    DeviceInfo& deviceInfoGet(void);
+    DeviceInfo& getDeviceInfo(void);
 
    signals:
-    void Connected(BluetoothDevice* device);
-    void Disconnected(BluetoothDevice* device);
-    void ServiceDiscoveryFinished(BluetoothDevice* device,
+    void connected(BluetoothDevice* device);
+    void disconnected(BluetoothDevice* device);
+    void serviceDiscoveryFinished(BluetoothDevice* device,
                                   std::vector<BluetoothService*>& services);
-    void ServiceDiscoveryFailed(BluetoothDevice* device);
+    void serviceDiscoveryFailed(BluetoothDevice* device);
 
-    void CharacteristicChanged(BluetoothDevice* device, const QByteArray& value);
-    void CharacteristicRead(BluetoothDevice* device, const QByteArray& value);
-    void CharacteristicWritten(BluetoothDevice* device, const QByteArray& value);
+    void characteristicChanged(BluetoothDevice* device, const QByteArray& value);
+    void characteristicRead(BluetoothDevice* device, const QByteArray& value);
+    void characteristicWritten(BluetoothDevice* device, const QByteArray& value);
 
    private slots:
-    void LowEnergyControllerConnected(void);
-    void LowEnergyControllerDisconnected(void);
-    void LowEnergyControllerDiscoveryFinished(void);
-    void LowEnergyControllerErrorOccurred(QLowEnergyController::Error error);
-    void LowEnergyControllerServiceDiscovered(const QBluetoothUuid& uuid);
+    void lowEnergyControllerConnected(void);
+    void lowEnergyControllerDisconnected(void);
+    void lowEnergyControllerDiscoveryFinished(void);
+    void lowEnergyControllerErrorOccurred(QLowEnergyController::Error error);
+    void lowEnergyControllerServiceDiscovered(const QBluetoothUuid& uuid);
 
-    void ServiceDetailsDiscovered(void);
-    void ServiceCharacteristicChanged(const QLowEnergyCharacteristic& characteristic,
+    void serviceDetailsDiscovered(void);
+    void serviceCharacteristicChanged(const QLowEnergyCharacteristic& characteristic,
                                       const QByteArray& value);
-    void ServiceCharacteristicRead(const QLowEnergyCharacteristic& characteristic,
+    void serviceCharacteristicRead(const QLowEnergyCharacteristic& characteristic,
                                    const QByteArray& value);
-    void ServiceCharacteristicWritten(const QLowEnergyCharacteristic& characteristic,
+    void serviceCharacteristicWritten(const QLowEnergyCharacteristic& characteristic,
                                       const QByteArray& value);
 
    private:

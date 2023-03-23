@@ -39,39 +39,38 @@ class BluetoothService : public QObject {
    public:
     BluetoothService(QLowEnergyService* service);
     ~BluetoothService();
-    // bool UuidSet(const QBluetoothUuid &uuid);
-    bool DiscoverDetails(void);
-    QLowEnergyService* ServiceGet(void);
-    void Read(QLowEnergyCharacteristic& characteristic);
-    void Write(QLowEnergyCharacteristic& characteristic, const QByteArray& value);
-    void ReadDescriptor(QLowEnergyDescriptor& descriptor);
-    void WriteDescriptor(QLowEnergyDescriptor& descriptor, const QByteArray& value);
+    bool discoverDetails(void);
+    QLowEnergyService* getService(void);
+    void read(QLowEnergyCharacteristic& characteristic);
+    void write(QLowEnergyCharacteristic& characteristic, const QByteArray& value);
+    void readDescriptor(QLowEnergyDescriptor& descriptor);
+    void writeDescriptor(QLowEnergyDescriptor& descriptor, const QByteArray& value);
 
    signals:
-    void CharacteristicChanged(const QLowEnergyCharacteristic& characteristic,
+    void characteristicChanged(const QLowEnergyCharacteristic& characteristic,
                                const QByteArray& value);
-    void CharacteristicRead(const QLowEnergyCharacteristic& characteristic,
+    void characteristicRead(const QLowEnergyCharacteristic& characteristic,
                             const QByteArray& value);
-    void CharacteristicWritten(const QLowEnergyCharacteristic& characteristic,
+    void characteristicWritten(const QLowEnergyCharacteristic& characteristic,
                                const QByteArray& value);
-    void DescriptorRead(const QLowEnergyDescriptor& descriptor, const QByteArray& value);
-    void DescriptorWritten(const QLowEnergyDescriptor& descriptor, const QByteArray& value);
-    void ErrorOccurred(void);
-    void DetailsDiscovered(void);
+    void descriptorRead(const QLowEnergyDescriptor& descriptor, const QByteArray& value);
+    void descriptorWritten(const QLowEnergyDescriptor& descriptor, const QByteArray& value);
+    void errorOccurred(void);
+    void detailsDiscovered(void);
 
    private slots:
-    void LowEnergyServiceCharacteristicChanged(const QLowEnergyCharacteristic& characteristic,
+    void lowEnergyServiceCharacteristicChanged(const QLowEnergyCharacteristic& characteristic,
                                                const QByteArray& value);
-    void LowEnergyServiceCharacteristicRead(const QLowEnergyCharacteristic& characteristic,
+    void lowEnergyServiceCharacteristicRead(const QLowEnergyCharacteristic& characteristic,
                                             const QByteArray& value);
-    void LowEnergyServiceCharacteristicWritten(const QLowEnergyCharacteristic& characteristic,
+    void lowEnergyServiceCharacteristicWritten(const QLowEnergyCharacteristic& characteristic,
                                                const QByteArray& value);
-    void LowEnergyServiceDescriptorRead(const QLowEnergyDescriptor& descriptor,
+    void lowEnergyServiceDescriptorRead(const QLowEnergyDescriptor& descriptor,
                                         const QByteArray& value);
-    void LowEnergyServiceDescriptorWritten(const QLowEnergyDescriptor& descriptor,
+    void lowEnergyServiceDescriptorWritten(const QLowEnergyDescriptor& descriptor,
                                            const QByteArray& value);
-    void LowEnergyServiceErrorOccurred(QLowEnergyService::ServiceError error);
-    void LowEnergyServiceStateChanged(QLowEnergyService::ServiceState state);
+    void lowEnergyServiceErrorOccurred(QLowEnergyService::ServiceError error);
+    void lowEnergyServiceStateChanged(QLowEnergyService::ServiceState state);
 
    private:
     QLowEnergyService* service;

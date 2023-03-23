@@ -25,11 +25,12 @@
 #include "bluetoothDevice.h"
 
 namespace comm {
-const QBluetoothUuid BluetoothDevice::UUID_SERVICE = "00001000-0000-1000-8000-00805f9b34fb";
-const QBluetoothUuid BluetoothDevice::UUID_CHARACTERISTIC_READ =
-    "00001002-0000-1000-8000-00805f9b34fb";
-const QBluetoothUuid BluetoothDevice::UUID_CHARACTERISTIC_WRITE =
-    "00001001-0000-1000-8000-00805f9b34fb";
+const QBluetoothUuid BluetoothDevice::UUID_SERVICE(
+    QString::fromStdString("00001000-0000-1000-8000-00805f9b34fb"));
+const QBluetoothUuid BluetoothDevice::UUID_CHARACTERISTIC_READ(
+    QString::fromStdString("00001002-0000-1000-8000-00805f9b34fb"));
+const QBluetoothUuid BluetoothDevice::UUID_CHARACTERISTIC_WRITE(
+    QString::fromStdString("00001001-0000-1000-8000-00805f9b34fb"));
 
 BluetoothDevice::BluetoothDevice(const DeviceInfo& deviceInfo) : deviceInfo(deviceInfo) {
     type = ConnType::BLE;
@@ -52,16 +53,16 @@ void BluetoothDevice::connectDevice(void) {
     if (lowEnergyController == nullptr) {
         lowEnergyController = QLowEnergyController::createCentral(deviceInfo.bluetooth);
         connect(lowEnergyController, &QLowEnergyController::connected, this,
-                &BluetoothDevice::LowEnergyControllerConnected);
+                &BluetoothDevice::lowEnergyControllerConnected);
         connect(lowEnergyController, &QLowEnergyController::disconnected, this,
-                &BluetoothDevice::LowEnergyControllerDisconnected);
+                &BluetoothDevice::lowEnergyControllerDisconnected);
         connect(lowEnergyController, &QLowEnergyController::discoveryFinished, this,
-                &BluetoothDevice::LowEnergyControllerDiscoveryFinished);
+                &BluetoothDevice::lowEnergyControllerDiscoveryFinished);
         connect(lowEnergyController,
                 qOverload<QLowEnergyController::Error>(&QLowEnergyController::error), this,
-                &BluetoothDevice::LowEnergyControllerErrorOccurred);
+                &BluetoothDevice::lowEnergyControllerErrorOccurred);
         connect(lowEnergyController, &QLowEnergyController::serviceDiscovered, this,
-                &BluetoothDevice::LowEnergyControllerServiceDiscovered);
+                &BluetoothDevice::lowEnergyControllerServiceDiscovered);
     } else {
         if (lowEnergyController->state() != QLowEnergyController::UnconnectedState) {
             return;
@@ -84,7 +85,7 @@ void BluetoothDevice::readData(void) {
         return;
     }
 
-    communicationService->Read(communicationCharacteristicRead);
+    communicationService->read(communicationCharacteristicRead);
 }
 
 void BluetoothDevice::sendData(const QByteArray& value) {
@@ -92,28 +93,28 @@ void BluetoothDevice::sendData(const QByteArray& value) {
         return;
     }
 
-    communicationService->Write(communicationCharacteristicWrite, value);
+    communicationService->write(communicationCharacteristicWrite, value);
 }
 
-DeviceInfo& BluetoothDevice::deviceInfoGet(void) {
+DeviceInfo& BluetoothDevice::getDeviceInfo(void) {
     return deviceInfo;
 }
 
-void BluetoothDevice::LowEnergyControllerConnected(void) {
-    emit Connected(this);
+void BluetoothDevice::lowEnergyControllerConnected(void) {
+    emit connected(this);
     /// @todo Add multiple device support
     emit changedStateDevice(true);
     lowEnergyController->discoverServices();
 }
 
-void BluetoothDevice::LowEnergyControllerDisconnected(void) {
+void BluetoothDevice::lowEnergyControllerDisconnected(void) {
     if (communicationService != nullptr) {
-        disconnect(communicationService, &BluetoothService::CharacteristicChanged, this,
-                   &BluetoothDevice::ServiceCharacteristicChanged);
-        disconnect(communicationService, &BluetoothService::CharacteristicRead, this,
-                   &BluetoothDevice::ServiceCharacteristicRead);
-        disconnect(communicationService, &BluetoothService::CharacteristicWritten, this,
-                   &BluetoothDevice::ServiceCharacteristicWritten);
+        disconnect(communicationService, &BluetoothService::characteristicChanged, this,
+                   &BluetoothDevice::serviceCharacteristicChanged);
+        disconnect(communicationService, &BluetoothService::characteristicRead, this,
+                   &BluetoothDevice::serviceCharacteristicRead);
+        disconnect(communicationService, &BluetoothService::characteristicWritten, this,
+                   &BluetoothDevice::serviceCharacteristicWritten);
     }
 
     for (BluetoothService* service : services) {
@@ -124,24 +125,24 @@ void BluetoothDevice::LowEnergyControllerDisconnected(void) {
 
     services.clear();
     communicationService = nullptr;
-    emit Disconnected(this);
+    emit disconnected(this);
     /// @todo Add multiple device support
     emit changedStateDevice(false);
 }
 
-void BluetoothDevice::LowEnergyControllerDiscoveryFinished(void) {
+void BluetoothDevice::lowEnergyControllerDiscoveryFinished(void) {
     bool serviceFound = false;
 
     // Check if the service is available on this device before the details are discovered. Safes
     // time
     for (BluetoothService* service : services) {
-        if (service->ServiceGet()->serviceUuid() == UUID_SERVICE) {
+        if (service->getService()->serviceUuid() == UUID_SERVICE) {
             serviceFound = true;
         }
     }
 
     if (!serviceFound) {
-        emit ServiceDiscoveryFailed(this);
+        emit serviceDiscoveryFailed(this);
         disconnectDevice();
         return;
     }
@@ -149,33 +150,33 @@ void BluetoothDevice::LowEnergyControllerDiscoveryFinished(void) {
     // Iterate through the service list and start the discovery for the first service which requires
     // it
     for (serviceIndex = 0; serviceIndex < services.capacity(); ++serviceIndex) {
-        if (services.at(serviceIndex)->DiscoverDetails()) {
+        if (services.at(serviceIndex)->discoverDetails()) {
             break;
         }
     }
 
     if (serviceIndex >= services.capacity()) {
-        ServiceDetailsDiscovered();
+        serviceDetailsDiscovered();
     }
 }
 
-void BluetoothDevice::LowEnergyControllerErrorOccurred(QLowEnergyController::Error error) {
+void BluetoothDevice::lowEnergyControllerErrorOccurred(QLowEnergyController::Error error) {
     /// @todo Implement function
 }
 
-void BluetoothDevice::LowEnergyControllerServiceDiscovered(const QBluetoothUuid& uuid) {
+void BluetoothDevice::lowEnergyControllerServiceDiscovered(const QBluetoothUuid& uuid) {
     BluetoothService* service =
         new BluetoothService(lowEnergyController->createServiceObject(uuid));
-    service->connect(service, &BluetoothService::DetailsDiscovered, this,
-                     &BluetoothDevice::ServiceDetailsDiscovered);
+    service->connect(service, &BluetoothService::detailsDiscovered, this,
+                     &BluetoothDevice::serviceDetailsDiscovered);
     services.push_back(service);
 }
 
-void BluetoothDevice::ServiceDetailsDiscovered(void) {
+void BluetoothDevice::serviceDetailsDiscovered(void) {
     // Iterate through the rest of the service list and start the discovery for every service which
     // requires it
     for (; serviceIndex < services.capacity(); ++serviceIndex) {
-        if (services.at(serviceIndex)->DiscoverDetails()) {
+        if (services.at(serviceIndex)->discoverDetails()) {
             break;
         }
     }
@@ -192,9 +193,9 @@ void BluetoothDevice::ServiceDetailsDiscovered(void) {
         bool characteristicReadFound = false;
         bool characteristicWriteFound = false;
 
-        if (service->ServiceGet()->serviceUuid() == UUID_SERVICE) {
+        if (service->getService()->serviceUuid() == UUID_SERVICE) {
             QList<QLowEnergyCharacteristic> characteristics =
-                service->ServiceGet()->characteristics();
+                service->getService()->characteristics();
 
             for (QLowEnergyCharacteristic& characteristic : characteristics) {
                 if (characteristic.uuid() == UUID_CHARACTERISTIC_READ) {
@@ -216,7 +217,7 @@ void BluetoothDevice::ServiceDetailsDiscovered(void) {
 
     if ((communicationService == nullptr) || !communicationCharacteristicRead.isValid() ||
         !communicationCharacteristicWrite.isValid()) {
-        emit ServiceDiscoveryFailed(this);
+        emit serviceDiscoveryFailed(this);
         disconnectDevice();
     }
 
@@ -224,24 +225,24 @@ void BluetoothDevice::ServiceDetailsDiscovered(void) {
         QBluetoothUuid::DescriptorType::ClientCharacteristicConfiguration);
 
     if (!notification.isValid()) {
-        emit ServiceDiscoveryFailed(this);
+        emit serviceDiscoveryFailed(this);
         disconnectDevice();
     }
 
-    communicationService->WriteDescriptor(notification, QByteArray::fromHex("0100"));
+    communicationService->writeDescriptor(notification, QByteArray::fromHex("0100"));
 
-    connect(communicationService, &BluetoothService::CharacteristicChanged, this,
-            &BluetoothDevice::ServiceCharacteristicChanged);
-    connect(communicationService, &BluetoothService::CharacteristicRead, this,
-            &BluetoothDevice::ServiceCharacteristicRead);
-    connect(communicationService, &BluetoothService::CharacteristicWritten, this,
-            &BluetoothDevice::ServiceCharacteristicWritten);
-    emit ServiceDiscoveryFinished(this, services);
+    connect(communicationService, &BluetoothService::characteristicChanged, this,
+            &BluetoothDevice::serviceCharacteristicChanged);
+    connect(communicationService, &BluetoothService::characteristicRead, this,
+            &BluetoothDevice::serviceCharacteristicRead);
+    connect(communicationService, &BluetoothService::characteristicWritten, this,
+            &BluetoothDevice::serviceCharacteristicWritten);
+    emit serviceDiscoveryFinished(this, services);
 }
 
-void BluetoothDevice::ServiceCharacteristicChanged(const QLowEnergyCharacteristic& characteristic,
+void BluetoothDevice::serviceCharacteristicChanged(const QLowEnergyCharacteristic& characteristic,
                                                    const QByteArray& value) {
-    emit CharacteristicChanged(this, value);
+    emit characteristicChanged(this, value);
 
     bool success;
     success = parser.parsePackage((QByteArray&)value, receivedData);
@@ -251,9 +252,9 @@ void BluetoothDevice::ServiceCharacteristicChanged(const QLowEnergyCharacteristi
     }
 }
 
-void BluetoothDevice::ServiceCharacteristicRead(const QLowEnergyCharacteristic& characteristic,
+void BluetoothDevice::serviceCharacteristicRead(const QLowEnergyCharacteristic& characteristic,
                                                 const QByteArray& value) {
-    emit CharacteristicRead(this, value);
+    emit characteristicRead(this, value);
 
     bool success;
     success = parser.parsePackage((QByteArray&)value, receivedData);
@@ -263,8 +264,8 @@ void BluetoothDevice::ServiceCharacteristicRead(const QLowEnergyCharacteristic& 
     }
 }
 
-void BluetoothDevice::ServiceCharacteristicWritten(const QLowEnergyCharacteristic& characteristic,
+void BluetoothDevice::serviceCharacteristicWritten(const QLowEnergyCharacteristic& characteristic,
                                                    const QByteArray& value) {
-    emit CharacteristicWritten(this, value);
+    emit characteristicWritten(this, value);
 }
 }  // namespace comm
