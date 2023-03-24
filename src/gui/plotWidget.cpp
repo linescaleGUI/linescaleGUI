@@ -24,7 +24,8 @@
  */
 
 #include "plotWidget.h"
-#include <QDebug>
+#include <QFileDialog>
+#include <QStandardPaths>
 
 Plot::Plot(QWidget* parent) : QWidget(parent) {
     updateTimer = new QTimer(this);
@@ -38,11 +39,12 @@ Plot::Plot(QWidget* parent) : QWidget(parent) {
     connect(disableReplotTimer, &QTimer::timeout, this, &Plot::disableUpdating);
 
     customPlot = new QCustomPlot(parent);
-    // customPlot->setOpenGl(true); @todo Fix HiDPI bug in QCustomPlot library.
+    // customPlot->setOpenGl(true); 
+    /// @todo Fix HiDPI bug in QCustomPlot library.
     customPlot->setNoAntialiasingOnDrag(true);
 
-    customPlot->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom | QCP::iSelectAxes |
-                                QCP::iSelectPlottables | QCP::iMultiSelect);
+    customPlot->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom | QCP::iSelectAxes | QCP::iSelectPlottables |
+                                QCP::iMultiSelect);
     customPlot->xAxis->setLabel("");
     customPlot->yAxis->setLabel("");
     customPlot->legend->setVisible(false);
@@ -87,6 +89,10 @@ Plot::Plot(QWidget* parent) : QWidget(parent) {
     autoShowNewestAction->setCheckable(true);
     autoShowNewestAction->setChecked(true);
     addAction(autoShowNewestAction);
+
+    saveImageAction = new QAction("Save as image", this);
+    connect(saveImageAction, &QAction::triggered, this, &Plot::saveImage);
+    addAction(saveImageAction);
 
     clearSelectionAction = new QAction("Clear selection", this);
     clearSelectionAction->setShortcut(QKeySequence::Cancel);
@@ -200,14 +206,11 @@ void Plot::contextMenuRequest(QPoint pos) {
     bool clickedOnAxis = false;
     if (auto val = customPlot->yAxis->selectTest(pos, true); val > 0 && val < selectionTol) {
         clearSelection();
-        customPlot->yAxis->setSelectedParts(QCPAxis::spAxis | QCPAxis::spAxisLabel |
-                                            QCPAxis::spTickLabels);
+        customPlot->yAxis->setSelectedParts(QCPAxis::spAxis | QCPAxis::spAxisLabel | QCPAxis::spTickLabels);
         clickedOnAxis = true;
-    } else if (auto val2 = customPlot->xAxis->selectTest(pos, true);
-               val2 > 0 && val2 < selectionTol) {
+    } else if (auto val2 = customPlot->xAxis->selectTest(pos, true); val2 > 0 && val2 < selectionTol) {
         clearSelection();
-        customPlot->xAxis->setSelectedParts(QCPAxis::spAxis | QCPAxis::spAxisLabel |
-                                            QCPAxis::spTickLabels);
+        customPlot->xAxis->setSelectedParts(QCPAxis::spAxis | QCPAxis::spAxisLabel | QCPAxis::spTickLabels);
         clickedOnAxis = true;
     }
     if (!clickedOnAxis && customPlot->selectedGraphs().length() > 0) {
@@ -222,13 +225,16 @@ void Plot::contextMenuRequest(QPoint pos) {
         menu->addAction(autoShowNewestAction);
     }
 
+    menu->addSeparator();
+    menu->addAction(saveImageAction);
+
     menu->popup(customPlot->mapToGlobal(pos));
 }
 
 void Plot::updatePlot() {
     auto lowerBound = lastTime - customPlot->xAxis->range().size();
 
-    // @todo Scale to what data-range is in the viewport as option (default?).
+    /// @todo Scale to what data-range is in the viewport as option (default?).
     if (autoShowNewestAction->isChecked()) {
         customPlot->xAxis->setRange(lowerBound, lastTime);
     }
@@ -314,4 +320,41 @@ void Plot::convertToNewUnit(UnitValue nextUnit) {
     }
 
     currentUnit = nextUnit;
+}
+
+void Plot::saveImage() {
+    emit stopHardware();  // Pause any connection to prevent simultaneous read and write
+
+    QString desktopPath = QStandardPaths::writableLocation(QStandardPaths::DesktopLocation);
+    QString filename = QFileDialog::getSaveFileName(this, tr("Save file"), desktopPath + tr("/LineScale3.png"),
+                                                    tr("Graphics (*.jpg *.png *.pdf)"));
+
+    bool success = false;
+    if (filename.endsWith("png")) {
+        success = customPlot->savePng(filename, 0, 0, 2);
+    }
+
+    else if (filename.endsWith("pdf")) {
+        // Documentation: https://evileg.com/en/post/96/
+        // `QCP::epAllowCosmetic` Print pdf without dotted lines
+        // `QCP::epNoCosmetic` Print pdf with dotted lines
+        success = customPlot->savePdf(filename, 0, 0, QCP::epNoCosmetic);
+    }
+
+    else if (filename.endsWith("jpg")) {
+        success = customPlot->saveJpg(filename);
+    }
+
+    if (!notification)  // Return without user msg if no notification instance is present
+        return;
+
+    if (success) {
+        notification->push(tr("Saved as ") + filename, Notification::SEVERITY_INFO);
+    } else {
+        notification->push(tr("Invalid file name"), Notification::SEVERITY_WARNING);
+    }
+}
+
+void Plot::attachNotification(Notification* _notification) {
+    this->notification = _notification;
 }
