@@ -1,4 +1,6 @@
 <map id="Plot" name="Plot">
-<area shape="rect" id="node1" title="Widget to display a dynamic line graph chart." alt="" coords="19,79,64,104"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,5,77,31"/>
+<area shape="rect" id="node1" title="Widget to display a dynamic line graph chart." alt="" coords="40,168,85,193"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,80,77,105"/>
+<area shape="rect" id="node3" href="$class_notification.html" title="Class to handle all notifications." alt="" coords="102,80,189,105"/>
+<area shape="rect" id="node4" title=" " alt="" coords="110,5,181,31"/>
 </map>

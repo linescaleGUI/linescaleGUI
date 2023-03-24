@@ -1,0 +1,5 @@
+<map id="Plot::saveImage" name="Plot::saveImage">
+<area shape="rect" id="node1" title="Save the current plot window as png to the local machine." alt="" coords="229,31,344,56"/>
+<area shape="rect" id="node2" href="$class_main_window.html#a996c5a2b6f77944776856f08ec30858d" title=" " alt="" coords="5,5,181,31"/>
+<area shape="rect" id="node3" href="$class_plot.html#a83d9454de4b05fc361c318317658c734" title="Create a new Plot widget." alt="" coords="56,55,131,80"/>
+</map>

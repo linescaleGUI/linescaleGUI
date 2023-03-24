@@ -5,6 +5,5 @@ var searchData=
   ['getconntype_2',['getConnType',['../classcomm_1_1_comm_device.html#aab0949e58f5e9e00ca9a695bad41150b',1,'comm::CommDevice']]],
   ['getfreq_3',['getFreq',['../classcomm_1_1_comm_device.html#a89d83edbafb7c118a56a1415f7cdcda9',1,'comm::CommDevice']]],
   ['getidentifier_4',['getIdentifier',['../classcomm_1_1_comm_device.html#a97e98ad711962d7a9936eb79a2f7871f',1,'comm::CommDevice']]],
-  ['getstatus_5',['getStatus',['../classcomm_1_1_comm_device.html#af2cc7631c30aca9034b05d5d3f6b8092',1,'comm::CommDevice']]],
-  ['graphclicked_6',['graphClicked',['../class_plot.html#a35bf05de6c8b57618a5848e0978d74ab',1,'Plot']]]
+  ['getstatus_5',['getStatus',['../classcomm_1_1_comm_device.html#af2cc7631c30aca9034b05d5d3f6b8092',1,'comm::CommDevice']]]
 ];

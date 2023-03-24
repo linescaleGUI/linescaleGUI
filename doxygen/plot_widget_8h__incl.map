@@ -1,10 +1,13 @@
 <map id="src/gui/plotWidget.h" name="src/gui/plotWidget.h">
-<area shape="rect" id="node1" title="Plot declaration" alt="" coords="271,5,407,31"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,79,191,104"/>
-<area shape="rect" id="node3" title=" " alt="" coords="215,79,280,104"/>
-<area shape="rect" id="node4" title=" " alt="" coords="304,79,375,104"/>
-<area shape="rect" id="node5" title=" " alt="" coords="399,79,471,104"/>
-<area shape="rect" id="node6" href="$parser_8h.html" title="Parser declaration" alt="" coords="496,79,615,104"/>
-<area shape="rect" id="node7" title=" " alt="" coords="459,152,547,177"/>
-<area shape="rect" id="node8" title=" " alt="" coords="572,152,643,177"/>
+<area shape="rect" id="node1" title="Plot declaration" alt="" coords="230,5,366,31"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,79,71,104"/>
+<area shape="rect" id="node3" title=" " alt="" coords="95,79,165,104"/>
+<area shape="rect" id="node4" title=" " alt="" coords="190,79,262,104"/>
+<area shape="rect" id="node5" href="$notification_8h.html" title="Notification declaration" alt="" coords="286,79,457,104"/>
+<area shape="rect" id="node9" href="$parser_8h.html" title="Parser declaration" alt="" coords="481,79,600,104"/>
+<area shape="rect" id="node11" title=" " alt="" coords="624,79,809,104"/>
+<area shape="rect" id="node6" title=" " alt="" coords="448,152,519,177"/>
+<area shape="rect" id="node7" title=" " alt="" coords="227,152,294,177"/>
+<area shape="rect" id="node8" title=" " alt="" coords="319,152,424,177"/>
+<area shape="rect" id="node10" title=" " alt="" coords="543,152,631,177"/>
 </map>

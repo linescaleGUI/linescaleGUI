@@ -72,6 +72,7 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#signals">Signals</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pri-slots">Private Slots</a> &#124;
 <a href="#pri-methods">Private Member Functions</a> &#124;
@@ -95,10 +96,16 @@ Inheritance diagram for Plot:</div>
 <div class="dynheader">
 Collaboration diagram for Plot:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_plot__coll__graph.svg" width="83" height="110"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_plot__coll__graph.svg" width="195" height="199"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="signals" name="signals"></a>
+Signals</h2></td></tr>
+<tr class="memitem:aa643568078c8d949657f03642c0cb947"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_plot.html#aa643568078c8d949657f03642c0cb947">stopHardware</a> (void)</td></tr>
+<tr class="memdesc:aa643568078c8d949657f03642c0cb947"><td class="mdescLeft">&#160;</td><td class="mdescRight">Emit before saving a plot. Prevent simultaneous export and new data acquisition.  <a href="class_plot.html#aa643568078c8d949657f03642c0cb947">More...</a><br /></td></tr>
+<tr class="separator:aa643568078c8d949657f03642c0cb947"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a83d9454de4b05fc361c318317658c734"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_plot.html#a83d9454de4b05fc361c318317658c734">Plot</a> (QWidget *parent=nullptr)</td></tr>
@@ -113,6 +120,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a11786eed153c7595219f7aac35491505"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_plot.html#a11786eed153c7595219f7aac35491505">beginNewGraph</a> (bool startFromOrigin=true)</td></tr>
 <tr class="memdesc:a11786eed153c7595219f7aac35491505"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a new graph to the plot and use it for all new points added.  <a href="class_plot.html#a11786eed153c7595219f7aac35491505">More...</a><br /></td></tr>
 <tr class="separator:a11786eed153c7595219f7aac35491505"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1bffd40999f0ff50b720bca97e4242c5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_plot.html#a1bffd40999f0ff50b720bca97e4242c5">saveImage</a> ()</td></tr>
+<tr class="memdesc:a1bffd40999f0ff50b720bca97e4242c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Save the current plot window as png to the local machine.  <a href="class_plot.html#a1bffd40999f0ff50b720bca97e4242c5">More...</a><br /></td></tr>
+<tr class="separator:a1bffd40999f0ff50b720bca97e4242c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a064d4af6cb40f0e1391e331506641909"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_plot.html#a064d4af6cb40f0e1391e331506641909">attachNotification</a> (<a class="el" href="class_notification.html">Notification</a> *<a class="el" href="class_plot.html#ade5f875c76aed11ab29ec05e5f290504">notification</a>)</td></tr>
+<tr class="memdesc:a064d4af6cb40f0e1391e331506641909"><td class="mdescLeft">&#160;</td><td class="mdescRight">Attach a notification instance to the plot widget to notify the user.  <a href="class_plot.html#a064d4af6cb40f0e1391e331506641909">More...</a><br /></td></tr>
+<tr class="separator:a064d4af6cb40f0e1391e331506641909"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-slots" name="pri-slots"></a>
 Private Slots</h2></td></tr>
@@ -131,11 +144,8 @@ Private Slots</h2></td></tr>
 <tr class="memitem:aa300b9b299eeff78f428777b8e2f6085"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_plot.html#aa300b9b299eeff78f428777b8e2f6085">contextMenuRequest</a> (QPoint pos)</td></tr>
 <tr class="memdesc:aa300b9b299eeff78f428777b8e2f6085"><td class="mdescLeft">&#160;</td><td class="mdescRight">Show a context menu for the plot.  <a href="class_plot.html#aa300b9b299eeff78f428777b8e2f6085">More...</a><br /></td></tr>
 <tr class="separator:aa300b9b299eeff78f428777b8e2f6085"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a35bf05de6c8b57618a5848e0978d74ab"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_plot.html#a35bf05de6c8b57618a5848e0978d74ab">graphClicked</a> (QCPAbstractPlottable *plottable, int dataIndex, QMouseEvent *event)</td></tr>
-<tr class="memdesc:a35bf05de6c8b57618a5848e0978d74ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handle a click on a graph.  <a href="class_plot.html#a35bf05de6c8b57618a5848e0978d74ab">More...</a><br /></td></tr>
-<tr class="separator:a35bf05de6c8b57618a5848e0978d74ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7cc931daccc7dc88c3043c7c69c5ee37"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_plot.html#a7cc931daccc7dc88c3043c7c69c5ee37">updatePlot</a> ()</td></tr>
-<tr class="memdesc:a7cc931daccc7dc88c3043c7c69c5ee37"><td class="mdescLeft">&#160;</td><td class="mdescRight">Replot the graph possibly changing the axis ranges.  <a href="class_plot.html#a7cc931daccc7dc88c3043c7c69c5ee37">More...</a><br /></td></tr>
+<tr class="memdesc:a7cc931daccc7dc88c3043c7c69c5ee37"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handle a click on a graph.  <a href="class_plot.html#a7cc931daccc7dc88c3043c7c69c5ee37">More...</a><br /></td></tr>
 <tr class="separator:a7cc931daccc7dc88c3043c7c69c5ee37"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abd704155ede795ec86aea37fd0a07113"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_plot.html#abd704155ede795ec86aea37fd0a07113">disableUpdating</a> ()</td></tr>
 <tr class="memdesc:abd704155ede795ec86aea37fd0a07113"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disable the auto updating timer.  <a href="class_plot.html#abd704155ede795ec86aea37fd0a07113">More...</a><br /></td></tr>
@@ -179,6 +189,10 @@ Private Attributes</h2></td></tr>
 <tr class="separator:aff3ad60ad669a0db6b792087088cd03c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad5c3f52e492bd9aa2ad4e08ad3aac044"><td class="memItemLeft" align="right" valign="top">QAction *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_plot.html#ad5c3f52e492bd9aa2ad4e08ad3aac044">clearSelectionAction</a></td></tr>
 <tr class="separator:ad5c3f52e492bd9aa2ad4e08ad3aac044"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0e522873819d73e3be66ee82216e5177"><td class="memItemLeft" align="right" valign="top">QAction *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_plot.html#a0e522873819d73e3be66ee82216e5177">saveImageAction</a></td></tr>
+<tr class="separator:a0e522873819d73e3be66ee82216e5177"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ade5f875c76aed11ab29ec05e5f290504"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_notification.html">Notification</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_plot.html#ade5f875c76aed11ab29ec05e5f290504">notification</a> = nullptr</td></tr>
+<tr class="separator:ade5f875c76aed11ab29ec05e5f290504"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-static-attribs" name="pri-static-attribs"></a>
 Static Private Attributes</h2></td></tr>
@@ -191,9 +205,9 @@ Static Private Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p >Widget to display a dynamic line graph chart. </p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000007">Todo:</a></b></dt><dd><p class="startdd">Allow to zoom with panning (touchscreen). </p>
-<p class="interdd">Maybe implement custom range dialog. </p>
-<p class="enddd">Implement saving the graph as image. </p>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000008">Todo:</a></b></dt><dd>Better way to disable this warning for MSVC. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000009">Todo:</a></b></dt><dd><p class="startdd">Allow to zoom with panning (touchscreen). </p>
+<p class="enddd">Maybe implement custom range dialog. </p>
 </dd></dl>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a83d9454de4b05fc361c318317658c734" name="a83d9454de4b05fc361c318317658c734"></a>
@@ -219,6 +233,7 @@ Static Private Attributes</h2></td></tr>
   </table>
   </dd>
 </dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000007">Todo:</a></b></dt><dd>Fix HiDPI bug in QCustomPlot library. </dd></dl>
 
 </div>
 </div>
@@ -300,6 +315,32 @@ Here is the caller graph for this function:</div>
 <div class="center"><iframe scrolling="no" frameborder="0" src="class_plot_a20f1b9ce5da6e9baa3a86b7d8359a4f4_icgraph.svg" width="346" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
+
+</div>
+</div>
+<a id="a064d4af6cb40f0e1391e331506641909" name="a064d4af6cb40f0e1391e331506641909"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a064d4af6cb40f0e1391e331506641909">&#9670;&#160;</a></span>attachNotification()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Plot::attachNotification </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_notification.html">Notification</a> *&#160;</td>
+          <td class="paramname"><em>notification</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Attach a notification instance to the plot widget to notify the user. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">notification</td><td>Pointer to the notification instance </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -515,58 +556,6 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
-<a id="a35bf05de6c8b57618a5848e0978d74ab" name="a35bf05de6c8b57618a5848e0978d74ab"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a35bf05de6c8b57618a5848e0978d74ab">&#9670;&#160;</a></span>graphClicked</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Plot::graphClicked </td>
-          <td>(</td>
-          <td class="paramtype">QCPAbstractPlottable *&#160;</td>
-          <td class="paramname"><em>plottable</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>dataIndex</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">QMouseEvent *&#160;</td>
-          <td class="paramname"><em>event</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">slot</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Handle a click on a graph. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">plottable</td><td>The plottable that was clicked. </td></tr>
-    <tr><td class="paramname">dataIndex</td><td>The nearest data point index to the click position. </td></tr>
-    <tr><td class="paramname">event</td><td>The actual mouse event of the click. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
 <a id="a1cb39884ed956ad7f4731a5faaed0140" name="a1cb39884ed956ad7f4731a5faaed0140"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1cb39884ed956ad7f4731a5faaed0140">&#9670;&#160;</a></span>mouseMove</h2>
 
@@ -673,6 +662,32 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
+<a id="a1bffd40999f0ff50b720bca97e4242c5" name="a1bffd40999f0ff50b720bca97e4242c5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1bffd40999f0ff50b720bca97e4242c5">&#9670;&#160;</a></span>saveImage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Plot::saveImage </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Save the current plot window as png to the local machine. </p>
+<p >Uses the native file dialogue box to select the save location. The resolution and aspect ratio will be the same as the current plot widget. </p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_plot_a1bffd40999f0ff50b720bca97e4242c5_icgraph.svg" width="350" height="86"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
+</div>
+
+</div>
+</div>
 <a id="ae3ce9847c3c33a241d3d1961396f5e7c" name="ae3ce9847c3c33a241d3d1961396f5e7c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae3ce9847c3c33a241d3d1961396f5e7c">&#9670;&#160;</a></span>selectionChanged</h2>
 
@@ -706,6 +721,40 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
+<a id="aa643568078c8d949657f03642c0cb947" name="aa643568078c8d949657f03642c0cb947"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa643568078c8d949657f03642c0cb947">&#9670;&#160;</a></span>stopHardware</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Plot::stopHardware </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">signal</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Emit before saving a plot. Prevent simultaneous export and new data acquisition. </p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_plot_aa643568078c8d949657f03642c0cb947_icgraph.svg" width="530" height="86"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
+</div>
+
+</div>
+</div>
 <a id="a7cc931daccc7dc88c3043c7c69c5ee37" name="a7cc931daccc7dc88c3043c7c69c5ee37"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7cc931daccc7dc88c3043c7c69c5ee37">&#9670;&#160;</a></span>updatePlot</h2>
 
@@ -729,7 +778,18 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Replot the graph possibly changing the axis ranges. </p>
+<p>Handle a click on a graph. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">plottable</td><td>The plottable that was clicked. </td></tr>
+    <tr><td class="paramname">dataIndex</td><td>The nearest data point index to the click position. </td></tr>
+    <tr><td class="paramname">event</td><td>The actual mouse event of the click. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000011">Todo:</a></b></dt><dd>Create implementation </dd></dl>
+<p >Replot the graph possibly changing the axis ranges. </p>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000010">Todo:</a></b></dt><dd>Scale to what data-range is in the viewport as option (default?). </dd></dl>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -1019,6 +1079,50 @@ Here is the caller graph for this function:</div>
       <table class="memname">
         <tr>
           <td class="memname">double Plot::minValue = 0.0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ade5f875c76aed11ab29ec05e5f290504" name="ade5f875c76aed11ab29ec05e5f290504"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ade5f875c76aed11ab29ec05e5f290504">&#9670;&#160;</a></span>notification</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_notification.html">Notification</a>* Plot::notification = nullptr</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0e522873819d73e3be66ee82216e5177" name="a0e522873819d73e3be66ee82216e5177"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0e522873819d73e3be66ee82216e5177">&#9670;&#160;</a></span>saveImageAction</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QAction* Plot::saveImageAction</td>
         </tr>
       </table>
   </td>

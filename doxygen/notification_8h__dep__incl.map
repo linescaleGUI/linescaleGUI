@@ -1,7 +1,9 @@
 <map id="src/notification/notification.h" name="src/notification/notification.h">
-<area shape="rect" id="node1" title="Notification declaration" alt="" coords="105,5,288,31"/>
-<area shape="rect" id="node2" href="$mainwindow_8cpp.html" title="MainWindow implementation" alt="" coords="5,152,167,177"/>
-<area shape="rect" id="node3" href="$mainwindow_8h.html" title="MainWindow declaration" alt="" coords="123,79,270,104"/>
-<area shape="rect" id="node5" href="$notification_8cpp.html" title="Notification implementation" alt="" coords="295,79,491,104"/>
-<area shape="rect" id="node4" href="$main_8cpp.html" title="Main file of project linescaleGUI." alt="" coords="191,152,287,177"/>
+<area shape="rect" id="node1" title="Notification declaration" alt="" coords="127,5,309,31"/>
+<area shape="rect" id="node2" href="$mainwindow_8cpp.html" title="MainWindow implementation" alt="" coords="5,225,167,251"/>
+<area shape="rect" id="node3" href="$mainwindow_8h.html" title="MainWindow declaration" alt="" coords="123,152,270,177"/>
+<area shape="rect" id="node5" href="$plot_widget_8h.html" title="Plot declaration" alt="" coords="203,79,339,104"/>
+<area shape="rect" id="node7" href="$notification_8cpp.html" title="Notification implementation" alt="" coords="364,79,560,104"/>
+<area shape="rect" id="node4" href="$main_8cpp.html" title="Main file of project linescaleGUI." alt="" coords="191,225,287,251"/>
+<area shape="rect" id="node6" href="$plot_widget_8cpp.html" title="Plot implementation" alt="" coords="295,152,445,177"/>
 </map>
