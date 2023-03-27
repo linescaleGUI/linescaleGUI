@@ -134,6 +134,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a3ff7ddcdaf0f923be560692266d3580f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcomm_1_1_comm_master.html#a3ff7ddcdaf0f923be560692266d3580f">setNewFreq</a> (int newFreq)</td></tr>
 <tr class="memdesc:a3ff7ddcdaf0f923be560692266d3580f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set a new frequency on the device.  <a href="classcomm_1_1_comm_master.html#a3ff7ddcdaf0f923be560692266d3580f">More...</a><br /></td></tr>
 <tr class="separator:a3ff7ddcdaf0f923be560692266d3580f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acf1e9b9d32556359579fb330d00040f0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcomm_1_1_comm_master.html#acf1e9b9d32556359579fb330d00040f0">setNewUnit</a> (<a class="el" href="parser_8h.html#abff5caf087a07cc148739d3b4dbbe65b">UnitValue</a> unit)</td></tr>
+<tr class="memdesc:acf1e9b9d32556359579fb330d00040f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set a new unit on the device.  <a href="classcomm_1_1_comm_master.html#acf1e9b9d32556359579fb330d00040f0">More...</a><br /></td></tr>
+<tr class="separator:acf1e9b9d32556359579fb330d00040f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-slots" name="pri-slots"></a>
 Private Slots</h2></td></tr>
@@ -202,7 +205,7 @@ Private Attributes</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>true Connection established </dd>
 <dd>
 false Connection failed </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000001">Todo:</a></b></dt><dd>add BLE ctor </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000002">Todo:</a></b></dt><dd>add BLE ctor </dd></dl>
 
 </div>
 </div>
@@ -263,10 +266,10 @@ Here is the caller graph for this function:</div>
 
 <p>Search all possible devices on either USB or BLE. </p>
 <dl class="section return"><dt>Returns</dt><dd>QList&lt;QString&gt;&amp; Reference to a list with all devices </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000002">Todo:</a></b></dt><dd>Check vendorID on multiple devices/batches </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000003">Todo:</a></b></dt><dd>remove already connected devices from this list </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000004">Todo:</a></b></dt><dd></dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000005">Todo:</a></b></dt><dd>Add code for BLE pull </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000003">Todo:</a></b></dt><dd>Check vendorID on multiple devices/batches </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000004">Todo:</a></b></dt><dd>remove already connected devices from this list </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000005">Todo:</a></b></dt><dd></dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000006">Todo:</a></b></dt><dd>Add code for BLE pull </dd></dl>
 
 </div>
 </div>
@@ -441,7 +444,7 @@ Here is the caller graph for this function:</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classcomm_1_1_comm_master_a8605d1bc19aed2046b6b4593ac1b361c_icgraph.svg" width="100%" height="370"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classcomm_1_1_comm_master_a8605d1bc19aed2046b6b4593ac1b361c_icgraph.svg" width="100%" height="415"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
 
@@ -500,6 +503,38 @@ Here is the caller graph for this function:</div>
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classcomm_1_1_comm_master_a3ff7ddcdaf0f923be560692266d3580f_icgraph.svg" width="100%" height="300"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+</div>
+
+</div>
+</div>
+<a id="acf1e9b9d32556359579fb330d00040f0" name="acf1e9b9d32556359579fb330d00040f0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acf1e9b9d32556359579fb330d00040f0">&#9670;&#160;</a></span>setNewUnit()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void comm::CommMaster::setNewUnit </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="parser_8h.html#abff5caf087a07cc148739d3b4dbbe65b">UnitValue</a>&#160;</td>
+          <td class="paramname"><em>unit</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set a new unit on the device. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">unit</td><td><code>UnitValue</code> to switch to </td></tr>
+  </table>
+  </dd>
+</dl>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classcomm_1_1_comm_master_acf1e9b9d32556359579fb330d00040f0_icgraph.svg" width="100%" height="300"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
 

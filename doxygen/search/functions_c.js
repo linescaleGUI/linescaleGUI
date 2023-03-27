@@ -11,7 +11,8 @@ var searchData=
   ['setcommunicationmaster_8',['setCommunicationMaster',['../class_connection_widget.html#ad0980ccc72b04786d7553cae02c7dadb',1,'ConnectionWidget']]],
   ['setfreq_9',['setFreq',['../classcomm_1_1_comm_device.html#a4bebce0d23c54f80f705221e9175b5ad',1,'comm::CommDevice']]],
   ['setnewfreq_10',['setNewFreq',['../classcomm_1_1_comm_master.html#a3ff7ddcdaf0f923be560692266d3580f',1,'comm::CommMaster']]],
-  ['showevent_11',['showEvent',['../class_dialog_connect.html#a837300a8690091004b49817fd9778be8',1,'DialogConnect']]],
-  ['showlog_12',['showLog',['../class_main_window.html#abcc6ca124ea45bfd45bf0d484837343c',1,'MainWindow']]],
-  ['stophardware_13',['stopHardware',['../class_plot.html#aa643568078c8d949657f03642c0cb947',1,'Plot']]]
+  ['setnewunit_11',['setNewUnit',['../classcomm_1_1_comm_master.html#acf1e9b9d32556359579fb330d00040f0',1,'comm::CommMaster']]],
+  ['showevent_12',['showEvent',['../class_dialog_connect.html#a837300a8690091004b49817fd9778be8',1,'DialogConnect']]],
+  ['showlog_13',['showLog',['../class_main_window.html#abcc6ca124ea45bfd45bf0d484837343c',1,'MainWindow']]],
+  ['stophardware_14',['stopHardware',['../class_plot.html#aa643568078c8d949657f03642c0cb947',1,'Plot']]]
 ];

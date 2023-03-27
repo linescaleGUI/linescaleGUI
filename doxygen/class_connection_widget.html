@@ -117,6 +117,9 @@ Private Slots</h2></td></tr>
 <tr class="memitem:abae7db7f76bb5ef89d3be9d3e253c737"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_connection_widget.html#abae7db7f76bb5ef89d3be9d3e253c737">requestNewFreq</a> (int index)</td></tr>
 <tr class="memdesc:abae7db7f76bb5ef89d3be9d3e253c737"><td class="mdescLeft">&#160;</td><td class="mdescRight">Request new frequency from the connected device.  <a href="class_connection_widget.html#abae7db7f76bb5ef89d3be9d3e253c737">More...</a><br /></td></tr>
 <tr class="separator:abae7db7f76bb5ef89d3be9d3e253c737"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afd7b82ac6da432c673e112cc67979f3d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_connection_widget.html#afd7b82ac6da432c673e112cc67979f3d">requestNewUnit</a> (int index)</td></tr>
+<tr class="memdesc:afd7b82ac6da432c673e112cc67979f3d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Request new unit from the connected device.  <a href="class_connection_widget.html#afd7b82ac6da432c673e112cc67979f3d">More...</a><br /></td></tr>
+<tr class="separator:afd7b82ac6da432c673e112cc67979f3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
@@ -126,6 +129,9 @@ Private Member Functions</h2></td></tr>
 <tr class="memitem:afe8f98a2ebbe99090ef955a95a4b3399"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_connection_widget.html#afe8f98a2ebbe99090ef955a95a4b3399">updateCurrentFrequency</a> (int frequency)</td></tr>
 <tr class="memdesc:afe8f98a2ebbe99090ef955a95a4b3399"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper function for updateWidget to display the current frequency.  <a href="class_connection_widget.html#afe8f98a2ebbe99090ef955a95a4b3399">More...</a><br /></td></tr>
 <tr class="separator:afe8f98a2ebbe99090ef955a95a4b3399"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad82afb5676b22e70cb2d53b5233a0a7d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_connection_widget.html#ad82afb5676b22e70cb2d53b5233a0a7d">updateUnit</a> (<a class="el" href="parser_8h.html#abff5caf087a07cc148739d3b4dbbe65b">UnitValue</a> unit)</td></tr>
+<tr class="memdesc:ad82afb5676b22e70cb2d53b5233a0a7d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper function for updateWidget to display the current unit.  <a href="class_connection_widget.html#ad82afb5676b22e70cb2d53b5233a0a7d">More...</a><br /></td></tr>
+<tr class="separator:ad82afb5676b22e70cb2d53b5233a0a7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -137,8 +143,8 @@ Private Attributes</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p >Widget to display informations about a single connection. </p>
 <p >This class can display information extracted from the data stream to the user. It also enables interaction with a device; e.g. change the frequency or disconnect from a device.</p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000006">Todo:</a></b></dt><dd><p class="startdd">Add method to update the remaining data (battery, frequency...) </p>
-<p class="enddd">Differentiate between USB and BLE regarding supported frequencies</p>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000001">Todo:</a></b></dt><dd><p class="startdd">Differentiate between USB and BLE regarding supported frequencies </p>
+<p class="enddd">Lower the update frequency on this widget (1280Hz is way too much...)</p>
 </dd></dl>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a832811b8c579f99b44e45d0b30cef1fd" name="a832811b8c579f99b44e45d0b30cef1fd"></a>
@@ -224,6 +230,48 @@ Private Attributes</h2></td></tr>
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><iframe scrolling="no" frameborder="0" src="class_connection_widget_abae7db7f76bb5ef89d3be9d3e253c737_icgraph.svg" width="434" height="51"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
+</div>
+
+</div>
+</div>
+<a id="afd7b82ac6da432c673e112cc67979f3d" name="afd7b82ac6da432c673e112cc67979f3d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afd7b82ac6da432c673e112cc67979f3d">&#9670;&#160;</a></span>requestNewUnit</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ConnectionWidget::requestNewUnit </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>index</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">slot</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Request new unit from the connected device. </p>
+<p >Called upon a change on the unit selector. Takes the userdata from the selector and calls the <code><a class="el" href="classcomm_1_1_comm_master.html" title="Class to handle all connections to the connected LineScales.">comm::CommMaster</a></code> instance to request a new unit.</p>
+<dl class="section note"><dt>Note</dt><dd>The index sent by QComboBox::currentIndexChanged(int index) will be -1 if the box is empty, which would result in an array out-of-bounds access. Thus the method does nothing if the index is -1.</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">index</td><td>Index of the current item in the unit selector </td></tr>
+  </table>
+  </dd>
+</dl>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_connection_widget_afd7b82ac6da432c673e112cc67979f3d_icgraph.svg" width="434" height="51"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 
@@ -334,6 +382,47 @@ Here is the caller graph for this function:</div>
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><iframe scrolling="no" frameborder="0" src="class_connection_widget_afe8f98a2ebbe99090ef955a95a4b3399_icgraph.svg" width="403" height="51"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
+</div>
+
+</div>
+</div>
+<a id="ad82afb5676b22e70cb2d53b5233a0a7d" name="ad82afb5676b22e70cb2d53b5233a0a7d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad82afb5676b22e70cb2d53b5233a0a7d">&#9670;&#160;</a></span>updateUnit()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ConnectionWidget::updateUnit </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="parser_8h.html#abff5caf087a07cc148739d3b4dbbe65b">UnitValue</a>&#160;</td>
+          <td class="paramname"><em>unit</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Helper function for updateWidget to display the current unit. </p>
+<p >Updates the comboBox with the current unit.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">unit</td><td><code>UnitValue</code> of the device. </td></tr>
+  </table>
+  </dd>
+</dl>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_connection_widget_ad82afb5676b22e70cb2d53b5233a0a7d_icgraph.svg" width="427" height="51"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 

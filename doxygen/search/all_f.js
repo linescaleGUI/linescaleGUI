@@ -15,6 +15,7 @@ var searchData=
   ['replaceversioninfo_12',['replaceVersionInfo',['../class_dialog_about.html#acbfa552dd5f2266db2187855a45fc0e9',1,'DialogAbout']]],
   ['requestconnection_13',['requestConnection',['../class_dialog_connect.html#abc963c4db196e7c66eb3a61591c6da76',1,'DialogConnect']]],
   ['requestnewfreq_14',['requestNewFreq',['../class_connection_widget.html#abae7db7f76bb5ef89d3be9d3e253c737',1,'ConnectionWidget']]],
-  ['requestonline_15',['REQUESTONLINE',['../namespacecommand.html#a8ab1b9eef29e69f2da619fd414751a90',1,'command']]],
-  ['resetpeak_16',['RESETPEAK',['../namespacecommand.html#a094d20f541d0d575c8a33d6aa5a81818',1,'command']]]
+  ['requestnewunit_15',['requestNewUnit',['../class_connection_widget.html#afd7b82ac6da432c673e112cc67979f3d',1,'ConnectionWidget']]],
+  ['requestonline_16',['REQUESTONLINE',['../namespacecommand.html#a8ab1b9eef29e69f2da619fd414751a90',1,'command']]],
+  ['resetpeak_17',['RESETPEAK',['../namespacecommand.html#a094d20f541d0d575c8a33d6aa5a81818',1,'command']]]
 ];

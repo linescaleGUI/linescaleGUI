@@ -1,0 +1,4 @@
+<map id="ConnectionWidget::requestNewUnit" name="ConnectionWidget::requestNewUnit">
+<area shape="rect" id="node1" title="Request new unit from the connected device." alt="" coords="252,5,428,45"/>
+<area shape="rect" id="node2" href="$class_connection_widget.html#a832811b8c579f99b44e45d0b30cef1fd" title="Constructor of the class." alt="" coords="5,5,204,45"/>
+</map>

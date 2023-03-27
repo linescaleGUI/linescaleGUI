@@ -1,7 +1,9 @@
 <map id="comm::CommMaster::sendData" name="comm::CommMaster::sendData">
-<area shape="rect" id="node1" title="Send data to the connected devices." alt="" coords="743,31,945,56"/>
+<area shape="rect" id="node1" title="Send data to the connected devices." alt="" coords="743,55,945,80"/>
 <area shape="rect" id="node2" href="$classcomm_1_1_comm_master.html#a7ce73489c87b14a0781b2e07f87a5d7b" title="Send data to the connected devices." alt="" coords="484,5,687,31"/>
 <area shape="rect" id="node3" href="$classcomm_1_1_comm_master.html#a3ff7ddcdaf0f923be560692266d3580f" title="Set a new frequency on the device." alt="" coords="476,55,695,80"/>
-<area shape="rect" id="node4" href="$class_connection_widget.html#abae7db7f76bb5ef89d3be9d3e253c737" title="Request new frequency from the connected device." alt="" coords="252,47,428,87"/>
-<area shape="rect" id="node5" href="$class_connection_widget.html#a832811b8c579f99b44e45d0b30cef1fd" title="Constructor of the class." alt="" coords="5,47,204,87"/>
+<area shape="rect" id="node6" href="$classcomm_1_1_comm_master.html#acf1e9b9d32556359579fb330d00040f0" title="Set a new unit on the device." alt="" coords="477,108,694,133"/>
+<area shape="rect" id="node4" href="$class_connection_widget.html#abae7db7f76bb5ef89d3be9d3e253c737" title="Request new frequency from the connected device." alt="" coords="252,43,428,83"/>
+<area shape="rect" id="node5" href="$class_connection_widget.html#a832811b8c579f99b44e45d0b30cef1fd" title="Constructor of the class." alt="" coords="5,75,204,115"/>
+<area shape="rect" id="node7" href="$class_connection_widget.html#afd7b82ac6da432c673e112cc67979f3d" title="Request new unit from the connected device." alt="" coords="252,107,428,147"/>
 </map>

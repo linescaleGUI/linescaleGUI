@@ -1,8 +1,9 @@
 <map id="Notification::push" name="Notification::push">
-<area shape="rect" id="node1" title="Method to write a notification to the already specified text browser." alt="" coords="469,55,591,80"/>
-<area shape="rect" id="node2" href="$class_plot.html#a1bffd40999f0ff50b720bca97e4242c5" title="Save the current plot window as png to the local machine." alt="" coords="268,104,383,129"/>
-<area shape="rect" id="node5" href="$class_notification.html#a55ba3de37658a449ffc4687e7f984776" title="Method to save the current context of the text browser to a file. A system file dialog will open wher..." alt="" coords="254,5,397,31"/>
-<area shape="rect" id="node6" href="$class_main_window.html#a55493aa4ef69fc35e7fa5177f65fe415" title="Start or stop the readings." alt="" coords="229,55,421,80"/>
-<area shape="rect" id="node3" href="$class_main_window.html#a996c5a2b6f77944776856f08ec30858d" title=" " alt="" coords="5,55,181,80"/>
-<area shape="rect" id="node4" href="$class_plot.html#a83d9454de4b05fc361c318317658c734" title="Create a new Plot widget." alt="" coords="56,104,131,129"/>
+<area shape="rect" id="node1" title="Method to write a notification to the already specified text browser." alt="" coords="492,80,613,105"/>
+<area shape="rect" id="node2" href="$class_main_window.html#a477a34ee6ac7f461c2cd70a29c94ca7f" title="Receive new sample from CommMaster." alt="" coords="229,5,444,31"/>
+<area shape="rect" id="node4" href="$class_plot.html#a1bffd40999f0ff50b720bca97e4242c5" title="Save the current plot window as png to the local machine." alt="" coords="279,153,394,179"/>
+<area shape="rect" id="node6" href="$class_notification.html#a55ba3de37658a449ffc4687e7f984776" title="Method to save the current context of the text browser to a file. A system file dialog will open wher..." alt="" coords="265,55,408,80"/>
+<area shape="rect" id="node7" href="$class_main_window.html#a55493aa4ef69fc35e7fa5177f65fe415" title="Start or stop the readings." alt="" coords="241,104,433,129"/>
+<area shape="rect" id="node3" href="$class_main_window.html#a996c5a2b6f77944776856f08ec30858d" title=" " alt="" coords="5,80,181,105"/>
+<area shape="rect" id="node5" href="$class_plot.html#a83d9454de4b05fc361c318317658c734" title="Create a new Plot widget." alt="" coords="56,153,131,179"/>
 </map>

@@ -4,5 +4,6 @@ var searchData=
   ['updatecurrentfrequency_1',['updateCurrentFrequency',['../class_connection_widget.html#afe8f98a2ebbe99090ef955a95a4b3399',1,'ConnectionWidget']]],
   ['updatefrequencyselector_2',['updateFrequencySelector',['../class_dialog_connect.html#a8ef7e960babc0633808e4327903d67ba',1,'DialogConnect']]],
   ['updateplot_3',['updatePlot',['../class_plot.html#a7cc931daccc7dc88c3043c7c69c5ee37',1,'Plot']]],
-  ['updatewidget_4',['updateWidget',['../class_connection_widget.html#ad7aadace10b9bc95463348088a74ab5f',1,'ConnectionWidget']]]
+  ['updateunit_4',['updateUnit',['../class_connection_widget.html#ad82afb5676b22e70cb2d53b5233a0a7d',1,'ConnectionWidget']]],
+  ['updatewidget_5',['updateWidget',['../class_connection_widget.html#ad7aadace10b9bc95463348088a74ab5f',1,'ConnectionWidget']]]
 ];

@@ -7,5 +7,6 @@ var searchData=
   ['removeconnection_4',['removeConnection',['../classcomm_1_1_comm_master.html#ae7bbc2f4ecf3dce003260b666780a689',1,'comm::CommMaster']]],
   ['replaceversioninfo_5',['replaceVersionInfo',['../class_dialog_about.html#acbfa552dd5f2266db2187855a45fc0e9',1,'DialogAbout']]],
   ['requestconnection_6',['requestConnection',['../class_dialog_connect.html#abc963c4db196e7c66eb3a61591c6da76',1,'DialogConnect']]],
-  ['requestnewfreq_7',['requestNewFreq',['../class_connection_widget.html#abae7db7f76bb5ef89d3be9d3e253c737',1,'ConnectionWidget']]]
+  ['requestnewfreq_7',['requestNewFreq',['../class_connection_widget.html#abae7db7f76bb5ef89d3be9d3e253c737',1,'ConnectionWidget']]],
+  ['requestnewunit_8',['requestNewUnit',['../class_connection_widget.html#afd7b82ac6da432c673e112cc67979f3d',1,'ConnectionWidget']]]
 ];
