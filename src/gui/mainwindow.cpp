@@ -127,10 +127,10 @@ void MainWindow::triggerReadings(bool forceStop) {
 void MainWindow::receiveNewSample(Sample reading) {
     if (!statusReading) {
         notification->push("Start reading");
+        statusReading = true;
     }
     if (currentUnit != reading.unitValue) {
         maxValue = -1000;  // Trigger reset of peak value to update the unit
-        statusReading = true;
         currentUnit = reading.unitValue;
         switch (reading.unitValue) {
             case UnitValue::KN:
