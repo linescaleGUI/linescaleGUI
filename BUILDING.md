@@ -51,3 +51,30 @@
     - **MacOS**: TBD
 4. Configure the project.
 5. Build the project.
+
+## Create packages
+
+### ZIP / Installer on windows
+1. Configure and build the cmake project in release mode.
+2. Run `cmake --install build/Release/ --prefix <install_dir>`
+    This will install all binaries into `<install_dir>`.
+3. Create packages with cpack:
+    1. (ZIP) `cpack -G ZIP --config build/Release/BundleConfig.cmake`
+    2. (Qt Installer Framework) `cpack -G IFW --config build/Release/BundleConfig.cmake`
+
+
+### AppImage on Linux
+1. Download the needed tools [Linuxdeploy](https://github.com/linuxdeploy/linuxdeploy/releases) and [Qt plugin](https://github.com/linuxdeploy/linuxdeploy-plugin-qt/releases)
+2. Make the tools executable and add them to the binary directory of qt.
+3. Install all required qt libraries (see below)
+4. `cmake -S . -B build -DCMAKE_BUILD_TYPE=debug -G Ninja`
+5. `cmake --build build`
+6. `cpack -G External --config build/BundleConfig.cmake`
+
+Required libraries (download via [aqtinstall](https://github.com/miurahr/aqtinstall))
+```
+libgl1-mesa-dev libpulse-dev libxcb-glx0 libxcb-icccm4 libxcb-image0 libxcb-keysyms1 
+libxcb-randr0 libxcb-render-util0 libxcb-render0 libxcb-shape0 libxcb-shm0 libxcb-sync1 
+libxcb-util1 libxcb-xfixes0 libxcb-xinerama0 libxcb1 libxkbcommon-dev libxcb-xkb-dev 
+libxcb-image0 libxcb-keysyms1 libxcb-render-util0 libxcb-xkb1 libxkbcommon-x11-0
+```
