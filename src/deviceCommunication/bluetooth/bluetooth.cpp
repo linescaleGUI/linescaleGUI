@@ -94,7 +94,7 @@ bool Bluetooth::isScanning(void) {
 }
 
 void Bluetooth::localDeviceErrorOccurred(QBluetoothLocalDevice::Error error) {
-    notification->push("Local device error occurred" + error, Notification::SEVERITY_ERROR);
+    notification->push("Local device error occurred" + error, Notification::SEVERITY_CRITICAL);
 }
 
 void Bluetooth::localDeviceHostModeStateChanged(QBluetoothLocalDevice::HostMode state) {
@@ -130,7 +130,7 @@ void Bluetooth::deviceDiscoveryAgentDeviceDiscovered(
 
 void Bluetooth::deviceDiscoveryAgentErrorOccurred(QBluetoothDeviceDiscoveryAgent::Error error) {
     notification->push("Error occurred during device discovery: " + error,
-                       Notification::SEVERITY_ERROR);
+                       Notification::SEVERITY_CRITICAL);
 }
 
 void Bluetooth::deviceDiscoveryAgentFinished() {
