@@ -44,7 +44,7 @@ jobs:
           target: 'desktop'
           dir: '${{ github.workspace }}'
           install-deps: 'true'
-          modules: 'qtcharts'
+          modules: ''
           archives: 'qtbase qtconnectivity qtserialport ${{ matrix.config.qt_archives }}'
           cache: 'true'
           cache-key-prefix: 'install-qt-action'

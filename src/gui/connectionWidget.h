@@ -42,8 +42,8 @@ class ConnectionWidget;
  * It also enables interaction with a device; e.g. change the frequency or
  * disconnect from a device.
  *
- * @todo Add method to update the remaining data (battery, frequency...)
  * @todo Differentiate between USB and BLE regarding supported frequencies
+ * @todo Lower the update frequency on this widget (1280Hz is way too much...)
  *
  */
 class ConnectionWidget : public QWidget {
@@ -102,6 +102,20 @@ class ConnectionWidget : public QWidget {
      */
     void requestNewFreq(int index);
 
+    /**
+     * @brief Request new unit from the connected device
+     *
+     * Called upon a change on the unit selector. Takes the userdata from
+     * the selector and calls the `comm::CommMaster` instance to request a new unit.
+     *
+     * @note The index sent by QComboBox::currentIndexChanged(int index) will be -1
+     * if the box is empty, which would result in an array out-of-bounds access.
+     * Thus the method does nothing if the index is -1.
+     *
+     * @param index Index of the current item in the unit selector
+     */
+    void requestNewUnit(int index);
+
    private:
     /**
      * @brief Helper function for `updateWidget` to update the battery icon
@@ -123,6 +137,15 @@ class ConnectionWidget : public QWidget {
      * @param frequency Frequency in Hz (10, 40, 640, 1280)
      */
     void updateCurrentFrequency(int frequency);
+
+    /**
+     * @brief Helper function for updateWidget to display the current unit.
+     * 
+     * Updates the comboBox with the current unit.
+     * 
+     * @param unit `UnitValue` of the device.
+     */
+    void updateUnit(UnitValue unit);
     
     Ui::ConnectionWidget* ui;
     comm::CommMaster* communication = nullptr;

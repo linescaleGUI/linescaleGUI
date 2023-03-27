@@ -39,6 +39,7 @@ enum class WorkingMode {
     OVERLOADED,    ///< Indicates that the test is overloaded
     MAX_CAPACITY,  ///< Indicates the maximum capacity (default 3000 not received)
 };
+
 /**
  * @brief   Indicates if the measured force is relative to a previous set value or if it is absolute
  *
@@ -47,6 +48,7 @@ enum class MeasureMode {
     ABS_ZERO,  ///< Represents the absolute zero measurement mode
     REL_ZERO,  ///< Represents the relative zero measurement mode
 };
+
 /**
  * @brief Unit of the measured force
  *
@@ -56,22 +58,24 @@ enum class UnitValue {
     KGF,  ///< The unit of measurement is kgf
     LBF,  ///< Indicates that the unit of measurement is lbf
 };
+
 /**
  * @brief A sample received from a LineScale.
  *
  * This struct holds all data that the LineScale sends in a single packet.
- * A single packet corresponds to a force sample. 
- * The device also sends auxiliary information such as the sampling frequency, 
+ * A single packet corresponds to a force sample.
+ * The device also sends auxiliary information such as the sampling frequency,
  * percent of battery left, and so on.
  */
 struct Sample {
-    WorkingMode workingMode; ///< Indicates the working mode sent by the Line Scale
-    double measuredValue;   ///< Stores value of measured force
-    MeasureMode measureMode;  ///< Indicates if the measured force is relative to a previous set value or if it is absolute
-    double referenceZero;   ///< Stores reference force
-    int batteryPercent; ///< Stores battery voltage of the Line Scale in percent
-    UnitValue unitValue; ///< Stores the unit of the measured force
-    int frequency; ///< Stores the connection frequency between host device and Line Scale
+    WorkingMode workingMode;  ///< Indicates the working mode sent by the Line Scale
+    double measuredValue;     ///< Stores value of measured force
+    MeasureMode measureMode;  ///< Indicates if the measured force is relative to a previous set
+                              ///< value or if it is absolute
+    double referenceZero;     ///< Stores reference force
+    int batteryPercent;       ///< Stores battery voltage of the Line Scale in percent
+    UnitValue unitValue;      ///< Stores the unit of the measured force
+    int frequency;  ///< Stores the connection frequency between host device and Line Scale
 };
 
 /**
@@ -92,7 +96,8 @@ class Parser : public QObject {
      * @return false: If parsing resulted in an error
      */
     bool parsePackage(QByteArray& package, Sample& data);
-    static constexpr size_t PACKET_EXPECTED_LEN = 20;
+    static constexpr size_t PACKET_EXPECTED_LEN =
+        20;  ///< Length the package should have so it would be parsed correctly
 
    private:
     bool checkPackage(QByteArray& package);

@@ -26,8 +26,6 @@
 
 #include "mainwindow.h"
 #include <QDesktopServices>
-#include <QFileDialog>
-#include <QStandardPaths>
 #include <QTimer>
 #include "../deviceCommunication/command.h"
 #include "../notification/notification.h"
@@ -44,6 +42,7 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWi
     dDebug = new DialogDebug(comm, this);
     dConnect = new DialogConnect(comm, this);
     ui->widgetConnection->setCommunicationMaster(comm);
+    ui->widgetChart->attachNotification(notification);
 
     // menu actions
     connect(ui->actionAbout_Qt, &QAction::triggered, qApp, &QApplication::aboutQt);
@@ -54,6 +53,7 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWi
     connect(ui->actionShowLog, &QAction::triggered, this, &MainWindow::showLog);
     connect(ui->actionClearLog, &QAction::triggered, notification, &Notification::clear);
     connect(ui->actionSaveLog, &QAction::triggered, notification, &Notification::saveLog);
+    connect(ui->actionSaveImage, &QAction::triggered, ui->widgetChart, &Plot::saveImage);
 
     // Tool bar actions
     connect(ui->actionConnect, &QAction::triggered, dConnect, &DialogConnect::show);
@@ -68,6 +68,9 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWi
     // updates from CommMaster
     connect(comm, &comm::CommMaster::newSampleMaster, this, &MainWindow::receiveNewSample);
     connect(comm, &comm::CommMaster::changedStateMaster, this, &MainWindow::toggleActions);
+
+    // Signal from plotWidget
+    connect(ui->widgetChart, &Plot::stopHardware, this, [=]{triggerReadings(true);});
 
     // disable wait for close, automatic close after main window close
     dAbout->setAttribute(Qt::WA_QuitOnClose, false);
@@ -111,9 +114,9 @@ void MainWindow::sendSetRelativeZero() {
     comm->sendData(command::SETZERO);
 }
 
-void MainWindow::triggerReadings() {
+void MainWindow::triggerReadings(bool forceStop) {
+    statusReading = forceStop ? forceStop : statusReading;
     if (!statusReading) {
-        notification->push("Start reading");
         comm->sendData(command::REQUESTONLINE);
     } else {
         QTimer::singleShot(10, [=] { statusReading = false; });
@@ -123,9 +126,12 @@ void MainWindow::triggerReadings() {
 }
 
 void MainWindow::receiveNewSample(Sample reading) {
-    statusReading = true;
-    if(currentUnit != reading.unitValue) {
-        maxValue = 0; // Trigger reset of peak value to update the unit
+    if (!statusReading) {
+        notification->push("Start reading");
+    }
+    if (currentUnit != reading.unitValue) {
+        maxValue = -1000;  // Trigger reset of peak value to update the unit
+        statusReading = true;
         currentUnit = reading.unitValue;
         switch (reading.unitValue) {
             case UnitValue::KN:
@@ -158,4 +164,6 @@ void MainWindow::toggleActions(bool connected) {
     ui->actionStartStop->setEnabled(connected);
     ui->actionConnect->setEnabled(!connected);
     ui->widgetConnection->setEnabled(connected);
+    ui->groupCurrent->setEnabled(connected);
+    ui->groupPeak->setEnabled(connected);
 }

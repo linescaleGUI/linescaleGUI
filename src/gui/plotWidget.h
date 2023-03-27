@@ -28,7 +28,14 @@
 #ifndef PLOTWIDGET_H_
 #define PLOTWIDGET_H_
 
-// @todo Better way to disable this warning for MSVC.
+#include <QTimer>
+#include <QVector>
+#include <QWidget>
+
+#include "../notification/notification.h"
+#include "../parser/parser.h"
+
+/// @todo Better way to disable this warning for MSVC.
 #if _MSC_VER && !__INTEL_COMPILER
 #pragma warning(push)
 #pragma warning(disable : 4127)
@@ -38,20 +45,15 @@
 #include <QCustomPlot/qcustomplot.h>
 #endif
 
-#include <QTimer>
-#include <QVector>
-#include <QWidget>
-
-#include "../parser/parser.h"
-
 /**
  * @brief Widget to display a dynamic line graph chart.
  *
  * @todo Allow to zoom with panning (touchscreen).
  * @todo Maybe implement custom range dialog.
- * @todo Implement saving the graph as image.
  */
 class Plot : public QWidget {
+    Q_OBJECT
+
    public:
     /**
      * @brief Create a new Plot widget.
@@ -96,6 +98,22 @@ class Plot : public QWidget {
      */
     void beginNewGraph(bool startFromOrigin = true);
 
+    /**
+     * @brief Save the current plot window as png to the local machine
+     *
+     * Uses the native file dialogue box to select the save location. The resolution
+     * and aspect ratio will be the same as the current plot widget.
+     *
+     */
+    void saveImage();
+
+    /**
+     * @brief Attach a notification instance to the plot widget to notify the user.
+     *
+     * @param notification Pointer to the notification instance
+     */
+    void attachNotification(Notification* notification);
+
    private slots:
     /**
      * @brief Handle a selection change inside the plot.
@@ -129,8 +147,9 @@ class Plot : public QWidget {
      * @param plottable The plottable that was clicked.
      * @param dataIndex The nearest data point index to the click position.
      * @param event The actual mouse event of the click.
+     * @todo Create implementation
      */
-    void graphClicked(QCPAbstractPlottable* plottable, int dataIndex, QMouseEvent* event);
+    // void graphClicked(QCPAbstractPlottable* plottable, int dataIndex, QMouseEvent* event);
 
     /**
      * @brief Replot the graph possibly changing the axis ranges.
@@ -165,6 +184,13 @@ class Plot : public QWidget {
      */
     void convertToNewUnit(UnitValue next);
 
+   signals:
+    /**
+     * @brief Emit before saving a plot. Prevent simultaneous export and new data acquisition
+     *
+     */
+    void stopHardware(void);
+
    private:
     QCustomPlot* customPlot;
     double minValue = 0.0, maxValue = 0.0;
@@ -180,6 +206,9 @@ class Plot : public QWidget {
     QAction* autoRangeAction;
     QAction* autoShowNewestAction;
     QAction* clearSelectionAction;
+    QAction* saveImageAction;
+
+    Notification* notification = nullptr;
 
     static constexpr double factorKnToLbf = 224.8089431;  ///< Convert from kN to lbf
     static constexpr double factorKnToKgf = 101.9716213;  ///< Convert from kN to kgf

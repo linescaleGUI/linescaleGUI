@@ -19,7 +19,7 @@
 /**
  * @file connectionWidget.cpp
  * @authors Gschwind, Weber, Schoch, Niederberger
- * 
+ *
  * @brief `ConnectionWidget` implementation
  *
  */
@@ -28,19 +28,23 @@
 #include <QPushButton>
 #include "ui_connectionWidget.h"
 
-ConnectionWidget::ConnectionWidget(QWidget* parent)
-    : QWidget(parent), ui(new Ui::ConnectionWidget) {
+ConnectionWidget::ConnectionWidget(QWidget* parent) : QWidget(parent), ui(new Ui::ConnectionWidget) {
     ui->setupUi(this);
 
-    ui->boxFreq->addItem("10 Hz", int(10));
-    ui->boxFreq->addItem("40 Hz", int(40));
-    ui->boxFreq->addItem("640 Hz", int(640));
-    ui->boxFreq->addItem("1280 Hz", int(1280));
-    ui->boxFreq->setCurrentIndex(-1); // clear box
+    ui->boxFreq->addItem("10 Hz", static_cast<int>(10));
+    ui->boxFreq->addItem("40 Hz", static_cast<int>(40));
+    ui->boxFreq->addItem("640 Hz", static_cast<int>(640));
+    ui->boxFreq->addItem("1280 Hz", static_cast<int>(1280));
+    ui->boxFreq->setCurrentIndex(-1);  // clear box
+
+    ui->boxUnit->addItem("kN", static_cast<int>(UnitValue::KN));
+    ui->boxUnit->addItem("lbf", static_cast<int>(UnitValue::LBF));
+    ui->boxUnit->addItem("kgf", static_cast<int>(UnitValue::KGF));
+    ui->boxUnit->setCurrentIndex(-1);  // clear box
 
     connect(ui->btnRemove, &QPushButton::pressed, this, [=] { communication->removeConnection(); });
-    connect(ui->boxFreq, QOverload<int>::of(&QComboBox::currentIndexChanged), this,
-            &ConnectionWidget::requestNewFreq);
+    connect(ui->boxFreq, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &ConnectionWidget::requestNewFreq);
+    connect(ui->boxUnit, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &ConnectionWidget::requestNewUnit);
 }
 
 ConnectionWidget::~ConnectionWidget() {
@@ -60,9 +64,19 @@ void ConnectionWidget::requestNewFreq(int index) {
     }
 }
 
+void ConnectionWidget::requestNewUnit(int index) {
+    if (index >= 0 && index < ui->boxUnit->count()) {
+        UnitValue unit = UnitValue(ui->boxUnit->currentData().toInt());
+        if (communication != nullptr) {
+            communication->setNewUnit(unit);
+        }
+    }
+}
+
 void ConnectionWidget::updateWidget(Sample readings) {
     updateBatteryIcon(readings.batteryPercent);
     updateCurrentFrequency(readings.frequency);
+    updateUnit(readings.unitValue);
 }
 
 void ConnectionWidget::updateBatteryIcon(int value) {
@@ -101,7 +115,7 @@ void ConnectionWidget::updateCurrentFrequency(int frequency) {
         case 640:
             indexInComboBox = 2;
             break;
-            
+
         case 1280:
             indexInComboBox = 3;
             break;
@@ -113,4 +127,9 @@ void ConnectionWidget::updateCurrentFrequency(int frequency) {
     if (indexInComboBox < ui->boxFreq->count() && indexInComboBox >= 0) {
         ui->boxFreq->setCurrentIndex(indexInComboBox);
     }
+}
+
+void ConnectionWidget::updateUnit(UnitValue unit) {
+    int index = ui->boxUnit->findData(static_cast<int>(unit));
+    ui->boxUnit->setCurrentIndex(index);
 }

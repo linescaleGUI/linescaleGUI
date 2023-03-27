@@ -172,6 +172,25 @@ void CommMaster::setNewFreq(int newFreq) {
     }
 }
 
+void CommMaster::setNewUnit(UnitValue unit) {
+    switch (unit) {
+        case UnitValue::KN:
+            sendData(command::SWITCHTOKN);
+            break;
+
+        case UnitValue::KGF:
+            sendData(command::SWITCHTOKGF);
+            break;
+
+        case UnitValue::LBF:
+            sendData(command::SWITCHTOLBF);
+            break;
+
+        default:
+            break;
+    }
+}
+
 void CommMaster::discoveredDeviceBluetooth(DeviceInfo& deviceInfo) {
     availableDevices.append(deviceInfo);
     emit discoveredDeviceMaster(deviceInfo);

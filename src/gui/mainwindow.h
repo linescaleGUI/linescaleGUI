@@ -41,7 +41,7 @@
 QT_BEGIN_NAMESPACE
 /**
  * @brief Namespace for all GUI elements
- * 
+ *
  */
 namespace Ui {
 class MainWindow;
@@ -50,7 +50,7 @@ QT_END_NAMESPACE
 
 /**
  * @brief Main window for the application linescaleGUI
- * 
+ *
  */
 class MainWindow : public QMainWindow {
     Q_OBJECT
@@ -132,11 +132,10 @@ class MainWindow : public QMainWindow {
      * `MainWindow::receiveNewSample`.
      * If the host terminates the stream, the bool will be set to false after
      * a delay. This is to prevent buffered data from setting the bool to true.
+     *
+     * @param forceStop If set to true, the connection is paused regardless of the current state.
      */
-    void triggerReadings();
-
-   private:
-    void updateImportantValues(float time, float value);
+    void triggerReadings(bool forceStop = false);
 
    private:
     Ui::MainWindow* ui;

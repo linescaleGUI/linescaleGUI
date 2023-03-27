@@ -44,7 +44,7 @@ class Notification : public QObject {
         SEVERITY_NONE,     ///< No severity level is shown
         SEVERITY_INFO,     ///< Severity level info
         SEVERITY_WARNING,  ///< Severity level warning with colored text
-        SEVERITY_ERROR     ///< Severity level error with colored text and optional error dialog
+        SEVERITY_CRITICAL  ///< Severity level critical with colored text and optional error dialog
     };
 
     /**
@@ -59,7 +59,7 @@ class Notification : public QObject {
      *          browser
      * @param   message Message which shall be written
      * @param   severity Severity level of the notification
-     * @param   showDialog Only applies to SEVERITY_ERROR levels. By setting
+     * @param   showDialog Only applies to SEVERITY_CRITICAL levels. By setting
      *          this parameter to false, the error dialog will not be shown.
      * @return  Returns false if an error occurred. True otherwise.
      */
