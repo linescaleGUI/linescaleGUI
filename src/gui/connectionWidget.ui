@@ -128,6 +128,19 @@
        </widget>
       </item>
       <item>
+       <widget class="QComboBox" name="boxUnit">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+         </sizepolicy>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>9</pointsize>
+         </font>
+        </property>
+       </widget>
+      </item>
+      <item>
        <spacer name="spacerRight">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>

@@ -116,7 +116,6 @@ void MainWindow::sendSetRelativeZero() {
 void MainWindow::triggerReadings(bool forceStop) {
     statusReading = forceStop ? forceStop : statusReading;
     if (!statusReading) {
-        notification->push("Start reading");
         comm->sendData(command::REQUESTONLINE);
     } else {
         QTimer::singleShot(10, [=] { statusReading = false; });
@@ -126,9 +125,12 @@ void MainWindow::triggerReadings(bool forceStop) {
 }
 
 void MainWindow::receiveNewSample(Sample reading) {
-    statusReading = true;
+    if (!statusReading) {
+        notification->push("Start reading");
+    }
     if (currentUnit != reading.unitValue) {
-        maxValue = 0;  // Trigger reset of peak value to update the unit
+        maxValue = -1000;  // Trigger reset of peak value to update the unit
+        statusReading = true;
         currentUnit = reading.unitValue;
         switch (reading.unitValue) {
             case UnitValue::KN:
