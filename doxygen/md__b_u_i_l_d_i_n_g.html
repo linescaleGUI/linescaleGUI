@@ -74,7 +74,7 @@ $(function() {
   <div class="headertitle"><div class="title">Development setup </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><h2><a class="anchor" id="autotoc_md6"></a>
+<div class="textblock"><h2><a class="anchor" id="autotoc_md8"></a>
 Visual Studio Code</h2>
 <ol type="1">
 <li>Open the folder in <a href="https://code.visualstudio.com/">Visual Studio Code</a>.</li>
@@ -102,9 +102,36 @@ Visual Studio Code</h2>
 </ul>
 </li>
 <li>Configure the project.</li>
-<li>Build the project. </li>
+<li>Build the project.</li>
 </ol>
-</div></div><!-- contents -->
+<h1><a class="anchor" id="autotoc_md9"></a>
+Create packages</h1>
+<h2><a class="anchor" id="autotoc_md10"></a>
+ZIP / Installer on windows</h2>
+<ol type="1">
+<li>Configure and build the cmake project in release mode.</li>
+<li>Run <code>cmake --install build/Release/ --prefix &lt;install_dir&gt;</code> This will install all binaries into <code>&lt;install_dir&gt;</code>.</li>
+<li>Create packages with cpack:<ol type="a">
+<li>(ZIP) <code>cpack -G ZIP --config build/Release/BundleConfig.cmake</code></li>
+<li>(Qt Installer Framework) <code>cpack -G IFW --config build/Release/BundleConfig.cmake</code></li>
+</ol>
+</li>
+</ol>
+<h2><a class="anchor" id="autotoc_md11"></a>
+AppImage on Linux</h2>
+<ol type="1">
+<li>Download the needed tools <a href="https://github.com/linuxdeploy/linuxdeploy/releases">Linuxdeploy</a> and <a href="https://github.com/linuxdeploy/linuxdeploy-plugin-qt/releases">Qt plugin</a></li>
+<li>Make the tools executable and add them to the binary directory of qt.</li>
+<li>Install all required qt libraries (see below)</li>
+<li><code>cmake -S . -B build -DCMAKE_BUILD_TYPE=debug -G Ninja</code></li>
+<li><code>cmake --build build</code></li>
+<li><code>cpack -G External --config build/BundleConfig.cmake</code></li>
+</ol>
+<p >Required libraries (download via <a href="https://github.com/miurahr/aqtinstall">aqtinstall</a>) </p><div class="fragment"><div class="line">libgl1-mesa-dev libpulse-dev libxcb-glx0 libxcb-icccm4 libxcb-image0 libxcb-keysyms1 </div>
+<div class="line">libxcb-randr0 libxcb-render-util0 libxcb-render0 libxcb-shape0 libxcb-shm0 libxcb-sync1 </div>
+<div class="line">libxcb-util1 libxcb-xfixes0 libxcb-xinerama0 libxcb1 libxkbcommon-dev libxcb-xkb-dev </div>
+<div class="line">libxcb-image0 libxcb-keysyms1 libxcb-render-util0 libxcb-xkb1 libxkbcommon-x11-0</div>
+</div><!-- fragment --> </div></div><!-- contents -->
 </div><!-- PageDoc -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
