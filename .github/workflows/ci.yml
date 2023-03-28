@@ -15,12 +15,12 @@ jobs:
       fail-fast: false
       matrix:
         config:
-        # - {
-        #     name: "Windows Latest MSVC",
-        #     os: windows-latest,
-        #     build_type: "Debug", generator: "Visual Studio 17 2022",
-        #     qt_archives: "qttools"
-        #   }
+        - {
+            name: "Windows Latest MSVC",
+            os: windows-latest,
+            build_type: "Release", generator: "Visual Studio 17 2022",
+            qt_archives: "qttools"
+          }
         # - {
         #     name: "Ubuntu Latest Clang",
         #     os: ubuntu-latest,
@@ -28,12 +28,12 @@ jobs:
         #     build_type: "Debug", cc: "clang", cxx: "clang++", generator: "Unix Makefiles",
         #     ldflags: "-fuse-ld=lld", qt_archives: "icu"
         #   }
-        - {
-            name: "macOS Latest Clang",
-            os: macos-latest,
-            build_type: "Debug", cc: "clang", cxx: "clang++", generator: "Unix Makefiles",
-            qt_archives: ""
-          }
+        # - {
+        #     name: "macOS Latest Clang",
+        #     os: macos-latest,
+        #     build_type: "Debug", cc: "clang", cxx: "clang++", generator: "Unix Makefiles",
+        #     qt_archives: ""
+        #   }
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -74,15 +74,26 @@ jobs:
         run: |
           cmake --build build
 
-      - name: Create dmg package
-        shell: bash
-        run: |
-          cpack -G External --config build/BundleConfig.cmake 
+      # - name: Create dmg package
+      #   shell: bash
+      #   run: |
+      #     cpack -G External --config build/BundleConfig.cmake 
       
       - name: Run tests
         shell: bash
         run: |
           cd build && ctest -C Debug -T test --output-on-failure
+
+      - name: Pack ZIP on windows-latest
+        shell: bash
+        run: |
+          cmake --build build --config ${{ matrix.config.build_type }} --target bundle
+      
+      - name: Upload ZIP to action tab
+        uses: actions/upload-artifact@v3
+        with:
+          name: my-artifact
+          path: build/${{ matrix.config.build_type }}/*.zip
 
       - name: Setup tmate session
         uses: mxschmitt/action-tmate@v3
