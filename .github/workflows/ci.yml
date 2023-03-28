@@ -86,3 +86,6 @@ jobs:
           ls
           echo "SourceDir"
           ls ../
+
+      - name: Setup tmate session
+        uses: mxschmitt/action-tmate@v3
