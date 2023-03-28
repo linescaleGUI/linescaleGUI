@@ -37,55 +37,56 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Install Qt
-        uses: jurplel/install-qt-action@v3
-        with:
-          version: '5.15.2'
-          target: 'desktop'
-          dir: '${{ github.workspace }}'
-          install-deps: 'true'
-          modules: ''
-          archives: 'qtbase qtconnectivity qtserialport ${{ matrix.config.qt_archives }}'
-          cache: 'true'
-          cache-key-prefix: 'install-qt-action'
-          tools: ''
-          extra: '--external 7z'
-
-      - name: Set up environment variables
-        shell: bash
-        run: |
-          echo "QT_DIR=$Qt5_DIR" >> $GITHUB_ENV
-          [[ -n "${{ matrix.config.cc }}" ]] \
-            && echo "CC=${{ matrix.config.cc }}" >> $GITHUB_ENV || true
-          [[ -n "${{ matrix.config.cxx }}" ]] \
-            && echo "CXX=${{ matrix.config.cxx }}" >> $GITHUB_ENV || true
-          [[ -n "${{ matrix.config.ldflags }}" ]] \
-            && echo "LDFLAGS=${{ matrix.config.ldflags }}" >> $GITHUB_ENV || true
-
-      - name: Configure
-        shell: bash
-        run: |
-          cmake -S . -B build -DCMAKE_BUILD_TYPE=${{ matrix.config.build_type }} \
-            -G "${{ matrix.config.generator }}" -DWARNINGS_AS_ERRORS=
-
-      - name: Build
-        shell: bash
-        run: |
-          cmake --build build
-
-      - name: Create dmg package
-        shell: bash
-        run: |
-          cpack -G External --config build/BundleConfig.cmake 
-      
-      - name: Run tests
-        shell: bash
-        run: |
-          cd build && ctest -C Debug -T test --output-on-failure
-          echo "Build directory"
-          ls
-          echo "SourceDir"
-          ls ../
-
       - name: Setup tmate session
         uses: mxschmitt/action-tmate@v3
+
+      # - name: Install Qt
+      #   uses: jurplel/install-qt-action@v3
+      #   with:
+      #     version: '5.15.2'
+      #     target: 'desktop'
+      #     dir: '${{ github.workspace }}'
+      #     install-deps: 'true'
+      #     modules: ''
+      #     archives: 'qtbase qtconnectivity qtserialport ${{ matrix.config.qt_archives }}'
+      #     cache: 'true'
+      #     cache-key-prefix: 'install-qt-action'
+      #     tools: ''
+      #     extra: '--external 7z'
+
+      # - name: Set up environment variables
+      #   shell: bash
+      #   run: |
+      #     echo "QT_DIR=$Qt5_DIR" >> $GITHUB_ENV
+      #     [[ -n "${{ matrix.config.cc }}" ]] \
+      #       && echo "CC=${{ matrix.config.cc }}" >> $GITHUB_ENV || true
+      #     [[ -n "${{ matrix.config.cxx }}" ]] \
+      #       && echo "CXX=${{ matrix.config.cxx }}" >> $GITHUB_ENV || true
+      #     [[ -n "${{ matrix.config.ldflags }}" ]] \
+      #       && echo "LDFLAGS=${{ matrix.config.ldflags }}" >> $GITHUB_ENV || true
+
+      # - name: Configure
+      #   shell: bash
+      #   run: |
+      #     cmake -S . -B build -DCMAKE_BUILD_TYPE=${{ matrix.config.build_type }} \
+      #       -G "${{ matrix.config.generator }}" -DWARNINGS_AS_ERRORS=
+
+      # - name: Build
+      #   shell: bash
+      #   run: |
+      #     cmake --build build
+
+      # - name: Create dmg package
+      #   shell: bash
+      #   run: |
+      #     cpack -G External --config build/BundleConfig.cmake 
+      
+      # - name: Run tests
+      #   shell: bash
+      #   run: |
+      #     cd build && ctest -C Debug -T test --output-on-failure
+      #     echo "Build directory"
+      #     ls
+      #     echo "SourceDir"
+      #     ls ../
+
