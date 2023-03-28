@@ -2,9 +2,9 @@ name: CI
 
 on:
   push:
-    branches:
-      - main
-  pull_request:
+    # branches:
+    #   - main
+  # pull_request:
 
 jobs:
   build:
@@ -77,3 +77,7 @@ jobs:
         shell: bash
         run: |
           cd build && ctest -C Debug -T test --output-on-failure
+          echo "Build directory"
+          ls
+          echo "SourceDir"
+          ls ../
