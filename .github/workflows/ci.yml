@@ -37,9 +37,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Setup tmate session
-        uses: mxschmitt/action-tmate@v3
-
       - name: Install Qt
         uses: jurplel/install-qt-action@v3
         with:
@@ -85,3 +82,6 @@ jobs:
         shell: bash
         run: |
           cd build && ctest -C Debug -T test --output-on-failure
+
+      - name: Setup tmate session
+        uses: mxschmitt/action-tmate@v3
