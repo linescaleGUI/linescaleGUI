@@ -1,6 +1,6 @@
 [Desktop Entry]
 Type=Application
-Version=1.0
+Version=${CMAKE_PROJECT_VERSION}
 Name=linescaleGUI
 Comment=Graphical user interface for the linescale.
 Terminal=false
