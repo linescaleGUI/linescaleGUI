@@ -686,7 +686,7 @@
         </layout>
        </widget>
       </widget>
-      <widget class="QWidget" name="">
+      <widget class="QWidget" name="layoutWidget">
        <layout class="QVBoxLayout" name="layoutPlotMerged"/>
       </widget>
      </widget>
