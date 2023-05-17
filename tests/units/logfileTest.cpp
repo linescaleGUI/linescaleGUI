@@ -33,7 +33,7 @@
 namespace {
 
 /**
- * @brief Compare two values with each other
+ * @brief Compare two metadata's with each other
  *
  * @param lhs First `Metadata`
  * @param rhs Second `Metadata`
@@ -55,8 +55,6 @@ void checkMetaData(Metadata& lhs, Metadata& rhs) {
 }
 
 void compareFiles(QFile& lhs, QFile& rhs) {
-    // QDir dir(".");
-    // SUCCEED() << QDir::currentPath() << endl;
     if (!lhs.open(QIODevice::ReadOnly)) {
         FAIL() << "Unable to open lhs file";
     }
@@ -67,8 +65,6 @@ void compareFiles(QFile& lhs, QFile& rhs) {
 
     QTextStream streamLHS(&lhs);
     QTextStream streamRHS(&rhs);
-
-    // EXPECT_EQ(lhs.readAll(), rhs.readAll());
 
     int i = 0;
     while (!lhs.atEnd() && !rhs.atEnd()) {
@@ -91,20 +87,24 @@ class LogfileReadTest : public ::testing::Test {
     QVector<float> expectedForceVector;
     float expectedMinForce;
     float expectedMaxForce;
+    int expectedMinForceIndex;
+    int expectedMaxForceIndex;
 
     void TearDown() override {
         checkMetaData(logfile.getMetadata(), expectedMeta);
         EXPECT_EQ(logfile.getForce(), expectedForceVector);
         EXPECT_EQ(logfile.getMinForce(), expectedMinForce);
         EXPECT_EQ(logfile.getMaxForce(), expectedMaxForce);
+        EXPECT_EQ(logfile.getMinForceIndex(), expectedMinForceIndex);
+        EXPECT_EQ(logfile.getMaxForceIndex(), expectedMaxForceIndex);
     }
 };
 
 /**
  * @brief Test fixture for the read test of incorrect logfiles
  *
- * Init logfile and expected data on each test
- * On teardown, compare the return values with the expected data
+ * Init logfile and success bool on each test
+ * On teardown, check that the return value is false
  *
  */
 class LogfileErrorTest : public ::testing::Test {
@@ -162,6 +162,11 @@ Metadata createMetadata(QString deviceID,
     return metadata;
 }
 
+
+// *****************************************************************************
+// Read correct files
+// *****************************************************************************
+
 TEST_F(LogfileReadTest, readCorrectFile0) {
     logfile.setPath("../../../tests/inputFiles/logfile0.csv");
     ASSERT_TRUE(logfile.load());
@@ -170,6 +175,8 @@ TEST_F(LogfileReadTest, readCorrectFile0) {
     expectedForceVector << 1.41 << 4.56 << 314.15 << -271.82 << 345.45;
     expectedMinForce = -271.82;
     expectedMaxForce = 345.45;
+    expectedMinForceIndex = 3;
+    expectedMaxForceIndex = 4;
 }
 
 TEST_F(LogfileReadTest, readCorrectFile1) {
@@ -180,7 +187,14 @@ TEST_F(LogfileReadTest, readCorrectFile1) {
     expectedForceVector << 1.41 << 4.56 << 314.15 << -271.82 << 345.45 << 2;
     expectedMinForce = -271.82;
     expectedMaxForce = 345.45;
+    expectedMinForceIndex = 3;
+    expectedMaxForceIndex = 4;
 }
+
+
+// *****************************************************************************
+// Read incorrect files
+// *****************************************************************************
 
 TEST_F(LogfileErrorTest, splitError) {
     logfile.setPath("../../../tests/inputFiles/logfileErrorSplit.csv");
@@ -203,6 +217,11 @@ TEST(LogfileLoadTest, loadWithoutPath) {
     ASSERT_FALSE(logfile.load());
 }
 
+
+// *****************************************************************************
+// Write data to logfile
+// *****************************************************************************
+
 TEST(LogfileWriteTest, writeCorrectData) {
     Logfile logfile;
     QString outputPath = "logfile_out.csv";
@@ -221,10 +240,11 @@ TEST(LogfileWriteTest, writeCorrectData) {
     exportFile.remove();
 }
 
-/**
- * @brief Dummy test to compare the same file with itself
- *
- */
+
+// *****************************************************************************
+// Test the tests
+// *****************************************************************************
+
 TEST(LogfileWriteTest, compareSameFile) {
     QFile compareTo0("../../../tests/inputFiles/logfile0.csv");
     QFile compareTo1("../../../tests/inputFiles/logfile0.csv");

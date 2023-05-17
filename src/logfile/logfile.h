@@ -64,6 +64,8 @@ class Logfile {
 
     float getMinForce() { return minForce; }
     float getMaxForce() { return maxForce; }
+    float getMinForceIndex() { return minForceIndex; }
+    float getMaxForceIndex() { return maxForceIndex; }
 
     /**
      * @brief Write the current metadata and force vector into a file
@@ -145,6 +147,8 @@ class Logfile {
     QVector<float> forceData;
     float minForce = FLT_MAX;   ///< Minimum force present
     float maxForce = -FLT_MAX;  ///< Maximum force present
+    int minForceIndex = 0;      ///< Index of minForce
+    int maxForceIndex = 0;      ///< Index of maxForce
 };
 
 #endif  // LOGFILE_H_

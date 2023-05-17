@@ -64,14 +64,21 @@ bool Logfile::load() {
             metadata.mode = MeasureMode::REL_ZERO;
         }
 
-        bool singleSuccess;
-        float newForce;
+        int index = 0;
         while (!in.atEnd()) {
-            newForce = in.readLine().toFloat(&singleSuccess);
-            minForce = newForce <= minForce ? newForce : minForce;
-            maxForce = newForce >= maxForce ? newForce : maxForce;
+            bool singleSuccess;
+            float newForce = in.readLine().toFloat(&singleSuccess);
+            if(newForce <= minForce){
+                minForce = newForce;
+                minForceIndex = index;
+            }
+            if(newForce >= maxForce){
+                maxForce = newForce;
+                maxForceIndex = index;
+            }
             forceData.append(newForce);
             forceSuccess = singleSuccess && forceSuccess;
+            ++index;
         }
         file.close();
     }
