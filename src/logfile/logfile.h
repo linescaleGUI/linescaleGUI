@@ -58,7 +58,8 @@ struct Metadata {
  * @brief Class to represent a logfile from the device
  *
  */
-class Logfile {
+class Logfile : public QObject {
+	Q_OBJECT
    public:
     /**
      * @brief Open the file and parse the data

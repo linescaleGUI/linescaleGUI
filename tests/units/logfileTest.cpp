@@ -161,6 +161,19 @@ TEST_F(LogfileReadTest, readCorrectFile1) {
     expectedMaxForceIndex = 4;
 }
 
+TEST(LogfileValidate, validateFile0) {
+    Logfile logfile;
+    logfile.setPath("../../../tests/inputFiles/logfile_long0.csv");
+    ASSERT_TRUE(logfile.load());
+}
+
+TEST(LogfileValidate, validateFile1) {
+    Logfile logfile;
+    logfile.setPath("../../../tests/inputFiles/logfile_long1.csv");
+    ASSERT_TRUE(logfile.load());
+}
+
+
 // *****************************************************************************
 // Read incorrect files
 // *****************************************************************************

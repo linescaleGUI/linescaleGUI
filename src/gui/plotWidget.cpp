@@ -130,6 +130,19 @@ void Plot::beginNewGraph(bool startFromOrigin) {
     }
 }
 
+void Plot::addLogfile(Logfile* logfile) {
+    beginNewGraph(true);
+    QVector<float> forceData = logfile->getForce();
+    QVectorIterator<float> forceDataIterate(forceData);
+    double time = 0;
+    while (forceDataIterate.hasNext()) {
+        addData(time, forceDataIterate.next());
+        time += 1.0/logfile->getMetadata().speed;
+    }
+    updatePlot();
+    customPlot->rescaleAxes();
+}
+
 inline bool testAxisSelected(QCPAxis* axis, QPoint pos, int tolerance) {
     auto val = axis->selectTest(pos, true);
     return val > 0 && val < (double)tolerance;

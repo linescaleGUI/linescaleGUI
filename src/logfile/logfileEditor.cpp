@@ -19,7 +19,7 @@
 /**
  * @file logfileEditor.cpp
  * @authors Gschwind, Weber, Schoch, Niederberger
- * 
+ *
  * @brief `LogfileEditor` implementation
  *
  */
@@ -29,45 +29,39 @@
 
 LogfileEditor::LogfileEditor(QWidget* parent) : QMainWindow(parent), ui(new Ui::LogfileEditor) {
     ui->setupUi(this);
-    show();
 
     plotMerged = new Plot(this);
+    currentPlotSelected = new Plot(this);  // init with empty plot
 
-    listOfPlots.insert("plot0", new Plot(this));
-    listOfPlots.insert("plot1", new Plot(this));
-    listOfPlots.insert("plot2", new Plot(this));
-    listOfPlots.insert("plot3", new Plot(this));
+    Logfile* file0 = new Logfile();
+    Logfile* file1 = new Logfile();
 
-    currentPlotSelected = new Plot(this); // init with empty plot
+    listOfFiles.append(file0);
+    listOfFiles.append(file1);
 
+    file0->setPath("../../tests/inputFiles/logfile_long0.csv");
+    file0->load();
+    plotMerged->addLogfile(file0);
+    updateMetadata(file0);
+
+    file1->setPath("../../tests/inputFiles/logfile_long1.csv");
+    file1->load();
+    plotMerged->addLogfile(file1);
 
     // Hide / show different parts of the editor
     connect(ui->actionFileBrowser, &QAction::triggered, this, &LogfileEditor::showFileBrowser);
     connect(ui->actionSelectedLogfile, &QAction::triggered, this, &LogfileEditor::showSelectedLogfile);
-    connect(ui->btnRemoveFile, &QPushButton::pressed, this, &LogfileEditor::switchPlot);
+    connect(ui->btnLoadFile, &QPushButton::pressed, this, &LogfileEditor::openFile);
 
     ui->layoutPlotSelected->addWidget(currentPlotSelected);
     ui->layoutPlotMerged->addWidget(plotMerged);
 
     ui->layoutPlotMerged->setStretchFactor(plotMerged, 2);
     ui->layoutPlotSelected->setStretchFactor(currentPlotSelected, 2);
-
-    emulateData();
 }
 
 LogfileEditor::~LogfileEditor() {
     delete ui;
-}
-
-void LogfileEditor::emulateData(void) {
-    for(int i = 0; i<50; ++i){
-        listOfPlots["plot0"]->addData(i, 10*sin(i));
-        listOfPlots["plot1"]->addData(i, 20*sin(i));
-        listOfPlots["plot2"]->addData(i, 30*sin(i));
-        listOfPlots["plot3"]->addData(i, 40*sin(i));
-        plotMerged->addData(i, 100*cos(i));
-    }
-    
 }
 
 void LogfileEditor::showFileBrowser() {
@@ -80,11 +74,58 @@ void LogfileEditor::showSelectedLogfile() {
     ui->groupSelLogfile->setVisible(checked);
 }
 
-void LogfileEditor::switchPlot() {
-    static int index = 0;
-    ++index;
-    QString newPlot = QString("plot%1").arg(index%4);
+void LogfileEditor::openFile() {
+    QString path =
+        QFileDialog::getOpenFileName(this, tr("Open existing logfile"), "/home", tr("CSV Files (*.csv)"));
+    Logfile* logfile = new Logfile();
+    logfile->setPath(path);
+    if(logfile->load()){
+        listOfFiles.append(logfile);
+        currentPlotSelected->addLogfile(logfile);
+        qDebug() << "success";
+    }
+    else{
+        qDebug() << "unable to load file";
+    }
+    delete logfile;
+    qDebug() << path;
+}
 
-    ui->layoutPlotSelected->replaceWidget(currentPlotSelected, listOfPlots[newPlot]);
-    currentPlotSelected = listOfPlots[newPlot];
+void LogfileEditor::updateMetadata(Logfile* logfile) {
+    Metadata metadata = logfile->getMetadata();
+    ui->outDeviceID->setText(metadata.deviceID);
+    ui->outDate->setText(metadata.date);
+    ui->outTime->setText(metadata.time);
+    ui->outLogNr->setNum(metadata.logNr);
+    ui->outRelZero->setNum(metadata.relZero);
+    ui->outSpeed->setNum(metadata.speed);
+    ui->outTriggerForce->setNum(metadata.triggerForce);
+    ui->outStopForce->setNum(metadata.stopForce);
+    ui->outPreCatch->setNum(metadata.preCatch);
+    ui->outCatchTime->setNum(metadata.catchTime);
+    ui->outTotalTime->setNum(metadata.totalTime);
+
+    ui->outMinForce->setNum(logfile->getMinForce());
+    ui->outMaxForce->setNum(logfile->getMaxForce());
+
+    QString minTime = QString::number(logfile->getMinForceIndex() / metadata.speed, 'f', 2);
+    QString maxTime = QString::number(logfile->getMaxForceIndex() / metadata.speed, 'f', 2);
+
+    ui->outMinTime->setText(minTime + " s");
+    ui->outMaxTime->setText(maxTime + " s");
+
+    QString temp;
+    switch (metadata.unit) {
+        case UnitValue::KGF:
+            temp = "kgf";
+            break;
+        case UnitValue::KN:
+            temp = "kN";
+            break;
+        case UnitValue::LBF:
+            temp = "lbf";
+        default:
+            temp = "";
+    }
+    ui->outUnit->setText(temp);
 }

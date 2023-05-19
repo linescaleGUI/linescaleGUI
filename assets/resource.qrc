@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="linescaleGUI">
+    <file>icons/logfileEditor.png</file>
     <file>mockup/graphCombined.jpeg</file>
     <file>mockup/graph.jpeg</file>
     <file>icons/connect.png</file>

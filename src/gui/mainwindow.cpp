@@ -29,6 +29,7 @@
 #include <QTimer>
 #include "../deviceCommunication/command.h"
 #include "../notification/notification.h"
+#include "../logfile/logfile.h"
 #include "ui_mainwindow.h"
 
 MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWindow) {
@@ -55,7 +56,6 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWi
     connect(ui->actionSaveLog, &QAction::triggered, notification, &Notification::saveLog);
     connect(ui->actionSaveImage, &QAction::triggered, ui->widgetChart, &Plot::saveImage);
     connect(ui->actionLogfileEditor, &QAction::triggered, logfileEditor, &LogfileEditor::show);
-
 
     // Tool bar actions
     connect(ui->actionConnect, &QAction::triggered, dConnect, &DialogConnect::show);

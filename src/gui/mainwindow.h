@@ -31,7 +31,7 @@
 #include <QMainWindow>
 #include "../deviceCommunication/commMaster.h"
 #include "../notification/notification.h"
-#include "../logfileEditor/logfileEditor.h"
+#include "../logfile/logfileEditor.h"
 #include "../parser/parser.h"
 #include "dialogabout.h"
 #include "dialogconnect.h"

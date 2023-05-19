@@ -34,6 +34,7 @@
 
 #include "../notification/notification.h"
 #include "../parser/parser.h"
+#include "../logfile/logfile.h"
 
 /// @todo Better way to disable this warning for MSVC.
 #if _MSC_VER && !__INTEL_COMPILER
@@ -97,6 +98,15 @@ class Plot : public QWidget {
      *                        time of the previous graph.
      */
     void beginNewGraph(bool startFromOrigin = true);
+
+    /**
+     * @brief Add the force from a logfile to the plot
+     * 
+     * Updates the window afterwards and scales the plot to show everything.
+     * 
+     * @param logfile File to plot
+     */
+    void addLogfile(Logfile* logfile);
 
     /**
      * @brief Save the current plot window as png to the local machine

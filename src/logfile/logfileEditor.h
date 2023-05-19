@@ -54,19 +54,25 @@ class LogfileEditor : public QMainWindow {
     ~LogfileEditor();
 
     private:
-    void emulateData(void);
 
     private slots:
     void showFileBrowser();
     void showSelectedLogfile();
-    void switchPlot();
+    void openFile();
+    /**
+     * @brief Update the output panel with the metadata from the selected logfile
+     * 
+     * @param logfile Ptr to the logfile
+     */
+    void updateMetadata(Logfile* logfile);
 
-   private:
+private:
+
     Ui::LogfileEditor* ui;
     Plot* currentPlotSelected;
     Plot* plotMerged;
 
-    QHash<QString, Plot*> listOfPlots;
+    QVector<Logfile*> listOfFiles;
 };
 
 #endif  // LOGFILEEDITOR_H_

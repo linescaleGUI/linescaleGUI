@@ -447,6 +447,8 @@
    <addaction name="actionDisconnect"/>
    <addaction name="separator"/>
    <addaction name="actionStartStop"/>
+   <addaction name="separator"/>
+   <addaction name="actionLogfileEditor"/>
   </widget>
   <action name="actionExit">
    <property name="text">
@@ -542,8 +544,18 @@
    </property>
   </action>
   <action name="actionLogfileEditor">
+   <property name="icon">
+    <iconset resource="../../assets/resource.qrc">
+     <normaloff>:/linescaleGUI/icons/logfileEditor.png</normaloff>:/linescaleGUI/icons/logfileEditor.png</iconset>
+   </property>
    <property name="text">
     <string>Logfile editor</string>
+   </property>
+   <property name="toolTip">
+    <string>View and edit logfiles</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+E</string>
    </property>
   </action>
  </widget>

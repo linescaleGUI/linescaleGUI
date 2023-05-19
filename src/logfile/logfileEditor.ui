@@ -99,11 +99,6 @@
              <string>LogNr</string>
             </property>
            </column>
-           <column>
-            <property name="text">
-             <string>Merged</string>
-            </property>
-           </column>
            <item>
             <property name="text">
              <string>e34r34.csv</string>
@@ -119,9 +114,6 @@
             </property>
             <property name="text">
              <string>001</string>
-            </property>
-            <property name="text">
-             <string>Source file</string>
             </property>
            </item>
            <item>
@@ -140,9 +132,6 @@
             <property name="text">
              <string>002</string>
             </property>
-            <property name="text">
-             <string>Yes</string>
-            </property>
            </item>
            <item>
             <property name="text">
@@ -159,9 +148,6 @@
             </property>
             <property name="text">
              <string>003</string>
-            </property>
-            <property name="text">
-             <string>No overlap found</string>
             </property>
            </item>
            <item>
@@ -180,9 +166,6 @@
             <property name="text">
              <string>004</string>
             </property>
-            <property name="text">
-             <string>Incompatible speed</string>
-            </property>
            </item>
            <item>
             <property name="text">
@@ -199,9 +182,6 @@
             </property>
             <property name="text">
              <string>010</string>
-            </property>
-            <property name="text">
-             <string>Yes</string>
             </property>
            </item>
           </widget>
@@ -250,7 +230,7 @@
              <item row="0" column="1">
               <widget class="QLabel" name="outDeviceID">
                <property name="text">
-                <string>45:34:DF</string>
+                <string>-</string>
                </property>
                <property name="alignment">
                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -275,7 +255,7 @@
              <item row="1" column="1">
               <widget class="QLabel" name="outDate">
                <property name="text">
-                <string>15.05.22</string>
+                <string>-</string>
                </property>
                <property name="alignment">
                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -300,7 +280,7 @@
              <item row="2" column="1">
               <widget class="QLabel" name="outTime">
                <property name="text">
-                <string>16.30:23</string>
+                <string>-</string>
                </property>
                <property name="alignment">
                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -325,7 +305,7 @@
              <item row="3" column="1">
               <widget class="QLabel" name="outLogNr">
                <property name="text">
-                <string>002</string>
+                <string>-</string>
                </property>
                <property name="alignment">
                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -350,7 +330,7 @@
              <item row="4" column="1">
               <widget class="QLabel" name="outUnit">
                <property name="text">
-                <string>kN</string>
+                <string>-</string>
                </property>
                <property name="alignment">
                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -375,7 +355,7 @@
              <item row="5" column="1">
               <widget class="QLabel" name="outRelZero">
                <property name="text">
-                <string>0.02</string>
+                <string>-</string>
                </property>
                <property name="alignment">
                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -417,7 +397,7 @@
              <item row="0" column="1">
               <widget class="QLabel" name="outSpeed">
                <property name="text">
-                <string>1280</string>
+                <string>-</string>
                </property>
                <property name="alignment">
                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -442,7 +422,7 @@
              <item row="1" column="1">
               <widget class="QLabel" name="outTriggerForce">
                <property name="text">
-                <string>0.70</string>
+                <string>-</string>
                </property>
                <property name="alignment">
                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -467,7 +447,7 @@
              <item row="2" column="1">
               <widget class="QLabel" name="outStopForce">
                <property name="text">
-                <string>0.00</string>
+                <string>-</string>
                </property>
                <property name="alignment">
                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -492,7 +472,7 @@
              <item row="3" column="1">
               <widget class="QLabel" name="outPreCatch">
                <property name="text">
-                <string>3</string>
+                <string>-</string>
                </property>
                <property name="alignment">
                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -517,7 +497,7 @@
              <item row="4" column="1">
               <widget class="QLabel" name="outCatchTime">
                <property name="text">
-                <string>15</string>
+                <string>-</string>
                </property>
                <property name="alignment">
                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -542,7 +522,7 @@
              <item row="5" column="1">
               <widget class="QLabel" name="outTotalTime">
                <property name="text">
-                <string>18</string>
+                <string>-</string>
                </property>
                <property name="alignment">
                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -584,7 +564,7 @@
              <item row="0" column="1">
               <widget class="QLabel" name="outMinForce">
                <property name="text">
-                <string>0</string>
+                <string>-</string>
                </property>
                <property name="alignment">
                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -609,7 +589,7 @@
              <item row="1" column="1">
               <widget class="QLabel" name="outMinTime">
                <property name="text">
-                <string>0</string>
+                <string>-</string>
                </property>
                <property name="alignment">
                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -634,7 +614,7 @@
              <item row="2" column="1">
               <widget class="QLabel" name="outMaxForce">
                <property name="text">
-                <string>4.1</string>
+                <string>-</string>
                </property>
                <property name="alignment">
                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -659,7 +639,7 @@
              <item row="3" column="1">
               <widget class="QLabel" name="outMaxTime">
                <property name="text">
-                <string>4</string>
+                <string>-</string>
                </property>
                <property name="alignment">
                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
