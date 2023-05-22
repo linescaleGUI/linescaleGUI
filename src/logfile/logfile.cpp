@@ -28,53 +28,29 @@
 #include <QCoreApplication>
 #include <QDebug>
 #include <QDir>
-#include <QTextStream>
 #include <algorithm>
 
-bool Logfile::load() {
-    bool success = false;
-    if (file.open(QIODevice::ReadOnly)) {
-        success = true;  // to enable AND connection with all other success flags
-        QTextStream in(&file);
+int Logfile::load() {
+    bool fileOpen = file.open(QIODevice::ReadOnly);
+    if (!fileOpen) {
+        return -1;  // Unable to open file
+    }
 
-        metadata.deviceID = in.readLine();
-        metadata.date = in.readLine();
-        metadata.time = in.readLine();
-        metadata.logNr = splitToFloat(in.readLine());
-        QString tempUnit = splitToQString(in.readLine()).toUpper();
-        QString tempMode = splitToQString(in.readLine()).toUpper();
-        metadata.relZero = splitToFloat(in.readLine());
-        metadata.speed = splitToInt(in.readLine());
-        metadata.triggerForce = splitToFloat(in.readLine());
-        metadata.stopForce = splitToFloat(in.readLine());
-        metadata.preCatch = splitToInt(in.readLine());
-        metadata.catchTime = splitToInt(in.readLine());
-        metadata.totalTime = splitToInt(in.readLine());
+    QTextStream in(&file);
 
-        if (tempUnit == "KGF") {
-            metadata.unit = UnitValue::KGF;
-        } else if (tempUnit == "KN") {
-            metadata.unit = UnitValue::KN;
-        } else if (tempUnit == "LBF") {
-            metadata.unit = UnitValue::LBF;
-        }
+    int invalidLineNumber = parseMetadata(in);
+    if (invalidLineNumber != 0) {
+        file.close();
+        return invalidLineNumber;  // Unable to parse metadata
+    }
 
-        if (tempMode == "ABS") {
-            metadata.mode = MeasureMode::ABS_ZERO;
-        } else if (tempMode == "REL") {
-            metadata.mode = MeasureMode::REL_ZERO;
-        }
+    int index = 0;
+    float period = 1.0 / metadata.speed;
 
-        if (!validateMetadata()) {
-            file.close();
-            return false;
-        }
-
-        int index = 0;
-        float period = 1.0 / metadata.speed;
-        while (!in.atEnd()) {
-            bool singleSuccess;
-            float newForce = in.readLine().toFloat(&singleSuccess);
+    while (!in.atEnd()) {
+        bool success;
+        float newForce = in.readLine().toFloat(&success);
+        if (success) {
             if (newForce <= minForce) {
                 minForce = newForce;
                 minForceIndex = index;
@@ -85,13 +61,16 @@ bool Logfile::load() {
             }
             forceVector.append(newForce);
             timeVector.append(period * index);
-            success = singleSuccess && success;
             ++index;
+        } else {
+            invalidLineNumber = LINE_NUMBER_FORCE + index;
+            break;
         }
-        file.close();
     }
-    return success;
+    file.close();
+    return invalidLineNumber;
 }
+
 
 bool Logfile::write() {
     if (file.open(QIODevice::ReadWrite | QIODevice::Text)) {
@@ -145,31 +124,80 @@ bool Logfile::write() {
     return false;
 }
 
+int Logfile::parseMetadata(QTextStream& in) {
+    bool success;
+    metadata.deviceID = in.readLine();
+    if(metadata.deviceID == "" || metadata.deviceID.length() != 8){
+        return LINE_NUMBER_DEVICEID;
+    }
+
+    metadata.date = in.readLine();
+    if(metadata.date == "" || metadata.date.length() != 8){
+        return LINE_NUMBER_DATE;
+    }
+
+    metadata.time = in.readLine();
+    if(metadata.time == "" || metadata.time.length() != 8){
+        return LINE_NUMBER_TIME;
+    }
+
+    metadata.logNr = splitToFloat(in.readLine(), &success);
+    if(!success){return LINE_NUMBER_LOGNR;}
+
+    QString tempUnit = splitToQString(in.readLine()).toUpper();
+    if (tempUnit == "KGF") {
+        metadata.unit = UnitValue::KGF;
+    } else if (tempUnit == "KN") {
+        metadata.unit = UnitValue::KN;
+    } else if (tempUnit == "LBF") {
+        metadata.unit = UnitValue::LBF;
+    } else {
+        return LINE_NUMBER_UNIT;
+    }
+
+    QString tempMode = splitToQString(in.readLine()).toUpper();
+    if (tempMode == "ABS") {
+        metadata.mode = MeasureMode::ABS_ZERO;
+    } else if (tempMode == "REL") {
+        metadata.mode = MeasureMode::REL_ZERO;
+    } else{
+        return LINE_NUMBER_MODE;
+    }
+
+    metadata.relZero = splitToFloat(in.readLine(), &success);
+    if(!success){return LINE_NUMBER_RELZERO;}
+
+    metadata.speed = splitToInt(in.readLine(), &success);
+    if(!success){return LINE_NUMBER_SPEED;}
+
+    metadata.triggerForce = splitToFloat(in.readLine(), &success);
+    if(!success){return LINE_NUMBER_TRIGGERFORCE;}
+
+    metadata.stopForce = splitToFloat(in.readLine(), &success);
+    if(!success){return LINE_NUMBER_STOPFORCE;}
+
+    metadata.preCatch = splitToInt(in.readLine(), &success);
+    if(!success){return LINE_NUMBER_PRECATCH;}
+
+    metadata.catchTime = splitToInt(in.readLine(), &success);
+    if(!success){return LINE_NUMBER_CATCHTIME;}
+
+    metadata.totalTime = splitToInt(in.readLine(), &success);
+    if(!success){return LINE_NUMBER_TOTALTIME;}
+
+    return 0; // success
+}
+
 void Logfile::setPath(QString path) {
     file.setFileName(path);
 }
 
 QString Logfile::getPath() {
-    return file.fileName();
+    return QFileInfo(file).filePath();
 }
 
-bool Logfile::validateMetadata() {
-    return metadata.deviceID != ""                                                                                    //
-           && metadata.deviceID.length() == 8                                                                         //
-           && metadata.date != ""                                                                                     //
-           && metadata.date.length() == 8                                                                             //
-           && metadata.time != ""                                                                                     //
-           && metadata.time.length() == 8                                                                             //
-           && metadata.logNr > 0                                                                                      //
-           && (metadata.unit == UnitValue::KGF || metadata.unit == UnitValue::KN || metadata.unit == UnitValue::LBF)  //
-           && (metadata.mode == MeasureMode::ABS_ZERO || metadata.mode == MeasureMode::REL_ZERO)                      //
-           && !isnan(metadata.relZero)                                                                                //
-           && (metadata.speed == 10 || metadata.speed == 40 || metadata.speed == 640 || metadata.speed == 1280)       //
-           && !isnan(metadata.triggerForce)                                                                           //
-           && !isnan(metadata.stopForce)                                                                              //
-           && metadata.preCatch >= 0                                                                                  //
-           && metadata.catchTime >= 0                                                                                 //
-           && metadata.totalTime >= 0;                                                                                //
+QString Logfile::getFileName() {
+    return QFileInfo(file).fileName();
 }
 
 float Logfile::splitToFloat(QString input, bool* success) {
@@ -177,6 +205,7 @@ float Logfile::splitToFloat(QString input, bool* success) {
     if (splitList.count() == 2) {
         return splitList[1].toFloat(success);
     } else {
+        *success = false;
         return NAN;
     }
 }
@@ -186,6 +215,7 @@ int Logfile::splitToInt(QString input, bool* success) {
     if (splitList.count() == 2) {
         return splitList[1].toInt(success);
     } else {
+        *success = false;
         return -1;
     }
 }
@@ -217,4 +247,8 @@ QVector<float>& Logfile::getTime() {
 
 void Logfile::setForce(QVector<float>& force) {
     forceVector = force;
+}
+
+void Logfile::setTime(QVector<float>& time) {
+    timeVector = time;
 }

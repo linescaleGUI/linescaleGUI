@@ -123,8 +123,9 @@ class LogfileErrorTest : public ::testing::Test {
    protected:
     Logfile logfile;
     bool success;
+    int expectedInvalidLine = 0;
 
-    void TearDown() override { ASSERT_FALSE(logfile.load()); }
+    void TearDown() override { ASSERT_EQ(logfile.load(), expectedInvalidLine); }
 };
 
 /**
@@ -180,7 +181,7 @@ Metadata createMetadata(QString deviceID,
 
 TEST_F(LogfileReadTest, readCorrectFile0) {
     logfile.setPath("../../../tests/inputFiles/logfile0.csv");
-    ASSERT_TRUE(logfile.load());
+    ASSERT_EQ(logfile.load(), 0);
     expectedMeta = createMetadata("6B:6C:05", "15.05.22", "16:14:25", 2, UnitValue::KN, MeasureMode::REL_ZERO, 0.02, 40,
                                   0.7, 0, 3, 15, 18);
     expectedForceVector << 1.41 << 4.56 << 314.15 << -271.82 << 345.45;
@@ -193,7 +194,7 @@ TEST_F(LogfileReadTest, readCorrectFile0) {
 
 TEST_F(LogfileReadTest, readCorrectFile1) {
     logfile.setPath("../../../tests/inputFiles/logfile1.csv");
-    ASSERT_TRUE(logfile.load());
+    ASSERT_EQ(logfile.load(), 0);
     expectedMeta = createMetadata("FF:6C:05", "15.05.22", "16:14:25", 2, UnitValue::KGF, MeasureMode::ABS_ZERO, 0.02,
                                   1280, 0.7, 0, 3, 15, 18);
     expectedForceVector << 1.41 << 4.56 << 314.15 << -271.82 << 345.45 << 2;
@@ -209,24 +210,28 @@ TEST_F(LogfileReadTest, readCorrectFile1) {
 // *****************************************************************************
 
 TEST_F(LogfileErrorTest, splitError) {
+    expectedInvalidLine = 9;
     logfile.setPath("../../../tests/inputFiles/logfileErrorSplit.csv");
 }
 
 TEST_F(LogfileErrorTest, charInsteadFloat) {
+    expectedInvalidLine = 16;
     logfile.setPath("../../../tests/inputFiles/logfileErrorFloat.csv");
 }
 
 TEST_F(LogfileErrorTest, charInsteadInt) {
+    expectedInvalidLine = 12;
     logfile.setPath("../../../tests/inputFiles/logfileErrorInt.csv");
 }
 
 TEST_F(LogfileErrorTest, wrongUnit) {
+    expectedInvalidLine = 5;
     logfile.setPath("../../../tests/inputFiles/logfileErrorUnit.csv");
 }
 
 TEST(LogfileLoadTest, loadWithoutPath) {
     Logfile logfile;
-    ASSERT_FALSE(logfile.load());
+    ASSERT_EQ(logfile.load(), -1);
 }
 
 // *****************************************************************************

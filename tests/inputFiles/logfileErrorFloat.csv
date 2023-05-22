@@ -6,7 +6,7 @@ Unit=kgf
 Mode=ABS
 RelZero=0.02
 Speed=40
-Trig
+Trig=6
 Stop=0.00
 Pre=3
 Catch=15

@@ -29,6 +29,7 @@
 #define LOGFILE_H_
 
 #include <QFile>
+#include <QTextStream>
 #include <QVector>
 #include "../parser/parser.h"
 
@@ -52,20 +53,23 @@ struct Metadata {
     int totalTime;       ///< Total time = preCatch + catchTime
 };
 
+/**
+ * @brief Class to represent a logfile from the device
+ *
+ */
 class Logfile {
    public:
     /**
      * @brief Open the file and parse the data
      *
-     * @return true on success
-     * @return false
+     * @return int 0 on success; -1 if unable to open, first invalid line number on failure
      */
-    bool load();
+    int load();
 
-    float getMinForce() { return minForce; }
-    float getMaxForce() { return maxForce; }
-    float getMinForceIndex() { return minForceIndex; }
-    float getMaxForceIndex() { return maxForceIndex; }
+    float getMinForce() { return minForce; }            ///< Return min force of the logfile
+    float getMaxForce() { return maxForce; }            ///< Return max force of the logfile
+    float getMinForceIndex() { return minForceIndex; }  ///< Return timestamp of min force
+    float getMaxForceIndex() { return maxForceIndex; }  ///< Return timestamp of max force
 
     /**
      * @brief Write the current metadata and force vector into a file
@@ -83,10 +87,17 @@ class Logfile {
 
     /**
      * @brief Get the path of the logfile
-     * 
+     *
      * @return QString Absolute path
      */
     QString getPath();
+
+    /**
+     * @brief Get the name of the logfile without the path
+     * 
+     * @return QString Name of the logfile
+     */
+    QString getFileName();
 
     /**
      * @brief Set a new metadata
@@ -104,15 +115,15 @@ class Logfile {
 
     /**
      * @brief Get the forceVector
-     * 
-     * @return QVector<float>& 
+     *
+     * @return QVector<float>&
      */
     QVector<float>& getForce();
 
     /**
      * @brief Get the timeVector
-     * 
-     * @return QVector<float>& 
+     *
+     * @return QVector<float>&
      */
     QVector<float>& getTime();
 
@@ -123,35 +134,44 @@ class Logfile {
      */
     void setForce(QVector<float>& force);
 
+    /**
+     * @brief Set the timeVector
+     *
+     * @param time
+     */
+    void setTime(QVector<float>& time);
+
    private:
     /**
-     * @brief Validate the metadata
+     * @brief Parse the metadata from a given text stream
      *
-     * @return true
-     * @return false
+     * @param in QTextStream of the logfile
+     * @return int 0 on success; first invalid line number on failure
      */
-    bool validateMetadata();
+    int parseMetadata(QTextStream& in);
 
     /**
      * @brief Split the input line and return a float
      *
-     * @param input
-     * @return float
+     * @param input QString to parse to float
+     * @param success Ptr to success bool
+     * @return float Parsed value
      */
-    float splitToFloat(QString input, bool* success = nullptr);
+    float splitToFloat(QString input, bool* success);
 
     /**
      * @brief Split the input line and return a int
      *
-     * @param input
-     * @return int
+     * @param input QString to parse to int
+     * @param success Ptr to success bool
+     * @return int Parsed integer value
      */
-    int splitToInt(QString input, bool* success = nullptr);
+    int splitToInt(QString input, bool* success);
 
     /**
      * @brief Split the input line and return a QString
      *
-     * @param input
+     * @param input QString to split
      * @return QString
      */
     QString splitToQString(QString input);
@@ -164,6 +184,21 @@ class Logfile {
     float maxForce = -FLT_MAX;  ///< Maximum force present
     int minForceIndex = 0;      ///< Index of minForce
     int maxForceIndex = 0;      ///< Index of maxForce
+
+    static constexpr int LINE_NUMBER_DEVICEID = 1;
+    static constexpr int LINE_NUMBER_DATE = 2;
+    static constexpr int LINE_NUMBER_TIME = 3;
+    static constexpr int LINE_NUMBER_LOGNR = 4;
+    static constexpr int LINE_NUMBER_UNIT = 5;
+    static constexpr int LINE_NUMBER_MODE = 6;
+    static constexpr int LINE_NUMBER_RELZERO = 7;
+    static constexpr int LINE_NUMBER_SPEED = 8;
+    static constexpr int LINE_NUMBER_TRIGGERFORCE = 9;
+    static constexpr int LINE_NUMBER_STOPFORCE = 10;
+    static constexpr int LINE_NUMBER_PRECATCH = 11;
+    static constexpr int LINE_NUMBER_CATCHTIME = 12;
+    static constexpr int LINE_NUMBER_TOTALTIME = 13;
+    static constexpr int LINE_NUMBER_FORCE = 14;
 };
 
 #endif  // LOGFILE_H_
