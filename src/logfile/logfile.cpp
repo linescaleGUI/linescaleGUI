@@ -32,8 +32,9 @@
 #include <algorithm>
 
 bool Logfile::load() {
-    bool forceSuccess = true;  // to enable AND connection with all other success flags
+    bool success = false;
     if (file.open(QIODevice::ReadOnly)) {
+        success = true;  // to enable AND connection with all other success flags
         QTextStream in(&file);
 
         metadata.deviceID = in.readLine();
@@ -64,25 +65,32 @@ bool Logfile::load() {
             metadata.mode = MeasureMode::REL_ZERO;
         }
 
+        if (!validateMetadata()) {
+            file.close();
+            return false;
+        }
+
         int index = 0;
+        float period = 1.0 / metadata.speed;
         while (!in.atEnd()) {
             bool singleSuccess;
             float newForce = in.readLine().toFloat(&singleSuccess);
-            if(newForce <= minForce){
+            if (newForce <= minForce) {
                 minForce = newForce;
                 minForceIndex = index;
             }
-            if(newForce >= maxForce){
+            if (newForce >= maxForce) {
                 maxForce = newForce;
                 maxForceIndex = index;
             }
-            forceData.append(newForce);
-            forceSuccess = singleSuccess && forceSuccess;
+            forceVector.append(newForce);
+            timeVector.append(period * index);
+            success = singleSuccess && success;
             ++index;
         }
         file.close();
     }
-    return forceSuccess && validateMetadata();
+    return success;
 }
 
 bool Logfile::write() {
@@ -127,7 +135,7 @@ bool Logfile::write() {
         stream << "Catch=" << metadata.catchTime << Qt::endl;
         stream << "Total=" << metadata.totalTime << Qt::endl;
 
-        QVectorIterator<float> forceDataIterate(forceData);
+        QVectorIterator<float> forceDataIterate(forceVector);
         while (forceDataIterate.hasNext()) {
             stream << QString::number(forceDataIterate.next(), 'f', 2) << Qt::endl;
         }
@@ -139,6 +147,10 @@ bool Logfile::write() {
 
 void Logfile::setPath(QString path) {
     file.setFileName(path);
+}
+
+QString Logfile::getPath() {
+    return file.fileName();
 }
 
 bool Logfile::validateMetadata() {
@@ -196,9 +208,13 @@ Metadata& Logfile::getMetadata() {
 }
 
 QVector<float>& Logfile::getForce() {
-    return forceData;
+    return forceVector;
+}
+
+QVector<float>& Logfile::getTime() {
+    return timeVector;
 }
 
 void Logfile::setForce(QVector<float>& force) {
-    forceData = force;
+    forceVector = force;
 }

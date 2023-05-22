@@ -85,6 +85,7 @@ class LogfileReadTest : public ::testing::Test {
     Logfile logfile;
     Metadata expectedMeta;
     QVector<float> expectedForceVector;
+    QVector<float> expectedTimeVector;
     float expectedMinForce;
     float expectedMaxForce;
     int expectedMinForceIndex;
@@ -97,6 +98,17 @@ class LogfileReadTest : public ::testing::Test {
         EXPECT_EQ(logfile.getMaxForce(), expectedMaxForce);
         EXPECT_EQ(logfile.getMinForceIndex(), expectedMinForceIndex);
         EXPECT_EQ(logfile.getMaxForceIndex(), expectedMaxForceIndex);
+
+        ASSERT_EQ(expectedForceVector.length(), expectedTimeVector.length());
+        ASSERT_EQ(logfile.getForce().length(), expectedForceVector.length());
+        ASSERT_EQ(logfile.getTime().length(), expectedTimeVector.length());
+
+        QVectorIterator<float> expectedTimeIterator(expectedTimeVector);
+        QVector<float> timeVector = logfile.getTime();
+        QVectorIterator<float> timeIterator(timeVector);
+        while (expectedTimeIterator.hasNext()) {
+            EXPECT_FLOAT_EQ(expectedTimeIterator.next(), timeIterator.next());
+        }
     }
 };
 
@@ -162,7 +174,6 @@ Metadata createMetadata(QString deviceID,
     return metadata;
 }
 
-
 // *****************************************************************************
 // Read correct files
 // *****************************************************************************
@@ -173,6 +184,7 @@ TEST_F(LogfileReadTest, readCorrectFile0) {
     expectedMeta = createMetadata("6B:6C:05", "15.05.22", "16:14:25", 2, UnitValue::KN, MeasureMode::REL_ZERO, 0.02, 40,
                                   0.7, 0, 3, 15, 18);
     expectedForceVector << 1.41 << 4.56 << 314.15 << -271.82 << 345.45;
+    expectedTimeVector << 0 << 1.0 / 40 << 2.0 / 40 << 3.0 / 40 << 4.0 / 40;
     expectedMinForce = -271.82;
     expectedMaxForce = 345.45;
     expectedMinForceIndex = 3;
@@ -183,14 +195,14 @@ TEST_F(LogfileReadTest, readCorrectFile1) {
     logfile.setPath("../../../tests/inputFiles/logfile1.csv");
     ASSERT_TRUE(logfile.load());
     expectedMeta = createMetadata("FF:6C:05", "15.05.22", "16:14:25", 2, UnitValue::KGF, MeasureMode::ABS_ZERO, 0.02,
-                                  40, 0.7, 0, 3, 15, 18);
+                                  1280, 0.7, 0, 3, 15, 18);
     expectedForceVector << 1.41 << 4.56 << 314.15 << -271.82 << 345.45 << 2;
+    expectedTimeVector << 0 << 1.0 / 1280 << 2.0 / 1280 << 3.0 / 1280 << 4.0 / 1280 << 5.0 / 1280;
     expectedMinForce = -271.82;
     expectedMaxForce = 345.45;
     expectedMinForceIndex = 3;
     expectedMaxForceIndex = 4;
 }
-
 
 // *****************************************************************************
 // Read incorrect files
@@ -217,7 +229,6 @@ TEST(LogfileLoadTest, loadWithoutPath) {
     ASSERT_FALSE(logfile.load());
 }
 
-
 // *****************************************************************************
 // Write data to logfile
 // *****************************************************************************
@@ -227,7 +238,7 @@ TEST(LogfileWriteTest, writeCorrectData) {
     QString outputPath = "logfile_out.csv";
     logfile.setPath(outputPath);
     Metadata metadataToSave = createMetadata("FF:6C:05", "15.05.22", "16:14:25", 2, UnitValue::KGF,
-                                             MeasureMode::ABS_ZERO, 0.02, 40, 0.7, 0, 3, 15, 18);
+                                             MeasureMode::ABS_ZERO, 0.02, 1280, 0.7, 0, 3, 15, 18);
     QVector<float> force;
     force << 1.41 << 4.56 << 314.15 << -271.82 << 345.45 << 2.00;
     logfile.setMetadata(metadataToSave);
@@ -235,11 +246,10 @@ TEST(LogfileWriteTest, writeCorrectData) {
     logfile.write();
 
     QFile compareTo("../../../tests/inputFiles/logfile1.csv");
-    QFile exportFile(outputPath);
+    QFile exportFile(logfile.getPath());
     compareFiles(compareTo, exportFile);
     exportFile.remove();
 }
-
 
 // *****************************************************************************
 // Test the tests

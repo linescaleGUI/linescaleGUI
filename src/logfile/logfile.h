@@ -82,6 +82,13 @@ class Logfile {
     void setPath(QString path);
 
     /**
+     * @brief Get the path of the logfile
+     * 
+     * @return QString Absolute path
+     */
+    QString getPath();
+
+    /**
      * @brief Set a new metadata
      *
      * @param newData Reference to the new data
@@ -89,21 +96,28 @@ class Logfile {
     void setMetadata(Metadata& newData);
 
     /**
-     * @brief Get the Metadata object
+     * @brief Get a reference to the metadata
      *
      * @return Metadata&
      */
     Metadata& getMetadata();
 
     /**
-     * @brief Get the force vector
-     *
-     * @return QVector<float>&
+     * @brief Get the forceVector
+     * 
+     * @return QVector<float>& 
      */
     QVector<float>& getForce();
 
     /**
-     * @brief Set the force vector
+     * @brief Get the timeVector
+     * 
+     * @return QVector<float>& 
+     */
+    QVector<float>& getTime();
+
+    /**
+     * @brief Set the forceVector
      *
      * @param force
      */
@@ -144,7 +158,8 @@ class Logfile {
 
     QFile file;
     Metadata metadata;
-    QVector<float> forceData;
+    QVector<float> forceVector;
+    QVector<float> timeVector;
     float minForce = FLT_MAX;   ///< Minimum force present
     float maxForce = -FLT_MAX;  ///< Maximum force present
     int minForceIndex = 0;      ///< Index of minForce
