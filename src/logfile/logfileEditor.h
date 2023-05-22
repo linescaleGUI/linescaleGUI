@@ -59,9 +59,10 @@ class LogfileEditor : public QMainWindow {
     void showFileBrowser();
     void showSelectedLogfile();
     void openFile();
+    void insertNewLogfile(Logfile* logfile);
     /**
      * @brief Update the output panel with the metadata from the selected logfile
-     * 
+     *
      * @param logfile Ptr to the logfile
      */
     void updateMetadata(Logfile* logfile);

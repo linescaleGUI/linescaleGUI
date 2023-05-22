@@ -75,20 +75,33 @@ void LogfileEditor::showSelectedLogfile() {
 }
 
 void LogfileEditor::openFile() {
-    QString path =
-        QFileDialog::getOpenFileName(this, tr("Open existing logfile"), "/home", tr("CSV Files (*.csv)"));
+    QString desktopPath = QDir::toNativeSeparators(QStandardPaths::writableLocation(QStandardPaths::DesktopLocation));
+    QString path = QFileDialog::getOpenFileName(this, tr("Open existing logfile"), desktopPath, tr("Logfiles (*.csv)"));
     Logfile* logfile = new Logfile();
     logfile->setPath(path);
-    if(logfile->load()){
+    int errorCode = logfile->load();
+    if (errorCode == 0) {
         listOfFiles.append(logfile);
         currentPlotSelected->addLogfile(logfile);
-        qDebug() << "success";
-    }
-    else{
-        qDebug() << "unable to load file";
+        insertNewLogfile(logfile);
+        ui->outInfo->setText(QString("Successfully loaded file from %1").arg(logfile->getPath()));
+        QTimer::singleShot(2000, this, [=]{ui->outInfo->clear();});
+    } else if (errorCode == -1) {
+        ui->outInfo->setText(QString("Unable to load file from %1").arg(logfile->getPath()));
+    } else {
+        ui->outInfo->setText(QString("Unable to parse file; error on line %1").arg(errorCode));
     }
     delete logfile;
-    qDebug() << path;
+}
+
+void LogfileEditor::insertNewLogfile(Logfile* logfile) {
+    QTreeWidgetItem* treeItem = new QTreeWidgetItem(ui->treeLogfiles);
+    Metadata metadata = logfile->getMetadata();
+    treeItem->setText(0, logfile->getFileName());
+    treeItem->setText(1, metadata.deviceID);
+    treeItem->setText(2, metadata.date);
+    treeItem->setText(3, metadata.time);
+    treeItem->setText(4, QString::number(metadata.logNr).rightJustified(3, '0'));
 }
 
 void LogfileEditor::updateMetadata(Logfile* logfile) {

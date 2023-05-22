@@ -18,14 +18,11 @@
     <normaloff>:/linescaleGUI/logo/logo.png</normaloff>:/linescaleGUI/logo/logo.png</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QVBoxLayout" name="verticalLayout">
+   <layout class="QVBoxLayout" name="verticalLayout_3">
     <item>
      <widget class="QSplitter" name="splitter">
       <property name="orientation">
        <enum>Qt::Vertical</enum>
-      </property>
-      <property name="childrenCollapsible">
-       <bool>false</bool>
       </property>
       <widget class="QSplitter" name="splitterUpperHorizontal">
        <property name="orientation">
@@ -99,91 +96,6 @@
              <string>LogNr</string>
             </property>
            </column>
-           <item>
-            <property name="text">
-             <string>e34r34.csv</string>
-            </property>
-            <property name="text">
-             <string>34:34:45</string>
-            </property>
-            <property name="text">
-             <string>15.05.23</string>
-            </property>
-            <property name="text">
-             <string>23:23:34</string>
-            </property>
-            <property name="text">
-             <string>001</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>e34r33444.csv</string>
-            </property>
-            <property name="text">
-             <string>34:34:45</string>
-            </property>
-            <property name="text">
-             <string>15.05.23</string>
-            </property>
-            <property name="text">
-             <string>23:33:34</string>
-            </property>
-            <property name="text">
-             <string>002</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>e34r334.csv</string>
-            </property>
-            <property name="text">
-             <string>34:34:48</string>
-            </property>
-            <property name="text">
-             <string>15.05.23</string>
-            </property>
-            <property name="text">
-             <string>00:23:34</string>
-            </property>
-            <property name="text">
-             <string>003</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>e34r234.csv</string>
-            </property>
-            <property name="text">
-             <string>34:34:46</string>
-            </property>
-            <property name="text">
-             <string>15.05.23</string>
-            </property>
-            <property name="text">
-             <string>23:25:34</string>
-            </property>
-            <property name="text">
-             <string>004</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>e342r34.csv</string>
-            </property>
-            <property name="text">
-             <string>34:34:47</string>
-            </property>
-            <property name="text">
-             <string>15.05.23</string>
-            </property>
-            <property name="text">
-             <string>23:43:34</string>
-            </property>
-            <property name="text">
-             <string>010</string>
-            </property>
-           </item>
           </widget>
          </item>
          <item>
@@ -667,46 +579,42 @@
        </widget>
       </widget>
       <widget class="QWidget" name="layoutWidget">
-       <layout class="QVBoxLayout" name="layoutPlotMerged"/>
+       <layout class="QVBoxLayout" name="verticalLayout">
+        <item>
+         <layout class="QVBoxLayout" name="layoutPlotMerged"/>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="layoutBottom">
+          <item>
+           <widget class="QLineEdit" name="outInfo">
+            <property name="styleSheet">
+             <string notr="true">border: none;
+background: transparent</string>
+            </property>
+            <property name="readOnly">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="btnCancel">
+            <property name="text">
+             <string>Cancel</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="btnExportFile">
+            <property name="text">
+             <string>Export file</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
       </widget>
      </widget>
-    </item>
-    <item>
-     <layout class="QHBoxLayout" name="layoutBottom">
-      <item>
-       <widget class="QLabel" name="outLogLine">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-          <horstretch>2</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="frameShape">
-         <enum>QFrame::StyledPanel</enum>
-        </property>
-        <property name="frameShadow">
-         <enum>QFrame::Plain</enum>
-        </property>
-        <property name="text">
-         <string>Successfully loaded e342r34.csv from file system</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="btnCancel">
-        <property name="text">
-         <string>Cancel</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="btnExportFile">
-        <property name="text">
-         <string>Export file</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
     </item>
    </layout>
   </widget>
