@@ -30,38 +30,40 @@
 LogfileEditor::LogfileEditor(QWidget* parent) : QMainWindow(parent), ui(new Ui::LogfileEditor) {
     ui->setupUi(this);
 
+    dAbout = new DialogAbout(this);
     plotMerged = new Plot(this);
-    currentPlotSelected = new Plot(this);  // init with empty plot
+    currentPlotSelected = new Plot(this);
 
-    Logfile* file0 = new Logfile();
-    Logfile* file1 = new Logfile();
-
-    listOfFiles.append(file0);
-    listOfFiles.append(file1);
-
-    file0->setPath("../../tests/inputFiles/logfile_long0.csv");
-    file0->load();
-    plotMerged->addLogfile(file0);
-    updateMetadata(file0);
-
-    file1->setPath("../../tests/inputFiles/logfile_long1.csv");
-    file1->load();
-    plotMerged->addLogfile(file1);
+    startingFolder = QDir::toNativeSeparators(QStandardPaths::writableLocation(QStandardPaths::DesktopLocation));
 
     // Hide / show different parts of the editor
     connect(ui->actionFileBrowser, &QAction::triggered, this, &LogfileEditor::showFileBrowser);
     connect(ui->actionSelectedLogfile, &QAction::triggered, this, &LogfileEditor::showSelectedLogfile);
+
+    // Menu action
+    connect(ui->actionExit_file_editor, &QAction::triggered, this, &LogfileEditor::hide);
+    connect(ui->actionAdd_logfile_from_disk, &QAction::triggered, this, &LogfileEditor::openFile);
+    connect(ui->actionAbout, &QAction::triggered, dAbout, &DialogAbout::show);
+    connect(ui->actionAbout_Qt, &QAction::triggered, qApp, &QApplication::aboutQt);
+    connect(ui->actionRemove_all_files, &QAction::triggered, this, &LogfileEditor::removeAllLogfiles);
+
+    // TreeWidget
     connect(ui->btnLoadFile, &QPushButton::pressed, this, &LogfileEditor::openFile);
+    connect(ui->btnRemoveFile, &QPushButton::pressed, this, &LogfileEditor::removeCurrentSelectedLogfile);
+    connect(ui->treeLogfiles, &QTreeWidget::currentItemChanged, this, &LogfileEditor::displayNewLogfile);
 
     ui->layoutPlotSelected->addWidget(currentPlotSelected);
     ui->layoutPlotMerged->addWidget(plotMerged);
 
-    ui->layoutPlotMerged->setStretchFactor(plotMerged, 2);
+    ui->verticalLayout->setStretchFactor(plotMerged, 2);
     ui->layoutPlotSelected->setStretchFactor(currentPlotSelected, 2);
 }
 
 LogfileEditor::~LogfileEditor() {
     delete ui;
+    foreach (Logfile* logfile, allLogfiles) {
+        delete logfile;
+    }
 }
 
 void LogfileEditor::showFileBrowser() {
@@ -75,23 +77,35 @@ void LogfileEditor::showSelectedLogfile() {
 }
 
 void LogfileEditor::openFile() {
-    QString desktopPath = QDir::toNativeSeparators(QStandardPaths::writableLocation(QStandardPaths::DesktopLocation));
-    QString path = QFileDialog::getOpenFileName(this, tr("Open existing logfile"), desktopPath, tr("Logfiles (*.csv)"));
+    QString path =
+        QFileDialog::getOpenFileName(this, tr("Open existing logfile"), startingFolder, tr("Logfiles (*.csv)"));
     Logfile* logfile = new Logfile();
     logfile->setPath(path);
     int errorCode = logfile->load();
-    if (errorCode == 0) {
-        listOfFiles.append(logfile);
-        currentPlotSelected->addLogfile(logfile);
-        insertNewLogfile(logfile);
-        ui->outInfo->setText(QString("Successfully loaded file from %1").arg(logfile->getPath()));
-        QTimer::singleShot(2000, this, [=]{ui->outInfo->clear();});
-    } else if (errorCode == -1) {
+
+    if (errorCode == -1) {
         ui->outInfo->setText(QString("Unable to load file from %1").arg(logfile->getPath()));
-    } else {
-        ui->outInfo->setText(QString("Unable to parse file; error on line %1").arg(errorCode));
+        return;
     }
-    delete logfile;
+
+    if (errorCode != 0) {
+        ui->outInfo->setText(QString("Unable to parse file; error on line %1").arg(errorCode));
+        return;
+    }
+
+    if (allLogfiles.contains(logfile->getPath())) {
+        ui->outInfo->setText(QString("Duplicated file, unable to load from %1").arg(logfile->getPath()));
+        return;
+    }
+
+    allLogfiles.insert(logfile->getPath(), logfile);
+    insertNewLogfile(logfile);
+    currentPlotSelected->addLogfile(logfile, true);
+    plotMerged->addLogfile(logfile);
+    updateMetadata(logfile);
+    ui->outInfo->setText(QString("Successfully loaded file from %1").arg(logfile->getPath()));
+    QTimer::singleShot(2000, this, [=] { ui->outInfo->clear(); });
+    startingFolder = logfile->getPath();  // open next logfile from same folder
 }
 
 void LogfileEditor::insertNewLogfile(Logfile* logfile) {
@@ -102,6 +116,7 @@ void LogfileEditor::insertNewLogfile(Logfile* logfile) {
     treeItem->setText(2, metadata.date);
     treeItem->setText(3, metadata.time);
     treeItem->setText(4, QString::number(metadata.logNr).rightJustified(3, '0'));
+    treeItem->setData(0, Qt::UserRole, QVariant(logfile->getPath()));
 }
 
 void LogfileEditor::updateMetadata(Logfile* logfile) {
@@ -141,4 +156,36 @@ void LogfileEditor::updateMetadata(Logfile* logfile) {
             temp = "";
     }
     ui->outUnit->setText(temp);
+}
+
+void LogfileEditor::displayNewLogfile(QTreeWidgetItem* current) {
+    if (current != nullptr) {
+        QString path = current->data(0, Qt::UserRole).value<QString>();
+        Logfile* logfile = allLogfiles.value(path);
+        updateMetadata(logfile);
+        currentPlotSelected->addLogfile(logfile, true);
+    }
+}
+
+void LogfileEditor::removeCurrentSelectedLogfile() {
+    QTreeWidgetItem* current = ui->treeLogfiles->currentItem();
+    qDebug() << current;
+    if (current != nullptr) {
+        QString path = current->data(0, Qt::UserRole).value<QString>();
+        qDebug() << path;
+        if (allLogfiles.contains(path)) {
+            allLogfiles.remove(path);
+            delete current;
+        }
+    } else {
+        ui->outInfo->setText("No file to remove");
+    }
+}
+
+void LogfileEditor::removeAllLogfiles() {
+    ui->treeLogfiles->clear();
+    foreach (Logfile* logfile, allLogfiles) {
+        delete logfile;
+    }
+    allLogfiles.clear();
 }

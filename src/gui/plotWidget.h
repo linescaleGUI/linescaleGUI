@@ -105,8 +105,9 @@ class Plot : public QWidget {
      * Updates the window afterwards and scales the plot to show everything.
      * 
      * @param logfile File to plot
+     * @param clear True if the previous graph should be deleted
      */
-    void addLogfile(Logfile* logfile);
+    void addLogfile(Logfile* logfile, bool clear = false);
 
     /**
      * @brief Save the current plot window as png to the local machine

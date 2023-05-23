@@ -130,7 +130,10 @@ void Plot::beginNewGraph(bool startFromOrigin) {
     }
 }
 
-void Plot::addLogfile(Logfile* logfile) {
+void Plot::addLogfile(Logfile* logfile, bool clear) {
+    if(clear){
+        customPlot->clearGraphs();
+    }
     beginNewGraph(true);
     QVector<float> forceData = logfile->getForce();
     QVectorIterator<float> forceDataIterate(forceData);

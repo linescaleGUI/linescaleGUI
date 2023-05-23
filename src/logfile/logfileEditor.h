@@ -28,8 +28,9 @@
 #ifndef LOGFILEEDITOR_H_
 #define LOGFILEEDITOR_H_
 
-#include <QMainWindow>
 #include <QHash>
+#include <QMainWindow>
+#include "../gui/dialogabout.h"
 #include "../gui/plotWidget.h"
 
 QT_BEGIN_NAMESPACE
@@ -53,13 +54,32 @@ class LogfileEditor : public QMainWindow {
     LogfileEditor(QWidget* parent = nullptr);
     ~LogfileEditor();
 
-    private:
-
-    private slots:
+   private slots:
+    /**
+     * @brief Toggle the visibility of the file browser
+     *
+     */
     void showFileBrowser();
+
+    /**
+     * @brief Toggle the visibility of the selectedLogfile group
+     *
+     */
     void showSelectedLogfile();
+
+    /**
+     * @brief Select a logfile and open this from the filesystem
+     *
+     */
     void openFile();
+
+    /**
+     * @brief Insert a new logfile into the treeWidget
+     *
+     * @param logfile New logfile
+     */
     void insertNewLogfile(Logfile* logfile);
+
     /**
      * @brief Update the output panel with the metadata from the selected logfile
      *
@@ -67,13 +87,34 @@ class LogfileEditor : public QMainWindow {
      */
     void updateMetadata(Logfile* logfile);
 
-private:
+    /**
+     * @brief Slot to be called from the treeWidget
+     *
+     * Updates the selectedLogfile group with the current data
+     *
+     * @param current Ptr to the selected Item
+     */
+    void displayNewLogfile(QTreeWidgetItem* current);
 
-    Ui::LogfileEditor* ui;
-    Plot* currentPlotSelected;
-    Plot* plotMerged;
+    /**
+     * @brief Remove the currently selected logfile from the treeWidget
+     *
+     */
+    void removeCurrentSelectedLogfile();
 
-    QVector<Logfile*> listOfFiles;
+    /**
+     * @brief Remove all logfiles from the class and the treeWidget
+     *
+     */
+    void removeAllLogfiles();
+
+   private:
+    Ui::LogfileEditor* ui;                 ///< Qt UI ptr
+    Plot* currentPlotSelected;             ///< Big plot on the bottom
+    Plot* plotMerged;                      ///< Small plot in the selectedLogfile group
+    QString startingFolder;                ///< Tracks the current folder
+    DialogAbout* dAbout;                   ///< About dialog
+    QHash<QString, Logfile*> allLogfiles;  ///< Track all logfiles
 };
 
 #endif  // LOGFILEEDITOR_H_
