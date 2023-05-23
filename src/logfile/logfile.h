@@ -28,6 +28,8 @@
 #ifndef LOGFILE_H_
 #define LOGFILE_H_
 
+#include <math.h>
+#include <float.h>
 #include <QFile>
 #include <QTextStream>
 #include <QVector>
@@ -94,7 +96,7 @@ class Logfile {
 
     /**
      * @brief Get the name of the logfile without the path
-     * 
+     *
      * @return QString Name of the logfile
      */
     QString getFileName();

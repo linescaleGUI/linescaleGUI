@@ -92,6 +92,7 @@ class LogfileReadTest : public ::testing::Test {
     int expectedMaxForceIndex;
 
     void TearDown() override {
+        ASSERT_EQ(logfile.load(), 0);
         checkMetaData(logfile.getMetadata(), expectedMeta);
         EXPECT_EQ(logfile.getForce(), expectedForceVector);
         EXPECT_EQ(logfile.getMinForce(), expectedMinForce);
@@ -181,7 +182,6 @@ Metadata createMetadata(QString deviceID,
 
 TEST_F(LogfileReadTest, readCorrectFile0) {
     logfile.setPath("../../../tests/inputFiles/logfile0.csv");
-    ASSERT_EQ(logfile.load(), 0);
     expectedMeta = createMetadata("6B:6C:05", "15.05.22", "16:14:25", 2, UnitValue::KN, MeasureMode::REL_ZERO, 0.02, 40,
                                   0.7, 0, 3, 15, 18);
     expectedForceVector << 1.41 << 4.56 << 314.15 << -271.82 << 345.45;
@@ -194,7 +194,6 @@ TEST_F(LogfileReadTest, readCorrectFile0) {
 
 TEST_F(LogfileReadTest, readCorrectFile1) {
     logfile.setPath("../../../tests/inputFiles/logfile1.csv");
-    ASSERT_EQ(logfile.load(), 0);
     expectedMeta = createMetadata("FF:6C:05", "15.05.22", "16:14:25", 2, UnitValue::KGF, MeasureMode::ABS_ZERO, 0.02,
                                   1280, 0.7, 0, 3, 15, 18);
     expectedForceVector << 1.41 << 4.56 << 314.15 << -271.82 << 345.45 << 2;
