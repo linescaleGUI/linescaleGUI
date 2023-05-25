@@ -159,7 +159,7 @@ class Logfile {
      * @param success Ptr to success bool
      * @return float Parsed value
      */
-    float splitToFloat(QString input, bool* success);
+    float splitToFloat(const QString& input, bool* success);
 
     /**
      * @brief Split the input line and return a int
@@ -168,7 +168,7 @@ class Logfile {
      * @param success Ptr to success bool
      * @return int Parsed integer value
      */
-    int splitToInt(QString input, bool* success);
+    int splitToInt(const QString& input, bool* success);
 
     /**
      * @brief Split the input line and return a QString
@@ -176,7 +176,7 @@ class Logfile {
      * @param input QString to split
      * @return QString
      */
-    QString splitToQString(QString input);
+    QString splitToQString(const QString& input);
 
     QFile file;
     Metadata metadata;

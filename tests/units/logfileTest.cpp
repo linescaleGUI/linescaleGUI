@@ -83,7 +83,6 @@ void compareFiles(QFile& lhs, QFile& rhs) {
 class LogfileReadTest : public ::testing::Test {
    protected:
     Logfile logfile;
-    Metadata expectedMeta;
     QVector<float> expectedForceVector;
     QVector<float> expectedTimeVector;
     float expectedMinForce;
@@ -92,8 +91,6 @@ class LogfileReadTest : public ::testing::Test {
     int expectedMaxForceIndex;
 
     void TearDown() override {
-        ASSERT_EQ(logfile.load(), 0);
-        checkMetaData(logfile.getMetadata(), expectedMeta);
         EXPECT_EQ(logfile.getForce(), expectedForceVector);
         EXPECT_EQ(logfile.getMinForce(), expectedMinForce);
         EXPECT_EQ(logfile.getMaxForce(), expectedMaxForce);
@@ -129,61 +126,16 @@ class LogfileErrorTest : public ::testing::Test {
     void TearDown() override { ASSERT_EQ(logfile.load(), expectedInvalidLine); }
 };
 
-/**
- * @brief Helper method to create the `Metadata`
- *
- * @param deviceID          Id from the device
- * @param date              Logging date
- * @param time              Logging time
- * @param logNr             Number of the log
- * @param unit              Unit of the device
- * @param mode              Measure mode (either ABS or REL)
- * @param relZero           Delta from relative zero to absolute zero
- * @param speed             Frequency of the device
- * @param triggerForce      Force to trigger the recording
- * @param stopForce         Force to stop the recording
- * @param preCatch          Time before the triggerForce
- * @param catchTime         Time after the triggerForce
- * @param totalTime         Total time = preCatch + catchTime
- * @return Metadata
- */
-Metadata createMetadata(QString deviceID,
-                        QString date,
-                        QString time,
-                        int logNr,
-                        UnitValue unit,
-                        MeasureMode mode,
-                        float relZero,
-                        int speed,
-                        float triggerForce,
-                        float stopForce,
-                        int preCatch,
-                        int catchTime,
-                        int totalTime) {
-    Metadata metadata;
-    metadata.deviceID = deviceID;
-    metadata.date = date;
-    metadata.time = time;
-    metadata.logNr = logNr;
-    metadata.unit = unit;
-    metadata.mode = mode, metadata.relZero = relZero;
-    metadata.speed = speed;
-    metadata.triggerForce = triggerForce;
-    metadata.stopForce = stopForce;
-    metadata.preCatch = preCatch;
-    metadata.catchTime = catchTime;
-    metadata.totalTime = totalTime;
-    return metadata;
-}
-
 // *****************************************************************************
 // Read correct files
 // *****************************************************************************
 
 TEST_F(LogfileReadTest, readCorrectFile0) {
     logfile.setPath("../../../tests/inputFiles/logfile0.csv");
-    expectedMeta = createMetadata("6B:6C:05", "15.05.22", "16:14:25", 2, UnitValue::KN, MeasureMode::REL_ZERO, 0.02, 40,
-                                  0.7, 0, 3, 15, 18);
+    Metadata expectedMeta{"6B:6C:05", "15.05.22", "16:14:25", 2, UnitValue::KN, MeasureMode::REL_ZERO, 0.02, 40, 0.7,
+                          0,          3,          15,         18};
+    ASSERT_EQ(logfile.load(), 0);
+    checkMetaData(logfile.getMetadata(), expectedMeta);
     expectedForceVector << 1.41 << 4.56 << 314.15 << -271.82 << 345.45;
     expectedTimeVector << 0 << 1.0 / 40 << 2.0 / 40 << 3.0 / 40 << 4.0 / 40;
     expectedMinForce = -271.82;
@@ -194,8 +146,10 @@ TEST_F(LogfileReadTest, readCorrectFile0) {
 
 TEST_F(LogfileReadTest, readCorrectFile1) {
     logfile.setPath("../../../tests/inputFiles/logfile1.csv");
-    expectedMeta = createMetadata("FF:6C:05", "15.05.22", "16:14:25", 2, UnitValue::KGF, MeasureMode::ABS_ZERO, 0.02,
-                                  1280, 0.7, 0, 3, 15, 18);
+    Metadata expectedMeta{"FF:6C:05", "15.05.22", "16:14:25", 2, UnitValue::KGF, MeasureMode::ABS_ZERO, 0.02, 1280, 0.7,
+                          0,          3,          15,         18};
+    ASSERT_EQ(logfile.load(), 0);
+    checkMetaData(logfile.getMetadata(), expectedMeta);
     expectedForceVector << 1.41 << 4.56 << 314.15 << -271.82 << 345.45 << 2;
     expectedTimeVector << 0 << 1.0 / 1280 << 2.0 / 1280 << 3.0 / 1280 << 4.0 / 1280 << 5.0 / 1280;
     expectedMinForce = -271.82;
@@ -241,8 +195,8 @@ TEST(LogfileWriteTest, writeCorrectData) {
     Logfile logfile;
     QString outputPath = "logfile_out.csv";
     logfile.setPath(outputPath);
-    Metadata metadataToSave = createMetadata("FF:6C:05", "15.05.22", "16:14:25", 2, UnitValue::KGF,
-                                             MeasureMode::ABS_ZERO, 0.02, 1280, 0.7, 0, 3, 15, 18);
+    Metadata metadataToSave = {
+        "FF:6C:05", "15.05.22", "16:14:25", 2, UnitValue::KGF, MeasureMode::ABS_ZERO, 0.02, 1280, 0.7, 0, 3, 15, 18};
     QVector<float> force;
     force << 1.41 << 4.56 << 314.15 << -271.82 << 345.45 << 2.00;
     logfile.setMetadata(metadataToSave);
