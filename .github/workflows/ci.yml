@@ -67,6 +67,8 @@ jobs:
         run: |
           cmake -S . -B build/build -DCMAKE_BUILD_TYPE=${{ matrix.config.build_type }} \
             -G "${{ matrix.config.generator }}" -DWARNINGS_AS_ERRORS=
+        # Todo: Replace build/build with macro defined by cmake. Currently a workaround since the tests need the path to the test data, 
+        # and the build dir in CI and locally are different.
 
       - name: Build
         shell: bash

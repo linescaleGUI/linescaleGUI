@@ -37,6 +37,7 @@ QTextStream& operator<<(QTextStream& out, const UnitValue unit) {
             break;
         case UnitValue::LBF:
             out << "lbf";
+            break;
         default:
             out << "NONE";
     }

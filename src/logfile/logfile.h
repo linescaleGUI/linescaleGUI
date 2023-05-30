@@ -28,11 +28,10 @@
 #ifndef LOGFILE_H_
 #define LOGFILE_H_
 
-#include <math.h>
-#include <float.h>
 #include <QFile>
 #include <QTextStream>
 #include <QVector>
+#include <limits>
 #include "../parser/parser.h"
 
 /**
@@ -53,6 +52,7 @@ struct Metadata {
     int preCatch;        ///< Time before the triggerForce
     int catchTime;       ///< Time after the triggerForce
     int totalTime;       ///< Total time = preCatch + catchTime
+    static constexpr int LINE_NUMBER_FORCE = 14;
 };
 
 /**
@@ -155,52 +155,54 @@ class Logfile {
     /**
      * @brief Split the input line and return a float
      *
+     * @tparam T Either int or float
      * @param input QString to parse to float
+     * @param fieldName QString with the field name (in front of the = sign)
      * @param success Ptr to success bool
-     * @return float Parsed value
+     * @return T Parsed value
      */
-    float splitToFloat(const QString& input, bool* success);
+    template <typename T>
+    T parseNumericField(const QString& input, const QString& fieldName, bool* success) {
+        QStringList splitList = input.split("=");
+        *success = false;
+        if (splitList.count() != 2) {
+            return -1;
+        }
 
-    /**
-     * @brief Split the input line and return a int
-     *
-     * @param input QString to parse to int
-     * @param success Ptr to success bool
-     * @return int Parsed integer value
-     */
-    int splitToInt(const QString& input, bool* success);
+        if (splitList[0] != fieldName) {
+            return -1;
+        }
+
+        // Type depending code for int and float
+        if constexpr (std::is_same_v<T, int>) {
+            return splitList[1].toInt(success);
+        } else if constexpr (std::is_same_v<T, float>) {
+            return splitList[1].toFloat(success);
+        } else {
+            return -1;
+        }
+    }
 
     /**
      * @brief Split the input line and return a QString
+     * 
+     * Return the value for a given fieldName. If the fieldName is invalid, it 
+     * returns an empty string
      *
      * @param input QString to split
+     * @param fieldName QString with the field name (in front of the = sign)
      * @return QString
      */
-    QString splitToQString(const QString& input);
+    QString splitToQString(const QString& input, const QString& fieldName);
 
-    QFile file;
+    QString filePath;
     Metadata metadata;
     QVector<float> forceVector;
     QVector<float> timeVector;
-    float minForce = FLT_MAX;   ///< Minimum force present
-    float maxForce = -FLT_MAX;  ///< Maximum force present
-    int minForceIndex = 0;      ///< Index of minForce
-    int maxForceIndex = 0;      ///< Index of maxForce
-
-    static constexpr int LINE_NUMBER_DEVICEID = 1;
-    static constexpr int LINE_NUMBER_DATE = 2;
-    static constexpr int LINE_NUMBER_TIME = 3;
-    static constexpr int LINE_NUMBER_LOGNR = 4;
-    static constexpr int LINE_NUMBER_UNIT = 5;
-    static constexpr int LINE_NUMBER_MODE = 6;
-    static constexpr int LINE_NUMBER_RELZERO = 7;
-    static constexpr int LINE_NUMBER_SPEED = 8;
-    static constexpr int LINE_NUMBER_TRIGGERFORCE = 9;
-    static constexpr int LINE_NUMBER_STOPFORCE = 10;
-    static constexpr int LINE_NUMBER_PRECATCH = 11;
-    static constexpr int LINE_NUMBER_CATCHTIME = 12;
-    static constexpr int LINE_NUMBER_TOTALTIME = 13;
-    static constexpr int LINE_NUMBER_FORCE = 14;
+    float minForce = std::numeric_limits<float>::max();     ///< Minimum force present
+    float maxForce = std::numeric_limits<float>::lowest();  ///< Maximum force present
+    int minForceIndex = 0;                                  ///< Index of minForce
+    int maxForceIndex = 0;                                  ///< Index of maxForce
 };
 
 #endif  // LOGFILE_H_

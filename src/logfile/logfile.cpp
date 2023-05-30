@@ -31,6 +31,7 @@
 #include <algorithm>
 
 int Logfile::load() {
+    QFile file(filePath);
     bool fileOpen = file.open(QIODevice::ReadOnly);
     if (!fileOpen) {
         return -1;  // Unable to open file
@@ -63,7 +64,7 @@ int Logfile::load() {
             timeVector.append(period * index);
             ++index;
         } else {
-            invalidLineNumber = LINE_NUMBER_FORCE + index;
+            invalidLineNumber = Metadata::LINE_NUMBER_FORCE + index;
             break;
         }
     }
@@ -72,6 +73,7 @@ int Logfile::load() {
 }
 
 bool Logfile::write() {
+    QFile file(filePath);
     if (file.open(QIODevice::ReadWrite | QIODevice::Text)) {
         file.resize(0);
         QTextStream stream(&file);
@@ -101,113 +103,109 @@ bool Logfile::write() {
 
 int Logfile::parseMetadata(QTextStream& in) {
     bool success;
+    int lineNumber = 1;
     metadata.deviceID = in.readLine();
     if (metadata.deviceID == "" || metadata.deviceID.length() != 8) {
-        return LINE_NUMBER_DEVICEID;
+        return lineNumber;
     }
+    ++lineNumber;
 
     metadata.date = in.readLine();
     if (metadata.date == "" || metadata.date.length() != 8) {
-        return LINE_NUMBER_DATE;
+        return lineNumber;
     }
+    ++lineNumber;
 
     metadata.time = in.readLine();
     if (metadata.time == "" || metadata.time.length() != 8) {
-        return LINE_NUMBER_TIME;
+        return lineNumber;
     }
+    ++lineNumber;
 
-    metadata.logNr = splitToFloat(in.readLine(), &success);
+    metadata.logNr = parseNumericField<int>(in.readLine(), "LogNo", &success);
     if (!success) {
-        return LINE_NUMBER_LOGNR;
+        return lineNumber;
     }
+    ++lineNumber;
 
-    metadata.unit = parseUnit(splitToQString(in.readLine()));
+    metadata.unit = parseUnit(splitToQString(in.readLine(), "Unit"));
     if (metadata.unit == UnitValue::NONE) {
-        return LINE_NUMBER_UNIT;
+        return lineNumber;
     }
+    ++lineNumber;
 
-    metadata.mode = parseMeasureMode(splitToQString(in.readLine()));
+    metadata.mode = parseMeasureMode(splitToQString(in.readLine(), "Mode"));
     if (metadata.mode == MeasureMode::NONE) {
-        return LINE_NUMBER_MODE;
+        return lineNumber;
     }
+    ++lineNumber;
 
-    metadata.relZero = splitToFloat(in.readLine(), &success);
+    metadata.relZero = parseNumericField<float>(in.readLine(), "RelZero", &success);
     if (!success) {
-        return LINE_NUMBER_RELZERO;
+        return lineNumber;
     }
+    ++lineNumber;
 
-    metadata.speed = splitToInt(in.readLine(), &success);
+    metadata.speed = parseNumericField<int>(in.readLine(), "Speed", &success);
     if (!success) {
-        return LINE_NUMBER_SPEED;
+        return lineNumber;
     }
+    ++lineNumber;
 
-    metadata.triggerForce = splitToFloat(in.readLine(), &success);
+    metadata.triggerForce = parseNumericField<float>(in.readLine(), "Trig", &success);
     if (!success) {
-        return LINE_NUMBER_TRIGGERFORCE;
+        return lineNumber;
     }
+    ++lineNumber;
 
-    metadata.stopForce = splitToFloat(in.readLine(), &success);
+    metadata.stopForce = parseNumericField<float>(in.readLine(), "Stop", &success);
     if (!success) {
-        return LINE_NUMBER_STOPFORCE;
+        return lineNumber;
     }
+    ++lineNumber;
 
-    metadata.preCatch = splitToInt(in.readLine(), &success);
+    metadata.preCatch = parseNumericField<int>(in.readLine(), "Pre", &success);
     if (!success) {
-        return LINE_NUMBER_PRECATCH;
+        return lineNumber;
     }
+    ++lineNumber;
 
-    metadata.catchTime = splitToInt(in.readLine(), &success);
+    metadata.catchTime = parseNumericField<int>(in.readLine(), "Catch", &success);
     if (!success) {
-        return LINE_NUMBER_CATCHTIME;
+        return lineNumber;
     }
+    ++lineNumber;
 
-    metadata.totalTime = splitToInt(in.readLine(), &success);
+    metadata.totalTime = parseNumericField<int>(in.readLine(), "Total", &success);
     if (!success) {
-        return LINE_NUMBER_TOTALTIME;
+        return lineNumber;
     }
 
     return 0;  // success
 }
 
 void Logfile::setPath(QString path) {
-    file.setFileName(path);
+    filePath = path;
 }
 
 QString Logfile::getPath() {
-    return QFileInfo(file).filePath();
+    return QFileInfo(filePath).filePath();
 }
 
 QString Logfile::getFileName() {
-    return QFileInfo(file).fileName();
+    return QFileInfo(filePath).fileName();
 }
 
-float Logfile::splitToFloat(const QString& input, bool* success) {
+QString Logfile::splitToQString(const QString& input, const QString& fieldName) {
     QStringList splitList = input.split("=");
-    if (splitList.count() == 2) {
-        return splitList[1].toFloat(success);
-    } else {
-        *success = false;
-        return NAN;
-    }
-}
-
-int Logfile::splitToInt(const QString& input, bool* success) {
-    QStringList splitList = input.split("=");
-    if (splitList.count() == 2) {
-        return splitList[1].toInt(success);
-    } else {
-        *success = false;
-        return -1;
-    }
-}
-
-QString Logfile::splitToQString(const QString& input) {
-    QStringList splitList = input.split("=");
-    if (splitList.count() == 2) {
-        return splitList[1];
-    } else {
+    if (splitList.count() != 2) {
         return "";
     }
+
+    if (splitList[0] != fieldName) {
+        return "";
+    }
+    return splitList[1];
 }
 
 void Logfile::setMetadata(Metadata& newData) {
