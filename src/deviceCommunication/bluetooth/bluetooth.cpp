@@ -58,8 +58,6 @@ Bluetooth::Bluetooth(Notification* notification) : notification(notification) {
 Bluetooth::~Bluetooth() {}
 
 bool Bluetooth::isPowerOn(void) {
-    ///@todo Not returning the correct state. Returns always true. Even though Bluetooth is turned
-    /// off
     return (localDevice.hostMode() == QBluetoothLocalDevice::HostPoweredOff) ? false : true;
 }
 
@@ -70,7 +68,6 @@ void Bluetooth::scanStart(void) {
 
     if (!isScanning()) {
         emit scanStarted();
-        ///@todo Fails if flight mode is active
         deviceDiscoveryAgent.start();
     }
 }
