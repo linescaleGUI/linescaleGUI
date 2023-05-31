@@ -125,17 +125,14 @@ class MainWindow : public QMainWindow {
     void toggleActions(bool connected);
 
     /**
-     * @brief Start or stop the readings
+     * @brief Toggle the data reading process
      *
-     * Send the command to the connected device. If the host receives a new
-     * statusReading, the bool `MainWindow::statusReading` will be enabled by
-     * `MainWindow::receiveNewSample`.
-     * If the host terminates the stream, the bool will be set to false after
-     * a delay. This is to prevent buffered data from setting the bool to true.
+     * Start or stop the data reading process depending on the current state
+     * and the value passed by `forceStop`.
      *
-     * @param forceStop If set to true, the connection is paused regardless of the current state.
+     * @param forceStop If set to true, the reading process is paused regardless of the current state.
      */
-    void triggerReadings(bool forceStop = false);
+    void toggleReading(bool forceStop = false);
 
    private:
     Ui::MainWindow* ui;
@@ -147,9 +144,10 @@ class MainWindow : public QMainWindow {
     Notification* notification;
     Plot* plot;
     float maxValue = 0;
-    bool statusReading = false;  ///< Tracks whether the host reads data or not
-    UnitValue currentUnit;       ///< Current unit value, used to detect a change
-    QString unitString = "";     ///< Cache the current unitString
+    bool startReading = false;
+    bool isReading = false;
+    UnitValue currentUnit;    ///< Current unit value, used to detect a change
+    QString unitString = "";  ///< Cache the current unitString
 };
 
 #endif  // MAINWINDOW_H_

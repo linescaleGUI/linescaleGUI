@@ -58,7 +58,7 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWi
     // Tool bar actions
     connect(ui->actionConnect, &QAction::triggered, dConnect, &DialogConnect::show);
     connect(ui->actionDisconnect, &QAction::triggered, this, [=] { comm->removeConnection(); });
-    connect(ui->actionStartStop, &QAction::triggered, this, &MainWindow::triggerReadings);
+    connect(ui->actionStartStop, &QAction::triggered, this, &MainWindow::toggleReading);
 
     // Buttons next to readings
     connect(ui->btnSetAbsoluteZero, &QPushButton::pressed, this, &MainWindow::sendSetAbsoluteZero);
@@ -70,7 +70,7 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWi
     connect(comm, &comm::CommMaster::changedStateMaster, this, &MainWindow::toggleActions);
 
     // Signal from plotWidget
-    connect(ui->widgetChart, &Plot::stopHardware, this, [=]{triggerReadings(true);});
+    connect(ui->widgetChart, &Plot::stopHardware, this, [=] { toggleReading(true); });
 
     // disable wait for close, automatic close after main window close
     dAbout->setAttribute(Qt::WA_QuitOnClose, false);
@@ -114,24 +114,29 @@ void MainWindow::sendSetRelativeZero() {
     comm->sendData(command::SETZERO);
 }
 
-void MainWindow::triggerReadings(bool forceStop) {
-    statusReading = forceStop ? forceStop : statusReading;
-    if (!statusReading) {
-        comm->sendData(command::REQUESTONLINE);
-    } else {
-        QTimer::singleShot(10, [=] { statusReading = false; });
+void MainWindow::toggleReading(bool forceStop) {
+    if (isReading || forceStop) {
+        isReading = false;
+        startReading = false;
         notification->push("Stop reading");
         comm->sendData(command::DISCONNECTONLINE);
+    } else {
+        startReading = true;
+        comm->sendData(command::REQUESTONLINE);
     }
 }
 
 void MainWindow::receiveNewSample(Sample reading) {
-    if (!statusReading) {
+    if (startReading) {
+        startReading = false;
+        isReading = true;
         notification->push("Start reading");
+    } else if (!isReading) {
+        return;
     }
+
     if (currentUnit != reading.unitValue) {
         maxValue = -1000;  // Trigger reset of peak value to update the unit
-        statusReading = true;
         currentUnit = reading.unitValue;
         switch (reading.unitValue) {
             case UnitValue::KN:
