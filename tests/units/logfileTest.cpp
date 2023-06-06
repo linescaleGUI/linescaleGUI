@@ -67,9 +67,12 @@ void compareFiles(QFile& lhs, QFile& rhs) {
     QTextStream streamRHS(&rhs);
 
     int i = 0;
-    while (!lhs.atEnd() && !rhs.atEnd()) {
+    while (!(lhs.atEnd() && rhs.atEnd())) {
         EXPECT_EQ(lhs.readLine(), rhs.readLine()) << "Error on line " << i;
         ++i;
+    }
+    if(lhs.atEnd() != rhs.atEnd()){
+        FAIL() << "Not the same length";
     }
 }
 

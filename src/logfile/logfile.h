@@ -52,7 +52,6 @@ struct Metadata {
     int preCatch;        ///< Time before the triggerForce
     int catchTime;       ///< Time after the triggerForce
     int totalTime;       ///< Total time = preCatch + catchTime
-    static constexpr int LINE_NUMBER_FORCE = 14;
 };
 
 /**
@@ -106,7 +105,7 @@ class Logfile {
      *
      * @param newData Reference to the new data
      */
-    void setMetadata(Metadata& newData);
+    void setMetadata(const Metadata& newData);
 
     /**
      * @brief Get a reference to the metadata
@@ -120,28 +119,28 @@ class Logfile {
      *
      * @return QVector<float>&
      */
-    QVector<float>& getForce();
+    const QVector<float>& getForce();
 
     /**
      * @brief Get the timeVector
      *
      * @return QVector<float>&
      */
-    QVector<float>& getTime();
+    const QVector<float>& getTime();
 
     /**
      * @brief Set the forceVector
      *
      * @param force
      */
-    void setForce(QVector<float>& force);
+    void setForce(const QVector<float>& force);
 
     /**
      * @brief Set the timeVector
      *
      * @param time
      */
-    void setTime(QVector<float>& time);
+    void setTime(const QVector<float>& time);
 
    private:
     /**
@@ -162,9 +161,9 @@ class Logfile {
      * @return T Parsed value
      */
     template <typename T>
-    T parseNumericField(const QString& input, const QString& fieldName, bool* success) {
+    T parseNumericField(const QString& input, const QString& fieldName, bool& success) {
         QStringList splitList = input.split("=");
-        *success = false;
+        success = false;
         if (splitList.count() != 2) {
             return -1;
         }
@@ -175,18 +174,18 @@ class Logfile {
 
         // Type depending code for int and float
         if constexpr (std::is_same_v<T, int>) {
-            return splitList[1].toInt(success);
+            return splitList[1].toInt(&success);
         } else if constexpr (std::is_same_v<T, float>) {
-            return splitList[1].toFloat(success);
+            return splitList[1].toFloat(&success);
         } else {
-            return -1;
+            static_assert(!sizeof(T*), "T must be int or float");
         }
     }
 
     /**
      * @brief Split the input line and return a QString
-     * 
-     * Return the value for a given fieldName. If the fieldName is invalid, it 
+     *
+     * Return the value for a given fieldName. If the fieldName is invalid, it
      * returns an empty string
      *
      * @param input QString to split
@@ -203,6 +202,7 @@ class Logfile {
     float maxForce = std::numeric_limits<float>::lowest();  ///< Maximum force present
     int minForceIndex = 0;                                  ///< Index of minForce
     int maxForceIndex = 0;                                  ///< Index of maxForce
+    static constexpr int LINE_NUMBER_FORCE = 14;            ///< Start of the force vector
 };
 
 #endif  // LOGFILE_H_

@@ -32,8 +32,7 @@
 
 int Logfile::load() {
     QFile file(filePath);
-    bool fileOpen = file.open(QIODevice::ReadOnly);
-    if (!fileOpen) {
+    if (!file.open(QIODevice::ReadOnly)) {
         return -1;  // Unable to open file
     }
 
@@ -41,7 +40,6 @@ int Logfile::load() {
 
     int invalidLineNumber = parseMetadata(in);
     if (invalidLineNumber != 0) {
-        file.close();
         return invalidLineNumber;  // Unable to parse metadata
     }
 
@@ -64,41 +62,40 @@ int Logfile::load() {
             timeVector.append(period * index);
             ++index;
         } else {
-            invalidLineNumber = Metadata::LINE_NUMBER_FORCE + index;
+            invalidLineNumber = LINE_NUMBER_FORCE + index;
             break;
         }
     }
-    file.close();
     return invalidLineNumber;
 }
 
 bool Logfile::write() {
     QFile file(filePath);
-    if (file.open(QIODevice::ReadWrite | QIODevice::Text)) {
-        file.resize(0);
-        QTextStream stream(&file);
-        stream << metadata.deviceID << Qt::endl;
-        stream << metadata.date << Qt::endl;
-        stream << metadata.time << Qt::endl;
-        stream << "LogNo=" << qSetFieldWidth(3) << qSetPadChar('0') << metadata.logNr << qSetFieldWidth(0) << Qt::endl;
-        stream << "Unit=" << metadata.unit << Qt::endl;
-        stream << "Mode=" << metadata.mode << Qt::endl;
-        stream << "RelZero=" << QString::number(metadata.relZero, 'f', 2) << Qt::endl;
-        stream << "Speed=" << metadata.speed << Qt::endl;
-        stream << "Trig=" << QString::number(metadata.triggerForce, 'f', 2) << Qt::endl;
-        stream << "Stop=" << QString::number(metadata.stopForce, 'f', 2) << Qt::endl;
-        stream << "Pre=" << metadata.preCatch << Qt::endl;
-        stream << "Catch=" << metadata.catchTime << Qt::endl;
-        stream << "Total=" << metadata.totalTime << Qt::endl;
-
-        QVectorIterator<float> forceDataIterate(forceVector);
-        while (forceDataIterate.hasNext()) {
-            stream << QString::number(forceDataIterate.next(), 'f', 2) << Qt::endl;
-        }
-        file.close();
-        return true;
+    if (!file.open(QIODevice::ReadWrite | QIODevice::Text)) {
+        return false;
     }
-    return false;
+
+    file.resize(0);
+    QTextStream stream(&file);
+    stream << metadata.deviceID << Qt::endl;
+    stream << metadata.date << Qt::endl;
+    stream << metadata.time << Qt::endl;
+    stream << "LogNo=" << qSetFieldWidth(3) << qSetPadChar('0') << metadata.logNr << qSetFieldWidth(0) << Qt::endl;
+    stream << "Unit=" << metadata.unit << Qt::endl;
+    stream << "Mode=" << metadata.mode << Qt::endl;
+    stream << "RelZero=" << QString::number(metadata.relZero, 'f', 2) << Qt::endl;
+    stream << "Speed=" << metadata.speed << Qt::endl;
+    stream << "Trig=" << QString::number(metadata.triggerForce, 'f', 2) << Qt::endl;
+    stream << "Stop=" << QString::number(metadata.stopForce, 'f', 2) << Qt::endl;
+    stream << "Pre=" << metadata.preCatch << Qt::endl;
+    stream << "Catch=" << metadata.catchTime << Qt::endl;
+    stream << "Total=" << metadata.totalTime << Qt::endl;
+
+    QVectorIterator<float> forceDataIterate(forceVector);
+    while (forceDataIterate.hasNext()) {
+        stream << QString::number(forceDataIterate.next(), 'f', 2) << Qt::endl;
+    }
+    return true;
 }
 
 int Logfile::parseMetadata(QTextStream& in) {
@@ -122,7 +119,7 @@ int Logfile::parseMetadata(QTextStream& in) {
     }
     ++lineNumber;
 
-    metadata.logNr = parseNumericField<int>(in.readLine(), "LogNo", &success);
+    metadata.logNr = parseNumericField<int>(in.readLine(), "LogNo", success);
     if (!success) {
         return lineNumber;
     }
@@ -140,43 +137,43 @@ int Logfile::parseMetadata(QTextStream& in) {
     }
     ++lineNumber;
 
-    metadata.relZero = parseNumericField<float>(in.readLine(), "RelZero", &success);
+    metadata.relZero = parseNumericField<float>(in.readLine(), "RelZero", success);
     if (!success) {
         return lineNumber;
     }
     ++lineNumber;
 
-    metadata.speed = parseNumericField<int>(in.readLine(), "Speed", &success);
+    metadata.speed = parseNumericField<int>(in.readLine(), "Speed", success);
     if (!success) {
         return lineNumber;
     }
     ++lineNumber;
 
-    metadata.triggerForce = parseNumericField<float>(in.readLine(), "Trig", &success);
+    metadata.triggerForce = parseNumericField<float>(in.readLine(), "Trig", success);
     if (!success) {
         return lineNumber;
     }
     ++lineNumber;
 
-    metadata.stopForce = parseNumericField<float>(in.readLine(), "Stop", &success);
+    metadata.stopForce = parseNumericField<float>(in.readLine(), "Stop", success);
     if (!success) {
         return lineNumber;
     }
     ++lineNumber;
 
-    metadata.preCatch = parseNumericField<int>(in.readLine(), "Pre", &success);
+    metadata.preCatch = parseNumericField<int>(in.readLine(), "Pre", success);
     if (!success) {
         return lineNumber;
     }
     ++lineNumber;
 
-    metadata.catchTime = parseNumericField<int>(in.readLine(), "Catch", &success);
+    metadata.catchTime = parseNumericField<int>(in.readLine(), "Catch", success);
     if (!success) {
         return lineNumber;
     }
     ++lineNumber;
 
-    metadata.totalTime = parseNumericField<int>(in.readLine(), "Total", &success);
+    metadata.totalTime = parseNumericField<int>(in.readLine(), "Total", success);
     if (!success) {
         return lineNumber;
     }
@@ -208,7 +205,7 @@ QString Logfile::splitToQString(const QString& input, const QString& fieldName) 
     return splitList[1];
 }
 
-void Logfile::setMetadata(Metadata& newData) {
+void Logfile::setMetadata(const Metadata& newData) {
     this->metadata = newData;
 }
 
@@ -216,18 +213,18 @@ Metadata& Logfile::getMetadata() {
     return metadata;
 }
 
-QVector<float>& Logfile::getForce() {
+const QVector<float>& Logfile::getForce() {
     return forceVector;
 }
 
-QVector<float>& Logfile::getTime() {
+const QVector<float>& Logfile::getTime() {
     return timeVector;
 }
 
-void Logfile::setForce(QVector<float>& force) {
+void Logfile::setForce(const QVector<float>& force) {
     forceVector = force;
 }
 
-void Logfile::setTime(QVector<float>& time) {
+void Logfile::setTime(const QVector<float>& time) {
     timeVector = time;
 }
