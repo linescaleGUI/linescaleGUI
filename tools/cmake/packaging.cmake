@@ -1,9 +1,11 @@
 
+cmake_minimum_required(VERSION 3.19)
+
 find_package(Qt5 COMPONENTS Core REQUIRED)
 get_target_property(qmake_executable Qt5::qmake IMPORTED_LOCATION)
 get_filename_component(_qt_bin_dir "${qmake_executable}" DIRECTORY)
 find_program(WINDEPLOYQT_EXECUTABLE windeployqt HINTS "${_qt_bin_dir}")
-find_program(LINUXDEPLOY_EXECUTABLE linuxdeploy linuxdeploy-x86_64.AppImage HINTS "${_qt_bin_dir}")
+find_program(LINUXDEPLOY_EXECUTABLE linuxdeploy linuxdeploy-x86_64.AppImage HINTS ENV LINUXDEPLOY_PATH "${_qt_bin_dir}")
 find_program(MACDEPLOYQT_EXECUTABLE macdeployqt HINTS "${_qt_bin_dir}")
 find_program(MACDEPLOYQTFIX_EXECUTABLE macdeployqtfix.py HINTS "${_qt_bin_dir}")
 find_package(Python)
@@ -24,6 +26,8 @@ function(linuxdeployqt destdir desktopfile)
                        WORKING_DIRECTORY ${CMAKE_BINARY_DIR})
 endfunction()
 
+# Add a post-build command that installs the needed libraries to `<build-dir>/winqt`
+# so that the package generation scripts have them.
 function(windeployqt2 target)
     add_custom_command(TARGET ${target} POST_BUILD
                        COMMAND "${CMAKE_COMMAND}" -E remove_directory "${CMAKE_CURRENT_BINARY_DIR}/winqt/"
@@ -40,8 +44,8 @@ function(windeployqt2 target)
                        COMMENT "Deploying Qt..."
     )
     install(DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/winqt/" DESTINATION bin)
-    # set(CMAKE_INSTALL_UCRT_LIBRARIES TRUE)
     include(InstallRequiredSystemLibraries)
+    set(CMAKE_INSTALL_UCRT_LIBRARIES TRUE) # TODO: research if we need it.
 endfunction()
 
 function(macdeployqt bundle targetdir _PACKAGER)
@@ -51,10 +55,10 @@ function(macdeployqt bundle targetdir _PACKAGER)
     include(InstallRequiredSystemLibraries)
 endfunction()
 
-set(CPACK_PACKAGE_VENDOR "linegrip")
+set(CPACK_PACKAGE_VENDOR "linegrip") # TODO: what vendor to set here?
 set(CPACK_PACKAGE_NAME "${PROJECT_NAME}")
-# set(CPACK_PACKAGE_CONTACT "linegrip <example@example.com>")
-set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "${PROJECT_DESCRIPTION}")
+set(CPACK_PACKAGE_CONTACT "linegrip <>") # TODO: set contact info.
+set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "${PROJECT_DESCRIPTION}") # TODO: set project_description
 set(CPACK_PACKAGE_DESCRIPTION_FILE "${CMAKE_SOURCE_DIR}/README.md")
 set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_SOURCE_DIR}/LICENSE.md")
 set(CPACK_PACKAGE_VERSION_MAJOR ${PROJECT_VERSION_MAJOR})
@@ -119,9 +123,9 @@ if(WIN32 AND NOT UNIX)
         list(APPEND CPACK_GENERATOR NuGET)
         message(STATUS "   + NuGET                               YES ")
         set(CPACK_NUGET_PACKAGE_NAME "${PROJECT_NAME}")
-	set(CPACK_NUGET_PACKAGE_VERSION "1.0.0")
-	set(CPACK_NUGET_PACKAGE_DESCRIPTION "Example")
-	set(CPACK_NUGET_PACKAGE_AUTHORS "Example")
+        set(CPACK_NUGET_PACKAGE_VERSION "${CMAKE_PROJECT_VERSION}")
+        set(CPACK_NUGET_PACKAGE_DESCRIPTION "${PROJECT_DESCRIPTION}")
+        set(CPACK_NUGET_PACKAGE_AUTHORS "${CPACK_PACKAGE_VENDOR}") # TODO: replace with actual authors
     else()
         message(STATUS "   + NuGET                                NO ")
     endif()
@@ -129,8 +133,8 @@ if(WIN32 AND NOT UNIX)
     windeployqt2(${PROJECT_NAME})
 
 elseif(APPLE)
-    #--------------------------------------------------------------------------
     # Apple specific
+
     message(STATUS "Package generation - Mac OS X")
     message(STATUS "   + TBZ2                                 YES ")
 
@@ -155,8 +159,8 @@ elseif(APPLE)
     endif()
 
 else()
-    #-----------------------------------------------------------------------------
     # Linux specific
+
     list(APPEND CPACK_GENERATOR TBZ2 TXZ)
     message(STATUS "Package generation - UNIX")
     message(STATUS "   + TBZ2                                 YES ")
@@ -166,13 +170,13 @@ else()
     if(RPMBUILD_PATH)
         message(STATUS "   + RPM                                  YES ")
         set(CPACK_GENERATOR "${CPACK_GENERATOR};RPM")
-        set(CPACK_RPM_PACKAGE_LICENSE "MIT")
+        set(CPACK_RPM_PACKAGE_LICENSE "GPLv3")
     else()
         message(STATUS "   + RPM                                  NO ")
     endif()
 
-    # list(APPEND CPACK_GENERATOR DEB)
-    message(STATUS "   + DEB                                  NO ")
+    list(APPEND CPACK_GENERATOR DEB)
+    message(STATUS "   + DEB                                  YES")
     set(CPACK_DEBIAN_PACKAGE_ARCHITECTURE "amd64")
     set(CPACK_DEBIAN_PACKAGE_CONTROL_STRICT_PERMISSION TRUE)
     set(CPACK_DEBIAN_PACKAGE_HOMEPAGE "${PROJECT_URL}")
@@ -180,19 +184,17 @@ else()
 
     if(LINUXDEPLOY_EXECUTABLE)
         message(STATUS "   + AppImage                             YES ")
-        if(CMAKE_VERSION VERSION_LESS 3.13)
-            linuxdeployqt("${CPACK_PACKAGE_DIRECTORY}/_CPack_Packages/Linux/AppImage" "share/applications/example.desktop")
-        else()
-            set(CPACK_GENERATOR "External;${CPACK_GENERATOR}")
-            set(assets_dir ${CMAKE_SOURCE_DIR}/assets)
-            configure_file(${CMAKE_CURRENT_SOURCE_DIR}/tools/cmake/CPackLinuxDeployQt.cmake.in "${CMAKE_BINARY_DIR}/CPackExternal.cmake")
-            set(CPACK_EXTERNAL_PACKAGE_SCRIPT "${CMAKE_BINARY_DIR}/CPackExternal.cmake")
-        endif()
+        set(CPACK_GENERATOR "External;${CPACK_GENERATOR}")
+
+        # for CPackLinuxDeployQt.cmake.in
+        set(assets_dir ${CMAKE_SOURCE_DIR}/assets) 
+
+        configure_file(${CMAKE_CURRENT_SOURCE_DIR}/tools/cmake/CPackLinuxDeployQt.cmake.in "${CMAKE_BINARY_DIR}/CPackExternal.cmake")
+        set(CPACK_EXTERNAL_PACKAGE_SCRIPT "${CMAKE_BINARY_DIR}/CPackExternal.cmake")
     else()
         message(STATUS "   + AppImage                              NO ")
     endif()
-
-    set(CPACK_PACKAGE_ICON "${CMAKE_SOURCE_DIR}/resources/icon64.png")
+    set(CPACK_PACKAGE_ICON "${CMAKE_SOURCE_DIR}/assets/app/linescaleGUI.png")
 endif()
 
 include(CPack)
