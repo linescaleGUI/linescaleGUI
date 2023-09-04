@@ -1,11 +1,12 @@
 <map id="src/deviceCommunication/commUSB.h" name="src/deviceCommunication/commUSB.h">
-<area shape="rect" id="node1" title="comm::CommUSB declaration" alt="" coords="136,5,308,45"/>
-<area shape="rect" id="node2" title=" " alt="" coords="21,167,90,192"/>
-<area shape="rect" id="node3" title=" " alt="" coords="260,93,323,119"/>
-<area shape="rect" id="node4" title=" " alt="" coords="88,240,159,265"/>
-<area shape="rect" id="node5" title=" " alt="" coords="347,93,436,119"/>
-<area shape="rect" id="node6" title=" " alt="" coords="460,93,571,119"/>
-<area shape="rect" id="node7" href="$parser_8h.html" title="Parser declaration" alt="" coords="166,167,284,192"/>
-<area shape="rect" id="node9" href="$comm_device_8h.html" title="comm::CommDevice declaration" alt="" coords="76,93,184,119"/>
-<area shape="rect" id="node8" title=" " alt="" coords="184,240,272,265"/>
+<area shape="rect" id="node1" title="comm::CommUSB declaration" alt="" coords="123,5,295,45"/>
+<area shape="rect" id="node2" title=" " alt="" coords="174,167,243,192"/>
+<area shape="rect" id="node3" title=" " alt="" coords="25,93,88,119"/>
+<area shape="rect" id="node4" title=" " alt="" coords="367,240,437,265"/>
+<area shape="rect" id="node5" title=" " alt="" coords="164,93,253,119"/>
+<area shape="rect" id="node6" title=" " alt="" coords="277,93,388,119"/>
+<area shape="rect" id="node7" href="$parser_8h.html" title="Parser declaration" alt="" coords="452,167,571,192"/>
+<area shape="rect" id="node10" href="$comm_device_8h.html" title="comm::CommDevice declaration" alt="" coords="412,93,520,119"/>
+<area shape="rect" id="node8" title=" " alt="" coords="585,240,673,265"/>
+<area shape="rect" id="node9" title=" " alt="" coords="462,240,561,265"/>
 </map>

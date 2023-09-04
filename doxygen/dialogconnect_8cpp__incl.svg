@@ -32,33 +32,33 @@
 <path fill="none" stroke="#63b8ff" d="M160.88,-340.51C145.72,-332.31 123.08,-320.07 105.53,-310.58"/>
 <polygon fill="#63b8ff" stroke="#63b8ff" points="107.67,-307.76 97.21,-306.08 104.34,-313.91 107.67,-307.76"/>
 </g>
-<!-- Node12 -->
-<g id="node12" class="node">
-<title>Node12</title>
-<g id="a_node12"><a xlink:title=" ">
-<polygon fill="#e0e0e0" stroke="#999999" points="215,-305 140,-305 140,-286 215,-286 215,-305"/>
-<text text-anchor="middle" x="177.5" y="-293" font-family="Helvetica,sans-Serif" font-size="10.00">QPushButton</text>
-</a>
-</g>
-</g>
-<!-- Node1&#45;&gt;Node12 -->
-<g id="edge14" class="edge">
-<title>Node1&#45;&gt;Node12</title>
-<path fill="none" stroke="#63b8ff" d="M177.5,-340.75C177.5,-334.27 177.5,-325.16 177.5,-316.9"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="181,-316.96 177.5,-306.96 174,-316.96 181,-316.96"/>
-</g>
 <!-- Node13 -->
 <g id="node13" class="node">
 <title>Node13</title>
 <g id="a_node13"><a xlink:title=" ">
-<polygon fill="#e0e0e0" stroke="#999999" points="330,-305 233,-305 233,-286 330,-286 330,-305"/>
-<text text-anchor="middle" x="281.5" y="-293" font-family="Helvetica,sans-Serif" font-size="10.00">ui_dialogconnect.h</text>
+<polygon fill="#e0e0e0" stroke="#999999" points="215,-305 140,-305 140,-286 215,-286 215,-305"/>
+<text text-anchor="middle" x="177.5" y="-293" font-family="Helvetica,sans-Serif" font-size="10.00">QPushButton</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node13 -->
 <g id="edge15" class="edge">
 <title>Node1&#45;&gt;Node13</title>
+<path fill="none" stroke="#63b8ff" d="M177.5,-340.75C177.5,-334.27 177.5,-325.16 177.5,-316.9"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="181,-316.96 177.5,-306.96 174,-316.96 181,-316.96"/>
+</g>
+<!-- Node14 -->
+<g id="node14" class="node">
+<title>Node14</title>
+<g id="a_node14"><a xlink:title=" ">
+<polygon fill="#e0e0e0" stroke="#999999" points="330,-305 233,-305 233,-286 330,-286 330,-305"/>
+<text text-anchor="middle" x="281.5" y="-293" font-family="Helvetica,sans-Serif" font-size="10.00">ui_dialogconnect.h</text>
+</a>
+</g>
+</g>
+<!-- Node1&#45;&gt;Node14 -->
+<g id="edge16" class="edge">
+<title>Node1&#45;&gt;Node14</title>
 <path fill="none" stroke="#63b8ff" d="M195.14,-340.51C211.23,-332.31 235.25,-320.07 253.87,-310.58"/>
 <polygon fill="#63b8ff" stroke="#63b8ff" points="255.45,-313.7 262.77,-306.05 252.27,-307.47 255.45,-313.7"/>
 </g>
@@ -93,18 +93,18 @@
 <path fill="none" stroke="#63b8ff" d="M79.5,-285.59C79.5,-268.8 79.5,-231.87 79.5,-206.71"/>
 <polygon fill="#63b8ff" stroke="#63b8ff" points="83,-206.95 79.5,-196.95 76,-206.95 83,-206.95"/>
 </g>
-<!-- Node10 -->
-<g id="node10" class="node">
-<title>Node10</title>
-<g id="a_node10"><a xlink:href="connection_widget_8h.html" target="_top" xlink:title="ConnectionWidget declaration">
+<!-- Node11 -->
+<g id="node11" class="node">
+<title>Node11</title>
+<g id="a_node11"><a xlink:href="connection_widget_8h.html" target="_top" xlink:title="ConnectionWidget declaration">
 <polygon fill="white" stroke="#666666" points="209,-250 108,-250 108,-231 209,-231 209,-250"/>
 <text text-anchor="middle" x="158.5" y="-238" font-family="Helvetica,sans-Serif" font-size="10.00">connectionWidget.h</text>
 </a>
 </g>
 </g>
-<!-- Node2&#45;&gt;Node10 -->
-<g id="edge11" class="edge">
-<title>Node2&#45;&gt;Node10</title>
+<!-- Node2&#45;&gt;Node11 -->
+<g id="edge12" class="edge">
+<title>Node2&#45;&gt;Node11</title>
 <path fill="none" stroke="#63b8ff" d="M92.9,-285.51C104.66,-277.62 122.01,-265.98 135.91,-256.65"/>
 <polygon fill="#63b8ff" stroke="#63b8ff" points="137.69,-259.68 144.04,-251.2 133.79,-253.87 137.69,-259.68"/>
 </g>
@@ -184,35 +184,50 @@
 <g id="node9" class="node">
 <title>Node9</title>
 <g id="a_node9"><a xlink:title=" ">
-<polygon fill="#e0e0e0" stroke="#999999" points="259.5,-19 193.5,-19 193.5,0 259.5,0 259.5,-19"/>
-<text text-anchor="middle" x="226.5" y="-7" font-family="Helvetica,sans-Serif" font-size="10.00">QByteArray</text>
+<polygon fill="#e0e0e0" stroke="#999999" points="226.5,-19 160.5,-19 160.5,0 226.5,0 226.5,-19"/>
+<text text-anchor="middle" x="193.5" y="-7" font-family="Helvetica,sans-Serif" font-size="10.00">QByteArray</text>
 </a>
 </g>
 </g>
 <!-- Node8&#45;&gt;Node9 -->
 <g id="edge9" class="edge">
 <title>Node8&#45;&gt;Node9</title>
-<path fill="none" stroke="#63b8ff" d="M226.5,-54.75C226.5,-48.27 226.5,-39.16 226.5,-30.9"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="230,-30.96 226.5,-20.96 223,-30.96 230,-30.96"/>
+<path fill="none" stroke="#63b8ff" d="M221.05,-54.75C216.73,-47.81 210.54,-37.86 205.12,-29.16"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="208.12,-27.37 199.87,-20.73 202.18,-31.07 208.12,-27.37"/>
 </g>
-<!-- Node10&#45;&gt;Node4 -->
-<g id="edge13" class="edge">
-<title>Node10&#45;&gt;Node4</title>
+<!-- Node10 -->
+<g id="node10" class="node">
+<title>Node10</title>
+<g id="a_node10"><a xlink:title=" ">
+<polygon fill="#e0e0e0" stroke="#999999" points="318.5,-19 244.5,-19 244.5,0 318.5,0 318.5,-19"/>
+<text text-anchor="middle" x="281.5" y="-7" font-family="Helvetica,sans-Serif" font-size="10.00">QTextStream</text>
+</a>
+</g>
+</g>
+<!-- Node8&#45;&gt;Node10 -->
+<g id="edge11" class="edge">
+<title>Node8&#45;&gt;Node10</title>
+<path fill="none" stroke="#63b8ff" d="M235.58,-54.75C243.34,-47.27 254.71,-36.32 264.2,-27.17"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="266.36,-29.95 271.13,-20.49 261.5,-24.91 266.36,-29.95"/>
+</g>
+<!-- Node11&#45;&gt;Node4 -->
+<g id="edge14" class="edge">
+<title>Node11&#45;&gt;Node4</title>
 <path fill="none" stroke="#63b8ff" d="M146.5,-230.62C136.36,-223.1 121.41,-212.04 108.21,-202.26"/>
 <polygon fill="#63b8ff" stroke="#63b8ff" points="110.34,-199.48 100.22,-196.34 106.17,-205.1 110.34,-199.48"/>
 </g>
-<!-- Node11 -->
-<g id="node11" class="node">
-<title>Node11</title>
-<g id="a_node11"><a xlink:title=" ">
+<!-- Node12 -->
+<g id="node12" class="node">
+<title>Node12</title>
+<g id="a_node12"><a xlink:title=" ">
 <polygon fill="#e0e0e0" stroke="#999999" points="211.5,-189.5 157.5,-189.5 157.5,-170.5 211.5,-170.5 211.5,-189.5"/>
 <text text-anchor="middle" x="184.5" y="-177.5" font-family="Helvetica,sans-Serif" font-size="10.00">QWidget</text>
 </a>
 </g>
 </g>
-<!-- Node10&#45;&gt;Node11 -->
-<g id="edge12" class="edge">
-<title>Node10&#45;&gt;Node11</title>
+<!-- Node11&#45;&gt;Node12 -->
+<g id="edge13" class="edge">
+<title>Node11&#45;&gt;Node12</title>
 <path fill="none" stroke="#63b8ff" d="M162.34,-230.87C165.95,-222.75 171.47,-210.31 176.11,-199.89"/>
 <polygon fill="#63b8ff" stroke="#63b8ff" points="179.17,-201.61 180.03,-191.05 172.77,-198.77 179.17,-201.61"/>
 </g>

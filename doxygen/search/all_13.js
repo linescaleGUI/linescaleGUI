@@ -1,5 +1,6 @@
 var searchData=
 [
   ['workingmode_0',['workingMode',['../struct_sample.html#a910976bb8cd02a4495f4e30988ebb5c8',1,'Sample']]],
-  ['workingmode_1',['WorkingMode',['../parser_8h.html#a1352c5fcb6cfad612ba26a0e91355bcb',1,'parser.h']]]
+  ['workingmode_1',['WorkingMode',['../parser_8h.html#a1352c5fcb6cfad612ba26a0e91355bcb',1,'parser.h']]],
+  ['write_2',['write',['../class_logfile.html#ae2ad720ed30ac6a295515e349fa1498b',1,'Logfile']]]
 ];

@@ -1,10 +1,9 @@
 var searchData=
 [
-  ['_7ecommmaster_0',['~CommMaster',['../classcomm_1_1_comm_master.html#a09f7e249f2c829f15a557f0d5988a6c4',1,'comm::CommMaster']]],
-  ['_7ecommusb_1',['~CommUSB',['../classcomm_1_1_comm_u_s_b.html#a680fd2b00288a6225b250cd7f4aeb132',1,'comm::CommUSB']]],
-  ['_7econnectionwidget_2',['~ConnectionWidget',['../class_connection_widget.html#a33a4d2be791bed22f07e299979a186ec',1,'ConnectionWidget']]],
-  ['_7edialogabout_3',['~DialogAbout',['../class_dialog_about.html#a0b141c358e2032f26464f7a4d85f4bd8',1,'DialogAbout']]],
-  ['_7edialogconnect_4',['~DialogConnect',['../class_dialog_connect.html#a375ddb6ea20097df3238cbd6c37b35dd',1,'DialogConnect']]],
-  ['_7edialogdebug_5',['~DialogDebug',['../class_dialog_debug.html#af4e3da667587729515ac05c2f5392e35',1,'DialogDebug']]],
-  ['_7emainwindow_6',['~MainWindow',['../class_main_window.html#ae98d00a93bc118200eeef9f9bba1dba7',1,'MainWindow']]]
+  ['updatebatteryicon_0',['updateBatteryIcon',['../class_connection_widget.html#aff6ac4fceb05ad8689e39e12f72697c2',1,'ConnectionWidget']]],
+  ['updatecurrentfrequency_1',['updateCurrentFrequency',['../class_connection_widget.html#afe8f98a2ebbe99090ef955a95a4b3399',1,'ConnectionWidget']]],
+  ['updatefrequencyselector_2',['updateFrequencySelector',['../class_dialog_connect.html#a8ef7e960babc0633808e4327903d67ba',1,'DialogConnect']]],
+  ['updateplot_3',['updatePlot',['../class_plot.html#a7cc931daccc7dc88c3043c7c69c5ee37',1,'Plot']]],
+  ['updateunit_4',['updateUnit',['../class_connection_widget.html#ad82afb5676b22e70cb2d53b5233a0a7d',1,'ConnectionWidget']]],
+  ['updatewidget_5',['updateWidget',['../class_connection_widget.html#ad7aadace10b9bc95463348088a74ab5f',1,'ConnectionWidget']]]
 ];

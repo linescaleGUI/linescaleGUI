@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['mainwindow_0',['MainWindow',['../class_main_window.html',1,'']]]
+  ['logfile_0',['Logfile',['../class_logfile.html',1,'']]]
 ];

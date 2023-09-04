@@ -1,0 +1,5 @@
+<map id="Logfile::splitToQString" name="Logfile::splitToQString">
+<area shape="rect" id="node1" title="Split the input line and return a QString." alt="" coords="344,5,493,31"/>
+<area shape="rect" id="node2" href="$class_logfile.html#a037e993c091c54f6b124ed0c9dcb1b58" title="Parse the metadata from a given text stream." alt="" coords="144,5,296,31"/>
+<area shape="rect" id="node3" href="$class_logfile.html#ac21f368cd1107310ae2f7caf6150d1a8" title="Open the file and parse the data." alt="" coords="5,5,96,31"/>
+</map>

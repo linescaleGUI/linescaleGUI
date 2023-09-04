@@ -15,5 +15,6 @@ var searchData=
   ['packet_5fworking_5fmode_5findex_12',['PACKET_WORKING_MODE_INDEX',['../class_parser.html#a217473530a79e074110dd7713bd4f540',1,'Parser']]],
   ['parser_13',['parser',['../classcomm_1_1_comm_device.html#a154e95d2da53157fd55c839883fd859b',1,'comm::CommDevice']]],
   ['plot_14',['plot',['../class_main_window.html#ad2cb6f037a263402f1285c21d578ca6f',1,'MainWindow']]],
-  ['poweroff_15',['POWEROFF',['../namespacecommand.html#a32830e687229b6efe47bd7f4ce0f042f',1,'command']]]
+  ['poweroff_15',['POWEROFF',['../namespacecommand.html#a32830e687229b6efe47bd7f4ce0f042f',1,'command']]],
+  ['precatch_16',['preCatch',['../struct_metadata.html#ad185af612145aa88d917f6c352653027',1,'Metadata']]]
 ];

@@ -1,0 +1,4 @@
+<map id="Logfile" name="Logfile">
+<area shape="rect" id="node1" title="Class to represent a logfile from the device." alt="" coords="13,93,73,119"/>
+<area shape="rect" id="node2" href="$struct_metadata.html" title="Metadata as saved in the current logfile." alt="" coords="5,5,81,31"/>
+</map>

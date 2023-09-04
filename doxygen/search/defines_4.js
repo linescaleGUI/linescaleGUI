@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['plotwidget_5fh_5f_0',['PLOTWIDGET_H_',['../plot_widget_8h.html#a77073685ce41ec1b0f0662e824f1e899',1,'plotWidget.h']]]
+  ['notification_5fh_5f_0',['NOTIFICATION_H_',['../notification_8h.html#a78aa9a6ce6a6d2916e745e0cc7416f95',1,'notification.h']]]
 ];

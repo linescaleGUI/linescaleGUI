@@ -3,21 +3,22 @@
 <area shape="rect" id="node2" title=" " alt="" coords="5,79,112,104"/>
 <area shape="rect" id="node3" href="$comm_master_8h.html" title="comm::CommMaster declaration" alt="" coords="188,225,348,265"/>
 <area shape="rect" id="node7" href="$parser_8h.html" title="Parser declaration" alt="" coords="681,387,799,412"/>
-<area shape="rect" id="node9" href="$notification_8h.html" title="Notification declaration" alt="" coords="485,233,656,258"/>
-<area shape="rect" id="node12" href="$dialogabout_8h.html" title="DialogAbout declaration" alt="" coords="312,79,411,104"/>
-<area shape="rect" id="node14" href="$dialogconnect_8h.html" title="DialogConnect declaration" alt="" coords="435,79,547,104"/>
-<area shape="rect" id="node17" href="$dialogdebug_8h.html" title="DialogDebug declaration" alt="" coords="187,79,288,104"/>
-<area shape="rect" id="node18" href="$plot_widget_8h.html" title="Plot declaration" alt="" coords="731,152,824,177"/>
-<area shape="rect" id="node4" title=" " alt="" coords="579,460,650,485"/>
+<area shape="rect" id="node10" href="$notification_8h.html" title="Notification declaration" alt="" coords="485,233,656,258"/>
+<area shape="rect" id="node13" href="$dialogabout_8h.html" title="DialogAbout declaration" alt="" coords="312,79,411,104"/>
+<area shape="rect" id="node15" href="$dialogconnect_8h.html" title="DialogConnect declaration" alt="" coords="435,79,547,104"/>
+<area shape="rect" id="node18" href="$dialogdebug_8h.html" title="DialogDebug declaration" alt="" coords="187,79,288,104"/>
+<area shape="rect" id="node19" href="$plot_widget_8h.html" title="Plot declaration" alt="" coords="731,152,824,177"/>
+<area shape="rect" id="node4" title=" " alt="" coords="447,460,518,485"/>
 <area shape="rect" id="node5" href="$comm_device_8h.html" title="comm::CommDevice declaration" alt="" coords="275,313,383,339"/>
-<area shape="rect" id="node6" title=" " alt="" coords="295,387,364,412"/>
-<area shape="rect" id="node8" title=" " alt="" coords="696,460,784,485"/>
-<area shape="rect" id="node10" title=" " alt="" coords="408,313,475,339"/>
-<area shape="rect" id="node11" title=" " alt="" coords="499,313,605,339"/>
-<area shape="rect" id="node13" title=" " alt="" coords="271,152,339,177"/>
-<area shape="rect" id="node15" href="$connection_widget_8h.html" title="ConnectionWidget declaration" alt="" coords="415,152,550,177"/>
-<area shape="rect" id="node16" title=" " alt="" coords="389,233,461,258"/>
-<area shape="rect" id="node19" title=" " alt="" coords="782,233,847,258"/>
-<area shape="rect" id="node20" title=" " alt="" coords="871,233,942,258"/>
-<area shape="rect" id="node21" title=" " alt="" coords="966,233,1151,258"/>
+<area shape="rect" id="node6" title=" " alt="" coords="367,387,436,412"/>
+<area shape="rect" id="node8" title=" " alt="" coords="637,460,725,485"/>
+<area shape="rect" id="node9" title=" " alt="" coords="749,460,848,485"/>
+<area shape="rect" id="node11" title=" " alt="" coords="408,313,475,339"/>
+<area shape="rect" id="node12" title=" " alt="" coords="499,313,605,339"/>
+<area shape="rect" id="node14" title=" " alt="" coords="271,152,339,177"/>
+<area shape="rect" id="node16" href="$connection_widget_8h.html" title="ConnectionWidget declaration" alt="" coords="415,152,550,177"/>
+<area shape="rect" id="node17" title=" " alt="" coords="389,233,461,258"/>
+<area shape="rect" id="node20" title=" " alt="" coords="782,233,847,258"/>
+<area shape="rect" id="node21" title=" " alt="" coords="871,233,942,258"/>
+<area shape="rect" id="node22" title=" " alt="" coords="966,233,1151,258"/>
 </map>

@@ -1,12 +1,16 @@
 var searchData=
 [
-  ['readdata_0',['readData',['../classcomm_1_1_comm_device.html#a37188e4962ae8acaaef3343e6ad2dc6a',1,'comm::CommDevice::readData()'],['../classcomm_1_1_comm_u_s_b.html#ad37cdf76196c13ec5e8225853b3f6d05',1,'comm::CommUSB::readData()']]],
-  ['receivenewsample_1',['receiveNewSample',['../class_main_window.html#a477a34ee6ac7f461c2cd70a29c94ca7f',1,'MainWindow']]],
-  ['receivesamplemaster_2',['receiveSampleMaster',['../classcomm_1_1_comm_master.html#ab4290bf47f19360b801c82e52cc2bfd4',1,'comm::CommMaster']]],
-  ['reloadconnections_3',['reloadConnections',['../class_dialog_connect.html#a7bbd0bcf4ca09c12e387da17e6353424',1,'DialogConnect']]],
-  ['removeconnection_4',['removeConnection',['../classcomm_1_1_comm_master.html#ae7bbc2f4ecf3dce003260b666780a689',1,'comm::CommMaster']]],
-  ['replaceversioninfo_5',['replaceVersionInfo',['../class_dialog_about.html#acbfa552dd5f2266db2187855a45fc0e9',1,'DialogAbout']]],
-  ['requestconnection_6',['requestConnection',['../class_dialog_connect.html#abc963c4db196e7c66eb3a61591c6da76',1,'DialogConnect']]],
-  ['requestnewfreq_7',['requestNewFreq',['../class_connection_widget.html#abae7db7f76bb5ef89d3be9d3e253c737',1,'ConnectionWidget']]],
-  ['requestnewunit_8',['requestNewUnit',['../class_connection_widget.html#afd7b82ac6da432c673e112cc67979f3d',1,'ConnectionWidget']]]
+  ['parsebatterypercent_0',['parseBatteryPercent',['../class_parser.html#a157ab58e1b014a12bca85db9a6e074cf',1,'Parser']]],
+  ['parsefrequency_1',['parseFrequency',['../class_parser.html#ae859ebb905de1e851555bca77be430cb',1,'Parser']]],
+  ['parsemeasuredvalue_2',['parseMeasuredValue',['../class_parser.html#af29922c0ac10ae0b11e85e46c782adbc',1,'Parser']]],
+  ['parsemeasuremode_3',['parseMeasureMode',['../class_parser.html#a9df908c7f2e84ec62a3ab541a086073f',1,'Parser::parseMeasureMode()'],['../parser_8cpp.html#a236dba5fe00a0e08b8f7eb655944424d',1,'parseMeasureMode(const QString &amp;input):&#160;parser.cpp'],['../parser_8h.html#a236dba5fe00a0e08b8f7eb655944424d',1,'parseMeasureMode(const QString &amp;input):&#160;parser.cpp']]],
+  ['parsemetadata_4',['parseMetadata',['../class_logfile.html#a037e993c091c54f6b124ed0c9dcb1b58',1,'Logfile']]],
+  ['parsenumericfield_5',['parseNumericField',['../class_logfile.html#add442f33d2037c4439d16d5b14faf494',1,'Logfile']]],
+  ['parsepackage_6',['parsePackage',['../class_parser.html#abb022bc12ff85330ac74193703f69102',1,'Parser']]],
+  ['parsereferencezero_7',['parseReferenceZero',['../class_parser.html#ab6755be523f08bc1124519465b267c94',1,'Parser']]],
+  ['parseunit_8',['parseUnit',['../parser_8cpp.html#abe9268afc6ae8116d86aaa580892441e',1,'parseUnit(const QString &amp;input):&#160;parser.cpp'],['../parser_8h.html#abe9268afc6ae8116d86aaa580892441e',1,'parseUnit(const QString &amp;input):&#160;parser.cpp']]],
+  ['parseunitvalue_9',['parseUnitValue',['../class_parser.html#a0904f63d16c490f8c0d1a37d39c07f0a',1,'Parser']]],
+  ['parseworkingmode_10',['parseWorkingMode',['../class_parser.html#a75eae8b921d73f832c736ed831f96fc4',1,'Parser']]],
+  ['plot_11',['Plot',['../class_plot.html#a83d9454de4b05fc361c318317658c734',1,'Plot']]],
+  ['push_12',['push',['../class_notification.html#a011f4e614157fb34f7a029c287a6bcb9',1,'Notification']]]
 ];

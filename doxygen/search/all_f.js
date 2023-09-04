@@ -11,11 +11,12 @@ var searchData=
   ['referencezero_8',['referenceZero',['../struct_sample.html#a1ecb85007a9ce637fa80d52c75e98b9e',1,'Sample']]],
   ['rel_5fzero_9',['REL_ZERO',['../parser_8h.html#a344cf3c6242115d67b7371e501a921f2ae4a8092bc0a220dcb8fa62fb1eb3881e',1,'parser.h']]],
   ['reloadconnections_10',['reloadConnections',['../class_dialog_connect.html#a7bbd0bcf4ca09c12e387da17e6353424',1,'DialogConnect']]],
-  ['removeconnection_11',['removeConnection',['../classcomm_1_1_comm_master.html#ae7bbc2f4ecf3dce003260b666780a689',1,'comm::CommMaster']]],
-  ['replaceversioninfo_12',['replaceVersionInfo',['../class_dialog_about.html#acbfa552dd5f2266db2187855a45fc0e9',1,'DialogAbout']]],
-  ['requestconnection_13',['requestConnection',['../class_dialog_connect.html#abc963c4db196e7c66eb3a61591c6da76',1,'DialogConnect']]],
-  ['requestnewfreq_14',['requestNewFreq',['../class_connection_widget.html#abae7db7f76bb5ef89d3be9d3e253c737',1,'ConnectionWidget']]],
-  ['requestnewunit_15',['requestNewUnit',['../class_connection_widget.html#afd7b82ac6da432c673e112cc67979f3d',1,'ConnectionWidget']]],
-  ['requestonline_16',['REQUESTONLINE',['../namespacecommand.html#a8ab1b9eef29e69f2da619fd414751a90',1,'command']]],
-  ['resetpeak_17',['RESETPEAK',['../namespacecommand.html#a094d20f541d0d575c8a33d6aa5a81818',1,'command']]]
+  ['relzero_11',['relZero',['../struct_metadata.html#a5523964c37d6bbd2e45fcc1a06729a68',1,'Metadata']]],
+  ['removeconnection_12',['removeConnection',['../classcomm_1_1_comm_master.html#ae7bbc2f4ecf3dce003260b666780a689',1,'comm::CommMaster']]],
+  ['replaceversioninfo_13',['replaceVersionInfo',['../class_dialog_about.html#acbfa552dd5f2266db2187855a45fc0e9',1,'DialogAbout']]],
+  ['requestconnection_14',['requestConnection',['../class_dialog_connect.html#abc963c4db196e7c66eb3a61591c6da76',1,'DialogConnect']]],
+  ['requestnewfreq_15',['requestNewFreq',['../class_connection_widget.html#abae7db7f76bb5ef89d3be9d3e253c737',1,'ConnectionWidget']]],
+  ['requestnewunit_16',['requestNewUnit',['../class_connection_widget.html#afd7b82ac6da432c673e112cc67979f3d',1,'ConnectionWidget']]],
+  ['requestonline_17',['REQUESTONLINE',['../namespacecommand.html#a8ab1b9eef29e69f2da619fd414751a90',1,'command']]],
+  ['resetpeak_18',['RESETPEAK',['../namespacecommand.html#a094d20f541d0d575c8a33d6aa5a81818',1,'command']]]
 ];

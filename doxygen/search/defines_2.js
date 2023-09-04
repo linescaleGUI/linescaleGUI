@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['mainwindow_5fh_5f_0',['MAINWINDOW_H_',['../mainwindow_8h.html#adfa12c842399fda42d04589db5d77710',1,'mainwindow.h']]]
+  ['logfile_5fh_5f_0',['LOGFILE_H_',['../logfile_8h.html#afa4033fd3ee0931d977cdf135e2e272b',1,'logfile.h']]]
 ];

@@ -1,10 +1,11 @@
 <map id="src/parser/parser.h" name="src/parser/parser.h">
-<area shape="rect" id="node1" title="Parser declaration" alt="" coords="960,5,1091,31"/>
+<area shape="rect" id="node1" title="Parser declaration" alt="" coords="1012,5,1143,31"/>
 <area shape="rect" id="node2" href="$comm_device_8h.html" title="comm::CommDevice declaration" alt="" coords="765,79,937,119"/>
 <area shape="rect" id="node9" href="$mainwindow_8h.html" title="MainWindow declaration" alt="" coords="429,416,576,441"/>
 <area shape="rect" id="node14" href="$comm_u_s_b_8h.html" title="comm::CommUSB declaration" alt="" coords="790,167,962,207"/>
 <area shape="rect" id="node16" href="$plot_widget_8h.html" title="Plot declaration" alt="" coords="1063,86,1199,111"/>
-<area shape="rect" id="node18" href="$parser_8cpp.html" title="Parser implementation" alt="" coords="1223,86,1367,111"/>
+<area shape="rect" id="node18" href="$logfile_8h.html" title="Logfile declaration" alt="" coords="1223,86,1347,111"/>
+<area shape="rect" id="node20" href="$parser_8cpp.html" title="Parser implementation" alt="" coords="1372,86,1516,111"/>
 <area shape="rect" id="node3" href="$comm_master_8h.html" title="comm::CommMaster declaration" alt="" coords="382,167,554,207"/>
 <area shape="rect" id="node4" href="$comm_master_8cpp.html" title="comm::CommMaster implementation" alt="" coords="619,255,791,295"/>
 <area shape="rect" id="node5" href="$connection_widget_8h.html" title="ConnectionWidget declaration" alt="" coords="147,262,325,287"/>
@@ -17,4 +18,5 @@
 <area shape="rect" id="node13" href="$dialogdebug_8cpp.html" title="DialogDebug implementation" alt="" coords="541,343,699,368"/>
 <area shape="rect" id="node15" href="$comm_u_s_b_8cpp.html" title="comm::CommUSB implementation" alt="" coords="815,255,987,295"/>
 <area shape="rect" id="node17" href="$plot_widget_8cpp.html" title="Plot implementation" alt="" coords="1114,174,1265,199"/>
+<area shape="rect" id="node19" href="$logfile_8cpp.html" title="Logfile implementation" alt="" coords="1289,174,1428,199"/>
 </map>

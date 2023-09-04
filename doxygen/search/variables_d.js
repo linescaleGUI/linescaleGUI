@@ -11,12 +11,14 @@ var searchData=
   ['setspeed640_8',['SETSPEED640',['../namespacecommand.html#aa6b817231f96f615b5bfa4b34f1bb10d',1,'command']]],
   ['setzero_9',['SETZERO',['../namespacecommand.html#a623a77d648afc7f468f50787188d6f6f',1,'command']]],
   ['singledevice_10',['singleDevice',['../classcomm_1_1_comm_master.html#aa1a58e7922ea54cce20700ebe258543e',1,'comm::CommMaster']]],
-  ['statusreading_11',['statusReading',['../class_main_window.html#a799dd3f30841b2b7f9c4b21f81f0814c',1,'MainWindow']]],
-  ['stringcolorend_12',['stringColorEnd',['../class_notification.html#a806ab07e013e90f4317b2c233cb12d92',1,'Notification']]],
-  ['stringcolorstart_13',['stringColorStart',['../class_notification.html#a76adc182f7705950f280fe54a78b1695',1,'Notification']]],
-  ['stringseverity_14',['stringSeverity',['../class_notification.html#a8af19b0cc351d114a6891c391b19784a',1,'Notification']]],
-  ['switchmode_15',['SWITCHMODE',['../namespacecommand.html#af259f67a72ed56011fca1f23b296de45',1,'command']]],
-  ['switchtokgf_16',['SWITCHTOKGF',['../namespacecommand.html#aa13b0da01d7eca0de70c53ffbc7d13e0',1,'command']]],
-  ['switchtokn_17',['SWITCHTOKN',['../namespacecommand.html#add355ca18082c18b028b7870b22c6734',1,'command']]],
-  ['switchtolbf_18',['SWITCHTOLBF',['../namespacecommand.html#a12cc03dd9d12404c0df1ebdb89ef39ef',1,'command']]]
+  ['speed_11',['speed',['../struct_metadata.html#a712d0adafb669cf009e79bb910c48cee',1,'Metadata']]],
+  ['statusreading_12',['statusReading',['../class_main_window.html#a799dd3f30841b2b7f9c4b21f81f0814c',1,'MainWindow']]],
+  ['stopforce_13',['stopForce',['../struct_metadata.html#aae4cbdf20802956c86deaee854a6b819',1,'Metadata']]],
+  ['stringcolorend_14',['stringColorEnd',['../class_notification.html#a806ab07e013e90f4317b2c233cb12d92',1,'Notification']]],
+  ['stringcolorstart_15',['stringColorStart',['../class_notification.html#a76adc182f7705950f280fe54a78b1695',1,'Notification']]],
+  ['stringseverity_16',['stringSeverity',['../class_notification.html#a8af19b0cc351d114a6891c391b19784a',1,'Notification']]],
+  ['switchmode_17',['SWITCHMODE',['../namespacecommand.html#af259f67a72ed56011fca1f23b296de45',1,'command']]],
+  ['switchtokgf_18',['SWITCHTOKGF',['../namespacecommand.html#aa13b0da01d7eca0de70c53ffbc7d13e0',1,'command']]],
+  ['switchtokn_19',['SWITCHTOKN',['../namespacecommand.html#add355ca18082c18b028b7870b22c6734',1,'command']]],
+  ['switchtolbf_20',['SWITCHTOLBF',['../namespacecommand.html#a12cc03dd9d12404c0df1ebdb89ef39ef',1,'command']]]
 ];

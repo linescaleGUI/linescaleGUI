@@ -1,13 +1,5 @@
 var searchData=
 [
-  ['parsebatterypercent_0',['parseBatteryPercent',['../class_parser.html#a157ab58e1b014a12bca85db9a6e074cf',1,'Parser']]],
-  ['parsefrequency_1',['parseFrequency',['../class_parser.html#ae859ebb905de1e851555bca77be430cb',1,'Parser']]],
-  ['parsemeasuredvalue_2',['parseMeasuredValue',['../class_parser.html#af29922c0ac10ae0b11e85e46c782adbc',1,'Parser']]],
-  ['parsemeasuremode_3',['parseMeasureMode',['../class_parser.html#a9df908c7f2e84ec62a3ab541a086073f',1,'Parser']]],
-  ['parsepackage_4',['parsePackage',['../class_parser.html#abb022bc12ff85330ac74193703f69102',1,'Parser']]],
-  ['parsereferencezero_5',['parseReferenceZero',['../class_parser.html#ab6755be523f08bc1124519465b267c94',1,'Parser']]],
-  ['parseunitvalue_6',['parseUnitValue',['../class_parser.html#a0904f63d16c490f8c0d1a37d39c07f0a',1,'Parser']]],
-  ['parseworkingmode_7',['parseWorkingMode',['../class_parser.html#a75eae8b921d73f832c736ed831f96fc4',1,'Parser']]],
-  ['plot_8',['Plot',['../class_plot.html#a83d9454de4b05fc361c318317658c734',1,'Plot']]],
-  ['push_9',['push',['../class_notification.html#a011f4e614157fb34f7a029c287a6bcb9',1,'Notification']]]
+  ['opengithublink_0',['openGitHubLink',['../class_main_window.html#ada7744ab19c09b0c5e086540a8dc181a',1,'MainWindow']]],
+  ['operator_3c_3c_1',['operator&lt;&lt;',['../parser_8cpp.html#a0e38a2061b798928f96787106a2dbc28',1,'operator&lt;&lt;(QTextStream &amp;out, const UnitValue unit):&#160;parser.cpp'],['../parser_8cpp.html#a98877e40035d21646283e753ebfc12cc',1,'operator&lt;&lt;(QTextStream &amp;out, const MeasureMode mode):&#160;parser.cpp'],['../parser_8h.html#a0e38a2061b798928f96787106a2dbc28',1,'operator&lt;&lt;(QTextStream &amp;out, const UnitValue unit):&#160;parser.cpp'],['../parser_8h.html#a98877e40035d21646283e753ebfc12cc',1,'operator&lt;&lt;(QTextStream &amp;out, const MeasureMode mode):&#160;parser.cpp']]]
 ];

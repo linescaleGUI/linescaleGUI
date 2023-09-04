@@ -1,4 +1,3 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,112,31"/>
-<area shape="rect" id="node2" href="$class_main_window.html" title="Main window for the application linescaleGUI." alt="" coords="160,5,256,31"/>
+<area shape="rect" id="node1" href="$struct_metadata.html" title="Metadata as saved in the current logfile." alt="" coords="5,5,81,31"/>
 </map>

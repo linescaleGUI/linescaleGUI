@@ -75,6 +75,8 @@ $(function() {
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">parser.cpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
@@ -82,16 +84,176 @@ $(function() {
 <p><code><a class="el" href="class_parser.html" title="Class to parse the received messages.">Parser</a></code> implementation  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="parser_8h_source.html">parser.h</a>&quot;</code><br />
+<code>#include &lt;iostream&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for parser.cpp:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="parser_8cpp__incl.svg" width="195" height="183"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="parser_8cpp__incl.svg" width="318" height="183"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
-</div><a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a0e38a2061b798928f96787106a2dbc28"><td class="memItemLeft" align="right" valign="top">QTextStream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="parser_8cpp.html#a0e38a2061b798928f96787106a2dbc28">operator&lt;&lt;</a> (QTextStream &amp;out, const <a class="el" href="parser_8h.html#abff5caf087a07cc148739d3b4dbbe65b">UnitValue</a> unit)</td></tr>
+<tr class="memdesc:a0e38a2061b798928f96787106a2dbc28"><td class="mdescLeft">&#160;</td><td class="mdescRight">Overload the &lt;&lt; operator for the UnitValue.  <a href="parser_8cpp.html#a0e38a2061b798928f96787106a2dbc28">More...</a><br /></td></tr>
+<tr class="separator:a0e38a2061b798928f96787106a2dbc28"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abe9268afc6ae8116d86aaa580892441e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="parser_8h.html#abff5caf087a07cc148739d3b4dbbe65b">UnitValue</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="parser_8cpp.html#abe9268afc6ae8116d86aaa580892441e">parseUnit</a> (const QString &amp;input)</td></tr>
+<tr class="memdesc:abe9268afc6ae8116d86aaa580892441e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parse the UnitValue from a QString.  <a href="parser_8cpp.html#abe9268afc6ae8116d86aaa580892441e">More...</a><br /></td></tr>
+<tr class="separator:abe9268afc6ae8116d86aaa580892441e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a236dba5fe00a0e08b8f7eb655944424d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="parser_8h.html#a344cf3c6242115d67b7371e501a921f2">MeasureMode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="parser_8cpp.html#a236dba5fe00a0e08b8f7eb655944424d">parseMeasureMode</a> (const QString &amp;input)</td></tr>
+<tr class="memdesc:a236dba5fe00a0e08b8f7eb655944424d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parse the MeasureMode from a QString.  <a href="parser_8cpp.html#a236dba5fe00a0e08b8f7eb655944424d">More...</a><br /></td></tr>
+<tr class="separator:a236dba5fe00a0e08b8f7eb655944424d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a98877e40035d21646283e753ebfc12cc"><td class="memItemLeft" align="right" valign="top">QTextStream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="parser_8cpp.html#a98877e40035d21646283e753ebfc12cc">operator&lt;&lt;</a> (QTextStream &amp;out, const <a class="el" href="parser_8h.html#a344cf3c6242115d67b7371e501a921f2">MeasureMode</a> mode)</td></tr>
+<tr class="memdesc:a98877e40035d21646283e753ebfc12cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Overload the &lt;&lt; operator for the MeasureMode.  <a href="parser_8cpp.html#a98877e40035d21646283e753ebfc12cc">More...</a><br /></td></tr>
+<tr class="separator:a98877e40035d21646283e753ebfc12cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p ><code><a class="el" href="class_parser.html" title="Class to parse the received messages.">Parser</a></code> implementation </p>
 <dl class="section author"><dt>Authors</dt><dd>Gschwind, Weber, Schoch, Niederberger</dd></dl>
-</div></div><!-- contents -->
+</div><h2 class="groupheader">Function Documentation</h2>
+<a id="a98877e40035d21646283e753ebfc12cc" name="a98877e40035d21646283e753ebfc12cc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a98877e40035d21646283e753ebfc12cc">&#9670;&#160;</a></span>operator&lt;&lt;() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">QTextStream &amp; operator&lt;&lt; </td>
+          <td>(</td>
+          <td class="paramtype">QTextStream &amp;&#160;</td>
+          <td class="paramname"><em>out</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="parser_8h.html#a344cf3c6242115d67b7371e501a921f2">MeasureMode</a>&#160;</td>
+          <td class="paramname"><em>mode</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Overload the &lt;&lt; operator for the MeasureMode. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">out</td><td>QTextStream&amp; </td></tr>
+    <tr><td class="paramname">mode</td><td>MeasureMode </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>QTextStream&amp; </dd></dl>
+
+</div>
+</div>
+<a id="a0e38a2061b798928f96787106a2dbc28" name="a0e38a2061b798928f96787106a2dbc28"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0e38a2061b798928f96787106a2dbc28">&#9670;&#160;</a></span>operator&lt;&lt;() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">QTextStream &amp; operator&lt;&lt; </td>
+          <td>(</td>
+          <td class="paramtype">QTextStream &amp;&#160;</td>
+          <td class="paramname"><em>out</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="parser_8h.html#abff5caf087a07cc148739d3b4dbbe65b">UnitValue</a>&#160;</td>
+          <td class="paramname"><em>unit</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Overload the &lt;&lt; operator for the UnitValue. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">out</td><td>QTextStream&amp; </td></tr>
+    <tr><td class="paramname">unit</td><td>UnitValue </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>QTextStream&amp; </dd></dl>
+
+</div>
+</div>
+<a id="a236dba5fe00a0e08b8f7eb655944424d" name="a236dba5fe00a0e08b8f7eb655944424d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a236dba5fe00a0e08b8f7eb655944424d">&#9670;&#160;</a></span>parseMeasureMode()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="parser_8h.html#a344cf3c6242115d67b7371e501a921f2">MeasureMode</a> parseMeasureMode </td>
+          <td>(</td>
+          <td class="paramtype">const QString &amp;&#160;</td>
+          <td class="paramname"><em>input</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Parse the MeasureMode from a QString. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">input</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>MeasureMode </dd></dl>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="parser_8cpp_a236dba5fe00a0e08b8f7eb655944424d_icgraph.svg" width="486" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
+</div>
+
+</div>
+</div>
+<a id="abe9268afc6ae8116d86aaa580892441e" name="abe9268afc6ae8116d86aaa580892441e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abe9268afc6ae8116d86aaa580892441e">&#9670;&#160;</a></span>parseUnit()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="parser_8h.html#abff5caf087a07cc148739d3b4dbbe65b">UnitValue</a> parseUnit </td>
+          <td>(</td>
+          <td class="paramtype">const QString &amp;&#160;</td>
+          <td class="paramname"><em>input</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Parse the UnitValue from a QString. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">input</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>UnitValue </dd></dl>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="parser_8cpp_abe9268afc6ae8116d86aaa580892441e_icgraph.svg" width="428" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
+</div>
+
+</div>
+</div>
+</div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.5

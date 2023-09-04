@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['sample_0',['Sample',['../struct_sample.html',1,'']]]
+  ['parser_0',['Parser',['../class_parser.html',1,'']]],
+  ['plot_1',['Plot',['../class_plot.html',1,'']]]
 ];
