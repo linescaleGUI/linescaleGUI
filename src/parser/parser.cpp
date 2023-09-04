@@ -25,11 +25,66 @@
  */
 
 #include "parser.h"
+#include <iostream>
+
+QTextStream& operator<<(QTextStream& out, const UnitValue unit) {
+    switch (unit) {
+        case UnitValue::KGF:
+            out << "kgf";
+            break;
+        case UnitValue::KN:
+            out << "kN";
+            break;
+        case UnitValue::LBF:
+            out << "lbf";
+            break;
+        default:
+            out << "NONE";
+    }
+    return out;
+}
+
+UnitValue parseUnit(const QString& input) {
+    QString inputUpper = input.toUpper();
+    if (inputUpper == "KGF") {
+        return UnitValue::KGF;
+    } else if (inputUpper == "KN") {
+        return UnitValue::KN;
+    } else if (inputUpper == "LBF") {
+        return UnitValue::LBF;
+    } else {
+        return UnitValue::NONE;
+    }
+}
+
+MeasureMode parseMeasureMode(const QString& input) {
+    QString inputUpper = input.toUpper();
+    if (inputUpper == "ABS") {
+        return MeasureMode::ABS_ZERO;
+    } else if (inputUpper == "REL") {
+        return MeasureMode::REL_ZERO;
+    } else {
+        return MeasureMode::NONE;
+    }
+}
+
+QTextStream& operator<<(QTextStream& out, const MeasureMode mode) {
+    switch (mode) {
+        case MeasureMode::ABS_ZERO:
+            out << "ABS";
+            break;
+        case MeasureMode::REL_ZERO:
+            out << "REL";
+            break;
+        default:
+            out << "NONE";
+    }
+    return out;
+}
 
 bool Parser::parsePackage(QByteArray& package, Sample& data) {
-    return checkPackage(package) && parseWorkingMode(package, data) &&
-           parseMeasuredValue(package, data) && parseMeasureMode(package, data) &&
-           parseReferenceZero(package, data) && parseBatteryPercent(package, data) &&
+    return checkPackage(package) && parseWorkingMode(package, data) && parseMeasuredValue(package, data) &&
+           parseMeasureMode(package, data) && parseReferenceZero(package, data) && parseBatteryPercent(package, data) &&
            parseUnitValue(package, data) && parseFrequency(package, data);
 }
 
@@ -79,8 +134,7 @@ bool Parser::parseWorkingMode(QByteArray& package, Sample& data) {
 
 bool Parser::parseMeasuredValue(QByteArray& package, Sample& data) {
     bool isOk;
-    data.measuredValue =
-        package.mid(PACKET_MEASURE_VALUE_START_INDEX, PACKET_MEASURE_VALUE_LEN).toDouble(&isOk);
+    data.measuredValue = package.mid(PACKET_MEASURE_VALUE_START_INDEX, PACKET_MEASURE_VALUE_LEN).toDouble(&isOk);
     return isOk;
 }
 
@@ -101,8 +155,7 @@ bool Parser::parseMeasureMode(QByteArray& package, Sample& data) {
 
 bool Parser::parseReferenceZero(QByteArray& package, Sample& data) {
     bool isOk;
-    data.referenceZero =
-        package.mid(PACKET_REFERENCE_ZERO_START_INDEX, PACKET_REFERENCE_ZERO_LEN).toDouble(&isOk);
+    data.referenceZero = package.mid(PACKET_REFERENCE_ZERO_START_INDEX, PACKET_REFERENCE_ZERO_LEN).toDouble(&isOk);
     return isOk;
 }
 

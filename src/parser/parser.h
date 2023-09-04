@@ -29,12 +29,14 @@
 
 #include <QByteArray>
 #include <QObject>
+#include <QTextStream>
 
 /**
  * @brief Indicates the working mode sent by the Line Scale
  *
  */
 enum class WorkingMode {
+    NONE,          ///< Error state, not covered by the protocol
     REALTIME,      ///< Indicates that the work is in real-time mode
     OVERLOADED,    ///< Indicates that the test is overloaded
     MAX_CAPACITY,  ///< Indicates the maximum capacity (default 3000 not received)
@@ -45,6 +47,7 @@ enum class WorkingMode {
  *
  */
 enum class MeasureMode {
+    NONE,      ///< Error state, not covered by the protocol
     ABS_ZERO,  ///< Represents the absolute zero measurement mode
     REL_ZERO,  ///< Represents the relative zero measurement mode
 };
@@ -54,10 +57,45 @@ enum class MeasureMode {
  *
  */
 enum class UnitValue {
-    KN,   ///< Indicates the unit of measurement is kN
-    KGF,  ///< The unit of measurement is kgf
-    LBF,  ///< Indicates that the unit of measurement is lbf
+    NONE,  ///< Error state, not covered by the protocol
+    KN,    ///< Indicates the unit of measurement is kN
+    KGF,   ///< The unit of measurement is kgf
+    LBF,   ///< Indicates that the unit of measurement is lbf
 };
+
+/**
+ * @brief Overload the << operator for the UnitValue
+ *
+ * @param out QTextStream&
+ * @param unit UnitValue
+ * @return QTextStream&
+ */
+QTextStream& operator<<(QTextStream& out, const UnitValue unit);
+
+/**
+ * @brief Parse the UnitValue from a QString
+ *
+ * @param input
+ * @return UnitValue
+ */
+UnitValue parseUnit(const QString& input);
+
+/**
+ * @brief Parse the MeasureMode from a QString
+ * 
+ * @param input 
+ * @return MeasureMode 
+ */
+MeasureMode parseMeasureMode(const QString& input);
+
+/**
+ * @brief Overload the << operator for the MeasureMode
+ *
+ * @param out QTextStream&
+ * @param mode MeasureMode
+ * @return QTextStream&
+ */
+QTextStream& operator<<(QTextStream& out, const MeasureMode mode);
 
 /**
  * @brief A sample received from a LineScale.
@@ -75,7 +113,7 @@ struct Sample {
     double referenceZero;     ///< Stores reference force
     int batteryPercent;       ///< Stores battery voltage of the Line Scale in percent
     UnitValue unitValue;      ///< Stores the unit of the measured force
-    int frequency;  ///< Stores the connection frequency between host device and Line Scale
+    int frequency;            ///< Stores the connection frequency between host device and Line Scale
 };
 
 /**
